@@ -1,0 +1,46 @@
+.c-progress_menu-wrap {
+  position: sticky;
+  top: 2rem;
+  z-index: 10;
+}
+.c-progress_menu {
+  position: relative;
+}
+.c-progress_menu-toggle {
+  @media (min-width: $from-medium) {
+    display: none;
+  }
+}
+.c-progress_menu_inner {
+  @media (max-width: $to-medium) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: transform $speed $easing, opacity $speed $easing;
+
+    &.is-open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+    }
+  }
+}
+
+.c-progress-list-wrap {
+  margin-left: -1rem;
+}
+
+.c-progress-list {
+  display: flex;
+  @media (max-width: 999px) {
+    flex-direction: column;
+  }
+}
+
+.c-progress-list_item {
+  margin-left: 1rem;
+}

@@ -1,0 +1,44 @@
+.o-flex {
+  //   border: 2px dotted black;
+  display: flex;
+
+  > .-flex-order-minus-1\@from-medium {
+    @media (min-width: $from-medium) {
+      order: -1;
+    }
+  }
+
+  &.-flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  &.-flex-column {
+    flex-direction: column;
+  }
+
+  &.-flex-column\@to-tiny {
+    @media (max-width: $to-tiny) {
+      flex-direction: column;
+    }
+  }
+  &.-flex-column\@to-medium {
+    @media (max-width: $to-medium) {
+      flex-direction: column;
+    }
+  }
+  &.-flex-column\@from-medium {
+    @media (min-width: $from-medium) {
+      flex-direction: column;
+    }
+  }
+
+  &.-justify-center {
+    justify-content: center;
+  }
+  &.-justify-between {
+    justify-content: space-between;
+  }
+  &.-align-center {
+    align-items: center;
+  }
+}

@@ -1,0 +1,28 @@
+.c-site-nav_list {
+  .is-overflow-swipe\@from-small & {
+    @media (min-width: $from-small) {
+      white-space: nowrap;
+    }
+  }
+}
+
+.c-site-nav_list > li {
+  @media (min-width: $from-small) {
+    display: inline-block;
+  }
+}
+
+.c-site-nav_list a {
+  line-height: 1;
+
+  @media (max-width: $to-small) {
+    display: block;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  @media (min-width: $from-small) {
+    display: inline-block;
+    padding: 1rem 2rem;
+  }
+}

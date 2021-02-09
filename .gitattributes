@@ -1,0 +1,4 @@
+# Ensure shell script uses LF.
+*.vue       eol=lf
+*.js        eol=lf
+*.ts        eol=lf

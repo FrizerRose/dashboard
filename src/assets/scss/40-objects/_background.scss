@@ -1,0 +1,33 @@
+.o-background-wrap {
+  position: relative;
+  z-index: 0;
+}
+
+.o-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  $theme-site-bg: $site-bg;
+  background-color: $theme-site-bg;
+
+  html.t1 & {
+    $theme-site-bg: green;
+    background-color: $theme-site-bg;
+  }
+  html.t2 & {
+    $theme-site-bg: pink;
+    background-color: $theme-site-bg;
+  }
+
+  &.-has-shadow {
+    box-shadow: 0 1.5em 1em -2em currentColor;
+  }
+
+  &.-has-shadow-v2 {
+    box-shadow: 0 0.25em 0.75em -0.75em currentColor;
+  }
+}

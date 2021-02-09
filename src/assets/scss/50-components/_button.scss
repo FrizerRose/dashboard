@@ -1,0 +1,75 @@
+.c-button_label {
+  vertical-align: inherit;
+  display: inline-block;
+  line-height: inherit;
+  pointer-events: none;
+}
+
+.c-button.-primary {
+  padding: 1em 2em;
+  color: currentColor;
+  border-radius: 9999px;
+  font-weight: 900;
+  transition: background-color $speed $easing, color $speed $easing;
+
+  $site-button-bg: $theme-main;
+  background-color: $site-button-bg;
+
+  html.t1 & {
+    $site-button-bg: lime;
+    background-color: $site-button-bg;
+  }
+
+  html.t2 & {
+    $site-button-bg: black;
+    background-color: $site-button-bg;
+  }
+
+  &:hover,
+  &:focus {
+    $site-button-hover-bg: $theme-faded;
+    $site-button-hover-color: $site-bg;
+    background-color: $site-button-hover-bg;
+    color: $site-button-hover-color;
+
+    html.t1 & {
+      $site-button-bg: red;
+      background-color: $site-button-hover-bg;
+    }
+
+    html.t2 & {
+      $site-button-bg: coral;
+      background-color: $site-button-hover-bg;
+    }
+  }
+}
+
+.c-button.-tab {
+  width: 100%;
+  text-align: left;
+  padding: 1em;
+  color: currentColor;
+  border-radius: 4px;
+  font-weight: 900;
+  transition: background-color 0.5s;
+
+  $site-button-bg: white;
+  background-color: $site-button-bg;
+
+  &:hover,
+  &:focus {
+    outline: auto;
+  }
+}
+
+.c-button.-outline {
+  padding: 0.5em 1em;
+  color: currentColor;
+  border: 1px solid;
+  border-radius: 4px;
+  font-weight: 900;
+  transition: border-color 0.5s;
+
+  $site-button-bg: red;
+  border-color: $site-button-bg;
+}

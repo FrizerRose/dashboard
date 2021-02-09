@@ -1,0 +1,9 @@
+.u-min-30vh\@to-medium {
+  @media (max-width: $to-medium) {
+    min-height: 30vh;
+  }
+}
+
+.u-width-auto {
+  width: auto;
+}

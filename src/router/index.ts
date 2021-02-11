@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('https://primrose.agency/admin/'),
+  history: createWebHistory(),
   routes,
   // Simulate native-like scroll behavior when navigating to a new
   // route and using back/forward buttons.

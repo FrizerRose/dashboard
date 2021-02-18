@@ -1,12 +1,6 @@
 <template>
   <div class="home">
-    <!-- <ul>
-      <li>Home</li>
-      <li>Calendar</li>
-      <li>Dodavanje usluga/radnika</li>
-      <li>Settings</li>
-      <li>Help (faq/tutoriali/contact)</li>
-    </ul>
+    <!--
     <ul>
       <li>
         widget sa statistikom:
@@ -21,7 +15,7 @@
       <li>activity feed (booking, reschedule, cancel)</li>
     </ul> -->
 
-    <SomeComp :fruit="Banana" />
+    <MainNavMenu :nodes="tree.nodes" />
 
     <Calendar
       v-model="value"
@@ -44,20 +38,42 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import Calendar from 'primevue/calendar';
-import SomeComp from '../components/SomeComp.vue';
+import MainNavMenu from '../components/MainNavMenu.vue';
 
 export default defineComponent({
   components: {
-    SomeComp,
+    MainNavMenu,
     Calendar,
   },
 
   setup() {
     const value = ref(null);
     return {
-      SomeComp,
+      MainNavMenu,
       Calendar,
       value,
+    };
+  },
+  data() {
+    return {
+      tree: {
+        nodes: [
+          { name: 'Naslovnica', slug: 'naslovnica' },
+          { name: 'Kalendar', slug: 'kalendar' },
+          { name: 'Usluge', slug: 'usluge' },
+          { name: 'Radnici', slug: 'radnici' },
+          { name: 'Postavke', slug: 'postavke' },
+          {
+            name: 'Pomoć',
+            slug: 'pomoc',
+            nodes: [
+              { name: 'Česta Pitanja', slug: 'cesta-pitanja' },
+              { name: 'Uputstvo', slug: 'uputstvo' },
+              { name: 'Kontakt', slug: 'kontakt' },
+            ],
+          },
+        ],
+      },
     };
   },
 });

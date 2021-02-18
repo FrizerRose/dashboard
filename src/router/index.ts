@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue';
+import Naslovnica from '../views/Naslovnica.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -8,10 +9,10 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
   },
   {
-    path: '/about',
-    name: 'About',
+    path: '/naslovnica',
+    name: 'Naslovnica',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: () => import(/* webpackChunkName: "naslovnica" */ '../views/Naslovnica.vue'),
   },
   {
     path: '/404',

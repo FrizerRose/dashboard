@@ -1,21 +1,38 @@
 <template>
   <div class="home">
-    <Dialog
-      v-model:visible="display"
-      header="Header"
-    >
-      Content
-    </Dialog>
+    <Calendar
+      v-model="value"
+      :number-of-months="3"
+    />
+    <Calendar v-model="value">
+      <template #date="slotProps">
+        <strong
+          v-if="slotProps.date.day > 10 && slotProps.date.day < 15"
+          class="special-day"
+        >{{ slotProps.date.day }}</strong>
+        <template v-else>
+          {{ slotProps.date.day }}}
+        </template>
+      </template>
+    </Calendar>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Dialog from 'primevue/dialog';
+import { defineComponent, ref } from 'vue';
+import Calendar from 'primevue/calendar';
 
 export default defineComponent({
   components: {
-    Dialog,
+    Calendar,
+  },
+
+  setup() {
+    const value = ref(null);
+    return {
+      Calendar,
+      value,
+    };
   },
 });
 </script>

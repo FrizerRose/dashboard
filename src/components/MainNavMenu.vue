@@ -7,7 +7,7 @@
       v-for="node in nodes"
       :key="node.id"
     >
-      <router-link :to="{ name: node.slug }">
+      <router-link :to="node.slug">
         {{ node.name }}
       </router-link>
 

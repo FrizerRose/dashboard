@@ -1,20 +1,21 @@
 <template>
   <div class="home">
-    <img
-      alt="Vue logo"
-      src="../assets/logo.png"
+    <Dialog
+      v-model:visible="display"
+      header="Header"
     >
-    <HelloWorld msg="Advice Generator" />
+      Content
+    </Dialog>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import Dialog from 'primevue/dialog';
 
 export default defineComponent({
   components: {
-    HelloWorld,
+    Dialog,
   },
 });
 </script>

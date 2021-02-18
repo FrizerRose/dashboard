@@ -2,6 +2,7 @@ import '@/assets/scss/main.scss';
 import * as Sentry from '@sentry/vue';
 import { Integrations } from '@sentry/tracing';
 import { createApp } from 'vue';
+import PrimeVue from 'primevue/config';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
@@ -18,5 +19,6 @@ if (process.env.NODE_ENV === 'production' && process.env.VUE_APP_SENTRY_DSN !== 
   });
 }
 
-createApp(App).use(store).use(router)
-  .mount('#app');
+const app = createApp(App);
+
+app.use(store).use(router).use(PrimeVue).mount('#app');

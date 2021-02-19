@@ -57,6 +57,12 @@
 //     }
 // }
 
+.is-hidden\@from-medium {
+    @media (min-width: $from-medium) {
+        display: none;
+    }
+}
+
 // .is-hidden\@from-large {
 //     @media (min-width: $from-large) {
 //         display: none;

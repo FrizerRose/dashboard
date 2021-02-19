@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue';
-import Naslovnica from '../views/Naslovnica.vue';
+import Home from '../views/TheHome.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,10 +8,52 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
   },
   {
-    path: '/naslovnica',
-    name: 'Naslovnica',
+    path: '/kalendar',
+    name: 'Calendar',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "naslovnica" */ '../views/Naslovnica.vue'),
+    component: () => import(/* webpackChunkName: "kalendar" */ '../views/TheCalendar.vue'),
+  },
+  {
+    path: '/usluge',
+    name: 'Services',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "usluge" */ '../views/TheServices.vue'),
+  },
+  {
+    path: '/radnici',
+    name: 'Workforce',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "radnici" */ '../views/TheWorkforce.vue'),
+  },
+  {
+    path: '/postavke',
+    name: 'Settings',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "postavke" */ '../views/TheSettings.vue'),
+  },
+  {
+    path: '/pomoc',
+    name: 'Help',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "pomoc" */ '../views/TheHelp.vue'),
+  },
+  {
+    path: '/pomoc/cesta-pitanja',
+    name: 'Faq',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/TheFaq.vue'),
+  },
+  {
+    path: '/pomoc/uputstvo',
+    name: 'Manual',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "uputstvo" */ '../views/TheManual.vue'),
+  },
+  {
+    path: '/pomoc/kontakt',
+    name: 'Contact',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "kontakt" */ '../views/TheContact.vue'),
   },
   {
     path: '/404',

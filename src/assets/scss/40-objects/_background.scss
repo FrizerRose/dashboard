@@ -1,6 +1,44 @@
 .o-background-wrap {
   position: relative;
   z-index: 0;
+
+  &.-is-input {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 0.125em transparent;
+    transition: box-shadow $speed $easing;
+    transition-delay: $speed * 1.5;
+    background-color: $element-bg;
+  
+    html.mode-dark & {
+      $site-button-bg: $mode-dark_element-bg;
+      background-color: $site-button-bg;
+    }
+
+    &.-is-checkbox {
+      height: 100%;
+      border-radius: 0.25em;
+    }
+  }
+
+  &.-is-dialog {
+    @extend .c-form_font;
+
+    border-radius: 0.5rem;
+    overflow: hidden;
+    color: $white;
+
+    // @media (max-width: $to-medium) {
+    //   padding: 1rem;
+    // }
+    // @media (min-width: $from-medium) {
+    //   padding: 2rem;
+    // }
+  }
+  
+  .c-form_item.has-error & {
+    border-color: $red;
+  }
 }
 
 .o-background {
@@ -11,23 +49,93 @@
   height: 100%;
   z-index: -1;
 
-  $theme-site-bg: $site-bg;
-  background-color: $theme-site-bg;
+  &.-has-bg {
+    $theme-element-bg: $white;
+    background-color: $theme-element-bg;
 
-  html.t1 & {
-    $theme-site-bg: green;
-    background-color: $theme-site-bg;
+    html.mode-dark & {
+      $theme-element-bg: $black;
+      background-color: $theme-element-bg;
+    }
   }
-  html.t2 & {
-    $theme-site-bg: pink;
-    background-color: $theme-site-bg;
+
+  &.-has-gradient {
+    background-image: linear-gradient(90deg, orchid, dodgerblue);
+    background-size: 400%;
   }
 
   &.-has-shadow {
-    box-shadow: 0 1.5em 1em -2em currentColor;
+    // for $shadow spread radius is -2em. this means element using .-has-shadow class has to have a height of 4em or more for shadow to show up.
+    box-shadow: $shadow;
   }
 
   &.-has-shadow-v2 {
     box-shadow: 0 0.25em 0.75em -0.75em currentColor;
+  }
+
+  .c-form_item.has-error & {
+    transform: none;
+  }
+
+  .-is-input & {
+    background-color: $red;
+    pointer-events: none;
+    transform: translateY(-100%) rotateZ(-5deg);
+    transform-origin: left bottom;
+    transition: transform $speed * 2 $easing;
+
+    opacity: 0.075;
+
+    html.mode-dark & {
+        opacity: 0.3;
+    }
+  }
+
+  .-is-checkbox & {
+    opacity: 0.15;
+
+    html.mode-dark & {
+        opacity: 0.4;
+    }
+  }
+
+  .-is-dialog & {
+    pointer-events: none;
+  }
+
+  .-is-error & {
+    background-color: $red;
+  }
+}
+
+.c-form_item.has-error {
+  @for $i from 1 through 5 {
+    .-delay-#{$i} {
+      transition-delay: 0.1s + 0.085 * $i;
+    }
+  }
+}
+
+.o-background-focus-wrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: auto;
+  left: auto;
+  z-index: -1;
+
+  .o-background-focus {
+    height: 100%;
+    border-radius: 9999em;
+    transform: scale(0);
+    transition: transform $speed $easing;
+
+    // background-color: $theme-main;
+    box-shadow: inset 0 0 0 0.0625em $theme-main;
+
+    html.mode-dark & {
+      // background-color: $mode-dark-main;
+      box-shadow: inset 0 0 0 0.0625em $mode-dark-main;
+    }
   }
 }

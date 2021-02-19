@@ -1,6 +1,9 @@
 .c-heading {
-    line-height: $line-height-h;
-    margin-bottom: rem(30px);
+    // line-height: $line-height-h;
+    line-height: 1.15;
+    // margin-bottom: rem(30px);
+    margin-bottom: 2rem;
+
 
     &.-h1 {
         font-size: rem($font-size-h1);

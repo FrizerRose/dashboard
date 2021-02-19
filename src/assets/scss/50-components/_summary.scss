@@ -1,0 +1,22 @@
+
+.c-summary {
+	margin-top: 3rem;
+}
+
+.c-summary_row {
+    // border-top: 1px solid;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+
+	&:nth-of-type(odd) {
+		background: rgba(0,0,0,0.04);
+  
+		html.mode-dark & {
+			background: rgba(255, 255, 255, 0.08);
+		}
+	}
+}
+
+.c-summary_footer {
+	margin-top: 4rem;
+}

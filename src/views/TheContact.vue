@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>template kontakt</h1>
+    <div class="temp-fixed">
+      <p>template kontakt</p>
+    </div>
   </div>
 </template>
 

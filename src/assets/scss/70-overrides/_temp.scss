@@ -1,0 +1,13 @@
+.temp-fixed {
+	position: fixed;
+	left: 50%;
+	bottom: 1rem;
+	z-index: 25000;
+	font-weight: 700;
+	transform: translateX(-50%);
+
+	& > * {
+		transform-origin: left bottom;
+		// transform: rotateZ(-90deg) translateY(100%);
+	}
+}

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>template česta pitanja</h1>
+    <div class="temp-fixed">
+      <p>template česta pitanja</p>
+    </div>
   </div>
 </template>
 

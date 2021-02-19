@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>template pomoć</h1>
+    <div class="temp-fixed">
+      <p>template pomoć</p>
+    </div>
   </div>
 </template>
 

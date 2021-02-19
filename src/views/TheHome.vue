@@ -1,5 +1,7 @@
 <template>
   <div>
-    <h1>header naslovnica</h1>
+    <div class="temp-fixed">
+      <p>template naslovnica</p>
+    </div>
   </div>
 </template>

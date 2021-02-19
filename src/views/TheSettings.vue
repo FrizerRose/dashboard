@@ -46,20 +46,21 @@ export default defineComponent({
     return {
       tree: {
         nodes: [
-          { name: 'Naslovnica', slug: '/' },
-          { name: 'Kalendar', slug: 'kalendar' },
-          { name: 'Usluge', slug: 'usluge' },
-          { name: 'Radnici', slug: 'radnici' },
-          { name: 'Postavke', slug: 'postavke' },
           {
-            name: 'Pomoć',
-            slug: 'pomoc',
+            name: 'Račun',
+            slug: 'racun',
             nodes: [
-              { name: 'Česta Pitanja', slug: '/pomoc/cesta-pitanja' },
-              { name: 'Uputstvo', slug: '/pomoc/uputstvo' },
-              { name: 'Kontakt', slug: '/pomoc/kontakt' },
+              { name: 'Postavke', slug: '/racun/postavke' },
+              { name: 'Firma', slug: '/racun/firma' },
+              { name: 'Prethodne naplate', slug: '/racun/prethodne-naplate' },
+              { name: 'Kratki izvještaj', slug: '/racun/kratki-izvjestaj' },
             ],
           },
+          { name: 'Radnici', slug: '/' },
+          { name: 'Usluge', slug: '/' },
+          { name: 'Naplate', slug: '/' },
+          { name: 'Izvještavanja', slug: '/' },
+          { name: 'Postavke Weba', slug: '/' },
         ],
       },
     };

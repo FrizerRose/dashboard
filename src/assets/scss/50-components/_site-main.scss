@@ -1,5 +1,11 @@
 .c-site-main {
   // margin-top: 2rem;
+  ul {
+    ul {
+      margin-left: 2rem;
+      // display: none;
+    }
+  }
 }
 
 @media (max-width: $to-medium) {

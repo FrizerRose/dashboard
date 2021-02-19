@@ -24,43 +24,92 @@
       - Color variant
       - change password
     -->
-    <MainNavMenu :nodes="tree.nodes" />
+    <div class="o-flex">
+      <PageSpecificNavMenu :nodes="pageSettingsTree.nodes" />
+      <WorkforceMember />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import MainNavMenu from '../components/MainNavMenu.vue';
+import WorkforceMember from '../components/Workforce/WorkforceMember.vue';
+import PageSpecificNavMenu from '../components/PageSpecificNavMenu.vue';
 
 export default defineComponent({
   components: {
-    MainNavMenu,
+    WorkforceMember,
+    PageSpecificNavMenu,
   },
 
   setup() {
     return {
-      MainNavMenu,
+      WorkforceMember,
+      PageSpecificNavMenu,
     };
   },
   data() {
     return {
-      tree: {
+      pageSettingsTree: {
         nodes: [
           {
             name: 'Račun',
-            slug: 'racun',
+            slug: '/postavke/racun',
             nodes: [
-              { name: 'Postavke', slug: '/racun/postavke' },
-              { name: 'Firma', slug: '/racun/firma' },
-              { name: 'Prethodne naplate', slug: '/racun/prethodne-naplate' },
-              { name: 'Kratki izvještaj', slug: '/racun/kratki-izvjestaj' },
+              { name: 'Postavke', slug: '/postavke/racun/postavke' },
+              { name: 'Firma', slug: '/postavke/racun/firma' },
+              { name: 'Prethodne naplate', slug: '/postavke/racun/prethodne-naplate' },
+              { name: 'Kratki izvještaj', slug: '/postavke/racun/kratki-izvjestaj' },
             ],
           },
-          { name: 'Radnici', slug: '/' },
-          { name: 'Usluge', slug: '/' },
-          { name: 'Naplate', slug: '/' },
-          { name: 'Izvještavanja', slug: '/' },
-          { name: 'Postavke Weba', slug: '/' },
+          {
+            name: 'Radnici',
+            slug: '/postavke/radnici',
+            nodes: [
+              { name: 'Pregled svih radnika', slug: '/postavke/radnici/pregled' },
+              { name: 'Tomislav', slug: '/postavke/radnici/tomislav' },
+              { name: 'Juraj', slug: '/postavke/radnici/juraj' },
+            ],
+          },
+          {
+            name: 'Usluge',
+            slug: '/postavke/usluge',
+            nodes: [
+              { name: 'Pregled svih usluga', slug: '/postavke/usluge/pregled' },
+              { name: 'Šišanje', slug: '/postavke/usluge/sisanje' },
+              { name: 'Frizura', slug: '/postavke/usluge/frizura' },
+            ],
+          },
+          {
+            name: 'Naplate',
+            slug: '/postavke/naplate',
+            nodes: [
+              { name: 'Konfiguriraj', slug: '/postavke/naplate/konfiguriraj' },
+              { name: 'Postavke Weba', slug: '/postavke/naplate/postavke-weba' },
+              { name: 'Prethodne naplate', slug: '/postavke/naplate/prethodne-naplate' },
+            ],
+          },
+          {
+            name: 'Izvještavanja prema',
+            slug: '/postavke/izvjestavnja-prema',
+            nodes: [
+              { name: 'Klijentu', slug: '/postavke/izvjestavnja-prema/klijentu' },
+              { name: 'Osoblju', slug: '/postavke/izvjestavnja-prema/osoblju' },
+            ],
+          },
+          { name: 'Uredi mail', slug: '/postavke/uredi-mail' },
+          {
+            name: 'Postavke Weba',
+            slug: '/postavke/postavke-weba',
+            nodes: [
+              { name: 'Pregled postavki', slug: '/postavke/postavke-weba/pregled-postavki' },
+              { name: 'Podatci o firmi', slug: '/postavke/postavke-weba/podatci-o-firmi' },
+              { name: 'Radno vrijeme', slug: '/postavke/postavke-weba/radno-vrijeme' },
+              { name: 'Postavke rezervacija', slug: '/postavke/postavke-weba/postavke-rezervacija' },
+              { name: 'Uredi sadržaj na webu', slug: '/postavke/postavke-weba/uredi-sadrzaj-na-webu' },
+              { name: 'Recenzije', slug: '/postavke/postavke-weba/recenzije' },
+            ],
+          },
         ],
       },
     };

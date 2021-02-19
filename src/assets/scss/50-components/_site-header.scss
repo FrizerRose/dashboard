@@ -1,5 +1,14 @@
 
 .c-site-header {
+  ul {
+    ul {
+      margin-left: 2rem;
+      // display: none;
+    }
+  }
+}
+
+.c-site-header {
   // position: fixed;
   // width: 100%;
   // top: 0;

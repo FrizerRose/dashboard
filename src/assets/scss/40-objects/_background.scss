@@ -22,8 +22,6 @@
   }
 
   &.-is-dialog {
-    @extend .c-form_font;
-
     border-radius: 0.5rem;
     overflow: hidden;
     color: $white;

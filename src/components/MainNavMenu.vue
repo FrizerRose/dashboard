@@ -14,7 +14,10 @@
         {{ node.name }}
       </router-link>
 
-      <MainNavSubmenu :nodes="node.nodes" />
+      <MainNavSubmenu
+        v-if="node.nodes"
+        :nodes="node.nodes"
+      />
     </li>
   </ul>
 </template>

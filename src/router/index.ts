@@ -30,42 +30,40 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Settings',
     // lazy loaded route
     component: () => import(/* webpackChunkName: "postavke" */ '../views/TheSettings.vue'),
+    children: [
+      {
+        path: 'racun',
+        name: 'Account',
+        // lazy loaded route
+        component: () => import(/* webpackChunkName: "postavke-racun" */ '../views/PageSettings/TheAccount.vue'),
+      },
+    ],
   },
   {
-    path: '/postavke/racun/postavke',
-    name: 'Postavke računa',
-    // lazy loaded route
-    component: () => import(/* webpackChunkName: "postavke-racuna" */ '../views/PageSettings/TheAccount.vue'),
-  },
-  {
-    path: '/postavke/racun/postavke',
-    name: 'Postavke računa',
-    // lazy loaded route
-    component: () => import(/* webpackChunkName: "postavke-racuna" */ '../views/PageSettings/TheAccount.vue'),
-  },
-  {
-    path: '/pomoc',
+    path: '/pomoc/:id',
     name: 'Help',
     // lazy loaded route
     component: () => import(/* webpackChunkName: "pomoc" */ '../views/TheHelp.vue'),
-  },
-  {
-    path: '/pomoc/cesta-pitanja',
-    name: 'Faq',
-    // lazy loaded route
-    component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/TheFaq.vue'),
-  },
-  {
-    path: '/pomoc/uputstvo',
-    name: 'Manual',
-    // lazy loaded route
-    component: () => import(/* webpackChunkName: "uputstvo" */ '../views/TheManual.vue'),
-  },
-  {
-    path: '/pomoc/kontakt',
-    name: 'Contact',
-    // lazy loaded route
-    component: () => import(/* webpackChunkName: "kontakt" */ '../views/TheContact.vue'),
+    children: [
+      {
+        path: 'cesta-pitanja',
+        name: 'Faq',
+        // lazy loaded route
+        component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/PageHelp/TheFaq.vue'),
+      },
+      {
+        path: 'uputstvo',
+        name: 'Manual',
+        // lazy loaded route
+        component: () => import(/* webpackChunkName: "uputstvo" */ '../views/PageHelp/TheManual.vue'),
+      },
+      {
+        path: 'kontakt',
+        name: 'Contact',
+        // lazy loaded route
+        component: () => import(/* webpackChunkName: "kontakt" */ '../views/PageHelp/TheContact.vue'),
+      },
+    ],
   },
   {
     path: '/404',

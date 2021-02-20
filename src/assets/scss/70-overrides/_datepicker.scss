@@ -1,0 +1,91 @@
+/*
+	scss variables don't work here. use the values for reference
+
+	$white: #fcfcf9;
+	$black: #090909;
+	$theme-main: silver;
+	$theme-darken: darken($theme-main, 25%); // === gray
+
+	orchid-darken: #a12a9c;
+	goldenrod-darken: #6b5110;
+	coral-darken: #d03800;
+	
+	$mode-dark-main: #404040; // inverted silver
+
+	$selection-background-color: $black;
+	$selection-text-color: $white;
+	
+	$shadow: 0 1.5em 1em -2em currentColor;
+*/
+
+.v3dp__datepicker {
+	--vdp-bg-color: white;
+	--vdp-text-color: currentColor;
+	--vdp-box-shadow: 0 1.5em 1em -2em currentColor;
+	--vdp-border-radius: 0.25em;
+	--vdp-heading-size: 2rem;
+	--vdp-heading-weight: 700;
+	--vdp-heading-hover-color: #f1f1f1;
+	--vdp-arrow-color: currentColor;
+	--vdp-elem-color: currentColor;
+	--vdp-disabled-color: lightgray;
+	//
+	--vdp-hover-color: #f1f1f1;
+	--vdp-hover-bg-color: gray; // gray === darken(silver, 25%)
+	//
+	--vdp-selected-color: #090909;
+	--vdp-selected-bg-color: silver;
+	--vdp-elem-font-size: 1rem;
+	--vdp-elem-border-radius: 0.25em;
+	--vdp-divider-color: #404040;
+
+	html.mode-dark & {
+		--vdp-bg-color: black;
+		--vdp-heading-hover-color: #1d1d1d;
+		--vdp-disabled-color: #2b2b2b;
+		--vdp-hover-color: #1d1d1d;
+		--vdp-hover-bg-color: silver;
+		--vdp-selected-bg-color: gray;
+		--vdp-divider-color: silver;
+	}
+	html.orchid & {
+		--vdp-selected-bg-color: orchid;
+		--vdp-hover-bg-color: #a12a9c;
+	}
+	html.goldenrod & {
+		--vdp-selected-bg-color: goldenrod;
+		--vdp-hover-bg-color: #6b5110;
+	}
+	html.coral & {
+		--vdp-selected-bg-color: coral;
+		--vdp-hover-bg-color: #d03800;
+	}
+}
+
+.v3dp__popout {
+	width: 100% !important;
+	margin-top: 1rem;
+	// border: 0.125em solid currentColor;
+}
+
+.v3dp__divider {
+    border: none !important;
+    border-radius: 0 !important;
+    border-top: 0.125em solid var(--divider-color) !important;
+}
+
+.v3dp__elements {
+	padding: 0 1rem;
+}
+
+.v3dp__elements button {
+	padding: 0 !important;
+    margin: 0.25em auto !important;
+    width: calc(100% - 0.5em) !important;
+
+	& span {
+		line-height: 1 !important;
+		height: auto !important;
+		padding: 1em 0 !important;
+	}
+}

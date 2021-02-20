@@ -174,31 +174,38 @@ DarkSlateGray					#2F4F4F			 47  79  79
 Black							#000000			  0   0   0
 
 */
-$black: #0f0600;
-$theme-main: #ff974d;
-$theme-faded: #ab8063;
+$white: #fcfcf9;
+$black: #090909;
 
-$site-bg: seashell;
-$site-color: $black;
+$theme-main: silver;
+$theme-darken: darken($theme-main, 25%);
+$element-bg: #f1f1f1;
 
-$selection-background-color: $site-color;
-$selection-text-color: $site-bg;
+$mode-dark-main: #404040; // inverted silver
+$mode-dark-lighten: lighten($theme-main, 25%);
+$mode-dark_element-bg: #1d1d1d;
+
+$orchid-main: orchid;
+$orchid-darken: darken($orchid-main, 25%);
+
+$goldenrod-main: goldenrod;
+$goldenrod-darken: darken($goldenrod-main, 25%);
+
+$coral-main: coral;
+$coral-darken: darken($coral-main, 25%);
+
+$red: #e60000;
+
+$selection-background-color: $black;
+$selection-text-color: $white;
 
 html {
-  background-color: $site-bg;
-  color: $site-color;
-
-  &.t1 {
-    $site-bg: green;
-    $site-color: white;
-    background-color: $site-bg;
-    color: $site-color;
-  }
-  &.t2 {
-    $site-bg: pink;
-    $site-color: blue;
-    background-color: $site-bg;
-    color: $site-color;
+  background-color: $white;
+  color: $black;
+  
+  &.mode-dark {
+    background-color: $black;
+    color: $white;
   }
 }
 
@@ -206,35 +213,27 @@ html {
   background-color: $selection-background-color;
   color: $selection-text-color;
   text-shadow: none;
+
+  html.mode-dark & {
+    $selection-background-color: $white;
+    $selection-text-color: $black;
+    background-color: $selection-background-color;
+    color: $selection-text-color;
+  }
 }
 
 a {
   $site-link: $black;
   color: $site-link;
 
-  html.t1 & {
-    $site-link: lime;
-    color: $site-link;
-  }
-
-  html.t2 & {
-    $site-link: black;
+  html.mode-dark & {
+    $site-link: $white;
     color: $site-link;
   }
 
   &:hover,
   &:focus {
-    $site-link-hover: $theme-main;
-    color: $site-link-hover;
-
-    html.t1 & {
-      $site-link-hover: lightsalmon;
-      color: $site-link-hover;
-    }
-
-    html.t2 & {
-      $site-link-hover: silver;
-      color: $site-link-hover;
-    }
+    // $site-link-hover: $theme-main;
+    // color: $site-link-hover;
   }
 }

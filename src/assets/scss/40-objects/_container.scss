@@ -16,17 +16,21 @@
 	margin-right: auto;
 	margin-left: auto;
 
-	@media (max-width: $to-small) {
-		padding-right: 1rem;
-		padding-left: 1rem;
+	@media (max-width: $to-medium) {
+		padding-right: 2rem;
+		padding-left: 2rem;
 	}
 
-	@media (min-width: $from-small) {
+	@media (min-width: $from-medium) {
 		padding-right: rem($padding);
 		padding-left: rem($padding);
 	}
 
 	@media (min-width: $from-big) {
+		max-width: 75%;
+	}
+
+	@media (min-width: $from-colossal) {
 		max-width: 90%;
 	}
 }

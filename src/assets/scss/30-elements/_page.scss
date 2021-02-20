@@ -1,7 +1,8 @@
 html {
   min-height: 100%;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 500;
+  line-height: $line-height;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -17,12 +18,8 @@ html {
     font-size: 14px;
   }
 
-  @media (min-width: $from-large) and (max-width: $to-huge) {
-    font-size: $font-size; // default
-  }
-
-  @media (min-width: $from-huge) and (max-width: $to-gigantic) {
-    font-size: 18px;
+  @media (min-width: $from-large) and (max-width: $to-gigantic) {
+    font-size: $font-size; // default 16px
   }
 
   @media (min-width: $from-gigantic) and (max-width: $to-colossal) {

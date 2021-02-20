@@ -43,8 +43,29 @@
     &:focus,
     &:hover {
       &:before {
-        border: 1px solid currentColor;
+        // border: 1px solid currentColor;
       }
+      .has-links-inside_background {
+        opacity: 0.1;
+        transform: none;
+      }
+    }
+
+    .has-links-inside_background {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: -1;
+      background-color: $theme-main;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+      border-radius: 1em;
+      transform: scale(0.98, 0.98);
+      transform-origin: bottom;
+      transition: transform $speed $easing, opacity $speed * 2 $easing;
     }
   }
 }
@@ -52,25 +73,25 @@
 // gutters sometimes need to be removed on mobile
 .has-no-gutters\@to-small {
   @media (max-width: $to-small) {
-    margin-left: -1rem;
-    margin-right: -1rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
   }
   > * {
     @media (max-width: $to-small) {
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
   }
 }
 .has-no-gutters\@to-medium {
   @media (max-width: $to-medium) {
-    margin-left: -1rem;
-    margin-right: -1rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
   }
   > * {
     @media (max-width: $to-medium) {
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
   }
 }

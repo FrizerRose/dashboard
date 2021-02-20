@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue';
+import Home from '../views/TheHome.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -8,10 +8,62 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
   },
   {
-    path: '/about',
-    name: 'About',
+    path: '/kalendar',
+    name: 'Calendar',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: () => import(/* webpackChunkName: "kalendar" */ '../views/TheCalendar.vue'),
+  },
+  {
+    path: '/usluge',
+    name: 'Services',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "usluge" */ '../views/TheServices.vue'),
+  },
+  {
+    path: '/radnici',
+    name: 'Workforce',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "radnici" */ '../views/TheWorkforce.vue'),
+  },
+  {
+    path: '/postavke',
+    name: 'Settings',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "postavke" */ '../views/TheSettings.vue'),
+    children: [
+      {
+        path: 'racun',
+        name: 'Account',
+        // lazy loaded route
+        component: () => import(/* webpackChunkName: "postavke-racun" */ '../views/PageSettings/TheAccount.vue'),
+      },
+    ],
+  },
+  {
+    path: '/pomoc',
+    name: 'Help',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "pomoc" */ '../views/TheHelp.vue'),
+    children: [
+      {
+        path: 'cesta-pitanja',
+        name: 'Faq',
+        // lazy loaded route
+        component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/PageHelp/TheFaq.vue'),
+      },
+      {
+        path: 'uputstvo',
+        name: 'Manual',
+        // lazy loaded route
+        component: () => import(/* webpackChunkName: "uputstvo" */ '../views/PageHelp/TheManual.vue'),
+      },
+      {
+        path: 'kontakt',
+        name: 'Contact',
+        // lazy loaded route
+        component: () => import(/* webpackChunkName: "kontakt" */ '../views/PageHelp/TheContact.vue'),
+      },
+    ],
   },
   {
     path: '/404',

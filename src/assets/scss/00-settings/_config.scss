@@ -30,8 +30,8 @@ $font-size-h5:  18px  !default;
 $font-size-h6:  16px  !default;
 $line-height-h: $line-height;
 // Weights
-// $light:  300;
-// $normal: 400;
+$light:  300;
+$normal: 400;
 $medium: 500;
 $bold:   700;
 
@@ -39,6 +39,9 @@ $bold:   700;
 // =============================================================================
 $speed:  0.3s;
 $easing: cubic-bezier(0.4, 0, 0, 1);
+
+/* offset-x | offset-y | blur-radius | spread-radius | color */
+$shadow: 0 1.5em 1em -2em currentColor;
 
 // Spacing Units
 // =============================================================================

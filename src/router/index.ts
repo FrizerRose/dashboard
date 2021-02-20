@@ -40,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: '/pomoc/:id',
+    path: '/pomoc',
     name: 'Help',
     // lazy loaded route
     component: () => import(/* webpackChunkName: "pomoc" */ '../views/TheHelp.vue'),

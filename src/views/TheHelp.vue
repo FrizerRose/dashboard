@@ -4,6 +4,7 @@
       <p>template pomoć</p>
     </div>
   </div>
+  <router-view />
 </template>
 
 <script lang="ts">

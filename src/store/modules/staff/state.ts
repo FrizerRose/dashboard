@@ -1,9 +1,11 @@
+import Staff from '@/types/staff';
+
 export interface State {
-  listName: string;
+  allStaff: Staff[];
 }
 
 const state: State = {
-  listName: 'Ocean',
+  allStaff: [],
 };
 
 export default state;

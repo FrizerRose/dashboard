@@ -2,6 +2,8 @@
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '@/store';
 import { ActionContext, ActionTree } from 'vuex';
+import { ServicesService } from '@/api';
+import { ApiError } from '@/types/customError';
 import LocalActionTypes from './action-types';
 import SharedMutationTypes from '../shared/mutation-types';
 import LocalMutationTypes from './mutation-types';
@@ -25,22 +27,23 @@ type AugmentedSharedActionContext = {
 } & Omit<ActionContext<State, RootState>, 'commit'>
 
 export interface Actions {
-  [LocalActionTypes.FETCH_LIST_NAME](
-    { commit }: AugmentedActionContext & AugmentedSharedActionContext,
-    someId: string,
-  ): Promise<boolean>;
+  [LocalActionTypes.FETCH_SERVICES](
+    { commit }: AugmentedActionContext,
+    id: number
+  ): void;
 }
+
+// API access.
+const servicesService = new ServicesService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
-  async [LocalActionTypes.FETCH_LIST_NAME]({ commit }, someId: string) {
-    return new Promise(() => {
-      setTimeout(() => {
-        const data = `${someId}abc`;
-        commit(LocalMutationTypes.CHANGE_LIST_NAME, data);
-        commit(SharedMutationTypes.CHANGE_NUMBER, 11);
-        return true;
-      }, 500);
-    });
+  async [LocalActionTypes.FETCH_SERVICES]({ commit }, id: number) {
+    const response = await servicesService.get(id);
+    if (response.data.message === undefined) {
+      commit(LocalMutationTypes.CHANGE_SERVICES, response.data);
+    } else {
+      throw new ApiError('No company by this ID.');
+    }
   },
 };

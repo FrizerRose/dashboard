@@ -1,10 +1,18 @@
 import { DeveloperError } from '@/types/customError';
-import ArticleActionTypes from './modules/article/action-types';
 import SharedActionTypes from './modules/shared/action-types';
+import ServiceActionTypes from './modules/service/action-types';
+import CompanyActionTypes from './modules/company/action-types';
+import StaffActionTypes from './modules/staff/action-types';
+import AppointmentActionTypes from './modules/appointment/action-types';
+import CustomerActionTypes from './modules/customer/action-types';
 
 const allActionEnums = [
   SharedActionTypes,
-  ArticleActionTypes,
+  ServiceActionTypes,
+  CompanyActionTypes,
+  StaffActionTypes,
+  AppointmentActionTypes,
+  CustomerActionTypes,
 ];
 
 const actionTypeValues = allActionEnums.map((abc) => Object.values(abc)).flat();
@@ -22,7 +30,11 @@ if (!hasConsistentNames) {
 
 const allActionTypes = {
   ...SharedActionTypes,
-  ...ArticleActionTypes,
+  ...ServiceActionTypes,
+  ...CompanyActionTypes,
+  ...StaffActionTypes,
+  ...AppointmentActionTypes,
+  ...CustomerActionTypes,
 };
 
 export default allActionTypes;

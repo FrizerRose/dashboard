@@ -2,7 +2,6 @@
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '@/store';
 import { ActionContext, ActionTree } from 'vuex';
-import { AdviceService } from '@/api';
 import { ApiError } from '@/types/customError';
 import LocalActionTypes from './action-types';
 import LocalMutationTypes from './mutation-types';
@@ -18,25 +17,10 @@ type AugmentedActionContext = {
 } & Omit<ActionContext<State, RootState>, 'commit'>
 
 // Blueprint for actions. All of them have to be implemented.
-export interface Actions {
-  [LocalActionTypes.FETCH_ADVICE](
-    { commit }: AugmentedActionContext,
-    id: number,
-  ): void;
-}
-
-// API access.
-const adviceService = new AdviceService();
+// export interface Actions {
+// }
 
 // Action implementation.
-export const actions: ActionTree<State, RootState> & Actions = {
-  async [LocalActionTypes.FETCH_ADVICE]({ commit }, id: number) {
-    const response = await adviceService.get(id);
-    if (response.data.message === undefined) {
-      const parsedResponse = JSON.parse(`${response.data}}`);
-      commit(LocalMutationTypes.CHANGE_ADVICE, parsedResponse.slip.advice);
-    } else {
-      throw new ApiError('No Advice for this ID.');
-    }
-  },
-};
+// export const actions: ActionTree<State, RootState> & Actions = {
+
+// };

@@ -18,6 +18,5 @@ if (process.env.NODE_ENV === 'production' && process.env.VUE_APP_SENTRY_DSN !== 
   });
 }
 
-const app = createApp(App);
-
-app.use(store).use(router).mount('#app');
+createApp(App).use(store).use(router)
+  .mount('#app');

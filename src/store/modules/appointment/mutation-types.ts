@@ -1,5 +1,5 @@
 enum MutationTypes {
-  CHANGE_LIST_NAME = 'CHANGE_LIST_NAME',
+  CHANGE_APPOINTMENT = 'CHANGE_APPOINTMENT',
 }
 
 export default MutationTypes;

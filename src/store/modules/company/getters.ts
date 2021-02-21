@@ -2,14 +2,13 @@
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '@/store';
 import { GetterTree } from 'vuex';
+import Company from '@/types/company';
 import { State } from './state';
 
 export type Getters = {
-  getCurrentStep(state: State): number | null;
-  getIsMenuOpen(state: State): boolean;
+  getCompany(state: State): Company | null;
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
-  getCurrentStep: (state) => state.currentStep,
-  getIsMenuOpen: (state) => state.isMenuOpen,
+  getCompany: (state) => state.company,
 };

@@ -26,6 +26,26 @@ module.exports = {
       env: {
         jest: true,
       },
+      rules: {
+        'vue/max-len': [
+          'error',
+          {
+            code: 140,
+            template: 250,
+            tabWidth: 2,
+            comments: 140,
+            ignorePattern: '',
+            ignoreComments: false,
+            ignoreTrailingComments: false,
+            ignoreUrls: false,
+            ignoreStrings: false,
+            ignoreTemplateLiterals: false,
+            ignoreRegExpLiterals: true,
+            ignoreHTMLAttributeValues: true,
+            ignoreHTMLTextContents: false,
+          },
+        ],
+      },
     },
   ],
 };

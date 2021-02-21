@@ -32,13 +32,13 @@ export default defineComponent({
       tree: {
         nodes: [
           { name: 'Naslovnica', slug: '/' },
-          { name: 'Kalendar', slug: 'kalendar' },
-          { name: 'Usluge', slug: 'usluge' },
-          { name: 'Radnici', slug: 'radnici' },
-          { name: 'Postavke', slug: 'postavke' },
+          { name: 'Kalendar', slug: '/kalendar' },
+          { name: 'Usluge', slug: '/usluge' },
+          { name: 'Radnici', slug: '/radnici' },
+          { name: 'Postavke', slug: '/postavke' },
           {
             name: 'Pomoć',
-            slug: 'pomoc',
+            slug: '/pomoc',
             nodes: [
               { name: 'Česta Pitanja', slug: '/pomoc/cesta-pitanja' },
               { name: 'Uputstvo', slug: '/pomoc/uputstvo' },

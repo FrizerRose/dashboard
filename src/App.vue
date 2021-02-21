@@ -1,14 +1,29 @@
 <template>
-  <div class="c-site-wrapper">
-    <header
-      v-if="routeName !== 'Login'"
-      class="c-site-header"
-    >
+  <div class="c-app">
+    <div class="c-sidebar c-sidebar-dark c-sidebar-show">
       <MainNavMenu :nodes="tree.nodes" />
-    </header>
-    <main class="c-site-main">
-      <router-view />
-    </main>
+      <button
+        class="c-sidebar-minimizer c-brand-minimizer"
+        type="button"
+      />
+    </div>
+
+    <div class="c-wrapper">
+      <header
+        v-if="routeName !== 'Login'"
+        class="c-header"
+      >
+        <p>header</p>
+      </header>
+
+      <div class="c-body">
+        <router-view />
+
+        <footer class="c-footer">
+          <p>footer</p>
+        </footer>
+      </div>
+    </div><!-- /.c-wrapper -->
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main class="c-main">
     <div class="temp-fixed">
       <p>template postavke</p>
     </div>
@@ -482,12 +482,14 @@
     </ul>
 
     <ul>
-      <li>Da li end-user ima opciju biranja radnika?</li>
-      <li>Mjenjanje subdomene - nakon sto API call prodje, ispisemo im da ce uskoro bit redirektani i redirektamo</li>
-      <li>Color variant</li>
+      <li>Da li end-user ima opciju biranja radnika? - checkbox true false</li>
+      <li>Mjenjanje subdomene - nakon sto API call prodje, ispisemo im da ce uskoro bit redirektani i redirektamo - input field</li>
+      <li>Color variant - radio buttons</li>
       <li>change password</li>
     </ul>
-  </div>
+
+    <router-view />
+  </main>
 </template>
 
 <script lang="ts">

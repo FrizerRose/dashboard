@@ -1,15 +1,21 @@
 <template>
-  <!-- <pre style="background-color: wheat;">
-    {{ nodes }}
-  </pre> -->
-  <ul v-if="nodes">
+  <ul
+    v-if="nodes"
+    class="c-sidebar-nav"
+  >
+    <li class="c-sidebar-nav-title">
+      nav title
+    </li>
     <li
       v-for="node in nodes"
       :key="node.name"
+      class="c-sidebar-nav-item"
+      :class="{ 'c-sidebar-nav-dropdown' : node.nodes }"
     >
       <router-link
         :to="node.slug"
-        class="o-link"
+        class="c-sidebar-nav-link"
+        :class="{ 'c-sidebar-nav-dropdown-toggle' : node.nodes }"
       >
         {{ node.name }}
       </router-link>

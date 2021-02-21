@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <main class="c-main">
     <div class="temp-fixed">
       <p>template pomoć</p>
     </div>
-  </div>
-  <router-view />
+
+    <router-view />
+  </main>
 </template>
 
 <script lang="ts">

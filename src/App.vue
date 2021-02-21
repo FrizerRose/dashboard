@@ -1,34 +1,32 @@
 <template>
   <div class="c-site-wrapper">
-    <header class="c-site-header">
+    <header
+      v-if="routeName !== 'Login'"
+      class="c-site-header"
+    >
       <MainNavMenu :nodes="tree.nodes" />
     </header>
     <main class="c-site-main">
-      <section class="c-section">
-        topbar
-      </section>
-
       <router-view />
     </main>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useRoute } from 'vue-router';
 import MainNavMenu from './components/MainNavMenu.vue';
 
 export default defineComponent({
   components: {
     MainNavMenu,
   },
-
   setup() {
+    const route = useRoute();
+    const routeName = computed(() => route.name);
+
     return {
-      MainNavMenu,
-    };
-  },
-  data() {
-    return {
+      routeName,
       tree: {
         nodes: [
           { name: 'Naslovnica', slug: '/' },

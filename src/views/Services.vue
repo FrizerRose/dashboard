@@ -1,5 +1,5 @@
 <template>
-  <main class="c-main">
+  <main class="c-site-main">
     <div class="temp-fixed">
       <p>template usluge</p>
     </div>

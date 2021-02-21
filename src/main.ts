@@ -1,4 +1,4 @@
-// import '@/assets/scss/main.scss';
+import '@/assets/scss/main.scss';
 import * as Sentry from '@sentry/vue';
 import { Integrations } from '@sentry/tracing';
 import { createApp } from 'vue';

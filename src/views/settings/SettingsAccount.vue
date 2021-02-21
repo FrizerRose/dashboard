@@ -1,11 +1,11 @@
 <template>
-  <main class="c-main">
+  <div>
     <div class="temp-fixed">
       <p>template postavke računa</p>
     </div>
 
     <router-view />
-  </main>
+  </div>
 </template>
 
 <script lang="ts">

@@ -1,19 +1,21 @@
 <template>
   <ul
     v-if="nodes"
-    class="c-sidebar-nav-dropdown-items"
+    v-show="!isShowing"
+    class="c-sidebar_list -is-submenu"
   >
     <li
       v-for="node in nodes"
       :key="node.id"
-      class="c-sidebar-nav-item"
     >
-      <router-link
-        :to="node.slug"
-        class="c-sidebar-nav-link"
-      >
-        {{ node.name }}
-      </router-link>
+      <span class="c-sidebar_dropdown-wrap">
+        <router-link
+          :to="node.slug"
+          class="c-sidebar_link"
+        >
+          {{ node.name }}
+        </router-link>
+      </span>
     </li>
   </ul>
 </template>

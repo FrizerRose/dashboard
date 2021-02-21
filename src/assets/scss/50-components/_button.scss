@@ -1,9 +1,4 @@
 .c-button {
-  padding: 0.5em 0.75em;
-  font-weight: 900;
-  color: currentColor;
-  border-radius: 0.5rem;
-  transition: background-color $speed $easing, color $speed $easing;
 
   &.is-current {
     box-shadow: inset 0 0 0 0.125em $theme-main;
@@ -29,12 +24,12 @@
     opacity: 0.2;
     background-color: transparent !important;
   }
-  &.is-submit {
-    width: 100%;
-    font-size: 2rem;
-  }
   &.-larger {
     font-size: 150%;
+  }
+  &.-step {
+    width: 100%;
+    text-align: left;
   }
 }
 
@@ -47,8 +42,57 @@
 }
 
 .c-button.-primary {
+  @extend .c-form_font;
+
+  color: currentColor;
+  border-radius: 0.5em;
+  transition: background-color $speed / 2 $easing;
+  
+  $site-button-bg: $element-bg;
+  background-color: $site-button-bg;
+  
+  html.mode-dark & {
+    $site-button-bg: $mode-dark_element-bg;
+    background-color: $site-button-bg;
+  }
+  
+  &:hover,
+  &:focus {
+    background-color: $theme-main;
+
+    &:not(:disabled) {
+      $site-button-hover-color: $white;
+      color: $site-button-hover-color;
+    }
+  
+    html.mode-dark & {
+      background-color: $theme-darken;
+      $site-button-hover-color: $black;
+      color: $site-button-hover-color;
+    }
+  
+    html.orchid & {
+      background-color: $orchid-main;
+    }
+  
+    html.goldenrod & {
+      background-color: $goldenrod-main;
+    }
+  
+    html.coral & {
+      background-color: $coral-main;
+    }
+  }
+}
+
+.c-button.-secondary {
   $site-button-bg: $theme-main;
   background-color: $site-button-bg;
+  
+  &.-submit {
+    width: 100%;
+    font-size: 2rem;
+  }
 
   html.mode-dark & {
     $site-button-bg: $theme-darken;
@@ -109,50 +153,6 @@
       background-color: $site-button-hover-bg;
       $site-button-hover-color: $white;
       color: $site-button-hover-color;
-    }
-  }
-}
-
-.c-button.-tab {
-  width: 100%;
-  text-align: left;
-  color: currentColor;
-  border-radius: 0.5em;
-  transition: background-color $speed / 2 $easing;
-  
-  $site-button-bg: $element-bg;
-  background-color: $site-button-bg;
-  
-  html.mode-dark & {
-    $site-button-bg: $mode-dark_element-bg;
-    background-color: $site-button-bg;
-  }
-  
-  &:hover,
-  &:focus {
-    background-color: $theme-main;
-
-    &:not(:disabled) {
-      $site-button-hover-color: $white;
-      color: $site-button-hover-color;
-    }
-  
-    html.mode-dark & {
-      background-color: $theme-darken;
-      $site-button-hover-color: $black;
-      color: $site-button-hover-color;
-    }
-  
-    html.orchid & {
-      background-color: $orchid-main;
-    }
-  
-    html.goldenrod & {
-      background-color: $goldenrod-main;
-    }
-  
-    html.coral & {
-      background-color: $coral-main;
     }
   }
 }

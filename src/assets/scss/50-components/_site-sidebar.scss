@@ -1,0 +1,10 @@
+.c-site-sidebar {
+	background-color: $sidebar-bg;
+	min-height: 100vh;
+    padding-top: 4em;
+    padding-bottom: 4em;
+
+	@media (min-width: $from-medium) {
+		flex: 1;
+	}
+}

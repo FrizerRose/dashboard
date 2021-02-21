@@ -1,0 +1,7 @@
+.c-page-wrapper {
+	position: relative;
+	
+	@media (min-width: $from-medium) {
+		flex: 6;
+	}
+}

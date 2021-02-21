@@ -179,7 +179,12 @@ $black: #090909;
 
 $theme-main: silver;
 $theme-darken: darken($theme-main, 25%);
+
 $element-bg: #f1f1f1;
+$sidebar-bg: #242a33;
+$sidebar-bg-hover: darken($sidebar-bg, 10%);
+$sidebar-bg-submenu: darken($sidebar-bg, 5%);
+$sidebar-text: lighten($sidebar-bg, 50%);
 
 $mode-dark-main: #404040; // inverted silver
 $mode-dark-lighten: lighten($theme-main, 25%);

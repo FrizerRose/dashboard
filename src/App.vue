@@ -1,29 +1,21 @@
 <template>
-  <div class="c-app">
-    <div class="c-sidebar c-sidebar-dark c-sidebar-show">
-      <MainNavMenu :nodes="tree.nodes" />
-      <button
-        class="c-sidebar-minimizer c-brand-minimizer"
-        type="button"
-      />
-    </div>
+  <div class="c-site-wrapper">
+    <MainNavMenu :nodes="tree.nodes" />
 
-    <div class="c-wrapper">
+    <div class="c-page-wrapper">
       <header
         v-if="routeName !== 'Login'"
-        class="c-header"
+        class="c-site-header"
       >
         <p>header</p>
       </header>
-
-      <div class="c-body">
+      <main class="c-site-main">
         <router-view />
-
-        <footer class="c-footer">
-          <p>footer</p>
-        </footer>
-      </div>
-    </div><!-- /.c-wrapper -->
+      </main>
+      <footer class="c-site-footer">
+        <p>footer</p>
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -48,7 +40,13 @@ export default defineComponent({
           { name: 'Kalendar', slug: '/kalendar' },
           { name: 'Usluge', slug: '/usluge' },
           { name: 'Radnici', slug: '/radnici' },
-          { name: 'Postavke', slug: '/postavke' },
+          {
+            name: 'Postavke',
+            slug: '/postavke',
+            nodes: [
+              { name: 'Račun', slug: '/postavke/racun' },
+            ],
+          },
           {
             name: 'Pomoć',
             slug: '/pomoc',

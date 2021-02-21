@@ -1,20 +1,12 @@
 
 .c-site-header {
-  ul {
-    ul {
-      margin-left: 2rem;
-      // display: none;
-    }
-  }
-}
-
-.c-site-header {
   // position: fixed;
   // width: 100%;
   // top: 0;
   // left: 0;
   // padding-top: 0.5rem;
   // padding-bottom: 0.5rem;
+  padding: 1rem;
 
   position: relative;
   z-index: 50;

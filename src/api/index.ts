@@ -13,7 +13,7 @@ export default class ApiService {
     this.client.defaults.headers.common.Authorization = 'blabla';
   }
 
-  async query(resource: string, params: object) {
+  query(resource: string, params: object) {
     try {
       return this.client.get(resource, params);
     } catch (error) {
@@ -21,7 +21,7 @@ export default class ApiService {
     }
   }
 
-  async get(resource: string, slug: string | number) {
+  get(resource: string, slug: string | number) {
     try {
       return this.client.get(`${resource}/${slug}`);
     } catch (error) {
@@ -29,15 +29,11 @@ export default class ApiService {
     }
   }
 
-  async post(resource: string, params: object) {
-    try {
-      return this.client.post(`${resource}`, params);
-    } catch (error) {
-      throw new ApiError(error);
-    }
+  post(resource: string, params: object) {
+    return this.client.post(`${resource}`, params);
   }
 
-  async update(resource: string, slug: string, params: object) {
+  update(resource: string, slug: string, params: object) {
     try {
       return this.client.put(`${resource}/${slug}`, params);
     } catch (error) {
@@ -45,7 +41,7 @@ export default class ApiService {
     }
   }
 
-  async put(resource: string, params: object) {
+  put(resource: string, params: object) {
     try {
       return this.client.put(`${resource}`, params);
     } catch (error) {
@@ -215,6 +211,42 @@ export class CustomerService {
 
   create(params: object) {
     return this.apiService.post(this.resource, params);
+  }
+
+  update(slug: string, params: object) {
+    return this.apiService.update(this.resource, slug, params);
+  }
+
+  destroy(slug: string) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
+export class AuthService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'auth';
+  }
+
+  query(params: object) {
+    return this.apiService.query(this.resource, {
+      params,
+    });
+  }
+
+  get(slug: number) {
+    return this.apiService.get(this.resource, slug);
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  login(params: object) {
+    return this.apiService.post(`${this.resource}/login`, params);
   }
 
   update(slug: string, params: object) {

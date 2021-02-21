@@ -14,6 +14,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "kalendar" */ '../views/Login.vue'),
   },
   {
+    path: '/zaboravljena-lozinka',
+    name: 'Forgotten Password',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "kalendar" */ '../views/ForgottenPassword.vue'),
+  },
+  {
     path: '/kalendar',
     name: 'Calendar',
     // lazy loaded route

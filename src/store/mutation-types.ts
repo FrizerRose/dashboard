@@ -5,6 +5,7 @@ import CompanyMutationTypes from './modules/company/mutation-types';
 import StaffMutationTypes from './modules/staff/mutation-types';
 import AppointmentMutationTypes from './modules/appointment/mutation-types';
 import CustomerMutationTypes from './modules/customer/mutation-types';
+import AuthMutationTypes from './modules/auth/mutation-types';
 
 const allMutationEnums = [
   SharedMutationTypes,
@@ -13,6 +14,7 @@ const allMutationEnums = [
   StaffMutationTypes,
   AppointmentMutationTypes,
   CustomerMutationTypes,
+  AuthMutationTypes,
 ];
 
 const actionTypeValues = allMutationEnums.map((abc) => Object.values(abc)).flat();
@@ -35,6 +37,7 @@ const allMutationTypes = {
   ...StaffMutationTypes,
   ...AppointmentMutationTypes,
   ...CustomerMutationTypes,
+  ...AuthMutationTypes,
 };
 
 export default allMutationTypes;

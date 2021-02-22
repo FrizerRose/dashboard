@@ -1,6 +1,5 @@
 abstract class CustomError extends Error {
   constructor(msg: string) {
-    // TODO: add sending the error to a third party error aggregate e.g. Sentry
     console.log(`Error: ${msg}`);
     super(msg);
   }

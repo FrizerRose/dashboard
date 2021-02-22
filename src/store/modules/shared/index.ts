@@ -3,12 +3,12 @@
 import { RootState } from '@/store';
 import {
   CommitOptions,
-  DispatchOptions,
+  // DispatchOptions,
   Module,
   Store as VuexStore,
 } from 'vuex';
 // eslint-disable-next-line import/no-cycle
-import { actions, Actions } from './actions';
+// import { actions, Actions } from './actions';
 // eslint-disable-next-line import/no-cycle
 import { getters, Getters } from './getters';
 import { mutations, Mutations } from './mutations';
@@ -26,12 +26,12 @@ export type SharedStore<S = State> = Omit<VuexStore<S>, 'getters' | 'commit' | '
     payload: P,
     options?: CommitOptions
   ): ReturnType<Mutations[K]>;
-} & {
-  dispatch<K extends keyof Actions>(
-    key: K,
-    payload: Parameters<Actions[K]>[1],
-    options?: DispatchOptions
-  ): ReturnType<Actions[K]>;
+// } & {
+//   dispatch<K extends keyof Actions>(
+//     key: K,
+//     payload: Parameters<Actions[K]>[1],
+//     options?: DispatchOptions
+//   ): ReturnType<Actions[K]>;
 } & {
   getters: {
     [K in keyof Getters]: ReturnType<Getters[K]>
@@ -43,5 +43,5 @@ export const store: Module<State, RootState> = {
   state,
   getters,
   mutations,
-  actions,
+  // actions,
 };

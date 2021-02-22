@@ -1,10 +1,20 @@
 import { DeveloperError } from '@/types/customError';
-import ArticleMutationTypes from './modules/article/mutation-types';
 import SharedMutationTypes from './modules/shared/mutation-types';
+import ServiceMutationTypes from './modules/service/mutation-types';
+import CompanyMutationTypes from './modules/company/mutation-types';
+import StaffMutationTypes from './modules/staff/mutation-types';
+import AppointmentMutationTypes from './modules/appointment/mutation-types';
+import CustomerMutationTypes from './modules/customer/mutation-types';
+import AuthMutationTypes from './modules/auth/mutation-types';
 
 const allMutationEnums = [
   SharedMutationTypes,
-  ArticleMutationTypes,
+  ServiceMutationTypes,
+  CompanyMutationTypes,
+  StaffMutationTypes,
+  AppointmentMutationTypes,
+  CustomerMutationTypes,
+  AuthMutationTypes,
 ];
 
 const actionTypeValues = allMutationEnums.map((abc) => Object.values(abc)).flat();
@@ -22,7 +32,12 @@ if (!hasConsistentNames) {
 
 const allMutationTypes = {
   ...SharedMutationTypes,
-  ...ArticleMutationTypes,
+  ...ServiceMutationTypes,
+  ...CompanyMutationTypes,
+  ...StaffMutationTypes,
+  ...AppointmentMutationTypes,
+  ...CustomerMutationTypes,
+  ...AuthMutationTypes,
 };
 
 export default allMutationTypes;

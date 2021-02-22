@@ -1,0 +1,45 @@
+.c-sidebar_dropdown-wrap {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+}
+
+.c-sidebar_link {
+	padding: 0.5em 2em 0.5em 1em;
+	color: $sidebar-text;
+	flex: 1;
+	
+	&:hover {
+		background-color: $sidebar-bg-hover;
+		color: $white;
+	}
+}
+.c-sidebar_dropdown-toggle {
+	color: $sidebar-text;
+    text-indent: -100000px;
+    position: absolute;
+	right: 0;
+	&:hover {
+		background-color: $sidebar-bg-hover;
+		color: $white;
+	}
+	&:focus {
+		outline: -webkit-focus-ring-color auto 1px;
+		text-indent: 0;
+	}
+}
+
+.c-sidebar_link,
+.c-sidebar_dropdown-toggle {
+	transition: background-color $speed $easing, color $speed $easing;
+}
+
+.c-sidebar_list {
+	&.-is-submenu {
+		background: $sidebar-bg-submenu;
+		text-indent: 1.5em;
+		transform-origin: top;
+		// transform: scaleY(0);
+		transition: transform $speed $easing;
+	}
+}

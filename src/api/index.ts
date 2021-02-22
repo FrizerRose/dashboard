@@ -9,11 +9,15 @@ export default class ApiService {
     this.client.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
   }
 
-  setHeader() {
-    this.client.defaults.headers.common.Authorization = 'blabla';
+  setAuthHeader(token: string) {
+    this.client.defaults.headers.common.Authorization = `Bearer ${token}`;
   }
 
-  async query(resource: string, params: object) {
+  removeAuthHeader() {
+    delete this.client.defaults.headers.common.Authorization;
+  }
+
+  query(resource: string, params: object) {
     try {
       return this.client.get(resource, params);
     } catch (error) {
@@ -21,7 +25,7 @@ export default class ApiService {
     }
   }
 
-  async get(resource: string, slug: string | number) {
+  get(resource: string, slug: string | number) {
     try {
       return this.client.get(`${resource}/${slug}`);
     } catch (error) {
@@ -29,15 +33,11 @@ export default class ApiService {
     }
   }
 
-  async post(resource: string, params: object) {
-    try {
-      return this.client.post(`${resource}`, params);
-    } catch (error) {
-      throw new ApiError(error);
-    }
+  post(resource: string, params: object) {
+    return this.client.post(`${resource}`, params);
   }
 
-  async update(resource: string, slug: string, params: object) {
+  update(resource: string, slug: string, params: object) {
     try {
       return this.client.put(`${resource}/${slug}`, params);
     } catch (error) {
@@ -45,7 +45,7 @@ export default class ApiService {
     }
   }
 
-  async put(resource: string, params: object) {
+  put(resource: string, params: object) {
     try {
       return this.client.put(`${resource}`, params);
     } catch (error) {
@@ -65,15 +65,14 @@ export default class ApiService {
     });
   }
 }
-
-export class AdviceService {
+export class ServicesService {
   apiService: ApiService;
 
   resource: string;
 
   constructor() {
     this.apiService = new ApiService();
-    this.resource = 'advice';
+    this.resource = 'service';
   }
 
   query(params: object) {
@@ -87,11 +86,183 @@ export class AdviceService {
   }
 
   create(params: object) {
-    return this.apiService.post(this.resource, { article: params });
+    return this.apiService.post(this.resource, params);
   }
 
   update(slug: string, params: object) {
-    return this.apiService.update(this.resource, slug, { article: params });
+    return this.apiService.update(this.resource, slug, params);
+  }
+
+  destroy(slug: string) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
+export class CompanyService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'company';
+  }
+
+  query(params: object) {
+    return this.apiService.query(this.resource, {
+      params,
+    });
+  }
+
+  get(slug: number) {
+    return this.apiService.get(this.resource, slug);
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  update(slug: string, params: object) {
+    return this.apiService.update(this.resource, slug, params);
+  }
+
+  destroy(slug: string) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
+export class StaffService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'staff';
+  }
+
+  query(params: object) {
+    return this.apiService.query(this.resource, {
+      params,
+    });
+  }
+
+  get(slug: number) {
+    return this.apiService.get(this.resource, slug);
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  update(slug: string, params: object) {
+    return this.apiService.update(this.resource, slug, params);
+  }
+
+  destroy(slug: string) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
+export class AppointmentService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'appointment';
+  }
+
+  query(params: object) {
+    return this.apiService.query(this.resource, {
+      params,
+    });
+  }
+
+  get(slug: number) {
+    return this.apiService.get(this.resource, slug);
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  update(slug: string, params: object) {
+    return this.apiService.update(this.resource, slug, params);
+  }
+
+  destroy(slug: string) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
+export class CustomerService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'customer';
+  }
+
+  query(params: object) {
+    return this.apiService.query(this.resource, {
+      params,
+    });
+  }
+
+  get(slug: number) {
+    return this.apiService.get(this.resource, slug);
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  update(slug: string, params: object) {
+    return this.apiService.update(this.resource, slug, params);
+  }
+
+  destroy(slug: string) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
+export class AuthService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'auth';
+  }
+
+  setAuthHeader(token: string) {
+    this.apiService.setAuthHeader(token);
+  }
+
+  removeAuthHeader() {
+    this.apiService.removeAuthHeader();
+  }
+
+  query(params: object) {
+    return this.apiService.query(this.resource, {
+      params,
+    });
+  }
+
+  get(slug: number | string) {
+    return this.apiService.get(this.resource, slug);
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  login(params: object) {
+    return this.apiService.post(`${this.resource}/login`, params);
+  }
+
+  update(slug: string, params: object) {
+    return this.apiService.update(this.resource, slug, params);
   }
 
   destroy(slug: string) {

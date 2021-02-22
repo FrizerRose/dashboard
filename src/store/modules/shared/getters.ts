@@ -5,9 +5,11 @@ import { GetterTree } from 'vuex';
 import { State } from './state';
 
 export type Getters = {
-  getNumber(state: State): number | null;
+  getCurrentStep(state: State): number | null;
+  getIsMenuOpen(state: State): boolean;
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
-  getNumber: (state) => state.number,
+  getCurrentStep: (state) => state.currentStep,
+  getIsMenuOpen: (state) => state.isMenuOpen,
 };

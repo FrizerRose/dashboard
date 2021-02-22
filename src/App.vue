@@ -14,9 +14,9 @@
       <main class="c-site-main">
         <router-view />
       </main>
-      <footer class="c-site-footer">
+      <!-- <footer class="c-site-footer">
         <p>footer</p>
-      </footer>
+      </footer> -->
     </div>
   </div>
 </template>

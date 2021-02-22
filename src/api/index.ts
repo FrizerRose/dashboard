@@ -9,8 +9,12 @@ export default class ApiService {
     this.client.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
   }
 
-  setHeader() {
-    this.client.defaults.headers.common.Authorization = 'blabla';
+  setAuthHeader(token: string) {
+    this.client.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
+
+  removeAuthHeader() {
+    delete this.client.defaults.headers.common.Authorization;
   }
 
   query(resource: string, params: object) {
@@ -231,13 +235,21 @@ export class AuthService {
     this.resource = 'auth';
   }
 
+  setAuthHeader(token: string) {
+    this.apiService.setAuthHeader(token);
+  }
+
+  removeAuthHeader() {
+    this.apiService.removeAuthHeader();
+  }
+
   query(params: object) {
     return this.apiService.query(this.resource, {
       params,
     });
   }
 
-  get(slug: number) {
+  get(slug: number | string) {
     return this.apiService.get(this.resource, slug);
   }
 

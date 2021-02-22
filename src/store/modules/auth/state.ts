@@ -1,11 +1,15 @@
-import User from '@/types/user';
-
 export interface State {
-  user: User | null;
+  isAuthorized: boolean;
+  user: string | null;
+  accessToken: string | null;
+  expiration: string | null;
 }
 
 const state: State = {
-  user: null,
+  isAuthorized: false,
+  user: localStorage.getItem('user'),
+  accessToken: localStorage.getItem('accessToken'),
+  expiration: localStorage.getItem('expiration'),
 };
 
 export default state;

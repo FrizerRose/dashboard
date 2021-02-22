@@ -5,7 +5,6 @@ import { ActionContext, ActionTree } from 'vuex';
 import { ServicesService } from '@/api';
 import { ApiError } from '@/types/customError';
 import LocalActionTypes from './action-types';
-import SharedMutationTypes from '../shared/mutation-types';
 import LocalMutationTypes from './mutation-types';
 import { Mutations } from './mutations';
 import { Mutations as SharedMutations } from '../shared/mutations';

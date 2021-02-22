@@ -10,5 +10,5 @@ export type Getters = {
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
-  getUser: (state) => state.user,
+  getUser: (state) => (typeof state.user === 'string' ? JSON.parse(state.user) as User : null),
 };

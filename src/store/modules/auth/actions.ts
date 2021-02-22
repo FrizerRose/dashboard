@@ -20,8 +20,8 @@ type AugmentedActionContext = {
 export interface Actions {
   [LocalActionTypes.FETCH_USER](
     { commit }: AugmentedActionContext,
-    id: number
-  ): void;
+    token: string
+  ): Promise<unknown>;
   [LocalActionTypes.LOGIN](
     { commit }: AugmentedActionContext,
     payload: {email: string; password: string}
@@ -33,20 +33,33 @@ const authService = new AuthService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
-  async [LocalActionTypes.FETCH_USER]({ commit }, id: number) {
-    const response = await authService.get(id);
-    if (response.status === 200 && response.data) {
-      commit(LocalMutationTypes.CHANGE_USER, response.data);
-    } else {
-      throw new ApiError('No auth by this ID.');
+  async [LocalActionTypes.FETCH_USER]({ commit }, token: string): Promise<unknown> {
+    try {
+      authService.setAuthHeader(token);
+      const response = await authService.get('me');
+      authService.removeAuthHeader();
+
+      if (response.status === 200 && response.data) {
+        commit(LocalMutationTypes.CHANGE_IS_AUTHORIZED, true);
+        return Promise.resolve(true);
+      }
+      commit(LocalMutationTypes.CHANGE_IS_AUTHORIZED, false);
+      return Promise.reject(new ApiError('Not logged in.'));
+    } catch {
+      commit(LocalMutationTypes.CHANGE_IS_AUTHORIZED, false);
+      return Promise.reject(new ApiError('Not logged in.'));
     }
   },
+  // TODO: make sure the user is from this company
   async [LocalActionTypes.LOGIN]({ commit }, payload: {email: string; password: string}): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
       try {
         const response = await authService.login(payload);
         if (response.status === 201 && response.data) {
-          commit(LocalMutationTypes.CHANGE_USER, response.data.user);
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          localStorage.setItem('accessToken', response.data.accessToken);
+          localStorage.setItem('expiration', (Date.now() + parseInt(response.data.expiresIn, 10) - 5).toString());
+          commit(LocalMutationTypes.CHANGE_IS_AUTHORIZED, true);
           resolve(true);
         } else {
           reject(new ApiError('Credentials dont match.'));

@@ -1,10 +1,12 @@
 <template>
   <div class="c-site-wrapper">
-    <MainNavMenu :nodes="tree.nodes" />
+    <MainNavMenu
+      v-if="routeName !== 'Login'"
+      :nodes="tree.nodes"
+    />
 
     <div class="c-page-wrapper">
       <header
-        v-if="routeName !== 'Login'"
         class="c-site-header"
       >
         <p>header</p>
@@ -21,7 +23,9 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
+import { useStore } from '@/store';
+import { useRoute, useRouter } from 'vue-router';
+import ActionTypes from '@/store/action-types';
 import MainNavMenu from './components/MainNavMenu.vue';
 
 export default defineComponent({
@@ -29,8 +33,29 @@ export default defineComponent({
     MainNavMenu,
   },
   setup() {
+    const router = useRouter();
     const route = useRoute();
     const routeName = computed(() => route.name);
+
+    const store = useStore();
+
+    // If user lands on non-public page, check if his credentials are valid
+    async function checkIfAuthorized() {
+      const publicPages = ['/login', '/zaboravljena-lozinka'];
+      if (!publicPages.includes(route.path)) {
+        try {
+          const accessToken = computed(() => store.state.auth.accessToken);
+          if (typeof accessToken.value !== 'string') {
+            throw new Error('No access token.');
+          }
+
+          await store.dispatch(ActionTypes.FETCH_USER, accessToken.value);
+        } catch {
+          router.push('/login');
+        }
+      }
+    }
+    checkIfAuthorized();
 
     return {
       routeName,

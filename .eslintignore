@@ -1,2 +1,3 @@
 /public/scroll/*.js
-/public/*
+/public/appstack/dist/css/*.css
+/public/appstack/dist/js/*.js

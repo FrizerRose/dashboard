@@ -6,6 +6,11 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import { store } from './store';
+import { DeveloperError } from './types/customError';
+
+if (process.env.VUE_APP_API_ENDPOINT === undefined) {
+  throw new DeveloperError('No ENV variable for the api endpoint is present');
+}
 
 if (process.env.NODE_ENV === 'production' && process.env.VUE_APP_SENTRY_DSN !== undefined) {
   Sentry.init({

@@ -10,12 +10,10 @@
     - Klik na prazan slot otvara modal sa Kreiranjem termina, klik na zauzet slot otvara modal sa Editiranjem termina. Kopirati setmore.
     - Quick actions button - linkovi na dodavanje servica/ranika, etc.
   -->
-  <main class="c-site-main">
-    <div class="temp-fixed">
-      <p>template kalendar</p>
+  <main class="content">
+    <div class="container-fluid p-0">
+      <router-view />
     </div>
-
-    <router-view />
   </main>
 </template>
 

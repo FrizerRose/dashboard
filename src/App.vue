@@ -1,31 +1,555 @@
 <template>
-  <div class="c-site-wrapper">
-    <MainNavMenu
-      v-if="routeName !== 'Login'"
-      :nodes="tree.nodes"
-    />
+  <div class="wrapper">
+    <!-- <div class="sidebar"> -->
+    <MainNavMenu :nodes="tree.nodes" />
+    <!-- end sidebar -->
+    <div class="main">
+      <nav class="navbar navbar-expand navbar-light navbar-bg">
+        <a class="sidebar-toggle">
+          <i class="hamburger align-self-center" />
+        </a>
 
-    <div class="c-page-wrapper">
-      <header
-        class="c-site-header"
-      >
-        <p>header</p>
-      </header>
-      <main class="c-site-main">
-        <router-view />
-      </main>
-      <!-- <footer class="c-site-footer">
-        <p>footer</p>
-      </footer> -->
+        <form class="d-none d-sm-inline-block">
+          <div class="input-group input-group-navbar">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search projects…"
+              aria-label="Search"
+            >
+            <div class="input-group-append">
+              <button
+                class="btn"
+                type="button"
+              >
+                <i
+                  class="align-middle"
+                  data-feather="search"
+                />
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <ul class="navbar-nav">
+          <li class="nav-item px-2 dropdown">
+            <a
+              id="servicesDropdown"
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Mega menu
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-left dropdown-mega"
+              aria-labelledby="servicesDropdown"
+            >
+              <div class="d-md-flex align-items-start justify-content-start">
+                <div class="dropdown-mega-list">
+                  <div class="dropdown-header">
+                    UI Elements
+                  </div>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Alerts</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Buttons</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Cards</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Carousel</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >General</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Grid</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Modals</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Tabs</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Typography</a>
+                </div>
+                <div class="dropdown-mega-list">
+                  <div class="dropdown-header">
+                    Forms
+                  </div>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Layouts</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Basic Inputs</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Input Groups</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Advanced Inputs</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Editors</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Validation</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Wizard</a>
+                </div>
+                <div class="dropdown-mega-list">
+                  <div class="dropdown-header">
+                    Tables
+                  </div>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Basic Tables</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Responsive Table</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Table with Buttons</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Column Search</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Muulti Selection</a>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                  >Ajax Sourced Data</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="navbar-collapse collapse">
+          <ul class="navbar-nav navbar-align">
+            <li class="nav-item dropdown">
+              <a
+                id="messagesDropdown"
+                class="nav-icon dropdown-toggle"
+                href="#"
+                data-toggle="dropdown"
+              >
+                <div class="position-relative">
+                  <i
+                    class="align-middle"
+                    data-feather="message-circle"
+                  />
+                  <span class="indicator">4</span>
+                </div>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0"
+                aria-labelledby="messagesDropdown"
+              >
+                <div class="dropdown-menu-header">
+                  <div class="position-relative">
+                    4 New Messages
+                  </div>
+                </div>
+                <div class="list-group">
+                  <a
+                    href="#"
+                    class="list-group-item"
+                  >
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-2">
+                        <img
+                          src="/appstack/dist/img/avatars/avatar-5.jpg"
+                          class="avatar img-fluid rounded-circle"
+                          alt="Ashley Briggs"
+                        >
+                      </div>
+                      <div class="col-10 pl-2">
+                        <div class="text-dark">Ashley Briggs</div>
+                        <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
+                        <div class="text-muted small mt-1">15m ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    href="#"
+                    class="list-group-item"
+                  >
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-2">
+                        <img
+                          src="/appstack/dist/img/avatars/avatar-2.jpg"
+                          class="avatar img-fluid rounded-circle"
+                          alt="Carl Jenkins"
+                        >
+                      </div>
+                      <div class="col-10 pl-2">
+                        <div class="text-dark">Carl Jenkins</div>
+                        <div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
+                        <div class="text-muted small mt-1">2h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    href="#"
+                    class="list-group-item"
+                  >
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-2">
+                        <img
+                          src="/appstack/dist/img/avatars/avatar-4.jpg"
+                          class="avatar img-fluid rounded-circle"
+                          alt="Stacie Hall"
+                        >
+                      </div>
+                      <div class="col-10 pl-2">
+                        <div class="text-dark">Stacie Hall</div>
+                        <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
+                        <div class="text-muted small mt-1">4h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    href="#"
+                    class="list-group-item"
+                  >
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-2">
+                        <img
+                          src="/appstack/dist/img/avatars/avatar-3.jpg"
+                          class="avatar img-fluid rounded-circle"
+                          alt="Bertha Martin"
+                        >
+                      </div>
+                      <div class="col-10 pl-2">
+                        <div class="text-dark">Bertha Martin</div>
+                        <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>
+                        <div class="text-muted small mt-1">5h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="dropdown-menu-footer">
+                  <a
+                    href="#"
+                    class="text-muted"
+                  >Show all messages</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                id="alertsDropdown"
+                class="nav-icon dropdown-toggle"
+                href="#"
+                data-toggle="dropdown"
+              >
+                <div class="position-relative">
+                  <i
+                    class="align-middle"
+                    data-feather="bell-off"
+                  />
+                </div>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0"
+                aria-labelledby="alertsDropdown"
+              >
+                <div class="dropdown-menu-header">
+                  4 New Notifications
+                </div>
+                <div class="list-group">
+                  <a
+                    href="#"
+                    class="list-group-item"
+                  >
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-2">
+                        <i
+                          class="text-danger"
+                          data-feather="alert-circle"
+                        />
+                      </div>
+                      <div class="col-10">
+                        <div class="text-dark">Update completed</div>
+                        <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
+                        <div class="text-muted small mt-1">2h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    href="#"
+                    class="list-group-item"
+                  >
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-2">
+                        <i
+                          class="text-warning"
+                          data-feather="bell"
+                        />
+                      </div>
+                      <div class="col-10">
+                        <div class="text-dark">Lorem ipsum</div>
+                        <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
+                        <div class="text-muted small mt-1">6h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    href="#"
+                    class="list-group-item"
+                  >
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-2">
+                        <i
+                          class="text-primary"
+                          data-feather="home"
+                        />
+                      </div>
+                      <div class="col-10">
+                        <div class="text-dark">Login from 192.186.1.1</div>
+                        <div class="text-muted small mt-1">8h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                  <a
+                    href="#"
+                    class="list-group-item"
+                  >
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-2">
+                        <i
+                          class="text-success"
+                          data-feather="user-plus"
+                        />
+                      </div>
+                      <div class="col-10">
+                        <div class="text-dark">New connection</div>
+                        <div class="text-muted small mt-1">Anna accepted your request.</div>
+                        <div class="text-muted small mt-1">12h ago</div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="dropdown-menu-footer">
+                  <a
+                    href="#"
+                    class="text-muted"
+                  >Show all notifications</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                id="languageDropdown"
+                class="nav-flag dropdown-toggle"
+                href="#"
+                data-toggle="dropdown"
+              >
+                <img
+                  src="/appstack/dist/img/flags/us.png"
+                  alt="English"
+                >
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="languageDropdown"
+              >
+                <a
+                  class="dropdown-item"
+                  href="#"
+                >
+                  <img
+                    src="/appstack/dist/img/flags/us.png"
+                    alt="English"
+                    width="20"
+                    class="align-middle mr-1"
+                  >
+                  <span class="align-middle">English</span>
+                </a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                >
+                  <img
+                    src="/appstack/dist/img/flags/es.png"
+                    alt="Spanish"
+                    width="20"
+                    class="align-middle mr-1"
+                  >
+                  <span class="align-middle">Spanish</span>
+                </a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                >
+                  <img
+                    src="/appstack/dist/img/flags/de.png"
+                    alt="German"
+                    width="20"
+                    class="align-middle mr-1"
+                  >
+                  <span class="align-middle">German</span>
+                </a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                >
+                  <img
+                    src="/appstack/dist/img/flags/nl.png"
+                    alt="Dutch"
+                    width="20"
+                    class="align-middle mr-1"
+                  >
+                  <span class="align-middle">Dutch</span>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+                href="#"
+                data-toggle="dropdown"
+              >
+                <i
+                  class="align-middle"
+                  data-feather="settings"
+                />
+              </a>
+
+              <a
+                class="nav-link dropdown-toggle d-none d-sm-inline-block"
+                href="#"
+                data-toggle="dropdown"
+              >
+                <img
+                  src="/appstack/dist/img/avatars/avatar.jpg"
+                  class="avatar img-fluid rounded-circle mr-1"
+                  alt="Chris Wood"
+                > <span class="text-dark">Chris Wood</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a
+                  class="dropdown-item"
+                  href="pages-profile.html"
+                ><i
+                  class="align-middle mr-1"
+                  data-feather="user"
+                /> Profile</a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                ><i
+                  class="align-middle mr-1"
+                  data-feather="pie-chart"
+                /> Analytics</a>
+                <div class="dropdown-divider" />
+                <a
+                  class="dropdown-item"
+                  href="pages-settings.html"
+                >Settings & Privacy</a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                >Help</a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                >Sign out</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div
+        v-if="!routeName !== 'Login'"
+        class="header"
+      />
+
+      <router-view />
+
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row text-muted">
+            <div class="col-6 text-start">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <a
+                    class="text-muted"
+                    href="#"
+                  >Support</a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="text-muted"
+                    href="#"
+                  >Help Center</a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="text-muted"
+                    href="#"
+                  >Privacy</a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="text-muted"
+                    href="#"
+                  >Terms of Service</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-6 text-end">
+              <p class="mb-0">
+                &copy; 2020 - <a
+                  href="index.html"
+                  class="text-muted"
+                >AppStack</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { useStore } from '@/store';
-import { useRoute, useRouter } from 'vue-router';
-import ActionTypes from '@/store/action-types';
+import { useRoute } from 'vue-router';
 import MainNavMenu from './components/MainNavMenu.vue';
 
 export default defineComponent({
@@ -33,29 +557,8 @@ export default defineComponent({
     MainNavMenu,
   },
   setup() {
-    const router = useRouter();
     const route = useRoute();
     const routeName = computed(() => route.name);
-
-    const store = useStore();
-
-    // If user lands on non-public page, check if his credentials are valid
-    async function checkIfAuthorized() {
-      const publicPages = ['/login', '/zaboravljena-lozinka'];
-      if (!publicPages.includes(route.path)) {
-        try {
-          const accessToken = computed(() => store.state.auth.accessToken);
-          if (typeof accessToken.value !== 'string') {
-            throw new Error('No access token.');
-          }
-
-          await store.dispatch(ActionTypes.FETCH_USER, accessToken.value);
-        } catch {
-          router.push('/login');
-        }
-      }
-    }
-    checkIfAuthorized();
 
     return {
       routeName,

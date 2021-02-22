@@ -1,16 +1,13 @@
 <template>
-  <main class="c-site-main">
-    <div class="temp-fixed">
-      <p>template 404</p>
+  <main class="content">
+    <div class="container-fluid p-0">
+      <div class="404">
+        <h1>404. You seem to have taken a wrong turn</h1>
+        <router-link to="/">
+          Click here to return to the Homepage
+        </router-link>
+      </div>
+      <router-view />
     </div>
-
-    <div class="404">
-      <h1>404. You seem to have taken a wrong turn</h1>
-      <router-link to="/">
-        Click here to return to the Homepage
-      </router-link>
-    </div>
-
-    <router-view />
   </main>
 </template>

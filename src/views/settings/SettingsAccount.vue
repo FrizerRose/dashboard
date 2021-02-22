@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div class="temp-fixed">
-      <p>template postavke računa</p>
+  <main class="content">
+    <div class="container-fluid p-0">
+      <router-view />
     </div>
-
-    <router-view />
-  </div>
+  </main>
 </template>
 
 <script lang="ts">

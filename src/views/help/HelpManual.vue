@@ -1,10 +1,8 @@
 <template>
-  <main class="c-site-main">
-    <div class="temp-fixed">
-      <p>template uputstvo</p>
+  <main class="content">
+    <div class="container-fluid p-0">
+      <router-view />
     </div>
-
-    <router-view />
   </main>
 </template>
 

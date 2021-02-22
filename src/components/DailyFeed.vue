@@ -9,7 +9,7 @@
     <div class="card-body">
       <div class="d-flex align-items-start">
         <img
-          src="/appstack/dist/img/avatars/avatar-5.jpg"
+          src="/appstack/img/avatars/avatar-5.jpg"
           width="36"
           height="36"
           class="rounded-circle me-2"
@@ -25,7 +25,7 @@
       <hr>
       <div class="d-flex align-items-start">
         <img
-          src="/appstack/dist/img/avatars/avatar.jpg"
+          src="/appstack/img/avatars/avatar.jpg"
           width="36"
           height="36"
           class="rounded-circle me-2"
@@ -45,7 +45,7 @@
       <hr>
       <div class="d-flex align-items-start">
         <img
-          src="/appstack/dist/img/avatars/avatar-4.jpg"
+          src="/appstack/img/avatars/avatar-4.jpg"
           width="36"
           height="36"
           class="rounded-circle me-2"

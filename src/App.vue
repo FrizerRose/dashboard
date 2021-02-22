@@ -191,7 +191,7 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col-2">
                         <img
-                          src="/appstack/dist/img/avatars/avatar-5.jpg"
+                          src="/appstack/img/avatars/avatar-5.jpg"
                           class="avatar img-fluid rounded-circle"
                           alt="Ashley Briggs"
                         >
@@ -210,7 +210,7 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col-2">
                         <img
-                          src="/appstack/dist/img/avatars/avatar-2.jpg"
+                          src="/appstack/img/avatars/avatar-2.jpg"
                           class="avatar img-fluid rounded-circle"
                           alt="Carl Jenkins"
                         >
@@ -229,7 +229,7 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col-2">
                         <img
-                          src="/appstack/dist/img/avatars/avatar-4.jpg"
+                          src="/appstack/img/avatars/avatar-4.jpg"
                           class="avatar img-fluid rounded-circle"
                           alt="Stacie Hall"
                         >
@@ -248,7 +248,7 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col-2">
                         <img
-                          src="/appstack/dist/img/avatars/avatar-3.jpg"
+                          src="/appstack/img/avatars/avatar-3.jpg"
                           class="avatar img-fluid rounded-circle"
                           alt="Bertha Martin"
                         >
@@ -379,7 +379,7 @@
                 data-toggle="dropdown"
               >
                 <img
-                  src="/appstack/dist/img/flags/us.png"
+                  src="/appstack/img/flags/us.png"
                   alt="English"
                 >
               </a>
@@ -392,7 +392,7 @@
                   href="#"
                 >
                   <img
-                    src="/appstack/dist/img/flags/us.png"
+                    src="/appstack/img/flags/us.png"
                     alt="English"
                     width="20"
                     class="align-middle mr-1"
@@ -404,7 +404,7 @@
                   href="#"
                 >
                   <img
-                    src="/appstack/dist/img/flags/es.png"
+                    src="/appstack/img/flags/es.png"
                     alt="Spanish"
                     width="20"
                     class="align-middle mr-1"
@@ -416,7 +416,7 @@
                   href="#"
                 >
                   <img
-                    src="/appstack/dist/img/flags/de.png"
+                    src="/appstack/img/flags/de.png"
                     alt="German"
                     width="20"
                     class="align-middle mr-1"
@@ -428,7 +428,7 @@
                   href="#"
                 >
                   <img
-                    src="/appstack/dist/img/flags/nl.png"
+                    src="/appstack/img/flags/nl.png"
                     alt="Dutch"
                     width="20"
                     class="align-middle mr-1"
@@ -455,7 +455,7 @@
                 data-toggle="dropdown"
               >
                 <img
-                  src="/appstack/dist/img/avatars/avatar.jpg"
+                  src="/appstack/img/avatars/avatar.jpg"
                   class="avatar img-fluid rounded-circle mr-1"
                   alt="Chris Wood"
                 > <span class="text-dark">Chris Wood</span>

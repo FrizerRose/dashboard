@@ -14,7 +14,7 @@
         </div>
         <div class="col-6 align-self-end text-end">
           <img
-            src="/appstack/dist/img/illustrations/customer-support.png"
+            src="/appstack/img/illustrations/customer-support.png"
             alt="Customer Support"
             class="img-fluid illustration-img"
           >

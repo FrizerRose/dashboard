@@ -42,40 +42,36 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Settings',
     // lazy loaded route
     component: () => import(/* webpackChunkName: "postavke" */ '../views/settings/Settings.vue'),
-    children: [
-      {
-        path: 'racun',
-        name: 'Account',
-        // lazy loaded route
-        component: () => import(/* webpackChunkName: "postavke-racun" */ '../views/settings/SettingsAccount.vue'),
-      },
-    ],
+  },
+  {
+    path: '/racun',
+    name: 'Account',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "postavke-racun" */ '../views/settings/SettingsAccount.vue'),
   },
   {
     path: '/pomoc',
     name: 'Help',
     // lazy loaded route
     component: () => import(/* webpackChunkName: "pomoc" */ '../views/help/Help.vue'),
-    children: [
-      {
-        path: 'cesta-pitanja',
-        name: 'Faq',
-        // lazy loaded route
-        component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/help/HelpFaq.vue'),
-      },
-      {
-        path: 'uputstvo',
-        name: 'Manual',
-        // lazy loaded route
-        component: () => import(/* webpackChunkName: "uputstvo" */ '../views/help/HelpManual.vue'),
-      },
-      {
-        path: 'kontakt',
-        name: 'Contact',
-        // lazy loaded route
-        component: () => import(/* webpackChunkName: "kontakt" */ '../views/help/HelpContact.vue'),
-      },
-    ],
+  },
+  {
+    path: '/cesta-pitanja',
+    name: 'Faq',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/help/HelpFaq.vue'),
+  },
+  {
+    path: '/uputstvo',
+    name: 'Manual',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "uputstvo" */ '../views/help/HelpManual.vue'),
+  },
+  {
+    path: '/kontakt',
+    name: 'Contact',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "kontakt" */ '../views/help/HelpContact.vue'),
   },
   {
     path: '/404',

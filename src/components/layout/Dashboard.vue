@@ -29,26 +29,28 @@ export default defineComponent({
     return {
       tree: {
         nodes: [
-          { name: 'Naslovnica', slug: '/', target: 'bs-target-id-naslovnica' },
-          { name: 'Kalendar', slug: '/kalendar', target: 'bs-target-id-kalendar' },
-          { name: 'Usluge', slug: '/usluge', target: 'bs-target-id-usluge' },
-          { name: 'Radnici', slug: '/radnici', target: 'bs-target-id-radnici' },
+          { name: 'Naslovnica', templateName: 'Home', slug: '/' },
+          { name: 'Kalendar', templateName: 'Calendar', slug: '/kalendar' },
+          { name: 'Usluge', templateName: 'Services', slug: '/usluge' },
+          { name: 'Radnici', templateName: 'Staff', slug: '/radnici' },
           {
             name: 'Postavke',
+            templateName: 'Settings',
             slug: '/postavke',
-            target: 'bs-target-id-postavke',
+            target: 'settings',
             nodes: [
               { name: 'Račun', slug: '/postavke/racun' },
             ],
           },
           {
             name: 'Pomoć',
+            templateName: 'Help',
             slug: '/pomoc',
-            target: 'bs-target-id-pomoc',
+            target: 'help',
             nodes: [
-              { name: 'Česta Pitanja', slug: '/pomoc/cesta-pitanja' },
-              { name: 'Uputstvo', slug: '/pomoc/uputstvo' },
-              { name: 'Kontakt', slug: '/pomoc/kontakt' },
+              { name: 'Česta Pitanja', templateName: 'HelpFaq', slug: '/pomoc/cesta-pitanja' },
+              { name: 'Uputstvo', templateName: 'HelpManual', slug: '/pomoc/uputstvo' },
+              { name: 'Kontakt', templateName: 'HelpContact', slug: '/pomoc/kontakt' },
             ],
           },
         ],

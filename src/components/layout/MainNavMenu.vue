@@ -43,23 +43,25 @@
       <li
         v-for="node in nodes"
         :key="node.name"
-        class="sidebar-item active"
+        class="sidebar-item"
+        :class="{ active : node.templateName === $route.name }"
+        :style="{position: 'relative'}"
       >
         <router-link
           :to="node.slug"
-          :data-bs-target="'#' + node.target"
-          :data-bs-toggle="{collapsed : node.nodes, collapse : !node.nodes}"
           class="sidebar-link"
         >
-          <i
-            class="align-middle"
-            data-feather="sliders"
-          /> <span class="align-middle">{{ node.name }}</span>
-          <span
-            class="badge badge-sidebar-primary"
-            style="display: none;"
-          >5</span>
+          {{ node.name }}
         </router-link>
+
+        <button
+          v-if="node.nodes !== undefined"
+          :data-bs-target="'#bs-target-id-' + node.target"
+          :data-bs-toggle="node.nodes === undefined ? 'collapsed' : 'collapse'"
+          class="btn sidebar-link collapsed"
+          aria-expanded="false"
+          :style="{position: 'absolute', top: 0, right: 0, height: '41px', 'z-index': 1}"
+        />
 
         <MainNavSubmenu
           v-if="node.nodes"

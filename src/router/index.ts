@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Dashboard from '../views/Dashboard.vue';
+import Home from '../views/Home.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Dashboard',
-    component: Dashboard,
+    name: 'Home',
+    component: Home,
   },
   {
     path: '/prijava',
@@ -41,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/postavke',
     name: 'Settings',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "postavke" */ '../views/Dashboard.vue'),
+    component: () => import(/* webpackChunkName: "postavke" */ '../views/settings/Settings.vue'),
     children: [
       {
         path: 'racun',

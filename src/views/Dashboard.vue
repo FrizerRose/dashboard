@@ -6,7 +6,10 @@
     <div class="main">
       <TopNavbar />
 
-      <slot />
+      <div
+        v-if="!routeName !== 'Login'"
+        class="header"
+      />
 
       <Footer />
     </div>
@@ -14,10 +17,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import MainNavMenu from '@/components/layout/MainNavMenu.vue';
-import TopNavbar from '@/components/layout/TopNavbar.vue';
-import Footer from '@/components/layout/Footer.vue';
+import { computed, defineComponent } from 'vue';
+import { useRoute } from 'vue-router';
+import MainNavMenu from '../components/layout/MainNavMenu.vue';
+import TopNavbar from '../components/layout/TopNavbar.vue';
+import Footer from '../components/layout/Footer.vue';
 
 export default defineComponent({
   components: {
@@ -26,7 +30,11 @@ export default defineComponent({
     Footer,
   },
   setup() {
+    const route = useRoute();
+    const routeName = computed(() => route.name);
+
     return {
+      routeName,
       tree: {
         nodes: [
           { name: 'Naslovnica', slug: '/' },

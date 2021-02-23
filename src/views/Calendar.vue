@@ -1,5 +1,6 @@
 <template>
-  <!--
+  <Dashboard>
+    <!--
     # Calendar
     - 7 dana prikazano - back & foreward buttoni
     - odabir Radnika, nema combined prikaza
@@ -10,15 +11,18 @@
     - Klik na prazan slot otvara modal sa Kreiranjem termina, klik na zauzet slot otvara modal sa Editiranjem termina. Kopirati setmore.
     - Quick actions button - linkovi na dodavanje servica/ranika, etc.
   -->
-  <main class="content">
-    <div class="container-fluid p-0">
-      <router-view />
-    </div>
-  </main>
+    <main class="content">
+      <div class="container-fluid p-0">
+        <router-view />
+        kalendar
+      </div>
+    </main>
+  </Dashboard>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Dashboard from '@/components/layout/Dashboard.vue';
 // import { Calendar } from '@fullcalendar/core';
 // import dayGridPlugin from '@fullcalendar/daygrid';
 // import timeGridPlugin from '@fullcalendar/timegrid';
@@ -27,6 +31,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   components: {
     // Calendar,
+    Dashboard,
   },
 
   setup() {

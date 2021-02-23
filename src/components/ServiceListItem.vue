@@ -2,7 +2,7 @@
   <tr>
     <td>
       <img
-        src="img/avatars/avatar.jpg"
+        src="/appstack/img/avatars/avatar.jpg"
         width="32"
         height="32"
         class="rounded-circle my-n1"

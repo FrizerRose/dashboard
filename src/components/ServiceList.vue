@@ -33,7 +33,7 @@
             </div>
           </div>
           <h5 class="card-title mb-0">
-            Clients
+            Popis svih usluga
           </h5>
         </div>
         <div class="card-body">

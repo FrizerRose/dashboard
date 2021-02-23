@@ -1,13 +1,13 @@
 <template>
   <ul
-    v-if="nodes"
+    v-if="node.nodes"
     v-show="!isShowing"
-    id="dashboards"
+    :id="node.target"
     class="sidebar-dropdown list-unstyled collapse show"
     data-bs-parent="#sidebar"
   >
     <li
-      v-for="node in nodes"
+      v-for="node in node.nodes"
       :key="node.id"
       class="sidebar-item active"
     >
@@ -25,14 +25,14 @@ import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
-    nodes: {
+    node: {
       type: Array,
       required: true,
     },
   },
 
   setup(props) {
-    const menuNodes = computed(() => props.nodes);
+    const menuNodes = computed(() => props.node);
 
     return {
       menuNodes,

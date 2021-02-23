@@ -29,13 +29,14 @@ export default defineComponent({
     return {
       tree: {
         nodes: [
-          { name: 'Naslovnica', slug: '/' },
-          { name: 'Kalendar', slug: '/kalendar' },
-          { name: 'Usluge', slug: '/usluge' },
-          { name: 'Radnici', slug: '/radnici' },
+          { name: 'Naslovnica', slug: '/', target: 'bs-target-id-naslovnica' },
+          { name: 'Kalendar', slug: '/kalendar', target: 'bs-target-id-kalendar' },
+          { name: 'Usluge', slug: '/usluge', target: 'bs-target-id-usluge' },
+          { name: 'Radnici', slug: '/radnici', target: 'bs-target-id-radnici' },
           {
             name: 'Postavke',
             slug: '/postavke',
+            target: 'bs-target-id-postavke',
             nodes: [
               { name: 'Račun', slug: '/postavke/racun' },
             ],
@@ -43,6 +44,7 @@ export default defineComponent({
           {
             name: 'Pomoć',
             slug: '/pomoc',
+            target: 'bs-target-id-pomoc',
             nodes: [
               { name: 'Česta Pitanja', slug: '/pomoc/cesta-pitanja' },
               { name: 'Uputstvo', slug: '/pomoc/uputstvo' },

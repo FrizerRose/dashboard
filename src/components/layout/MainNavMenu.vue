@@ -47,8 +47,8 @@
       >
         <router-link
           :to="node.slug"
-          data-bs-target="#dashboards"
-          data-bs-toggle="collapse"
+          :data-bs-target="'#' + node.target"
+          :data-bs-toggle="{collapsed : node.nodes, collapse : !node.nodes}"
           class="sidebar-link"
         >
           <i
@@ -63,7 +63,7 @@
 
         <MainNavSubmenu
           v-if="node.nodes"
-          :nodes="node.nodes"
+          :node="node"
         />
       </li>
     </ul>
@@ -83,6 +83,13 @@ export default defineComponent({
       type: Array,
       required: true,
     },
+  },
+  setup(props) {
+    props.nodes.forEach((node) => {
+      if (node.nodes !== undefined) {
+        console.log(node.nodes);
+      }
+    });
   },
 });
 </script>

@@ -1,6 +1,9 @@
 <template>
   <div class="main d-flex justify-content-center w-100">
-    <main class="content d-flex p-0">
+    <main
+      class="content d-flex p-0"
+      style="width: 100%;"
+    >
       <div class="container d-flex flex-column">
         <div class="row h-100">
           <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">

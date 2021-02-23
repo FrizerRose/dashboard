@@ -12,19 +12,24 @@
       <ServiceList />
     </div>
   </main>
+  <router-view />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useRoute } from 'vue-router';
 import ServiceList from '../components/ServiceList.vue';
 
 export default defineComponent({
   components: {
     ServiceList,
   },
-
   setup() {
+    const route = useRoute();
+    const routeName = computed(() => route.name);
+
     return {
+      routeName,
       ServiceList,
     };
   },

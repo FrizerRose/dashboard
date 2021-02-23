@@ -1,23 +1,23 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue';
+import Dashboard from '../views/Dashboard.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Dashboard',
+    component: Dashboard,
   },
   {
-    path: '/login',
+    path: '/prijava',
     name: 'Login',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "kalendar" */ '../views/Login.vue'),
+    component: () => import(/* webpackChunkName: "prijava" */ '../views/Login.vue'),
   },
   {
     path: '/zaboravljena-lozinka',
     name: 'Forgotten Password',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "kalendar" */ '../views/ForgottenPassword.vue'),
+    component: () => import(/* webpackChunkName: "zaboravljana-lozinka" */ '../views/ForgottenPassword.vue'),
   },
   {
     path: '/kalendar',
@@ -41,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/postavke',
     name: 'Settings',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "postavke" */ '../views/settings/Settings.vue'),
+    component: () => import(/* webpackChunkName: "postavke" */ '../views/Dashboard.vue'),
     children: [
       {
         path: 'racun',

@@ -154,7 +154,6 @@
               <div class="card">
                 <div class="card-body">
                   <label
-                    for="id-file"
                     class="form-label w-100"
                   >
                     <strong>Logotip</strong>
@@ -163,10 +162,18 @@
                   </label>
                   <input
                     id="id-file"
+                    class="override-input-file"
                     type="file"
                     name="id-file"
                     accept="image/svg, image/png, image/jpeg"
+                    @change="setInputFileText"
                   >
+                  <label
+                    for="id-file"
+                    class="btn btn-primary"
+                  >
+                    {{ inputFileText }}
+                  </label>
                 </div>
               </div>
               <div class="card">
@@ -1152,7 +1159,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import Dashboard from '@/components/layout/Dashboard.vue';
 
 export default defineComponent({
@@ -1161,7 +1168,15 @@ export default defineComponent({
   },
 
   setup() {
+    const inputFileText = ref('Choose a file...');
+
+    function setInputFileText(event: any) {
+      inputFileText.value = event.target.files[0].name;
+    }
+
     return {
+      inputFileText,
+      setInputFileText,
     };
   },
 });

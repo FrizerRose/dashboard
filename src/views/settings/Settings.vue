@@ -190,7 +190,7 @@
           <div class="row">
             <div class="col-12 col-lg-6">
               <h1 class="h3 mb-3">
-                Kontakt podatci
+                Adresa
               </h1>
               <div class="card">
                 <div class="card-body">
@@ -228,6 +228,11 @@
                   >
                 </div>
               </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <h1 class="h3 mb-3">
+                Kontakt podatci
+              </h1>
               <div class="card">
                 <div class="card-body">
                   <label
@@ -246,8 +251,120 @@
                   >
                 </div>
               </div>
+              <div class="card">
+                <div class="card-body">
+                  <label
+                    class="form-label"
+                    for="id-email"
+                  >
+                    <strong>E-mail adresa</strong>
+                    <br>
+                    Ovdje možete promijeniti e-mail adresu koji će biti prikazana na stranici
+                  </label>
+                  <input
+                    id="id-email"
+                    type="email"
+                    class="form-control"
+                    placeholder="adresa@firma.hr"
+                  >
+                </div>
+              </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <h1 class="h3 mb-3">
+                Web stranica
+              </h1>
+              <div class="card">
+                <div class="card-body">
+                  <label
+                    class="form-label"
+                    for="id-website-url"
+                  >
+                    <strong>Web stranica URL</strong>
+                    <br>
+                    Ako imate, ovdje zalijepite URL od vaše web stranice
+                  </label>
+                  <input
+                    id="id-website-url"
+                    type="text"
+                    class="form-control"
+                    placeholder="https://www.ime-firme.hr"
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <h1 class="h3 mb-3">
+                Društvene mreže
+              </h1>
+              <div class="card">
+                <div class="card-body">
+                  <label
+                    class="form-label"
+                    for="id-facebook-page-url"
+                  >
+                    <strong>Facebook URL</strong>
+                    <br>
+                    Ako imate, ovdje zalijepite URL od vaše Facebook stranice
+                  </label>
+                  <input
+                    id="id-facebook-page-url"
+                    type="text"
+                    class="form-control"
+                    placeholder="https://www.facebook.com/ime-firme"
+                  >
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <label
+                    class="form-label"
+                    for="id-instagram-page-url"
+                  >
+                    <strong>Instagram URL</strong>
+                    <br>
+                    Ako imate, ovdje zalijepite URL od vašeg Instagram profila vaše firme
+                  </label>
+                  <input
+                    id="id-instagram-page-url"
+                    type="text"
+                    class="form-control"
+                    placeholder="https://www.instagram.com/ime-firme"
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-lg-12">
+              <h1 class="h3 mb-3">
+                Pravila korištenja
+              </h1>
+              <div class="card">
+                <div class="card-body">
+                  <label
+                    class="form-label"
+                    for="id-terms-and-conditions-page-url"
+                  >
+                    <strong>Pravila korištenja URL</strong>
+                    <br>
+                    Ovdje zalijepite URL od stranice na kojoj pišu pravila korištenja. Ovo polje je obavezno
+                  </label>
+                  <input
+                    id="id-terms-and-conditions-page-url"
+                    type="text"
+                    class="form-control"
+                    placeholder="https://www.ime-firem.hr/pravila-koristenja"
+                    required
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
 
           <div class="row">
             <div class="col-12 col-lg-6">
@@ -262,7 +379,8 @@
                   >
                     <strong>Početak radnog vremena</strong>
                     <br>
-                    Odaberite u koliko sati želite početi primati naručene klijente</label>
+                    Odaberite u koliko sati želite početi primati naručene klijente
+                  </label>
                   <select
                     id="id-working-hour-from"
                     class="form-control mb-3"
@@ -354,7 +472,8 @@
                   >
                     <strong>Kraj radnog vremena</strong>
                     <br>
-                    Odaberite u koliko sati želite prestati primati naručene klijente</label>
+                    Odaberite u koliko sati želite prestati primati naručene klijente
+                  </label>
                   <select
                     id="id-working-hour-to"
                     class="form-control mb-3"
@@ -443,7 +562,6 @@
               </div>
             </div>
           </div>
-
           <div class="row">
             <div class="col-12 col-lg-6">
               <h1 class="h3 mb-3">
@@ -459,7 +577,8 @@
                       >
                         <strong>Početak radnog vremena</strong>
                         <br>
-                        Odaberite u koliko sati želite početi primati naručene klijente</label>
+                        Odaberite u koliko sati želite početi primati naručene klijente
+                      </label>
                     </div>
                     <div class="col-12 col-lg-3">
                       <select
@@ -557,7 +676,8 @@
                       >
                         <strong>Kraj radnog vremena</strong>
                         <br>
-                        Odaberite u koliko sati želite prestati primati naručene klijente</label>
+                        Odaberite u koliko sati želite prestati primati naručene klijente
+                      </label>
                     </div>
                     <div class="col-12 col-lg-3">
                       <select
@@ -650,7 +770,6 @@
               </div>
             </div>
           </div>
-
           <div class="row">
             <div class="col-12 col-lg-6">
               <h1 class="h3 mb-3">
@@ -665,88 +784,88 @@
                         for="id-working-hour-from"
                       >
                         <strong>Od</strong>
-                        <select
-                          id="id-working-hour-from"
-                          class="form-control mb-3"
-                          name="id-working-hour-from"
-                        >
-                          <option value="0">
-                            0
-                          </option>
-                          <option value="1">
-                            1
-                          </option>
-                          <option value="2">
-                            2
-                          </option>
-                          <option value="3">
-                            3
-                          </option>
-                          <option value="4">
-                            4
-                          </option>
-                          <option value="5">
-                            5
-                          </option>
-                          <option value="6">
-                            6
-                          </option>
-                          <option value="7">
-                            7
-                          </option>
-                          <option
-                            value="8"
-                            selected
-                          >
-                            8
-                          </option>
-                          <option value="9">
-                            9
-                          </option>
-                          <option value="10">
-                            10
-                          </option>
-                          <option value="11">
-                            11
-                          </option>
-                          <option value="12">
-                            12
-                          </option>
-                          <option value="13">
-                            13
-                          </option>
-                          <option value="14">
-                            14
-                          </option>
-                          <option value="15">
-                            15
-                          </option>
-                          <option value="16">
-                            16
-                          </option>
-                          <option value="17">
-                            17
-                          </option>
-                          <option value="18">
-                            18
-                          </option>
-                          <option value="19">
-                            19
-                          </option>
-                          <option value="20">
-                            20
-                          </option>
-                          <option value="21">
-                            21
-                          </option>
-                          <option value="22">
-                            22
-                          </option>
-                          <option value="23">
-                            23
-                          </option>
-                        </select>
                       </label>
+                      <select
+                        id="id-working-hour-from"
+                        class="form-control mb-3"
+                        name="id-working-hour-from"
+                      >
+                        <option value="0">
+                          0
+                        </option>
+                        <option value="1">
+                          1
+                        </option>
+                        <option value="2">
+                          2
+                        </option>
+                        <option value="3">
+                          3
+                        </option>
+                        <option value="4">
+                          4
+                        </option>
+                        <option value="5">
+                          5
+                        </option>
+                        <option value="6">
+                          6
+                        </option>
+                        <option value="7">
+                          7
+                        </option>
+                        <option
+                          value="8"
+                          selected
+                        >
+                          8
+                        </option>
+                        <option value="9">
+                          9
+                        </option>
+                        <option value="10">
+                          10
+                        </option>
+                        <option value="11">
+                          11
+                        </option>
+                        <option value="12">
+                          12
+                        </option>
+                        <option value="13">
+                          13
+                        </option>
+                        <option value="14">
+                          14
+                        </option>
+                        <option value="15">
+                          15
+                        </option>
+                        <option value="16">
+                          16
+                        </option>
+                        <option value="17">
+                          17
+                        </option>
+                        <option value="18">
+                          18
+                        </option>
+                        <option value="19">
+                          19
+                        </option>
+                        <option value="20">
+                          20
+                        </option>
+                        <option value="21">
+                          21
+                        </option>
+                        <option value="22">
+                          22
+                        </option>
+                        <option value="23">
+                          23
+                        </option>
+                      </select>
                     </div>
                     <div class="col-6">
                       <label
@@ -754,91 +873,91 @@
                         for="id-working-hour-to"
                       >
                         <strong>Do</strong>
-                        <select
-                          id="id-working-hour-to"
-                          class="form-control mb-3"
-                          name="id-working-hour-to"
-                        >
-                          <option value="0">
-                            0
-                          </option>
-                          <option value="1">
-                            1
-                          </option>
-                          <option value="2">
-                            2
-                          </option>
-                          <option value="3">
-                            3
-                          </option>
-                          <option value="4">
-                            4
-                          </option>
-                          <option value="5">
-                            5
-                          </option>
-                          <option value="6">
-                            6
-                          </option>
-                          <option value="7">
-                            7
-                          </option>
-                          <option value="8">
-                            8
-                          </option>
-                          <option value="9">
-                            9
-                          </option>
-                          <option value="10">
-                            10
-                          </option>
-                          <option value="11">
-                            11
-                          </option>
-                          <option value="12">
-                            12
-                          </option>
-                          <option value="13">
-                            13
-                          </option>
-                          <option value="14">
-                            14
-                          </option>
-                          <option value="15">
-                            15
-                          </option>
-                          <option
-                            value="16"
-                            selected
-                          >
-                            16
-                          </option>
-                          <option value="17">
-                            17
-                          </option>
-                          <option value="18">
-                            18
-                          </option>
-                          <option value="19">
-                            19
-                          </option>
-                          <option value="20">
-                            20
-                          </option>
-                          <option value="21">
-                            21
-                          </option>
-                          <option value="22">
-                            22
-                          </option>
-                          <option value="23">
-                            23
-                          </option>
-                          <option value="24">
-                            24
-                          </option>
-                        </select>
                       </label>
+                      <select
+                        id="id-working-hour-to"
+                        class="form-control mb-3"
+                        name="id-working-hour-to"
+                      >
+                        <option value="0">
+                          0
+                        </option>
+                        <option value="1">
+                          1
+                        </option>
+                        <option value="2">
+                          2
+                        </option>
+                        <option value="3">
+                          3
+                        </option>
+                        <option value="4">
+                          4
+                        </option>
+                        <option value="5">
+                          5
+                        </option>
+                        <option value="6">
+                          6
+                        </option>
+                        <option value="7">
+                          7
+                        </option>
+                        <option value="8">
+                          8
+                        </option>
+                        <option value="9">
+                          9
+                        </option>
+                        <option value="10">
+                          10
+                        </option>
+                        <option value="11">
+                          11
+                        </option>
+                        <option value="12">
+                          12
+                        </option>
+                        <option value="13">
+                          13
+                        </option>
+                        <option value="14">
+                          14
+                        </option>
+                        <option value="15">
+                          15
+                        </option>
+                        <option
+                          value="16"
+                          selected
+                        >
+                          16
+                        </option>
+                        <option value="17">
+                          17
+                        </option>
+                        <option value="18">
+                          18
+                        </option>
+                        <option value="19">
+                          19
+                        </option>
+                        <option value="20">
+                          20
+                        </option>
+                        <option value="21">
+                          21
+                        </option>
+                        <option value="22">
+                          22
+                        </option>
+                        <option value="23">
+                          23
+                        </option>
+                        <option value="24">
+                          24
+                        </option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -846,118 +965,186 @@
             </div>
           </div>
 
-          <li>
-            <div class="c-form_item">
-              <label
-                class="c-form_label"
-                for="id-contact-email"
-              >Contact e-mail</label>
-              <input
-                id="id-contact-email"
-                class="c-form_input"
-                type="text"
-              >
+          <hr>
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <h1 class="h3 mb-3">
+                Lozinka
+              </h1>
+              <div class="card">
+                <div class="card-body">
+                  <label
+                    for="id-change-password-old"
+                    class="form-label w-100"
+                  >
+                    <strong>Stara lozinka</strong>
+                    <br>
+                    Upišite trenutnu lozinku
+                  </label>
+                  <input
+                    id="id-change-password-old"
+                    class="form-control"
+                    type="password"
+                  >
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <label
+                    for="id-change-password-new-1"
+                    class="form-label w-100"
+                  >
+                    <strong>Nova lozinka</strong>
+                    <br>
+                    Upišite novu lozinku
+                  </label>
+                  <input
+                    id="id-change-password-new-1"
+                    class="form-control"
+                    type="password"
+                  >
+                  <label
+                    for="id-change-password-new-2"
+                    class="form-label w-100"
+                  >
+                    <!-- <strong>Nova lozinka</strong> -->
+                    <br>
+                    Ponovno upišite novu lozinku
+                  </label>
+                  <input
+                    id="id-change-password-new-2"
+                    class="form-control"
+                    type="password"
+                  >
+                </div>
+              </div>
             </div>
-
-            <ul>
-              <li>
-                <div class="c-form_item">
+          </div>
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <h1 class="h3 mb-3">
+                Ostalo
+              </h1>
+              <div class="card">
+                <div class="card-body">
+                  <label class="form-check m-0">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      checked
+                    >
+                    <span class="form-check-label">Korisnici mogu birati radnika</span>
+                  </label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
                   <label
-                    class="c-form_label"
-                    for="id-facebook-page-url"
-                  >Facebook URL
-                    <span class="o-tooltip">Ako imate, ovdje zalijepite URL od vaše Facebook stranice</span>
+                    for="id-subdomain"
+                    class="form-label w-100"
+                  >
+                    <strong>Mjenjanje subdomene - nakon sto API call prodje,</strong>
+                    <br>
+                    ispisemo im da ce uskoro bit redirektani i redirektamo - input field
                   </label>
                   <input
-                    id="id-facebook-page-url"
-                    class="c-form_input"
+                    id="id-subdomain"
+                    class="form-control"
                     type="text"
-                    placeholder="https://www.facebook.com/example"
+                    placeholder="placeholder text"
                   >
                 </div>
-              </li>
-              <li>
-                <div class="c-form_item">
-                  <label
-                    class="c-form_label"
-                    for="id-instagram-page-url"
-                  >Instagram URL
-                    <span class="o-tooltip">Ako imate, ovdje zalijepite URL od vaše Instagram stranice</span>
-                  </label>
-                  <input
-                    id="id-instagram-page-url"
-                    class="c-form_input"
-                    type="text"
-                    placeholder="https://www.instagram.com/example"
-                  >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <h1 class="h3 mb-3">
+                Boje i tema
+              </h1>
+              <div class="card">
+                <div class="card-body">
+                  <fieldset class="mb-3">
+                    <label class="form-label w-100">
+                      <strong>Odabir pozadinskog osvjetljenja</strong>
+                      <br>
+                      Odaberite pozadinsko osjetljenje
+                    </label>
+                    <label class="form-check">
+                      <input
+                        name="radio-color-mode"
+                        type="radio"
+                        class="form-check-input"
+                        checked
+                      >
+                      <span class="form-check-label">Light mode (zadano)</span>
+                    </label>
+                    <label class="form-check">
+                      <input
+                        name="radio-color-mode"
+                        type="radio"
+                        class="form-check-input"
+                      >
+                      <span class="form-check-label">Dark mode</span>
+                    </label>
+                    <label class="form-check">
+                      <input
+                        name="radio-color-mode"
+                        type="radio"
+                        class="form-check-input"
+                        disabled
+                      >
+                      <span class="form-check-label">High contrast</span>
+                    </label>
+                  </fieldset>
                 </div>
-              </li>
-              <li>
-                <div class="c-form_item">
-                  <label
-                    class="c-form_label"
-                    for="id-twitter-page-url"
-                  >Twitter URL
-                    <span class="o-tooltip">Ako imate, ovdje zalijepite URL od vaše Twitter stranice</span>
-                  </label>
-                  <input
-                    id="id-twitter-page-url"
-                    class="c-form_input"
-                    type="text"
-                    placeholder="https://www.twitter.com/example"
-                  >
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <fieldset class="mb-3">
+                    <label class="form-label w-100">
+                      <strong>Odabir boje elemenata</strong>
+                      <br>
+                      Odaberite akcentnu boju za neke od elemenata na stanici
+                    </label>
+                    <label class="form-check">
+                      <input
+                        name="radio-main-color"
+                        type="radio"
+                        class="form-check-input"
+                        checked
+                      >
+                      <span class="form-check-label">Crno-bijelo (zadano)</span>
+                    </label>
+                    <label class="form-check">
+                      <input
+                        name="radio-main-color"
+                        type="radio"
+                        class="form-check-input"
+                      >
+                      <span class="form-check-label">Orchid</span>
+                    </label>
+                    <label class="form-check">
+                      <input
+                        name="radio-main-color"
+                        type="radio"
+                        class="form-check-input"
+                      >
+                      <span class="form-check-label">Coral</span>
+                    </label>
+                    <label class="form-check">
+                      <input
+                        name="radio-main-color"
+                        type="radio"
+                        class="form-check-input"
+                      >
+                      <span class="form-check-label">Goldenrod</span>
+                    </label>
+                  </fieldset>
                 </div>
-              </li>
-            </ul>
-
-            <ul>
-              <li>
-                <div class="c-form_item">
-                  <label
-                    class="c-form_label"
-                    for="id-website-page-url"
-                  >Web stranica URL
-                    <span class="o-tooltip">Ako imate, ovdje zalijepite URL od vaše web stranice</span>
-                  </label>
-                  <input
-                    id="id-website-page-url"
-                    class="c-form_input"
-                    type="text"
-                    placeholder="https://www.example.com"
-                  >
-                </div>
-              </li>
-              <li>
-                <div class="c-form_item">
-                  <label
-                    class="c-form_label"
-                    for="id-terms-and-conditions-page-url"
-                  >Pravila korištenja URL
-                    <span class="o-tooltip">Ovdje zalijepite URL od
-                      stranice na kojoj pišu pravila korištenja. Ovo
-                      polje je obavezno.</span>
-                  </label>
-                  <input
-                    id="id-terms-and-conditions-page-url"
-                    class="c-form_input"
-                    type="text"
-                    placeholder="https://www.example.com"
-                    required
-                  >
-                </div>
-              </li>
-            </ul>
-
-            <ul>
-              <li>Da li end-user ima opciju biranja radnika? - checkbox true false</li>
-              <li>
-                Mjenjanje subdomene - nakon sto API call prodje,
-                ispisemo im da ce uskoro bit redirektani i redirektamo - input field
-              </li>
-              <li>Color variant - radio buttons</li>
-              <li>change password</li>
-            </ul>
-          </li>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>

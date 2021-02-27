@@ -18,9 +18,5 @@ export default defineComponent({
     Dashboard,
   },
 
-  setup() {
-    return {
-    };
-  },
 });
 </script>

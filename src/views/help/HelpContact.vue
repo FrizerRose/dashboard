@@ -17,10 +17,5 @@ export default defineComponent({
   components: {
     Dashboard,
   },
-
-  setup() {
-    return {
-    };
-  },
 });
 </script>

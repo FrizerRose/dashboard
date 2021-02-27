@@ -34,7 +34,6 @@ export default defineComponent({
 
     return {
       routeName,
-      StaffList,
     };
   },
 });

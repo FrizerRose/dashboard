@@ -2,7 +2,7 @@
   <Dashboard>
     <main class="content">
       <div class="container-fluid p-0">
-        <!-- <DashboardHeaderControls />
+        <DashboardHeaderControls />
         <div class="row">
           <div class="col-12 col-sm-6 col-xxl d-flex">
             <WelcomeBack />
@@ -39,7 +39,7 @@
           </div>
         </div>
 
-        <UpcomingAppointments /> -->
+        <UpcomingAppointments />
       </div>
     </main>
   </Dashboard>
@@ -49,32 +49,32 @@
 import { computed, defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import Dashboard from '@/components/layout/Dashboard.vue';
-// import DashboardHeaderControls from '../components/DashboardHeaderControls.vue';
-// import WelcomeBack from '../components/WelcomeBack.vue';
-// import TotalSales from '../components/TotalSales.vue';
-// import PendingOrders from '../components/PendingOrders.vue';
-// import TotalRevenue from '../components/TotalRevenue.vue';
-// import Sales from '../components/Sales.vue';
-// import DailyFeed from '../components/DailyFeed.vue';
-// import Calendar from '../components/Calendar.vue';
-// import WeeklySales from '../components/WeeklySales.vue';
-// import Appointments from '../components/Appointments.vue';
-// import UpcomingAppointments from '../components/UpcomingAppointments.vue';
+import DashboardHeaderControls from '../components/DashboardHeaderControls.vue';
+import WelcomeBack from '../components/WelcomeBack.vue';
+import TotalSales from '../components/TotalSales.vue';
+import PendingOrders from '../components/PendingOrders.vue';
+import TotalRevenue from '../components/TotalRevenue.vue';
+import Sales from '../components/Sales.vue';
+import DailyFeed from '../components/DailyFeed.vue';
+import Calendar from '../components/Calendar.vue';
+import WeeklySales from '../components/WeeklySales.vue';
+import Appointments from '../components/Appointments.vue';
+import UpcomingAppointments from '../components/UpcomingAppointments.vue';
 
 export default defineComponent({
   components: {
     Dashboard,
-    // DashboardHeaderControls,
-    // WelcomeBack,
-    // TotalSales,
-    // PendingOrders,
-    // TotalRevenue,
-    // Sales,
-    // DailyFeed,
-    // Calendar,
-    // WeeklySales,
-    // Appointments,
-    // UpcomingAppointments,
+    DashboardHeaderControls,
+    WelcomeBack,
+    TotalSales,
+    PendingOrders,
+    TotalRevenue,
+    Sales,
+    DailyFeed,
+    Calendar,
+    WeeklySales,
+    Appointments,
+    UpcomingAppointments,
   },
   setup() {
     const route = useRoute();

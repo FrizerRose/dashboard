@@ -84,11 +84,5 @@ export default defineComponent({
   components: {
     ServiceListItem,
   },
-
-  setup() {
-    return {
-      ServiceListItem,
-    };
-  },
 });
 </script>

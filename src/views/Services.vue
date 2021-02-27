@@ -33,7 +33,6 @@ export default defineComponent({
 
     return {
       routeName,
-      ServiceList,
     };
   },
 });

@@ -79,6 +79,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
 
+    const resetDone = ref(false);
     const hasError = ref(false);
 
     function goToLogin() {
@@ -87,6 +88,8 @@ export default defineComponent({
 
     return {
       goToLogin,
+      resetDone,
+      hasError,
     };
   },
 });

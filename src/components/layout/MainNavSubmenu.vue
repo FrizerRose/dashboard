@@ -1,22 +1,21 @@
 <template>
   <ul
     v-if="node.nodes"
-    v-show="!isShowing"
     :id="'bs-target-id-' + node.target"
     class="sidebar-dropdown list-unstyled collapse"
     data-bs-parent="#sidebar"
   >
     <li
-      v-for="node in node.nodes"
-      :key="node.id"
+      v-for="subNode in node.nodes"
+      :key="subNode.id"
       class="sidebar-item"
-      :class="{ active : node.templateName === $route.name }"
+      :class="{ active : subNode.templateName === $route.name }"
     >
       <router-link
-        :to="node.slug"
+        :to="subNode.slug"
         class="sidebar-link"
       >
-        {{ node.name }}
+        {{ subNode.name }}
       </router-link>
     </li>
   </ul>
@@ -27,7 +26,7 @@ import { computed, defineComponent } from 'vue';
 export default defineComponent({
   props: {
     node: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },

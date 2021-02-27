@@ -1170,7 +1170,7 @@ export default defineComponent({
   setup() {
     const inputFileText = ref('Choose a file...');
 
-    function setInputFileText(event: any) {
+    function setInputFileText(event: { target: { files: { name: string }[] } }) {
       inputFileText.value = event.target.files[0].name;
     }
 

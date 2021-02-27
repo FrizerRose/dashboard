@@ -7,7 +7,7 @@
       <TopNavbar />
 
       <div
-        v-if="!routeName !== 'Login'"
+        v-if="routeName !== 'Login'"
         class="header"
       />
 

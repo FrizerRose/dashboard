@@ -3,7 +3,6 @@
     <main class="content">
       <div class="container-fluid p-0">
         pomoć
-        <router-view />
       </div>
     </main>
   </Dashboard>

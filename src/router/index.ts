@@ -102,7 +102,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/zaboravljena-lozinka'];
+  const publicPages = ['/prijava', '/zaboravljena-lozinka', '/404'];
   const authRequired = !publicPages.includes(to.path);
   const hasToken = localStorage.getItem('accessToken');
   const expiration = localStorage.getItem('expiration');
@@ -110,8 +110,8 @@ router.beforeEach((to, from, next) => {
 
   // Trying to access a restricted page + not logged in
   // Redirect to login page
-  if (authRequired && !hasToken && isTokenExpired) {
-    next('/login');
+  if (authRequired && (!hasToken || isTokenExpired)) {
+    next('/prijava');
   } else {
     next();
   }

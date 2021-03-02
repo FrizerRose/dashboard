@@ -2,7 +2,7 @@
   <Dashboard>
     <main class="content">
       <div class="container-fluid p-0">
-        <router-view />
+        />
         <a
           href="#"
           class="btn btn-primary float-end mt-n1"

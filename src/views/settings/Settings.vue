@@ -2,8 +2,6 @@
   <Dashboard>
     <main class="content">
       <div class="container-fluid p-0">
-        <router-view />
-
         <div class="container-fluid">
           <div class="row">
             <div class="col-12 col-lg-6">

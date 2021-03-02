@@ -1,26 +1,9 @@
 <template>
-  <div
-    v-if="routeName !== 'Login'"
-    class="header"
-  >
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
+import { defineComponent } from 'vue';
 
-export default defineComponent({
-  components: {
-  },
-  setup() {
-    const route = useRoute();
-    const routeName = computed(() => route.name);
-
-    return {
-      routeName,
-    };
-  },
-});
+export default defineComponent({});
 </script>

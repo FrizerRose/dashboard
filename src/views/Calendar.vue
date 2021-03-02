@@ -13,7 +13,6 @@
   -->
     <main class="content">
       <div class="container-fluid p-0">
-        <router-view />
         kalendar
       </div>
     </main>

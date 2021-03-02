@@ -117,7 +117,9 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, reactive, ref } from 'vue';
+import {
+  computed, defineComponent, reactive, ref,
+} from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
@@ -129,13 +131,18 @@ export default defineComponent({
 
     const credentials = reactive({ email: '', password: '' });
     const hasError = ref(false);
+    const selectedCompany = computed(() => store.state.shared.selectedCompany);
 
     async function login() {
       hasError.value = false;
 
       try {
-        await store.dispatch(ActionTypes.LOGIN, credentials);
-        router.push('/');
+        if (selectedCompany.value) {
+          await store.dispatch(ActionTypes.LOGIN, { ...credentials, company: selectedCompany.value?.id });
+          router.push('/');
+        } else {
+          throw new Error();
+        }
       } catch {
         hasError.value = true;
       }

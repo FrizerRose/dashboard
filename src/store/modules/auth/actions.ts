@@ -24,7 +24,7 @@ export interface Actions {
   ): Promise<unknown>;
   [LocalActionTypes.LOGIN](
     { commit }: AugmentedActionContext,
-    payload: {email: string; password: string}
+    payload: {email: string; password: string; company: number}
   ): Promise<unknown>;
 }
 
@@ -50,12 +50,11 @@ export const actions: ActionTree<State, RootState> & Actions = {
       return Promise.reject(new ApiError('Not logged in.'));
     }
   },
-  // TODO: make sure the user is from this company
-  async [LocalActionTypes.LOGIN]({ commit }, payload: {email: string; password: string}): Promise<unknown> {
+  async [LocalActionTypes.LOGIN]({ commit }, payload: {email: string; password: string; company: number}): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
       try {
         const response = await authService.login(payload);
-        if (response.status === 201 && response.data) {
+        if (response.status === 200 && response.data) {
           localStorage.setItem('user', JSON.stringify(response.data.user));
           localStorage.setItem('accessToken', response.data.accessToken);
           localStorage.setItem('expiration', (Date.now() + parseInt(response.data.expiresIn, 10) - 5).toString());

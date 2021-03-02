@@ -117,6 +117,10 @@ export class CompanyService {
     return this.apiService.get(this.resource, slug);
   }
 
+  getBySlug(slug: string) {
+    return this.apiService.get(this.resource, `slug/${slug}`);
+  }
+
   create(params: object) {
     return this.apiService.post(this.resource, params);
   }

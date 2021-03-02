@@ -29,7 +29,7 @@ type AugmentedServiceActionContext = {
 export interface Actions {
   [LocalActionTypes.FETCH_COMPANY](
     { commit }: AugmentedSharedActionContext & AugmentedServiceActionContext,
-    id: number
+    id: number | string
   ): void;
 }
 
@@ -38,8 +38,13 @@ const companyService = new CompanyService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
-  async [LocalActionTypes.FETCH_COMPANY]({ commit }, id: number) {
-    const response = await companyService.get(id);
+  async [LocalActionTypes.FETCH_COMPANY]({ commit }, id: number | string) {
+    let response;
+    if (typeof id === 'number') {
+      response = await companyService.get(id);
+    } else {
+      response = await companyService.getBySlug(id);
+    }
     if (response.status === 200 && response.data) {
       commit(SharedMutationTypes.CHANGE_SELECTED_COMPANY, response.data);
       commit(ServiceMutationTypes.CHANGE_SERVICES, response.data.services);

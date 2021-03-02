@@ -110,7 +110,7 @@ router.beforeEach((to, from, next) => {
 
   // Trying to access a restricted page + not logged in
   // Redirect to login page
-  if (authRequired && (!hasToken || isTokenExpired)) {
+  if (authRequired && !hasToken && isTokenExpired) {
     next('/prijava');
   } else {
     next();

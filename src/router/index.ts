@@ -41,13 +41,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/postavke',
     name: 'Settings',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "postavke" */ '../views/settings/Settings.vue'),
-  },
-  {
-    path: '/racun',
-    name: 'Account',
-    // lazy loaded route
-    component: () => import(/* webpackChunkName: "postavke-racun" */ '../views/settings/SettingsAccount.vue'),
+    component: () => import(/* webpackChunkName: "postavke" */ '../views/Settings.vue'),
   },
   {
     path: '/pomoc',

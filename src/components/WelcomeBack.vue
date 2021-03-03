@@ -5,10 +5,10 @@
         <div class="col-6">
           <div class="illustration-text p-3 m-1">
             <h4 class="illustration-text">
-              Welcome Back, Chris!
+              Welcome Back
             </h4>
             <p class="mb-0">
-              AppStack Dashboard
+              Frizerrose Dashboard
             </p>
           </div>
         </div>

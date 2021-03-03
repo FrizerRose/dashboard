@@ -33,24 +33,16 @@ export default defineComponent({
           { name: 'Kalendar', templateName: 'Calendar', slug: '/kalendar' },
           { name: 'Usluge', templateName: 'Services', slug: '/usluge' },
           { name: 'Radnici', templateName: 'Staff', slug: '/radnici' },
-          {
-            name: 'Postavke',
-            templateName: 'Settings',
-            slug: '/postavke',
-            target: 'settings',
-            nodes: [
-              { name: 'Račun', slug: '/postavke/racun' },
-            ],
-          },
+          { name: 'Postavke', templateName: 'Settings', slug: '/postavke' },
           {
             name: 'Pomoć',
             templateName: 'Help',
             slug: '/pomoc',
             target: 'help',
             nodes: [
-              { name: 'Česta Pitanja', templateName: 'HelpFaq', slug: '/pomoc/cesta-pitanja' },
-              { name: 'Uputstvo', templateName: 'HelpManual', slug: '/pomoc/uputstvo' },
-              { name: 'Kontakt', templateName: 'HelpContact', slug: '/pomoc/kontakt' },
+              { name: 'Česta Pitanja', templateName: 'HelpFaq', slug: '/cesta-pitanja' },
+              { name: 'Uputstvo', templateName: 'HelpManual', slug: '/uputstvo' },
+              { name: 'Kontakt', templateName: 'HelpContact', slug: '/kontakt' },
             ],
           },
         ],

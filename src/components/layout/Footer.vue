@@ -35,7 +35,7 @@
             &copy; 2020 - <a
               href="index.html"
               class="text-muted"
-            >AppStack</a>
+            >Frizerrose</a>
           </p>
         </div>
       </div>

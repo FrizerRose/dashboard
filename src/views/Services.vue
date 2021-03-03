@@ -2,7 +2,6 @@
   <Dashboard>
     <main class="content">
       <div class="container-fluid p-0">
-        />
         <a
           href="#"
           class="btn btn-primary float-end mt-n1"

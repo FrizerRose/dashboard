@@ -4,6 +4,7 @@ import { RootState } from '@/store';
 import { ActionContext, ActionTree } from 'vuex';
 import { CompanyService } from '@/api';
 import { ApiError } from '@/types/customError';
+import Company from '@/types/company';
 import LocalActionTypes from './action-types';
 import ServiceMutationTypes from '../service/mutation-types';
 import SharedMutationTypes from '../shared/mutation-types';
@@ -31,6 +32,10 @@ export interface Actions {
     { commit }: AugmentedSharedActionContext & AugmentedServiceActionContext,
     id: number | string
   ): void;
+  [LocalActionTypes.UPDATE_COMPANY](
+    { commit }: AugmentedSharedActionContext,
+    company: Company
+  ): Promise<unknown>;
 }
 
 // API access.
@@ -51,5 +56,16 @@ export const actions: ActionTree<State, RootState> & Actions = {
     } else {
       throw new ApiError('No company by this ID.');
     }
+  },
+  async [LocalActionTypes.UPDATE_COMPANY]({ commit }, company: Company): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await companyService.update(company);
+      if (response.status === 200 && response.data) {
+        commit(SharedMutationTypes.CHANGE_SELECTED_COMPANY, response.data);
+        resolve(true);
+      } else {
+        reject(new ApiError('Updating company failed.'));
+      }
+    })());
   },
 };

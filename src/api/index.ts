@@ -37,9 +37,9 @@ export default class ApiService {
     return this.client.post(`${resource}`, params);
   }
 
-  update(resource: string, slug: string, params: object) {
+  update(resource: string, params: object) {
     try {
-      return this.client.put(`${resource}/${slug}`, params);
+      return this.client.put(resource, params);
     } catch (error) {
       throw new ApiError(error);
     }
@@ -89,8 +89,8 @@ export class ServicesService {
     return this.apiService.post(this.resource, params);
   }
 
-  update(slug: string, params: object) {
-    return this.apiService.update(this.resource, slug, params);
+  update(params: object) {
+    return this.apiService.update(this.resource, params);
   }
 
   destroy(slug: string) {
@@ -125,8 +125,8 @@ export class CompanyService {
     return this.apiService.post(this.resource, params);
   }
 
-  update(slug: string, params: object) {
-    return this.apiService.update(this.resource, slug, params);
+  update(params: object) {
+    return this.apiService.update(this.resource, params);
   }
 
   destroy(slug: string) {
@@ -157,8 +157,8 @@ export class StaffService {
     return this.apiService.post(this.resource, params);
   }
 
-  update(slug: string, params: object) {
-    return this.apiService.update(this.resource, slug, params);
+  update(params: object) {
+    return this.apiService.update(this.resource, params);
   }
 
   destroy(slug: string) {
@@ -189,8 +189,8 @@ export class AppointmentService {
     return this.apiService.post(this.resource, params);
   }
 
-  update(slug: string, params: object) {
-    return this.apiService.update(this.resource, slug, params);
+  update(params: object) {
+    return this.apiService.update(this.resource, params);
   }
 
   destroy(slug: string) {
@@ -221,8 +221,8 @@ export class CustomerService {
     return this.apiService.post(this.resource, params);
   }
 
-  update(slug: string, params: object) {
-    return this.apiService.update(this.resource, slug, params);
+  update(params: object) {
+    return this.apiService.update(this.resource, params);
   }
 
   destroy(slug: string) {
@@ -265,8 +265,8 @@ export class AuthService {
     return this.apiService.post(`${this.resource}/login`, params);
   }
 
-  update(slug: string, params: object) {
-    return this.apiService.update(this.resource, slug, params);
+  update(params: object) {
+    return this.apiService.update(this.resource, params);
   }
 
   destroy(slug: string) {

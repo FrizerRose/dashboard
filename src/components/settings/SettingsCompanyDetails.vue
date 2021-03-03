@@ -1,6 +1,21 @@
 <template>
   <div class="card">
     <div class="card-body">
+      <button
+        :class="{
+          btn: true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
+      >
+        Spremi
+      </button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
       <label
         for="id-name"
         class="form-label w-100"
@@ -10,6 +25,7 @@
         Ovdje možete promijeniti ime koje će pisati na stranici
       </label>
       <input
+        v-model="formData.name"
         type="text"
         class="form-control"
         placeholder="Ime firme"
@@ -52,6 +68,7 @@
       </label>
       <textarea
         id="id-about-text"
+        v-model="formData.about"
         class="form-control"
         placeholder="Ovdje možete upisati kratki tekst koje će biti prikazan na stranici"
         rows="3"
@@ -70,6 +87,7 @@
       </label>
       <input
         id="id-street-address"
+        v-model="formData.streetName"
         class="form-control"
         type="text"
         placeholder="Ulica borova 55, 10000 Zargeb"
@@ -88,6 +106,7 @@
       </label>
       <input
         id="id-city"
+        v-model="formData.city"
         class="form-control"
         type="text"
         placeholder="Zagreb"
@@ -106,6 +125,7 @@
       </label>
       <input
         id="id-phone"
+        v-model="formData.phoneNumber"
         class="form-control"
         type="tel"
         placeholder="+385 (91) 000-11-22"
@@ -124,6 +144,7 @@
       </label>
       <input
         id="id-email"
+        v-model="formData.contactEmail"
         type="email"
         class="form-control"
         placeholder="adresa@firma.hr"
@@ -136,16 +157,20 @@
         for="id-subdomain"
         class="form-label w-100"
       >
-        <strong>Mjenjanje subdomene - nakon sto API call prodje,</strong>
+        <strong>Promjenite domenu</strong>
         <br>
-        ispisemo im da ce uskoro bit redirektani i redirektamo - input field
+        nakon promjene bit ćete prebačeni na novu stranicu gdje će te se trebati ponovo logirati
       </label>
       <input
         id="id-subdomain"
+        v-model="formData.bookingPageSlug"
         class="form-control"
         type="text"
         placeholder="placeholder text"
       >
+      <div>
+        .frizerrose.info
+      </div>
     </div>
   </div>
 
@@ -161,6 +186,7 @@
       </label>
       <input
         id="id-website-url"
+        v-model="formData.webstieLink"
         type="text"
         class="form-control"
         placeholder="https://www.ime-firme.hr"
@@ -179,6 +205,7 @@
       </label>
       <input
         id="id-facebook-page-url"
+        v-model="formData.facebookLink"
         type="text"
         class="form-control"
         placeholder="https://www.facebook.com/ime-firme"
@@ -197,6 +224,7 @@
       </label>
       <input
         id="id-instagram-page-url"
+        v-model="formData.instagramLink"
         type="text"
         class="form-control"
         placeholder="https://www.instagram.com/ime-firme"
@@ -215,32 +243,60 @@
       </label>
       <input
         id="id-terms-and-conditions-page-url"
+        v-model="formData.termsLink"
         type="text"
         class="form-control"
         placeholder="https://www.ime-firem.hr/pravila-koristenja"
-        required
       >
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from 'vue';
+import {
+  defineComponent, reactive, ref, computed,
+} from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
-import MutationTypes from '@/store/mutation-types';
+// import MutationTypes from '@/store/mutation-types';
 
 export default defineComponent({
   setup() {
     const store = useStore();
 
     const inputFileText = ref('Choose a file...');
-
     function setInputFileText(event: { target: { files: { name: string }[] } }) {
       inputFileText.value = event.target.files[0].name;
     }
 
+    const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
+    const requestSent = ref(false);
+    const status = ref(false);
+
+    // TODO: logo
+    async function save() {
+      try {
+        const hasBookingPageSlugChanged = formData.bookingPageSlug !== selectedCompany.value?.bookingPageSlug;
+        await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
+
+        if (process.env.NODE_ENV !== 'production' && hasBookingPageSlugChanged) {
+          window.location.href = `https://${formData.bookingPageSlug}.admin.frizerrose.info`;
+        }
+
+        requestSent.value = true;
+        status.value = true;
+      } catch {
+        requestSent.value = true;
+        status.value = false;
+      }
+    }
+
     return {
+      save,
+      formData,
+      status,
+      requestSent,
       inputFileText,
       setInputFileText,
     };

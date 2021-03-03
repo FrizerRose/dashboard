@@ -1,7 +1,10 @@
 <template>
   <Dashboard>
     <main class="content">
-      <div class="container-fluid p-0">
+      <div
+        v-if="selectedCompany"
+        class="container-fluid p-0"
+      >
         <div class="row">
           <div class="col-12">
             <div class="tab">
@@ -129,7 +132,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
+import { useStore } from '@/store';
 import Dashboard from '@/components/layout/Dashboard.vue';
 import SettingsCompanyDetails from '@/components/settings/SettingsCompanyDetails.vue';
 import SettingsPersonalDetails from '@/components/settings/SettingsPersonalDetails.vue';
@@ -150,9 +154,14 @@ export default defineComponent({
   },
 
   setup() {
+    const store = useStore();
+    const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const currentTab = ref('CompanyDetails');
 
-    return { currentTab };
+    return {
+      selectedCompany,
+      currentTab,
+    };
   },
 });
 </script>

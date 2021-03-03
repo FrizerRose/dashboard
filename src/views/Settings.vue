@@ -9,7 +9,10 @@
                 class="nav nav-tabs"
                 role="tablist"
               >
-                <li class="nav-item">
+                <li
+                  class="nav-item"
+                  @click="currentTab = 'CompanyDetails'"
+                >
                   <a
                     class="nav-link active"
                     href="#tab-1"
@@ -17,7 +20,10 @@
                     role="tab"
                   >Podatci o firmi</a>
                 </li>
-                <li class="nav-item">
+                <li
+                  class="nav-item"
+                  @click="currentTab = 'Orders'"
+                >
                   <a
                     class="nav-link"
                     href="#tab-2"
@@ -25,7 +31,10 @@
                     role="tab"
                   >Narudžbe</a>
                 </li>
-                <li class="nav-item">
+                <li
+                  class="nav-item"
+                  @click="currentTab = 'PersonalDetails'"
+                >
                   <a
                     class="nav-link"
                     href="#tab-3"
@@ -33,7 +42,10 @@
                     role="tab"
                   >Korisnički podaci</a>
                 </li>
-                <li class="nav-item">
+                <li
+                  class="nav-item"
+                  @click="currentTab = 'WorkingHours'"
+                >
                   <a
                     class="nav-link"
                     href="#tab-4"
@@ -41,7 +53,10 @@
                     role="tab"
                   >Radno vrijeme</a>
                 </li>
-                <li class="nav-item">
+                <li
+                  class="nav-item"
+                  @click="currentTab = 'Themes'"
+                >
                   <a
                     class="nav-link"
                     href="#tab-5"
@@ -49,7 +64,10 @@
                     role="tab"
                   >Izgled</a>
                 </li>
-                <li class="nav-item">
+                <li
+                  class="nav-item"
+                  @click="currentTab = 'Notifications'"
+                >
                   <a
                     class="nav-link"
                     href="#tab-6"
@@ -64,42 +82,42 @@
                   class="tab-pane active"
                   role="tabpanel"
                 >
-                  <SettingsCompanyDetails />
+                  <SettingsCompanyDetails v-if="currentTab === 'CompanyDetails'" />
                 </div>
                 <div
                   id="tab-2"
                   class="tab-pane active"
                   role="tabpanel"
                 >
-                  <SettingsOrders />
+                  <SettingsOrders v-if="currentTab === 'Orders'" />
                 </div>
                 <div
                   id="tab-3"
                   class="tab-pane active"
                   role="tabpanel"
                 >
-                  <SettingsPersonalDetails />
+                  <SettingsPersonalDetails v-if="currentTab === 'PersonalDetails'" />
                 </div>
                 <div
                   id="tab-4"
                   class="tab-pane active"
                   role="tabpanel"
                 >
-                  <SettingsWorkingHours />
+                  <SettingsWorkingHours v-if="currentTab === 'WorkingHours'" />
                 </div>
                 <div
                   id="tab-5"
                   class="tab-pane active"
                   role="tabpanel"
                 >
-                  <SettingsThemes />
+                  <SettingsThemes v-if="currentTab === 'Themes'" />
                 </div>
                 <div
                   id="tab-6"
                   class="tab-pane active"
                   role="tabpanel"
                 >
-                  <SettingsNotifications />
+                  <SettingsNotifications v-if="currentTab === 'Notifications'" />
                 </div>
               </div>
             </div>
@@ -111,7 +129,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import Dashboard from '@/components/layout/Dashboard.vue';
 import SettingsCompanyDetails from '@/components/settings/SettingsCompanyDetails.vue';
 import SettingsPersonalDetails from '@/components/settings/SettingsPersonalDetails.vue';
@@ -131,8 +149,10 @@ export default defineComponent({
     SettingsOrders,
   },
 
-  // setup() {
+  setup() {
+    const currentTab = ref('CompanyDetails');
 
-  // },
+    return { currentTab };
+  },
 });
 </script>

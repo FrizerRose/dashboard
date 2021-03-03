@@ -29,7 +29,7 @@ export default defineComponent({
     const router = useRouter();
 
     function logout() {
-      store.commit(MutationTypes.LOGOUT);
+      store.commit(MutationTypes.LOGOUT, true);
       router.push('/prijava');
     }
 

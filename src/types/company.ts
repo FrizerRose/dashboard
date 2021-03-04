@@ -1,4 +1,4 @@
-import CompanyPreferences from './copmanyPreferences';
+import CompanyPreferences from './companyPreferences';
 import Service from './service';
 import Staff from './staff';
 import WorkingHours from './workingHours';

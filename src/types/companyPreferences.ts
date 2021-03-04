@@ -9,6 +9,12 @@ type CompanyPreferences = {
   termsLink: string;
   hasStaffPick: boolean;
   colorVariant: string;
+  canCancel: boolean;
+  clientReminderEmail: boolean;
+  staffReminderEmail: boolean;
+  staffCancellationNotice: boolean;
+  clientReminderTime: number;
+  staffReminderTime: number;
 }
 
 export default CompanyPreferences;

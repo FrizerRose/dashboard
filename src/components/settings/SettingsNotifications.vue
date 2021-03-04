@@ -1,11 +1,26 @@
 <template>
   <div class="card">
     <div class="card-body">
+      <button
+        :class="{
+          btn: true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
+      >
+        Spremi
+      </button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
       <label class="form-check m-0">
         <input
+          v-model="formData.preferences.clientReminderEmail"
           type="checkbox"
           class="form-check-input"
-          checked
         >
         <span class="form-check-label">Korisnici će primati email za podsjetnik prije termina</span>
       </label>
@@ -15,9 +30,9 @@
     <div class="card-body">
       <label class="form-check m-0">
         <input
+          v-model="formData.preferences.staffReminderEmail"
           type="checkbox"
           class="form-check-input"
-          checked
         >
         <span class="form-check-label">Radnici će primati email kada se rezervira novi termin</span>
       </label>
@@ -27,9 +42,9 @@
     <div class="card-body">
       <label class="form-check m-0">
         <input
+          v-model="formData.preferences.staffCancellationNotice"
           type="checkbox"
           class="form-check-input"
-          checked
         >
         <span class="form-check-label">Radnici će primati email kada se otkaže termin</span>
       </label>
@@ -46,6 +61,7 @@
           </label>
           <select
             id="id-reminder-time"
+            v-model="formData.preferences.clientReminderTime"
             class="form-control mb-3"
             name="id-reminder-time"
           >
@@ -100,6 +116,7 @@
           </label>
           <select
             id="id-reminder-time"
+            v-model="formData.preferences.staffReminderTime"
             class="form-control mb-3"
             name="id-reminder-time"
           >
@@ -146,14 +163,38 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue';
+import {
+  defineComponent, computed, ref, reactive,
+} from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
-import MutationTypes from '@/store/mutation-types';
 
 export default defineComponent({
   setup() {
     const store = useStore();
+
+    const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
+    const requestSent = ref(false);
+    const status = ref(false);
+
+    async function save() {
+      try {
+        await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
+        requestSent.value = true;
+        status.value = true;
+      } catch {
+        requestSent.value = true;
+        status.value = false;
+      }
+    }
+
+    return {
+      save,
+      formData,
+      status,
+      requestSent,
+    };
   },
 });
 </script>

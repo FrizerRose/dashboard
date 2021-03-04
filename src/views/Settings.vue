@@ -6,10 +6,10 @@
         class="container-fluid p-0"
       >
         <div class="row">
-          <div class="col-12">
+          <div class="col-2">
             <div class="tab">
               <ul
-                class="nav nav-tabs"
+                class="nav nav-tabs flex-column"
                 role="tablist"
               >
                 <li
@@ -79,6 +79,10 @@
                   >Notifikacije</a>
                 </li>
               </ul>
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="tab">
               <div class="tab-content">
                 <div
                   id="tab-1"

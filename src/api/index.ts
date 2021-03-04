@@ -265,6 +265,10 @@ export class AuthService {
     return this.apiService.post(`${this.resource}/login`, params);
   }
 
+  changePassword(params: object) {
+    return this.apiService.post(`${this.resource}/change-password`, params);
+  }
+
   update(params: object) {
     return this.apiService.update(this.resource, params);
   }

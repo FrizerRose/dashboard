@@ -26,6 +26,7 @@
       </label>
       <input
         id="id-change-password-old"
+        v-model="formData.oldPassowrd"
         class="form-control"
         type="password"
       >
@@ -43,6 +44,7 @@
       </label>
       <input
         id="id-change-password-new-1"
+        v-model="formData.newPassword"
         class="form-control"
         type="password"
       >
@@ -53,8 +55,15 @@
         <br>
         Ponovno upišite novu lozinku
       </label>
+      <div
+        v-if="passwordMismatch"
+        class="text-danger"
+      >
+        Lozinke nisu jednake. Upišite ih ponovo. TODO: marko
+      </div>
       <input
         id="id-change-password-new-2"
+        v-model="formData.newPasswordRepeated"
         class="form-control"
         type="password"
       >
@@ -72,15 +81,33 @@ import ActionTypes from '@/store/action-types';
 export default defineComponent({
   setup() {
     const store = useStore();
+    const token = computed(() => store.state.auth.accessToken);
 
-    const selectedCompany = computed(() => store.state.shared.selectedCompany);
-    const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
+    const formData = reactive({
+      oldPassowrd: '',
+      newPassword: '',
+      newPasswordRepeated: '',
+    });
     const requestSent = ref(false);
     const status = ref(false);
+    const passwordMismatch = ref(false);
 
     async function save() {
+      passwordMismatch.value = false;
+      requestSent.value = false;
+      status.value = false;
+
       try {
-        await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
+        if (formData.newPassword !== formData.newPasswordRepeated) {
+          passwordMismatch.value = true;
+          throw new Error('New password missmatch!');
+        }
+
+        await store.dispatch(ActionTypes.CHANGE_PASSWORD, {
+          oldPassword: formData.oldPassowrd,
+          password: formData.newPassword,
+          token: token.value || '',
+        });
         requestSent.value = true;
         status.value = true;
       } catch {
@@ -94,6 +121,7 @@ export default defineComponent({
       formData,
       status,
       requestSent,
+      passwordMismatch,
     };
   },
 });

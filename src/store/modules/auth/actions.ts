@@ -26,6 +26,10 @@ export interface Actions {
     { commit }: AugmentedActionContext,
     payload: {email: string; password: string; company: number}
   ): Promise<unknown>;
+  [LocalActionTypes.CHANGE_PASSWORD](
+    { commit }: AugmentedActionContext,
+    payload: {oldPassword: string; password: string; token: string}
+  ): Promise<unknown>;
 }
 
 // API access.
@@ -59,6 +63,21 @@ export const actions: ActionTree<State, RootState> & Actions = {
           localStorage.setItem('accessToken', response.data.accessToken);
           localStorage.setItem('expiration', (Date.now() + parseInt(response.data.expiresIn, 10) - 5).toString());
           commit(LocalMutationTypes.CHANGE_IS_AUTHORIZED, true);
+          resolve(true);
+        } else {
+          reject(new ApiError('Credentials dont match.'));
+        }
+      } catch {
+        reject(new ApiError('Credentials dont match.'));
+      }
+    })());
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async [LocalActionTypes.CHANGE_PASSWORD]({ commit }, payload: {oldPassword: string; password: string; token: string}): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      try {
+        const response = await authService.changePassword(payload);
+        if (response.status === 200 && response.data) {
           resolve(true);
         } else {
           reject(new ApiError('Credentials dont match.'));

@@ -1,17 +1,19 @@
-type startEnd = {
+export type StartEnd = {
   start: string;
   end: string;
 };
 
-type WorkingHours = {
-  [key: string]: startEnd[];
-  monday: startEnd[];
-  tuesday: startEnd[];
-  wednesday: startEnd[];
-  thursday: startEnd[];
-  friday: startEnd[];
-  saturday: startEnd[];
-  sunday: startEnd[];
+export type Day = {
+  active: boolean;
+  shifts: StartEnd[];
 };
 
-export default WorkingHours;
+export type WorkingHours = {
+  monday: Day;
+  tuesday: Day;
+  wednesday: Day;
+  thursday: Day;
+  friday: Day;
+  saturday: Day;
+  sunday: Day;
+};

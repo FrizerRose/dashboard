@@ -16,188 +16,81 @@
   </div>
   <div class="card">
     <div class="card-body">
-      <div class="row">
-        <div class="col-6">
-          <label
-            class="form-label w-100"
-            for="id-working-hour-from"
-          >
-            <strong>Od</strong>
-          </label>
-          <select
-            id="id-working-hour-from"
-            class="form-control mb-3"
-            name="id-working-hour-from"
-          >
-            <option value="0">
-              0
-            </option>
-            <option value="1">
-              1
-            </option>
-            <option value="2">
-              2
-            </option>
-            <option value="3">
-              3
-            </option>
-            <option value="4">
-              4
-            </option>
-            <option value="5">
-              5
-            </option>
-            <option value="6">
-              6
-            </option>
-            <option value="7">
-              7
-            </option>
-            <option
-              value="8"
-              selected
+      <div
+        v-for="(day, dayName) in formData.hours"
+        :key="dayName"
+        class="row"
+      >
+        <div class="col-2 pt-4">
+          <label class="form-check m-0">
+            <input
+              v-model="day.active"
+              type="checkbox"
+              class="form-check-input"
+              @change="toggleDayActive(day)"
             >
-              8
-            </option>
-            <option value="9">
-              9
-            </option>
-            <option value="10">
-              10
-            </option>
-            <option value="11">
-              11
-            </option>
-            <option value="12">
-              12
-            </option>
-            <option value="13">
-              13
-            </option>
-            <option value="14">
-              14
-            </option>
-            <option value="15">
-              15
-            </option>
-            <option value="16">
-              16
-            </option>
-            <option value="17">
-              17
-            </option>
-            <option value="18">
-              18
-            </option>
-            <option value="19">
-              19
-            </option>
-            <option value="20">
-              20
-            </option>
-            <option value="21">
-              21
-            </option>
-            <option value="22">
-              22
-            </option>
-            <option value="23">
-              23
-            </option>
-          </select>
-        </div>
-        <div class="col-6">
-          <label
-            class="form-label w-100"
-            for="id-working-hour-to"
-          >
-            <strong>Do</strong>
+            <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
           </label>
-          <select
-            id="id-working-hour-to"
-            class="form-control mb-3"
-            name="id-working-hour-to"
-          >
-            <option value="0">
-              0
-            </option>
-            <option value="1">
-              1
-            </option>
-            <option value="2">
-              2
-            </option>
-            <option value="3">
-              3
-            </option>
-            <option value="4">
-              4
-            </option>
-            <option value="5">
-              5
-            </option>
-            <option value="6">
-              6
-            </option>
-            <option value="7">
-              7
-            </option>
-            <option value="8">
-              8
-            </option>
-            <option value="9">
-              9
-            </option>
-            <option value="10">
-              10
-            </option>
-            <option value="11">
-              11
-            </option>
-            <option value="12">
-              12
-            </option>
-            <option value="13">
-              13
-            </option>
-            <option value="14">
-              14
-            </option>
-            <option value="15">
-              15
-            </option>
-            <option
-              value="16"
-              selected
-            >
-              16
-            </option>
-            <option value="17">
-              17
-            </option>
-            <option value="18">
-              18
-            </option>
-            <option value="19">
-              19
-            </option>
-            <option value="20">
-              20
-            </option>
-            <option value="21">
-              21
-            </option>
-            <option value="22">
-              22
-            </option>
-            <option value="23">
-              23
-            </option>
-            <option value="24">
-              24
-            </option>
-          </select>
         </div>
+        <div
+          v-if="day.active"
+          class="col-10"
+        >
+          <div
+            v-for="(shift, shiftIndex) in day.shifts"
+            :key="shiftIndex"
+            class="row"
+          >
+            <div class="col-1">
+              <label
+                class="form-label w-100"
+                for="id-working-hour-from"
+              >
+                <strong>Od</strong>
+              </label>
+            </div>
+            <div class="col-3">
+              <input
+                v-model="shift.start"
+                type="text"
+                name="shift-end"
+              >
+            </div>
+            <div class="col-1">
+              <label
+                class="form-label w-100"
+                for="id-working-hour-to"
+              >
+                <strong>Do</strong>
+              </label>
+            </div>
+            <div class="col-3">
+              <input
+                v-model="shift.end"
+                type="text"
+                name="shift-end"
+              >
+            </div>
+            <div
+              v-if="shiftIndex === day.shifts.length - 1"
+              class="col-3"
+            >
+              <button
+                class="btn btn-info"
+                @click="addShift(day.shifts)"
+              >
+                +
+              </button>
+              <button
+                class="btn btn-secondary"
+                @click="copyShiftsToOtherDays(day)"
+              >
+                Copy to other days
+              </button>
+            </div>
+          </div>
+        </div>
+        <hr v-if="day.shifts.length">
       </div>
     </div>
   </div>
@@ -205,10 +98,11 @@
 
 <script lang='ts'>
 import {
-  defineComponent, computed, ref, reactive,
+  defineComponent, computed, ref, reactive, capitalize,
 } from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
+import { Day, StartEnd } from '@/types/workingHours';
 
 export default defineComponent({
   setup() {
@@ -230,11 +124,36 @@ export default defineComponent({
       }
     }
 
+    function addShift(shifts: StartEnd[]) {
+      shifts.push(({ start: '08:00', end: '16:00' }));
+    }
+
+    function toggleDayActive(day: Day) {
+      if (day.active) {
+        addShift(day.shifts);
+      } else {
+        // Remove all shifts
+        day.shifts.splice(0, day.shifts.length);
+      }
+    }
+
+    function copyShiftsToOtherDays(selectedDay: Day) {
+      Object.entries(formData.hours).forEach(([key, value]) => {
+        if (formData.hours[key].active) {
+          formData.hours[key].shifts = JSON.parse(JSON.stringify(selectedDay.shifts));
+        }
+      });
+    }
+
     return {
       save,
+      addShift,
+      toggleDayActive,
+      copyShiftsToOtherDays,
       formData,
       status,
       requestSent,
+      capitalize,
     };
   },
 });

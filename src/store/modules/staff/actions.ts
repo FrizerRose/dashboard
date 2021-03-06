@@ -33,6 +33,10 @@ export interface Actions {
     { commit }: AugmentedSharedActionContext,
     IDs: number[]
   ): Promise<unknown>;
+  [LocalActionTypes.FETCH_STAFF](
+    { commit }: AugmentedActionContext,
+    ID: number | string
+  ): Promise<unknown>;
   [LocalActionTypes.CREATE_STAFF](
     { commit }: AugmentedActionContext,
     staff: Staff
@@ -76,6 +80,14 @@ export const actions: ActionTree<State, RootState> & Actions = {
 
       resolve(true);
     });
+  },
+  async [LocalActionTypes.FETCH_STAFF]({ commit }, companyID: number | string) {
+    const response = await staffService.getByCompanyID(companyID);
+    if (response.status === 200 && response.data) {
+      commit(LocalMutationTypes.CHANGE_STAFF, response.data as Staff[]);
+    } else {
+      throw new ApiError('No staff with this company ID.');
+    }
   },
   async [LocalActionTypes.CREATE_STAFF]({ commit }, staff: Staff): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {

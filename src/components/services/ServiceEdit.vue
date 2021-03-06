@@ -72,13 +72,34 @@
         > min
       </div>
     </div>
+    <div class="card">
+      <div class="card-body">
+        <div
+          v-for="staff in allStaff"
+          :key="staff.id"
+          class="row"
+        >
+          <div class="col-3">
+            <label class="form-check m-0">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                :checked="isAssigned(staff)"
+                @change="toggleStaff(staff)"
+              >
+              <span class="form-check-label lead">{{ staff.name }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang='ts'>
-// import Staff from '@/types/staff';
+import Staff from '@/types/staff';
 import {
-  defineComponent, ref, reactive, capitalize,
+  defineComponent, ref, reactive, computed, capitalize,
 } from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
@@ -93,6 +114,7 @@ export default defineComponent({
   setup(props) {
     const store = useStore();
 
+    const allStaff = computed(() => store.state.staff.allStaff);
     const formData = reactive(JSON.parse(JSON.stringify(props.service)));
     const requestSent = ref(false);
     const status = ref(false);
@@ -108,12 +130,28 @@ export default defineComponent({
       }
     }
 
+    function isAssigned(staff: Staff) {
+      return formData.staff.findIndex((assignedStaff: Staff) => assignedStaff.id === staff.id) !== -1;
+    }
+
+    function toggleStaff(staff: Staff) {
+      if (isAssigned(staff)) {
+        const staffIndex = formData.staff.findIndex((assignedStaff: Staff) => assignedStaff.id === staff.id);
+        formData.staff.splice(staffIndex, 1);
+      } else {
+        formData.staff.push(staff);
+      }
+    }
+
     return {
       save,
       formData,
       status,
       requestSent,
       capitalize,
+      allStaff,
+      isAssigned,
+      toggleStaff,
     };
   },
 });

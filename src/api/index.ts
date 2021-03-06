@@ -85,6 +85,10 @@ export class ServicesService {
     return this.apiService.get(this.resource, slug);
   }
 
+  getByCompanyID(slug: number | string) {
+    return this.apiService.get(this.resource, `company/${slug}`);
+  }
+
   create(params: object) {
     return this.apiService.post(this.resource, params);
   }
@@ -151,6 +155,10 @@ export class StaffService {
 
   get(slug: number) {
     return this.apiService.get(this.resource, slug);
+  }
+
+  getByCompanyID(slug: number | string) {
+    return this.apiService.get(this.resource, `company/${slug}`);
   }
 
   create(params: object) {

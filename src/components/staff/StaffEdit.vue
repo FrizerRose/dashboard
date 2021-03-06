@@ -134,17 +134,45 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-body">
+        <div
+          v-for="service in allServices"
+          :key="service.id"
+          class="row"
+        >
+          <div class="col-3">
+            <label class="form-check m-0">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                :checked="isAssigned(service)"
+                @change="toggleService(service)"
+              >
+              <span class="form-check-label lead">{{ service.name }}</span>
+            </label>
+          </div>
+          <div class="col-3">
+            {{ service.price }}kn
+          </div>
+          <div class="col-3">
+            {{ service.duration }}min
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang='ts'>
 // import Staff from '@/types/staff';
 import {
-  defineComponent, ref, reactive, capitalize,
+  defineComponent, ref, reactive, computed, capitalize,
 } from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import { Day, StartEnd } from '@/types/workingHours';
+import Service from '@/types/service';
 
 export default defineComponent({
   props: {
@@ -157,6 +185,7 @@ export default defineComponent({
     const store = useStore();
 
     const formData = reactive(JSON.parse(JSON.stringify(props.worker)));
+    const allServices = computed(() => store.state.service.services);
     const requestSent = ref(false);
     const status = ref(false);
 
@@ -192,6 +221,19 @@ export default defineComponent({
       });
     }
 
+    function isAssigned(service: Service) {
+      return formData.services.findIndex((assignedService: Service) => assignedService.id === service.id) !== -1;
+    }
+
+    function toggleService(service: Service) {
+      if (isAssigned(service)) {
+        const serviceIndex = formData.services.findIndex((assignedService: Service) => assignedService.id === service.id);
+        formData.services.splice(serviceIndex, 1);
+      } else {
+        formData.services.push(service);
+      }
+    }
+
     return {
       save,
       addShift,
@@ -201,6 +243,9 @@ export default defineComponent({
       status,
       requestSent,
       capitalize,
+      allServices,
+      isAssigned,
+      toggleService,
     };
   },
 });

@@ -112,7 +112,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const staff = computed(() => store.state.staff.allStaff);
-    const selectedWorker = ref(staff.value[0].id);
+    const selectedWorker = ref(staff.value[0]?.id);
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const isCreateDropdownOpen = ref(false);
     const requestSent = ref(false);
@@ -144,6 +144,7 @@ export default defineComponent({
         await store.dispatch(ActionTypes.CREATE_STAFF, newStaff as Staff);
         requestSent.value = true;
         status.value = true;
+        isCreateDropdownOpen.value = false;
         newStaff.name = '';
         newStaff.email = '';
       } catch {

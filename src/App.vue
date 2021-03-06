@@ -20,6 +20,8 @@ export default defineComponent({
     }
 
     store.dispatch(ActionTypes.FETCH_COMPANY, companyID);
+    store.dispatch(ActionTypes.FETCH_STAFF, companyID);
+    store.dispatch(ActionTypes.FETCH_SERVICES, companyID);
   },
 });
 </script>

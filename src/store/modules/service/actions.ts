@@ -27,9 +27,13 @@ type AugmentedSharedActionContext = {
 } & Omit<ActionContext<State, RootState>, 'commit'>
 
 export interface Actions {
-  [LocalActionTypes.FETCH_SERVICES](
+  [LocalActionTypes.FETCH_SERVICE](
     { commit }: AugmentedActionContext,
     id: number
+  ): void;
+  [LocalActionTypes.FETCH_SERVICES](
+    { commit }: AugmentedActionContext,
+    id: number | string
   ): void;
   [LocalActionTypes.CREATE_SERVICE](
     { commit }: AugmentedActionContext,
@@ -50,12 +54,20 @@ const servicesService = new ServicesService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
-  async [LocalActionTypes.FETCH_SERVICES]({ commit }, id: number) {
+  async [LocalActionTypes.FETCH_SERVICE]({ commit }, id: number) {
     const response = await servicesService.get(id);
-    if (response.data.message === undefined) {
+    if (response.status === 200 && response.data) {
       commit(LocalMutationTypes.CHANGE_SERVICES, response.data);
     } else {
-      throw new ApiError('No company by this ID.');
+      throw new ApiError('No service by this ID.');
+    }
+  },
+  async [LocalActionTypes.FETCH_SERVICES]({ commit }, companyID: number | string) {
+    const response = await servicesService.getByCompanyID(companyID);
+    if (response.status === 200 && response.data) {
+      commit(LocalMutationTypes.CHANGE_SERVICES, response.data);
+    } else {
+      throw new ApiError('No services with this company ID.');
     }
   },
   async [LocalActionTypes.CREATE_SERVICE]({ commit }, staff: Service): Promise<unknown> {

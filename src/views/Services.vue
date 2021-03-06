@@ -144,6 +144,7 @@ export default defineComponent({
         await store.dispatch(ActionTypes.CREATE_SERVICE, newService as Service);
         requestSent.value = true;
         status.value = true;
+        isCreateDropdownOpen.value = false;
         newService.name = '';
         newService.price = 0;
         newService.duration = 0;

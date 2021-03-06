@@ -5,8 +5,9 @@ import { ActionContext, ActionTree } from 'vuex';
 import { StaffService } from '@/api';
 import { ApiError } from '@/types/customError';
 import Appointment from '@/types/appointment';
+import Staff from '@/types/staff';
 import LocalActionTypes from './action-types';
-// import LocalMutationTypes from './mutation-types';
+import LocalMutationTypes from './mutation-types';
 import SharedMutationTypes from '../shared/mutation-types';
 import { Mutations } from './mutations';
 import { Mutations as SharedMutations } from '../shared/mutations';
@@ -31,6 +32,14 @@ export interface Actions {
   [LocalActionTypes.FETCH_STAFF_BY_ID](
     { commit }: AugmentedSharedActionContext,
     IDs: number[]
+  ): Promise<unknown>;
+  [LocalActionTypes.UPDATE_STAFF](
+    { commit }: AugmentedActionContext,
+    staff: Staff
+  ): Promise<unknown>;
+  [LocalActionTypes.DELETE_STAFF](
+    { commit }: AugmentedActionContext,
+    staff: Staff
   ): Promise<unknown>;
 }
 
@@ -63,5 +72,27 @@ export const actions: ActionTree<State, RootState> & Actions = {
 
       resolve(true);
     });
+  },
+  async [LocalActionTypes.UPDATE_STAFF]({ commit }, staff: Staff): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await staffService.update(staff);
+      if (response.status === 200 && response.data) {
+        commit(LocalMutationTypes.UPDATE_STAFF_BY_ID, response.data as Staff);
+        resolve(true);
+      } else {
+        reject(new ApiError('Updating staff failed.'));
+      }
+    })());
+  },
+  async [LocalActionTypes.DELETE_STAFF]({ commit }, staff: Staff): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await staffService.destroy(staff.id);
+      if (response.status === 200 && response.data) {
+        commit(LocalMutationTypes.REMOVE_STAFF_BY_ID, { id: staff.id, ...response.data } as Staff);
+        resolve(true);
+      } else {
+        reject(new ApiError('Updating staff failed.'));
+      }
+    })());
   },
 };

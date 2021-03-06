@@ -82,6 +82,7 @@
                 +
               </button>
               <button
+                v-if="dayName.toString() === 'monday'"
                 class="btn btn-secondary"
                 @click="copyShiftsToOtherDays(day)"
               >
@@ -138,7 +139,7 @@ export default defineComponent({
     }
 
     function copyShiftsToOtherDays(selectedDay: Day) {
-      Object.entries(formData.hours).forEach(([key, value]) => {
+      Object.entries(formData.hours).forEach(([key]) => {
         if (formData.hours[key].active) {
           formData.hours[key].shifts = JSON.parse(JSON.stringify(selectedDay.shifts));
         }

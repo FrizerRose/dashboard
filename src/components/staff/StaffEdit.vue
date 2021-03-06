@@ -1,0 +1,211 @@
+<template>
+  <div>
+    <div class="card">
+      <div class="card-body">
+        <button
+          :class="{
+            btn: true,
+            'btn-primary': !requestSent,
+            'btn-success': requestSent && status,
+            'btn-danger': requestSent && !status,
+          }"
+          @click="save()"
+        >
+          Spremi
+        </button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <label
+          for="id-name"
+          class="form-label w-100"
+        >
+          <strong>Ime Radnika</strong>
+          <br>
+          Ovdje možete promijeniti ime koje će pisati na stranici
+        </label>
+        <input
+          v-model="formData.name"
+          type="text"
+          class="form-control"
+          placeholder="Ime firme"
+          for="id-name"
+        >
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <label
+          class="form-label"
+          for="id-email"
+        >
+          <strong>E-mail adresa</strong>
+          <br>
+          Ovdje možete promijeniti e-mail adresu koja će se koristiti za kontaktiranje radnika
+        </label>
+        <input
+          id="id-email"
+          v-model="formData.email"
+          type="email"
+          class="form-control"
+          placeholder="adresa@firma.hr"
+        >
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div
+          v-for="(day, dayName) in formData.hours"
+          :key="dayName"
+          class="row"
+        >
+          <div class="col-2 pt-4">
+            <label class="form-check m-0">
+              <input
+                v-model="day.active"
+                type="checkbox"
+                class="form-check-input"
+                @change="toggleDayActive(day)"
+              >
+              <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
+            </label>
+          </div>
+          <div
+            v-if="day.active"
+            class="col-10"
+          >
+            <div
+              v-for="(shift, shiftIndex) in day.shifts"
+              :key="shiftIndex"
+              class="row"
+            >
+              <div class="col-1">
+                <label
+                  class="form-label w-100"
+                  for="id-working-hour-from"
+                >
+                  <strong>Od</strong>
+                </label>
+              </div>
+              <div class="col-3">
+                <input
+                  v-model="shift.start"
+                  type="text"
+                  name="shift-end"
+                >
+              </div>
+              <div class="col-1">
+                <label
+                  class="form-label w-100"
+                  for="id-working-hour-to"
+                >
+                  <strong>Do</strong>
+                </label>
+              </div>
+              <div class="col-3">
+                <input
+                  v-model="shift.end"
+                  type="text"
+                  name="shift-end"
+                >
+              </div>
+              <div
+                v-if="shiftIndex === day.shifts.length - 1"
+                class="col-3"
+              >
+                <button
+                  class="btn btn-info"
+                  @click="addShift(day.shifts)"
+                >
+                  +
+                </button>
+                <button
+                  v-if="dayName.toString() === 'monday'"
+                  class="btn btn-secondary"
+                  @click="copyShiftsToOtherDays(day)"
+                >
+                  Copy to other days
+                </button>
+              </div>
+            </div>
+          </div>
+          <hr v-if="day.shifts.length">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang='ts'>
+// import Staff from '@/types/staff';
+import {
+  defineComponent, ref, reactive, capitalize,
+} from 'vue';
+import { useStore } from '@/store';
+import ActionTypes from '@/store/action-types';
+import { Day, StartEnd } from '@/types/workingHours';
+
+export default defineComponent({
+  props: {
+    worker: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props) {
+    const store = useStore();
+
+    const formData = reactive(JSON.parse(JSON.stringify(props.worker)));
+    const requestSent = ref(false);
+    const status = ref(false);
+
+    async function save() {
+      try {
+        await store.dispatch(ActionTypes.UPDATE_STAFF, formData);
+        requestSent.value = true;
+        status.value = true;
+      } catch {
+        requestSent.value = true;
+        status.value = false;
+      }
+    }
+
+    function addShift(shifts: StartEnd[]) {
+      shifts.push(({ start: '08:00', end: '16:00' }));
+    }
+
+    function toggleDayActive(day: Day) {
+      if (day.active) {
+        addShift(day.shifts);
+      } else {
+        // Remove all shifts
+        day.shifts.splice(0, day.shifts.length);
+      }
+    }
+
+    function copyShiftsToOtherDays(selectedDay: Day) {
+      Object.entries(formData.hours).forEach(([key]) => {
+        if (formData.hours[key].active) {
+          formData.hours[key].shifts = JSON.parse(JSON.stringify(selectedDay.shifts));
+        }
+      });
+    }
+
+    return {
+      save,
+      addShift,
+      toggleDayActive,
+      copyShiftsToOtherDays,
+      formData,
+      status,
+      requestSent,
+      capitalize,
+    };
+  },
+});
+</script>
+
+<style scoped lang='scss'>
+
+</style>

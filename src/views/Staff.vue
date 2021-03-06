@@ -1,37 +1,89 @@
 <template>
   <Dashboard>
     <main class="content">
-      <div class="container-fluid p-0">
-        <a
-          href="#"
-          class="btn btn-primary float-end mt-n1"
-        ><i class="fas fa-plus" /> Dodaj radnika</a>
-        <h1 class="h3 mb-3">
-          Radnici
-        </h1>
-        <StaffList />
+      <div
+        v-if="staff.length"
+        class="container-fluid p-0"
+      >
+        <div class="row">
+          <div class="col-2">
+            <div class="tab">
+              <ul
+                class="nav nav-tabs flex-column"
+                role="tablist"
+              >
+                <li
+                  v-for="(worker, index) in staff"
+                  :key="index"
+                  :class="{'nav-item': true, 'active': selectedWorker === worker.id}"
+                  @click="selectedWorker = worker.id"
+                >
+                  <a
+                    :class="{'nav-link': true, 'd-inline-block': true, 'active': selectedWorker === worker.id}"
+                    :href="'#tab-' + worker.id"
+                    data-bs-toggle="tab"
+                    role="tab"
+                  >{{ worker.name }}</a>
+                  <button
+                    class="btn btn-danger"
+                    @click="deleteWorker(worker)"
+                  >
+                    -
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-10">
+            <div class="tab">
+              <div class="tab-content">
+                <div
+                  v-for="worker in staff"
+                  :id="'tab-' + worker.id"
+                  :key="worker.id"
+                  :class="{'tab-pane': true, 'active': selectedWorker === worker.id}"
+                  role="tabpanel"
+                >
+                  <StaffEdit
+                    v-if="selectedWorker === worker.id"
+                    :worker="worker"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </Dashboard>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, defineComponent, ref } from 'vue';
+import { useStore } from '@/store';
 import Dashboard from '@/components/layout/Dashboard.vue';
-import StaffList from '../components/StaffList.vue';
+import StaffEdit from '@/components/staff/StaffEdit.vue';
+import ActionTypes from '@/store/action-types';
+import Staff from '@/types/staff';
 
 export default defineComponent({
   components: {
     Dashboard,
-    StaffList,
+    StaffEdit,
   },
   setup() {
-    const route = useRoute();
-    const routeName = computed(() => route.name);
+    const store = useStore();
+    const staff = computed(() => store.state.staff.allStaff);
+    const selectedWorker = ref(staff.value[0].id);
+
+    function deleteWorker(worker: Staff) {
+      store.dispatch(ActionTypes.DELETE_STAFF, worker);
+    }
 
     return {
-      routeName,
+      staff,
+      selectedWorker,
+      deleteWorker,
     };
   },
 });

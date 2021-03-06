@@ -53,7 +53,7 @@ export default class ApiService {
     }
   }
 
-  delete(resource: string, slug: string) {
+  delete(resource: string, slug: string | number) {
     // try {
     //   return this.client.delete(`${resource}/${slug}`);
     // } catch (error) {
@@ -93,7 +93,7 @@ export class ServicesService {
     return this.apiService.update(this.resource, params);
   }
 
-  destroy(slug: string) {
+  destroy(slug: string | number) {
     return this.apiService.delete(this.resource, slug);
   }
 }
@@ -129,7 +129,7 @@ export class CompanyService {
     return this.apiService.update(this.resource, params);
   }
 
-  destroy(slug: string) {
+  destroy(slug: string | number) {
     return this.apiService.delete(this.resource, slug);
   }
 }
@@ -161,7 +161,7 @@ export class StaffService {
     return this.apiService.update(this.resource, params);
   }
 
-  destroy(slug: string) {
+  destroy(slug: string | number) {
     return this.apiService.delete(this.resource, slug);
   }
 }
@@ -193,7 +193,7 @@ export class AppointmentService {
     return this.apiService.update(this.resource, params);
   }
 
-  destroy(slug: string) {
+  destroy(slug: string | number) {
     return this.apiService.delete(this.resource, slug);
   }
 }
@@ -225,7 +225,7 @@ export class CustomerService {
     return this.apiService.update(this.resource, params);
   }
 
-  destroy(slug: string) {
+  destroy(slug: string | number) {
     return this.apiService.delete(this.resource, slug);
   }
 }
@@ -273,7 +273,7 @@ export class AuthService {
     return this.apiService.update(this.resource, params);
   }
 
-  destroy(slug: string) {
+  destroy(slug: string | number) {
     return this.apiService.delete(this.resource, slug);
   }
 }

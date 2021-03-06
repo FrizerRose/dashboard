@@ -4,6 +4,7 @@ import { RootState } from '@/store';
 import { ActionContext, ActionTree } from 'vuex';
 import { ServicesService } from '@/api';
 import { ApiError } from '@/types/customError';
+import Service from '@/types/service';
 import LocalActionTypes from './action-types';
 import LocalMutationTypes from './mutation-types';
 import { Mutations } from './mutations';
@@ -30,6 +31,18 @@ export interface Actions {
     { commit }: AugmentedActionContext,
     id: number
   ): void;
+  [LocalActionTypes.CREATE_SERVICE](
+    { commit }: AugmentedActionContext,
+    staff: Service
+  ): Promise<unknown>;
+  [LocalActionTypes.UPDATE_SERVICE](
+    { commit }: AugmentedActionContext,
+    staff: Service
+  ): Promise<unknown>;
+  [LocalActionTypes.DELETE_SERVICE](
+    { commit }: AugmentedActionContext,
+    staff: Service
+  ): Promise<unknown>;
 }
 
 // API access.
@@ -44,5 +57,38 @@ export const actions: ActionTree<State, RootState> & Actions = {
     } else {
       throw new ApiError('No company by this ID.');
     }
+  },
+  async [LocalActionTypes.CREATE_SERVICE]({ commit }, staff: Service): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await servicesService.create(staff);
+      if (response.status === 201 && response.data) {
+        commit(LocalMutationTypes.ADD_SERVICE, { id: staff.id, ...response.data } as Service);
+        resolve(true);
+      } else {
+        reject(new ApiError('Creating staff failed.'));
+      }
+    })());
+  },
+  async [LocalActionTypes.UPDATE_SERVICE]({ commit }, staff: Service): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await servicesService.update(staff);
+      if (response.status === 200 && response.data) {
+        commit(LocalMutationTypes.UPDATE_SERVICE_BY_ID, response.data as Service);
+        resolve(true);
+      } else {
+        reject(new ApiError('Updating staff failed.'));
+      }
+    })());
+  },
+  async [LocalActionTypes.DELETE_SERVICE]({ commit }, staff: Service): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await servicesService.destroy(staff.id);
+      if (response.status === 200 && response.data) {
+        commit(LocalMutationTypes.REMOVE_SERVICE_BY_ID, { id: staff.id, ...response.data } as Service);
+        resolve(true);
+      } else {
+        reject(new ApiError('Deleting staff failed.'));
+      }
+    })());
   },
 };

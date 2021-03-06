@@ -33,6 +33,10 @@ export interface Actions {
     { commit }: AugmentedSharedActionContext,
     IDs: number[]
   ): Promise<unknown>;
+  [LocalActionTypes.CREATE_STAFF](
+    { commit }: AugmentedActionContext,
+    staff: Staff
+  ): Promise<unknown>;
   [LocalActionTypes.UPDATE_STAFF](
     { commit }: AugmentedActionContext,
     staff: Staff
@@ -73,6 +77,17 @@ export const actions: ActionTree<State, RootState> & Actions = {
       resolve(true);
     });
   },
+  async [LocalActionTypes.CREATE_STAFF]({ commit }, staff: Staff): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await staffService.create(staff);
+      if (response.status === 201 && response.data) {
+        commit(LocalMutationTypes.ADD_STAFF, { id: staff.id, ...response.data } as Staff);
+        resolve(true);
+      } else {
+        reject(new ApiError('Cereating staff failed.'));
+      }
+    })());
+  },
   async [LocalActionTypes.UPDATE_STAFF]({ commit }, staff: Staff): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
       const response = await staffService.update(staff);
@@ -91,7 +106,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
         commit(LocalMutationTypes.REMOVE_STAFF_BY_ID, { id: staff.id, ...response.data } as Staff);
         resolve(true);
       } else {
-        reject(new ApiError('Updating staff failed.'));
+        reject(new ApiError('Deleting staff failed.'));
       }
     })());
   },

@@ -5,6 +5,7 @@ type Service = {
   name: string;
   duration: number;
   price: number;
+  company: number;
   staff?: Staff[];
 }
 

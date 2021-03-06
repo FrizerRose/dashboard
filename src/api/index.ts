@@ -101,6 +101,24 @@ export class ServicesService {
     return this.apiService.delete(this.resource, slug);
   }
 }
+export class ImageService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'image';
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  destroy(slug: string | number) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
 export class CompanyService {
   apiService: ApiService;
 

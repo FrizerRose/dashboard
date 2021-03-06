@@ -1,6 +1,7 @@
 enum ActionTypes {
   FETCH_COMPANY = 'FETCH_COMPANY',
   UPDATE_COMPANY = 'UPDATE_COMPANY',
+  UPLOAD_COMPANY_IMAGE = 'UPLOAD_COMPANY_IMAGE',
 }
 
 export default ActionTypes;

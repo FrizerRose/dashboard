@@ -16,6 +16,7 @@ type Company = {
   staff: Staff[];
   companyPreferences: CompanyPreferences;
   hours: WorkingHours;
+  image: object;
 }
 
 export default Company;

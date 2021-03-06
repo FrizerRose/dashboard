@@ -1,6 +1,39 @@
 <template>
   <div class="card">
     <div class="card-body">
+      <label
+        class="form-label w-100"
+      >
+        <strong>Logotip</strong>
+        <br>
+        Ovdje možete promijeniti logotip koje će biti prikazan na stranici
+      </label>
+      <img
+        v-if="imageLocation"
+        :src="imageLocation"
+        alt="logo"
+        style="max-width: 200px; max-height: 200px;"
+      >
+      <input
+        id="id-file"
+        class="override-input-file"
+        type="file"
+        name="id-file"
+        accept="image/svg, image/png, image/jpeg"
+        @change="upload"
+      >
+      <label
+        for="id-file"
+        class="btn btn-primary"
+      >
+        {{ inputFileText }}
+      </label>
+      <span v-if="imageUploadSent && imageUploadStatus">Logo uspješno promjenjen!</span>
+      <span v-if="imageUploadSent && !imageUploadStatus">Došlo je do greške, molimo probajte kasnije!</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
       <button
         :class="{
           btn: true,
@@ -31,31 +64,6 @@
         placeholder="Ime firme"
         for="id-name"
       >
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        class="form-label w-100"
-      >
-        <strong>Logotip</strong>
-        <br>
-        Ovdje možete promijeniti logotip koje će biti prikazan na stranici
-      </label>
-      <input
-        id="id-file"
-        class="override-input-file"
-        type="file"
-        name="id-file"
-        accept="image/svg, image/png, image/jpeg"
-        @change="setInputFileText"
-      >
-      <label
-        for="id-file"
-        class="btn btn-primary"
-      >
-        {{ inputFileText }}
-      </label>
     </div>
   </div>
   <div class="card">
@@ -265,14 +273,13 @@ export default defineComponent({
     const store = useStore();
 
     const inputFileText = ref('Choose a file...');
-    function setInputFileText(event: { target: { files: { name: string }[] } }) {
-      inputFileText.value = event.target.files[0].name;
-    }
-
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
     const requestSent = ref(false);
     const status = ref(false);
+    const imageUploadSent = ref(false);
+    const imageUploadStatus = ref(false);
+    const imageLocation = ref(formData.image.link);
 
     // TODO: logo
     async function save() {
@@ -292,13 +299,35 @@ export default defineComponent({
       }
     }
 
+    async function upload(event: { target: EventTarget & { files: FileList } }) {
+      try {
+        const imageData = new FormData();
+        const image = event.target.files[0];
+
+        inputFileText.value = image.name;
+        imageData.append('image', image);
+        imageData.append('company', formData.id.toString());
+
+        const newImageLocation = await store.dispatch(ActionTypes.UPLOAD_COMPANY_IMAGE, imageData);
+        imageLocation.value = newImageLocation;
+        imageUploadSent.value = true;
+        imageUploadStatus.value = true;
+      } catch {
+        imageUploadSent.value = true;
+        imageUploadStatus.value = false;
+      }
+    }
+
     return {
       save,
       formData,
       status,
       requestSent,
       inputFileText,
-      setInputFileText,
+      upload,
+      imageUploadSent,
+      imageUploadStatus,
+      imageLocation,
     };
   },
 });

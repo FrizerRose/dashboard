@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '@/store';
 import { ActionContext, ActionTree } from 'vuex';
-import { CompanyService } from '@/api';
+import { CompanyService, ImageService } from '@/api';
 import { ApiError } from '@/types/customError';
 import Company from '@/types/company';
 import LocalActionTypes from './action-types';
@@ -27,10 +27,15 @@ export interface Actions {
     { commit }: AugmentedSharedActionContext,
     company: Company
   ): Promise<unknown>;
+  [LocalActionTypes.UPLOAD_COMPANY_IMAGE](
+    { commit }: AugmentedSharedActionContext,
+    image: object
+  ): Promise<string | unknown>;
 }
 
 // API access.
 const companyService = new CompanyService();
+const imageService = new ImageService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
@@ -58,6 +63,17 @@ export const actions: ActionTree<State, RootState> & Actions = {
         resolve(true);
       } else {
         reject(new ApiError('Updating company failed.'));
+      }
+    })());
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async [LocalActionTypes.UPLOAD_COMPANY_IMAGE]({ commit }, image: object): Promise<string | unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await imageService.create(image);
+      if (response.status === 201 && response.data) {
+        resolve(response.data[0].location);
+      } else {
+        reject(new ApiError('Uploading image failed.'));
       }
     })());
   },

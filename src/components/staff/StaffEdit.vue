@@ -165,7 +165,6 @@
 </template>
 
 <script lang='ts'>
-// import Staff from '@/types/staff';
 import {
   defineComponent, ref, reactive, computed, capitalize,
 } from 'vue';

@@ -81,7 +81,10 @@
               </ul>
             </div>
           </div>
-          <div class="col-10">
+          <div
+            v-if="selectedCompany"
+            class="col-10"
+          >
             <div class="tab">
               <div class="tab-content">
                 <div

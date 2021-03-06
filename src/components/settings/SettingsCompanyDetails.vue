@@ -279,7 +279,7 @@ export default defineComponent({
     const status = ref(false);
     const imageUploadSent = ref(false);
     const imageUploadStatus = ref(false);
-    const imageLocation = ref(formData.image.link);
+    const imageLocation = ref(formData?.image?.link);
 
     // TODO: logo
     async function save() {

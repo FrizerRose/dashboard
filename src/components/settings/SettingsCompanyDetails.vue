@@ -6,7 +6,7 @@
       >
         <strong>Logotip</strong>
         <br>
-        Ovdje možete promijeniti logotip koje će biti prikazan na stranici
+        Ovdje možete promijeniti logotip koji će biti prikazan na stranici
       </label>
       <img
         v-if="imageLocation"
@@ -272,7 +272,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const inputFileText = ref('Choose a file...');
+    const inputFileText = ref('Odabri logo...');
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
     const requestSent = ref(false);
@@ -308,7 +308,7 @@ export default defineComponent({
         imageData.append('image', image);
         imageData.append('company', formData.id.toString());
 
-        const newImageLocation = await store.dispatch(ActionTypes.UPLOAD_COMPANY_IMAGE, imageData);
+        const newImageLocation = await store.dispatch(ActionTypes.UPLOAD_IMAGE, imageData);
         imageLocation.value = newImageLocation;
         imageUploadSent.value = true;
         imageUploadStatus.value = true;

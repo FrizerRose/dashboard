@@ -2,6 +2,39 @@
   <div>
     <div class="card">
       <div class="card-body">
+        <label
+          class="form-label w-100"
+        >
+          <strong>Slika Radnika</strong>
+          <br>
+          Ovdje možete promijeniti radnikovu sliku koja će biti prikazan na stranici
+        </label>
+        <img
+          v-if="imageLocation"
+          :src="imageLocation"
+          alt="logo"
+          style="max-width: 200px; max-height: 200px;"
+        >
+        <input
+          id="id-file"
+          class="override-input-file"
+          type="file"
+          name="id-file"
+          accept="image/svg, image/png, image/jpeg"
+          @change="upload"
+        >
+        <label
+          for="id-file"
+          class="btn btn-primary"
+        >
+          {{ inputFileText }}
+        </label>
+        <span v-if="imageUploadSent && imageUploadStatus">Slika uspješno promjenjena!</span>
+        <span v-if="imageUploadSent && !imageUploadStatus">Došlo je do greške, molimo probajte kasnije!</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
         <button
           :class="{
             btn: true,
@@ -187,6 +220,10 @@ export default defineComponent({
     const allServices = computed(() => store.state.service.services);
     const requestSent = ref(false);
     const status = ref(false);
+    const imageUploadSent = ref(false);
+    const imageUploadStatus = ref(false);
+    const imageLocation = ref(formData?.image?.link);
+    const inputFileText = ref('Odaberi sliku...');
 
     async function save() {
       try {
@@ -233,6 +270,25 @@ export default defineComponent({
       }
     }
 
+    async function upload(event: { target: EventTarget & { files: FileList } }) {
+      try {
+        const imageData = new FormData();
+        const image = event.target.files[0];
+
+        inputFileText.value = image.name;
+        imageData.append('image', image);
+        imageData.append('staff', formData.id.toString());
+
+        const newImageLocation = await store.dispatch(ActionTypes.UPLOAD_IMAGE, imageData);
+        imageLocation.value = newImageLocation;
+        imageUploadSent.value = true;
+        imageUploadStatus.value = true;
+      } catch {
+        imageUploadSent.value = true;
+        imageUploadStatus.value = false;
+      }
+    }
+
     return {
       save,
       addShift,
@@ -245,6 +301,11 @@ export default defineComponent({
       allServices,
       isAssigned,
       toggleService,
+      inputFileText,
+      upload,
+      imageUploadSent,
+      imageUploadStatus,
+      imageLocation,
     };
   },
 });

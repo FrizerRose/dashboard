@@ -281,7 +281,6 @@ export default defineComponent({
     const imageUploadStatus = ref(false);
     const imageLocation = ref(formData?.image?.link);
 
-    // TODO: logo
     async function save() {
       try {
         const hasBookingPageSlugChanged = formData.bookingPageSlug !== selectedCompany.value?.bookingPageSlug;

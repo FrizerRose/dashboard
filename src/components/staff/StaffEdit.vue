@@ -194,6 +194,47 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-body">
+        <label
+          class="form-label w-100"
+        >
+          <strong>Godišnji</strong>
+        </label>
+
+        <div
+          v-for="(breakDate, index) in breakDates"
+          :key="index"
+        >
+          od
+          <input
+            id="date-start"
+            v-model="breakDate.start"
+            type="date"
+            name="data-start"
+          >
+          do
+          <input
+            id="date-end"
+            v-model="breakDate.end"
+            type="date"
+            name="data-end"
+          >
+          <button
+            class="btn btn-danger"
+            @click="removeBreak(index)"
+          >
+            -
+          </button>
+        </div>
+        <button
+          class="btn btn-secondary"
+          @click="addBreak()"
+        >
+          +
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -224,17 +265,6 @@ export default defineComponent({
     const imageUploadStatus = ref(false);
     const imageLocation = ref(formData?.image?.link);
     const inputFileText = ref('Odaberi sliku...');
-
-    async function save() {
-      try {
-        await store.dispatch(ActionTypes.UPDATE_STAFF, formData);
-        requestSent.value = true;
-        status.value = true;
-      } catch {
-        requestSent.value = true;
-        status.value = false;
-      }
-    }
 
     function addShift(shifts: StartEnd[]) {
       shifts.push(({ start: '08:00', end: '16:00' }));
@@ -289,6 +319,55 @@ export default defineComponent({
       }
     }
 
+    let breakDates: { start: string; end: string }[] = reactive([]);
+    if (formData.breaks.length) {
+      breakDates = reactive(formData.breaks);
+    }
+
+    function formatDateString(oldFormat: string): string {
+      const date = new Date(oldFormat);
+      const dd = String(date.getDate());
+      let mm = String(date.getMonth() + 1); // January is 0!
+      const yyyy = date.getFullYear();
+
+      if (mm.length < 2) {
+        mm = `0${mm}`;
+      }
+
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function addBreak() {
+      breakDates.push({ start: '', end: '' });
+    }
+
+    function removeBreak(index: number) {
+      breakDates.splice(index, 1);
+    }
+
+    async function save() {
+      try {
+        const dateStrings: { start: string; end: string }[] = [];
+
+        breakDates.forEach((breakObject) => {
+          if (breakObject.start && breakObject.end) {
+            dateStrings.push({
+              start: formatDateString(breakObject.start),
+              end: formatDateString(breakObject.end),
+            });
+          }
+        });
+        formData.breaks = dateStrings;
+
+        await store.dispatch(ActionTypes.UPDATE_STAFF, formData);
+        requestSent.value = true;
+        status.value = true;
+      } catch {
+        requestSent.value = true;
+        status.value = false;
+      }
+    }
+
     return {
       save,
       addShift,
@@ -306,6 +385,9 @@ export default defineComponent({
       imageUploadSent,
       imageUploadStatus,
       imageLocation,
+      breakDates,
+      addBreak,
+      removeBreak,
     };
   },
 });

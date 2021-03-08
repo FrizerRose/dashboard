@@ -6,6 +6,8 @@ import Staff from '@/types/staff';
 
 export interface State {
   isMenuOpen: boolean;
+  isStaffCreateOpen: boolean;
+  isStaffEditOpen: boolean;
   currentStep: number;
   selectedCompany: Company | null;
   selectedService: Service | null;
@@ -18,6 +20,8 @@ export interface State {
 
 const state: State = {
   isMenuOpen: false,
+  isStaffCreateOpen: false,
+  isStaffEditOpen: false,
   currentStep: 1,
   selectedCompany: null,
   selectedService: null,

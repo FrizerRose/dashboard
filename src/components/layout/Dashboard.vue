@@ -10,14 +10,19 @@
 
       <Footer />
     </div>
+    <div
+      v-if="anyModalOpen"
+      class="modal-backdrop fade show"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 import MainNavMenu from '@/components/layout/MainNavMenu.vue';
 import TopNavbar from '@/components/layout/TopNavbar.vue';
 import Footer from '@/components/layout/Footer.vue';
+import { useStore } from '@/store';
 
 export default defineComponent({
   components: {
@@ -26,7 +31,10 @@ export default defineComponent({
     Footer,
   },
   setup() {
+    const store = useStore();
+    const anyModalOpen = computed(() => store.getters.anyModelOpen);
     return {
+      anyModalOpen,
       tree: {
         nodes: [
           { name: 'Naslovnica', templateName: 'Home', slug: '/' },

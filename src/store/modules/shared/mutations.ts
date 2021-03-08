@@ -17,6 +17,8 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state: S, payload: {date: string; time: string}): void;
   [LocalMutationTypes.CHANGE_SELECTED_CUSTOMER](state: S, payload: Customer | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_NOTICE](state: S, payload: string): void;
+  [LocalMutationTypes.CHANGE_OPEN_STAFF_CREATE_MODAL](state: S, payload: boolean): void;
+  [LocalMutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL](state: S, payload: boolean): void;
   [LocalMutationTypes.ADD_RESERVED_APPOINTMENTS](state: S, payload: Appointment[]): void;
 }
 
@@ -45,6 +47,12 @@ export const mutations: MutationTree<State> & Mutations = {
   },
   [LocalMutationTypes.CHANGE_SELECTED_NOTICE](state, payload: string) {
     state.selectedNotice = payload;
+  },
+  [LocalMutationTypes.CHANGE_OPEN_STAFF_CREATE_MODAL](state, payload: boolean) {
+    state.isStaffCreateOpen = payload;
+  },
+  [LocalMutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL](state, payload: boolean) {
+    state.isStaffEditOpen = payload;
   },
   [LocalMutationTypes.ADD_RESERVED_APPOINTMENTS](state, payload: Appointment[]) {
     state.reservedAppointments.push(...payload);

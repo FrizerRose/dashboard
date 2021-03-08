@@ -1,241 +1,261 @@
 <template>
-  <div>
-    <div class="card">
-      <div class="card-body">
-        <label
-          class="form-label w-100"
-        >
-          <strong>Slika Radnika</strong>
-          <br>
-          Ovdje možete promijeniti radnikovu sliku koja će biti prikazan na stranici
-        </label>
-        <img
-          v-if="imageLocation"
-          :src="imageLocation"
-          alt="logo"
-          style="max-width: 200px; max-height: 200px;"
-        >
-        <input
-          id="id-file"
-          class="override-input-file"
-          type="file"
-          name="id-file"
-          accept="image/svg, image/png, image/jpeg"
-          @change="upload"
-        >
-        <label
-          for="id-file"
-          class="btn btn-primary"
-        >
-          {{ inputFileText }}
-        </label>
-        <span v-if="imageUploadSent && imageUploadStatus">Slika uspješno promjenjena!</span>
-        <span v-if="imageUploadSent && !imageUploadStatus">Došlo je do greške, molimo probajte kasnije!</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <button
-          :class="{
-            btn: true,
-            'btn-primary': !requestSent,
-            'btn-success': requestSent && status,
-            'btn-danger': requestSent && !status,
-          }"
-          @click="save()"
-        >
-          Spremi
-        </button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <label
-          for="id-name"
-          class="form-label w-100"
-        >
-          <strong>Ime Radnika</strong>
-          <br>
-          Ovdje možete promijeniti ime koje će pisati na stranici
-        </label>
-        <input
-          v-model="formData.name"
-          type="text"
-          class="form-control"
-          placeholder="Ime firme"
-          for="id-name"
-        >
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <label
-          class="form-label"
-          for="id-email"
-        >
-          <strong>E-mail adresa</strong>
-          <br>
-          Ovdje možete promijeniti e-mail adresu koja će se koristiti za kontaktiranje radnika
-        </label>
-        <input
-          id="id-email"
-          v-model="formData.email"
-          type="email"
-          class="form-control"
-          placeholder="adresa@firma.hr"
-        >
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <div
-          v-for="(day, dayName) in formData.hours"
-          :key="dayName"
-          class="row"
-        >
-          <div class="col-2 pt-4">
-            <label class="form-check m-0">
-              <input
-                v-model="day.active"
-                type="checkbox"
-                class="form-check-input"
-                @change="toggleDayActive(day)"
-              >
-              <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
-            </label>
-          </div>
-          <div
-            v-if="day.active"
-            class="col-10"
+  <Modal>
+    <template #header>
+      <h5
+        class="modal-title h4"
+      >
+        Dodavanje radnika
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        @click="closeStaffEditModal()"
+      />
+    </template>
+    <template #body>
+      <div class="card">
+        <div class="card-body">
+          <label
+            class="form-label w-100"
           >
+            <strong>Slika Radnika</strong>
+            <br>
+            Ovdje možete promijeniti radnikovu sliku koja će biti prikazan na stranici
+          </label>
+          <img
+            v-if="imageLocation"
+            :src="imageLocation"
+            alt="logo"
+            style="max-width: 200px; max-height: 200px;"
+          >
+          <input
+            id="id-file"
+            class="override-input-file"
+            type="file"
+            name="id-file"
+            accept="image/svg, image/png, image/jpeg"
+            @change="upload"
+          >
+          <label
+            for="id-file"
+            class="btn btn-primary"
+          >
+            {{ inputFileText }}
+          </label>
+          <span v-if="imageUploadSent && imageUploadStatus">Slika uspješno promjenjena!</span>
+          <span v-if="imageUploadSent && !imageUploadStatus">Došlo je do greške, molimo probajte kasnije!</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <label
+            for="id-name"
+            class="form-label w-100"
+          >
+            <strong>Ime Radnika</strong>
+            <br>
+            Ovdje možete promijeniti ime koje će pisati na stranici
+          </label>
+          <input
+            v-model="formData.name"
+            type="text"
+            class="form-control"
+            placeholder="Ime firme"
+            for="id-name"
+          >
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <label
+            class="form-label"
+            for="id-email"
+          >
+            <strong>E-mail adresa</strong>
+            <br>
+            Ovdje možete promijeniti e-mail adresu koja će se koristiti za kontaktiranje radnika
+          </label>
+          <input
+            id="id-email"
+            v-model="formData.email"
+            type="email"
+            class="form-control"
+            placeholder="adresa@firma.hr"
+          >
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div
+            v-for="(day, dayName) in formData.hours"
+            :key="dayName"
+            class="row"
+          >
+            <div class="col-2 pt-4">
+              <label class="form-check m-0">
+                <input
+                  v-model="day.active"
+                  type="checkbox"
+                  class="form-check-input"
+                  @change="toggleDayActive(day)"
+                >
+                <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
+              </label>
+            </div>
             <div
-              v-for="(shift, shiftIndex) in day.shifts"
-              :key="shiftIndex"
-              class="row"
+              v-if="day.active"
+              class="col-10"
             >
-              <div class="col-1">
-                <label
-                  class="form-label w-100"
-                  for="id-working-hour-from"
-                >
-                  <strong>Od</strong>
-                </label>
-              </div>
-              <div class="col-3">
-                <input
-                  v-model="shift.start"
-                  type="text"
-                  name="shift-end"
-                >
-              </div>
-              <div class="col-1">
-                <label
-                  class="form-label w-100"
-                  for="id-working-hour-to"
-                >
-                  <strong>Do</strong>
-                </label>
-              </div>
-              <div class="col-3">
-                <input
-                  v-model="shift.end"
-                  type="text"
-                  name="shift-end"
-                >
-              </div>
               <div
-                v-if="shiftIndex === day.shifts.length - 1"
-                class="col-3"
+                v-for="(shift, shiftIndex) in day.shifts"
+                :key="shiftIndex"
+                class="row"
               >
-                <button
-                  class="btn btn-info"
-                  @click="addShift(day.shifts)"
+                <div class="col-1">
+                  <label
+                    class="form-label w-100"
+                    for="id-working-hour-from"
+                  >
+                    <strong>Od</strong>
+                  </label>
+                </div>
+                <div class="col-3">
+                  <input
+                    v-model="shift.start"
+                    type="text"
+                    name="shift-end"
+                  >
+                </div>
+                <div class="col-1">
+                  <label
+                    class="form-label w-100"
+                    for="id-working-hour-to"
+                  >
+                    <strong>Do</strong>
+                  </label>
+                </div>
+                <div class="col-3">
+                  <input
+                    v-model="shift.end"
+                    type="text"
+                    name="shift-end"
+                  >
+                </div>
+                <div
+                  v-if="shiftIndex === day.shifts.length - 1"
+                  class="col-3"
                 >
-                  +
-                </button>
-                <button
-                  v-if="dayName.toString() === 'monday'"
-                  class="btn btn-secondary"
-                  @click="copyShiftsToOtherDays(day)"
-                >
-                  Copy to other days
-                </button>
+                  <button
+                    class="btn btn-info"
+                    @click="addShift(day.shifts)"
+                  >
+                    +
+                  </button>
+                  <button
+                    v-if="dayName.toString() === 'monday'"
+                    class="btn btn-secondary"
+                    @click="copyShiftsToOtherDays(day)"
+                  >
+                    Copy to other days
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <hr v-if="day.shifts.length">
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <div
-          v-for="service in allServices"
-          :key="service.id"
-          class="row"
-        >
-          <div class="col-3">
-            <label class="form-check m-0">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                :checked="isAssigned(service)"
-                @change="toggleService(service)"
-              >
-              <span class="form-check-label lead">{{ service.name }}</span>
-            </label>
-          </div>
-          <div class="col-3">
-            {{ service.price }}kn
-          </div>
-          <div class="col-3">
-            {{ service.duration }}min
+            <hr v-if="day.shifts.length">
           </div>
         </div>
       </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <label
-          class="form-label w-100"
-        >
-          <strong>Godišnji</strong>
-        </label>
+      <div class="card">
+        <div class="card-body">
+          <div
+            v-for="service in allServices"
+            :key="service.id"
+            class="row"
+          >
+            <div class="col-3">
+              <label class="form-check m-0">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  :checked="isAssigned(service)"
+                  @change="toggleService(service)"
+                >
+                <span class="form-check-label lead">{{ service.name }}</span>
+              </label>
+            </div>
+            <div class="col-3">
+              {{ service.price }}kn
+            </div>
+            <div class="col-3">
+              {{ service.duration }}min
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <label
+            class="form-label w-100"
+          >
+            <strong>Godišnji</strong>
+          </label>
 
-        <div
-          v-for="(breakDate, index) in breakDates"
-          :key="index"
-        >
-          od
-          <input
-            id="date-start"
-            v-model="breakDate.start"
-            type="date"
-            name="data-start"
+          <div
+            v-for="(breakDate, index) in breakDates"
+            :key="index"
           >
-          do
-          <input
-            id="date-end"
-            v-model="breakDate.end"
-            type="date"
-            name="data-end"
-          >
+            od
+            <input
+              id="date-start"
+              v-model="breakDate.start"
+              type="date"
+              name="data-start"
+            >
+            do
+            <input
+              id="date-end"
+              v-model="breakDate.end"
+              type="date"
+              name="data-end"
+            >
+            <button
+              class="btn btn-danger"
+              @click="removeBreak(index)"
+            >
+              -
+            </button>
+          </div>
           <button
-            class="btn btn-danger"
-            @click="removeBreak(index)"
+            class="btn btn-secondary"
+            @click="addBreak()"
           >
-            -
+            +
           </button>
         </div>
-        <button
-          class="btn btn-secondary"
-          @click="addBreak()"
-        >
-          +
-        </button>
       </div>
-    </div>
-  </div>
+    </template>
+    <template #footer>
+      <button
+        :class="{
+          btn: true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
+      >
+        Spremi
+      </button>
+      <button
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+        @click="closeStaffEditModal()"
+      >
+        Close
+      </button>
+    </template>
+  </Modal>
 </template>
 
 <script lang='ts'>
@@ -244,10 +264,15 @@ import {
 } from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
+import MutationTypes from '@/store/mutation-types';
 import { Day, StartEnd } from '@/types/workingHours';
 import Service from '@/types/service';
+import Modal from '@/components/layout/Modal.vue';
 
 export default defineComponent({
+  components: {
+    Modal,
+  },
   props: {
     worker: {
       type: Object,
@@ -345,6 +370,15 @@ export default defineComponent({
       breakDates.splice(index, 1);
     }
 
+    function closeStaffEditModal() {
+      store.commit(MutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL, false);
+      document.body.classList.remove('modal-open');
+      const modal = document.getElementById('exampleModalFullscreen');
+      if (modal) {
+        modal.classList.remove('show');
+      }
+    }
+
     async function save() {
       try {
         const dateStrings: { start: string; end: string }[] = [];
@@ -362,6 +396,7 @@ export default defineComponent({
         await store.dispatch(ActionTypes.UPDATE_STAFF, formData);
         requestSent.value = true;
         status.value = true;
+        closeStaffEditModal();
       } catch {
         requestSent.value = true;
         status.value = false;
@@ -388,6 +423,7 @@ export default defineComponent({
       breakDates,
       addBreak,
       removeBreak,
+      closeStaffEditModal,
     };
   },
 });

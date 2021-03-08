@@ -53,7 +53,12 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
-    const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const allStaff = computed(() => store.state.staff.allStaff);
+    const staffResources: {title: string; id: string}[] = allStaff.value.map((worker) => ({
+      id: worker.id.toString(),
+      title: worker.name,
+    }));
+
     onMounted(() => {
       const calendarEl = document.getElementById('fullcalendar');
       if (calendarEl) {
@@ -73,7 +78,16 @@ export default defineComponent({
           slotDuration: '00:15:00',
           slotLabelInterval: '01:00',
           schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-          // resources: ,
+          resources: staffResources,
+          events: [
+            {
+              id: '1',
+              resourceIds: ['3', '4'],
+              title: 'Meeting',
+              start: '2021-03-08T12:30:00',
+              end: '2021-03-08T16:30:00',
+            },
+          ],
         });
 
         calendar.render();

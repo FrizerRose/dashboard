@@ -14,6 +14,7 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.CHANGE_SELECTED_COMPANY](state: S, payload: Company | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_SERVICE](state: S, payload: Service | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_STAFF](state: S, payload: Staff | null): void;
+  [LocalMutationTypes.CHANGE_SELECTED_WORKER](state: S, payload: Staff | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state: S, payload: {date: string; time: string}): void;
   [LocalMutationTypes.CHANGE_SELECTED_CUSTOMER](state: S, payload: Customer | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_NOTICE](state: S, payload: string): void;
@@ -37,6 +38,9 @@ export const mutations: MutationTree<State> & Mutations = {
   [LocalMutationTypes.CHANGE_SELECTED_STAFF](state, payload: Staff | null) {
     state.selectedStaff = payload;
   },
+  [LocalMutationTypes.CHANGE_SELECTED_WORKER](state, payload: Staff | null) {
+    state.selectedWorker = payload;
+  },
   [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state, payload: {date: string; time: string}) {
     state.selectedDateTime = payload;
   },
@@ -47,6 +51,6 @@ export const mutations: MutationTree<State> & Mutations = {
     state.selectedNotice = payload;
   },
   [LocalMutationTypes.ADD_RESERVED_APPOINTMENTS](state, payload: Appointment[]) {
-    state.reservedAppointments.push(...payload);
+    state.reservedAppointments = payload;
   },
 };

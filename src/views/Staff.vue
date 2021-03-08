@@ -7,10 +7,6 @@
       >
         <div class="row">
           <div class="col-xl-8">
-            <h1 class="h3 mb-3">
-              Radnici
-            </h1>
-
             <button
               class="btn btn-primary float-end mt-n1"
               aria-label="Dodaj radnika"
@@ -18,6 +14,10 @@
             >
               <span class="fa fa-plus" /> Dodaj radnika
             </button>
+
+            <h1 class="h3 mb-3">
+              Radnici
+            </h1>
 
             <div v-if="isStaffCreateOpen">
               <StaffCreate />

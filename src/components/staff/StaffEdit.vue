@@ -21,30 +21,82 @@
           >
             <strong>Slika Radnika</strong>
             <br>
-            Ovdje možete promijeniti radnikovu sliku koja će biti prikazan na stranici
+            Za najbolje rezultate koristite kvadratnu ili vertikalnu (portrait) sliku
           </label>
-          <img
-            v-if="imageLocation"
-            :src="imageLocation"
-            alt="logo"
-            style="max-width: 200px; max-height: 200px;"
-          >
-          <input
-            id="id-file"
-            class="override-input-file"
-            type="file"
-            name="id-file"
-            accept="image/svg, image/png, image/jpeg"
-            @change="upload"
-          >
-          <label
-            for="id-file"
-            class="btn btn-primary"
-          >
-            {{ inputFileText }}
-          </label>
-          <span v-if="imageUploadSent && imageUploadStatus">Slika uspješno promjenjena!</span>
-          <span v-if="imageUploadSent && !imageUploadStatus">Došlo je do greške, molimo probajte kasnije!</span>
+          <div class="row">
+            <div class="col-3">
+              <div class="override-upload-image-wrap">
+                <div class="override-upload-image">
+                  <div class="override-upload-image-square">
+                    <img
+                      v-if="imageLocation"
+                      :src="imageLocation"
+                      alt="logo"
+                    >
+                    <span
+                      v-if="!imageLocation"
+                      class="override-upload-image-layer override-upload-image-missing"
+                    >
+                      <span class="override-upload-image-layer override-upload-image-missing-placeholder">
+                        <span class="fa fa-user" />
+                      </span>
+                    </span>
+                  </div>
+                  <span class="override-upload-image-layer override-upload-image-input-wrap">
+                    <input
+                      id="id-file-over-img"
+                      class="override-input-file"
+                      type="file"
+                      name="id-file-over-img"
+                      accept="image/svg, image/png, image/jpeg"
+                      @change="upload"
+                    >
+                    <label
+                      for="id-file-over-img"
+                      class="override-upload-image-layer override-upload-image-input-wrap-label"
+                    >
+                      <span class="override-upload-image-layer override-upload-image-input-wrap-label-icon">
+                        <span class="fa fa-camera" />
+                      </span>
+                    </label>
+                  </span>
+                </div>
+                <button class="override-upload-image-remove override-upload-image-square">
+                  <span class="override-upload-image-layer override-upload-image-remove-center">
+                    <span class="fa fa-trash" />
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div class="col-9">
+              <input
+                id="id-file"
+                class="override-input-file"
+                type="file"
+                name="id-file"
+                accept="image/svg, image/png, image/jpeg"
+                @change="upload"
+              >
+              <label
+                for="id-file"
+                class="btn btn-primary"
+              >
+                {{ inputFileText }}
+              </label>
+              <div
+                v-if="imageUploadSent && imageUploadStatus"
+                class="mt-2"
+              >
+                Slika uspješno promjenjena!
+              </div>
+              <div
+                v-if="imageUploadSent && !imageUploadStatus"
+                class="mt-2"
+              >
+                Došlo je do greške, molimo probajte kasnije!
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card">

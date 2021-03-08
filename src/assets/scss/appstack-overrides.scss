@@ -6,3 +6,111 @@
 	position: absolute;
 	z-index: -1;
 }
+
+.override-upload-image-wrap {
+	position: relative;
+}
+
+.override-upload-image {
+    position: relative;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.override-upload-image-square {
+    position: relative;
+    display: block;
+    border-radius: 9999px;
+    overflow: hidden;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+
+    &:before {
+        display: block;
+        padding-bottom: 100%; /* [1] */
+        width: 100%;
+        content: "";
+    }
+}
+
+.override-upload-image-square > img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.override-upload-image-layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.override-upload-image-missing {
+	border: 2px solid silver;
+	pointer-events: none;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.override-upload-image-missing-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5%;
+    border-radius: 9999px;
+    overflow: hidden;
+
+	> span {
+		position: absolute;
+		bottom: 0;
+		font-size: 5rem;
+		left: auto;
+		right: auto;
+	}
+}
+
+.override-upload-image-input-wrap-label {
+	cursor: pointer;
+	.override-upload-image:hover & {
+		background-color: rgba(255, 255, 255, 0.75);
+	}
+}
+
+.override-upload-image-input-wrap-label-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+	pointer-events: none;
+	transform: scale(0) translateY(2rem);
+	opacity: 0;
+	transition: transform 0.25s cubic-bezier(0.4, 0, 0, 1), opacity 0.5s cubic-bezier(0.4, 0, 0, 1);
+	.override-upload-image:hover & {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.override-upload-image-remove {
+	width: 25%;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	background-color: var(--bs-danger);
+	border: 2px solid var(--bs-danger);
+	color: white;
+}
+
+.override-upload-image-remove-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

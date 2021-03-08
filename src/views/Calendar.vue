@@ -13,39 +13,76 @@
   -->
     <main class="content">
       <div class="container-fluid p-0">
-        kalendar
+        <h1 class="h3 mb-3">
+          Calendar
+        </h1>
+
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">
+              FullCalendar
+            </h5>
+            <h6 class="card-subtitle text-muted">
+              Open source JavaScript jQuery plugin for a full-sized, drag & drop event calendar.
+            </h6>
+          </div>
+          <div class="card-body">
+            <div id="fullcalendar" />
+          </div>
+        </div>
       </div>
     </main>
   </Dashboard>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, computed } from 'vue';
 import Dashboard from '@/components/layout/Dashboard.vue';
-// import { Calendar } from '@fullcalendar/core';
-// import dayGridPlugin from '@fullcalendar/daygrid';
-// import timeGridPlugin from '@fullcalendar/timegrid';
-// import listPlugin from '@fullcalendar/list';
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import resourcePlugin from '@fullcalendar/resource-common';
+import listPlugin from '@fullcalendar/list';
+import hrLocale from '@fullcalendar/core/locales/hr';
+import { useStore } from '@/store';
 
 export default defineComponent({
   components: {
-    // Calendar,
     Dashboard,
   },
 
   setup() {
-    // const calendar = new Calendar(calendarEl, {
-    //   plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
-    //   initialView: 'dayGridMonth',
-    //   headerToolbar: {
-    //     left: 'prev,next today',
-    //     center: 'title',
-    //     right: 'dayGridMonth,timeGridWeek,listWeek',
-    //   },
-    // });
-    // return {
-    //   calendar,
-    // };
+    const store = useStore();
+    const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    onMounted(() => {
+      const calendarEl = document.getElementById('fullcalendar');
+      if (calendarEl) {
+        const calendar = new Calendar(calendarEl, {
+          plugins: [dayGridPlugin, timeGridPlugin, listPlugin, resourcePlugin],
+          initialView: 'timeGridWeek',
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridWeek,listWeek',
+          },
+          views: {
+            timeGridWeek: {
+            },
+          },
+          locale: hrLocale,
+          slotDuration: '00:15:00',
+          slotLabelInterval: '01:00',
+          schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+          // resources: ,
+        });
+
+        calendar.render();
+      }
+    });
+
+    return {
+      // calendar,
+    };
   },
 });
 </script>

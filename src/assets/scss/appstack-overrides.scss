@@ -1,3 +1,8 @@
+.add-staff-section {
+    border-top: 1px solid #6c757d;
+    padding-top: 2rem;
+}
+
 .override-input-file {
 	width: 0.1px;
 	height: 0.1px;
@@ -9,6 +14,7 @@
 
 .override-upload-image-wrap {
 	position: relative;
+	max-width: 120px;
 }
 
 .override-upload-image {

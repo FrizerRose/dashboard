@@ -8,7 +8,7 @@
     aria-modal="true"
     role="dialog"
   >
-    <div class="modal-dialog modal-fullscreen-X modal-fullscreen-sm-down-X">
+    <div class="modal-dialog modal-fullscreen modal-fullscreen-sm-down-X">
       <div class="modal-content">
         <div class="modal-header">
           <slot name="header" />

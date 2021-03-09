@@ -14,276 +14,333 @@
       />
     </template>
     <template #body>
-      <div class="card">
-        <div class="card-body">
-          <label
-            class="form-label w-100"
-          >
-            <strong>Slika Radnika</strong>
-            <br>
-            Za najbolje rezultate koristite kvadratnu ili vertikalnu (portrait) sliku
-          </label>
-          <div class="row">
-            <div class="col-3">
-              <div class="override-upload-image-wrap">
-                <div class="override-upload-image">
-                  <div class="override-upload-image-square">
-                    <img
-                      v-if="imageLocation"
-                      :src="imageLocation"
-                      alt="logo"
-                    >
-                    <span
-                      v-if="!imageLocation"
-                      class="override-upload-image-layer override-upload-image-missing"
-                    >
-                      <span class="override-upload-image-layer override-upload-image-missing-placeholder">
-                        <span class="fa fa-user" />
+      <div class="radnik-podatci">
+        <label
+          class="form-label w-100"
+        >
+          <strong>Slika Radnika</strong>
+          <br>
+          Za najbolje rezultate koristite kvadratnu ili vertikalnu (portrait) sliku
+        </label>
+        <div class="row">
+          <div class="col-md-3 mb-4">
+            <div class="row d-flex align-items-center">
+              <div class="col-6 col-md-12">
+                <div class="override-upload-image-wrap">
+                  <div class="override-upload-image">
+                    <div class="override-upload-image-square">
+                      <img
+                        v-if="imageLocation"
+                        :src="imageLocation"
+                        alt="logo"
+                      >
+                      <span
+                        v-if="!imageLocation"
+                        class="override-upload-image-layer override-upload-image-missing"
+                      >
+                        <span class="override-upload-image-layer override-upload-image-missing-placeholder">
+                          <span class="fa fa-user" />
+                        <!-- <i class="align-middle" data-feather="user"></i> -->
+                        </span>
                       </span>
+                    </div>
+                    <span class="override-upload-image-layer override-upload-image-input-wrap">
+                      <input
+                        id="id-file-over-img"
+                        class="override-input-file"
+                        type="file"
+                        name="id-file-over-img"
+                        accept="image/svg, image/png, image/jpeg"
+                        @change="upload"
+                      >
+                      <label
+                        for="id-file-over-img"
+                        class="override-upload-image-layer override-upload-image-input-wrap-label"
+                      >
+                        <span class="override-upload-image-layer override-upload-image-input-wrap-label-icon">
+                          <span class="fa fa-camera" />
+                        </span>
+                      </label>
                     </span>
                   </div>
-                  <span class="override-upload-image-layer override-upload-image-input-wrap">
-                    <input
-                      id="id-file-over-img"
-                      class="override-input-file"
-                      type="file"
-                      name="id-file-over-img"
-                      accept="image/svg, image/png, image/jpeg"
-                      @change="upload"
-                    >
-                    <label
-                      for="id-file-over-img"
-                      class="override-upload-image-layer override-upload-image-input-wrap-label"
-                    >
-                      <span class="override-upload-image-layer override-upload-image-input-wrap-label-icon">
-                        <span class="fa fa-camera" />
-                      </span>
-                    </label>
-                  </span>
+                  <button class="override-upload-image-remove override-upload-image-square">
+                    <span class="override-upload-image-layer override-upload-image-remove-center">
+                      <span class="fa fa-trash" />
+                    </span>
+                  </button>
                 </div>
-                <button class="override-upload-image-remove override-upload-image-square">
-                  <span class="override-upload-image-layer override-upload-image-remove-center">
-                    <span class="fa fa-trash" />
-                  </span>
-                </button>
               </div>
-            </div>
-            <div class="col-9">
-              <input
-                id="id-file"
-                class="override-input-file"
-                type="file"
-                name="id-file"
-                accept="image/svg, image/png, image/jpeg"
-                @change="upload"
-              >
-              <label
-                for="id-file"
-                class="btn btn-primary"
-              >
-                {{ inputFileText }}
-              </label>
-              <div
-                v-if="imageUploadSent && imageUploadStatus"
-                class="mt-2"
-              >
-                Slika uspješno promjenjena!
-              </div>
-              <div
-                v-if="imageUploadSent && !imageUploadStatus"
-                class="mt-2"
-              >
-                Došlo je do greške, molimo probajte kasnije!
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <label
-            for="id-name"
-            class="form-label w-100"
-          >
-            <strong>Ime Radnika</strong>
-            <br>
-            Ovdje možete promijeniti ime koje će pisati na stranici
-          </label>
-          <input
-            v-model="formData.name"
-            type="text"
-            class="form-control"
-            placeholder="Ime firme"
-            for="id-name"
-          >
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <label
-            class="form-label"
-            for="id-email"
-          >
-            <strong>E-mail adresa</strong>
-            <br>
-            Ovdje možete promijeniti e-mail adresu koja će se koristiti za kontaktiranje radnika
-          </label>
-          <input
-            id="id-email"
-            v-model="formData.email"
-            type="email"
-            class="form-control"
-            placeholder="adresa@firma.hr"
-          >
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <div
-            v-for="(day, dayName) in formData.hours"
-            :key="dayName"
-            class="row"
-          >
-            <div class="col-2 pt-4">
-              <label class="form-check m-0">
+              <div class="col-6 col-md-12 mt-4">
                 <input
-                  v-model="day.active"
-                  type="checkbox"
-                  class="form-check-input"
-                  @change="toggleDayActive(day)"
+                  id="id-file"
+                  class="override-input-file"
+                  type="file"
+                  name="id-file"
+                  accept="image/svg, image/png, image/jpeg"
+                  @change="upload"
                 >
-                <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
-              </label>
-            </div>
-            <div
-              v-if="day.active"
-              class="col-10"
-            >
-              <div
-                v-for="(shift, shiftIndex) in day.shifts"
-                :key="shiftIndex"
-                class="row"
-              >
-                <div class="col-1">
-                  <label
-                    class="form-label w-100"
-                    for="id-working-hour-from"
-                  >
-                    <strong>Od</strong>
-                  </label>
-                </div>
-                <div class="col-3">
-                  <input
-                    v-model="shift.start"
-                    type="text"
-                    name="shift-end"
-                  >
-                </div>
-                <div class="col-1">
-                  <label
-                    class="form-label w-100"
-                    for="id-working-hour-to"
-                  >
-                    <strong>Do</strong>
-                  </label>
-                </div>
-                <div class="col-3">
-                  <input
-                    v-model="shift.end"
-                    type="text"
-                    name="shift-end"
-                  >
+                <label
+                  for="id-file"
+                  class="btn btn-primary"
+                >
+                  {{ inputFileText }}
+                </label>
+                <div
+                  v-if="imageUploadSent && imageUploadStatus"
+                  class="mt-2"
+                >
+                  Slika uspješno promjenjena!
                 </div>
                 <div
-                  v-if="shiftIndex === day.shifts.length - 1"
-                  class="col-3"
+                  v-if="imageUploadSent && !imageUploadStatus"
+                  class="mt-2"
                 >
-                  <button
-                    class="btn btn-info"
-                    @click="addShift(day.shifts)"
-                  >
-                    +
-                  </button>
-                  <button
-                    v-if="dayName.toString() === 'monday'"
-                    class="btn btn-secondary"
-                    @click="copyShiftsToOtherDays(day)"
-                  >
-                    Copy to other days
-                  </button>
+                  Došlo je do greške, molimo probajte kasnije!
                 </div>
               </div>
             </div>
-            <hr v-if="day.shifts.length">
           </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <div
-            v-for="service in allServices"
-            :key="service.id"
-            class="row"
-          >
-            <div class="col-3">
-              <label class="form-check m-0">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  :checked="isAssigned(service)"
-                  @change="toggleService(service)"
-                >
-                <span class="form-check-label lead">{{ service.name }}</span>
+          <div class="col-md-9">
+            <div class="mb-4">
+              <label
+                for="id-name"
+                class="form-label w-100"
+              >
+                <strong>Ime Radnika</strong>
+                <br>
+                Ovdje možete promijeniti ime koje će pisati na stranici
               </label>
+              <input
+                v-model="formData.name"
+                type="text"
+                class="form-control"
+                placeholder="Ime firme"
+                for="id-name"
+              >
             </div>
-            <div class="col-3">
-              {{ service.price }}kn
-            </div>
-            <div class="col-3">
-              {{ service.duration }}min
+            <div class="mb-4">
+              <label
+                class="form-label"
+                for="id-email"
+              >
+                <strong>E-mail adresa</strong>
+                <br>
+                Ovdje možete promijeniti e-mail adresu koja će se koristiti za kontaktiranje radnika
+              </label>
+              <input
+                id="id-email"
+                v-model="formData.email"
+                type="email"
+                class="form-control"
+                placeholder="adresa@firma.hr"
+              >
             </div>
           </div>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <label
-            class="form-label w-100"
-          >
-            <strong>Godišnji</strong>
-          </label>
-
-          <div
-            v-for="(breakDate, index) in breakDates"
-            :key="index"
-          >
-            od
-            <input
-              id="date-start"
-              v-model="breakDate.start"
-              type="date"
-              name="data-start"
-            >
-            do
-            <input
-              id="date-end"
-              v-model="breakDate.end"
-              type="date"
-              name="data-end"
-            >
-            <button
-              class="btn btn-danger"
-              @click="removeBreak(index)"
-            >
-              -
-            </button>
+        <div class="radnik-radni-dani">
+          <div class="row">
+            <div class="col-md-3 mb-4" />
+            <div class="col-md-9 mb-4 add-staff-section">
+              <label class="form-label w-100">
+                <strong>Radni dani</strong>
+                <br>
+                Označite na koje dane ste otvoreni
+              </label>
+              <div
+                v-for="(day, dayName) in formData.hours"
+                :key="dayName"
+                class="row"
+              >
+                <div class="col-12 col-md-3">
+                  <label class="form-check m-0">
+                    <input
+                      v-model="day.active"
+                      type="checkbox"
+                      class="form-check-input"
+                      @change="toggleDayActive(day)"
+                    >
+                    <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
+                  </label>
+                </div>
+                <div
+                  v-if="day.active"
+                  class="col-12 col-md-9"
+                >
+                  <div
+                    v-for="(shift, shiftIndex) in day.shifts"
+                    :key="shiftIndex"
+                    class="row"
+                  >
+                    <div class="col-12">
+                      <div class="row mb-4 d-flex align-items-end">
+                        <div class="col-4 col-md-4">
+                          <label
+                            class="form-label w-100"
+                            for="id-monday-shift-start"
+                          >
+                            <strong>Od</strong>
+                          </label>
+                          <input
+                            v-model="shift.start"
+                            type="text"
+                            name="id-monday-shift-start"
+                            class="form-control"
+                          >
+                        </div>
+                        <div class="col-4 col-md-4">
+                          <label
+                            class="form-label w-100"
+                            for="id-monday-shift-end"
+                          >
+                            <strong>Do</strong>
+                          </label>
+                          <input
+                            v-model="shift.end"
+                            type="text"
+                            name="id-monday-shift-end"
+                            class="form-control"
+                          >
+                        </div>
+                        <div
+                          v-if="shiftIndex === day.shifts.length - 1"
+                          class="col-4 col-md-4"
+                        >
+                          <button
+                            class="btn btn-primary"
+                            @click="addShift(day.shifts)"
+                          >
+                            Dodaj smjenu
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      v-if="shiftIndex === day.shifts.length - 1"
+                      class="col-12"
+                    >
+                      <div class="row mb-4 d-flex align-items-end">
+                        <div class="col-12 col-md-12">
+                          <button
+                            v-if="dayName.toString() === 'monday'"
+                            class="btn btn-primary"
+                            @click="copyShiftsToOtherDays(day)"
+                          >
+                            Kopiraj u sve označene dane
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr v-if="day.shifts.length">
+              </div>
+            </div>
           </div>
-          <button
-            class="btn btn-secondary"
-            @click="addBreak()"
-          >
-            +
-          </button>
+        </div>
+        <div class="radnik-djelatnosti">
+          <div class="row">
+            <div class="col-md-3 mb-4" />
+            <div class="col-md-9 mb-4 add-staff-section">
+              <label class="form-label w-100">
+                <strong>Usluge i odgovornosti</strong>
+                <br>
+                Označite usluge koje ovaj radnik pruža
+              </label>
+              <div
+                v-for="service in allServices"
+                :key="service.id"
+                class="row"
+              >
+                <div class="col-md-9">
+                  <label class="form-check m-0">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      :checked="isAssigned(service)"
+                      @change="toggleService(service)"
+                    >
+                    <span class="form-check-label lead">{{ service.name }}</span>
+                  </label>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <strong>{{ service.price }}</strong> kn
+                    </div>
+                    <div class="col-md-6">
+                      <strong>{{ service.duration }}</strong> min
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="radnik-godisnji">
+          <div class="row">
+            <div class="col-md-3 mb-4" />
+            <div class="col-md-9 mb-4 add-staff-section">
+              <div class="row">
+                <div class="col-12">
+                  <label class="form-label w-100">
+                    <strong>Godišnji</strong>
+                  </label>
+                </div>
+                <div class="col-12">
+                  <div
+                    v-for="(breakDate, index) in breakDates"
+                    :key="index"
+                    class="row mb-4 d-flex align-items-end"
+                  >
+                    <div class="col-12 col-md-3" />
+                    <div class="col-12 col-md-3">
+                      <label class="form-label w-100">
+                        <strong>Od</strong>
+                      </label>
+                      <input
+                        id="date-start"
+                        v-model="breakDate.start"
+                        class="form-control"
+                        type="date"
+                        name="data-start"
+                      >
+                    </div>
+                    <div class="col-12 col-md-3">
+                      <label class="form-label w-100">
+                        <strong>Do</strong>
+                      </label>
+                      <input
+                        id="date-end"
+                        v-model="breakDate.end"
+                        class="form-control"
+                        type="date"
+                        name="data-end"
+                      >
+                    </div>
+                    <div class="col-12 col-md-3">
+                      <button
+                        class="btn btn-danger"
+                        @click="removeBreak(index)"
+                      >
+                        Ukloni razdoblje
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row mb-4 d-flex align-items-end">
+                    <div class="col-md-3 mb-4" />
+                    <div class="col-md-9 mb-4">
+                      <button
+                        class="btn btn-primary"
+                        @click="addBreak()"
+                      >
+                        Dodaj razdoblje
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </template>

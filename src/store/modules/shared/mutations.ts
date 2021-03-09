@@ -14,12 +14,15 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.CHANGE_SELECTED_COMPANY](state: S, payload: Company | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_SERVICE](state: S, payload: Service | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_STAFF](state: S, payload: Staff | null): void;
+  [LocalMutationTypes.CHANGE_SELECTED_WORKER](state: S, payload: Staff | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state: S, payload: {date: string; time: string}): void;
   [LocalMutationTypes.CHANGE_SELECTED_CUSTOMER](state: S, payload: Customer | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_NOTICE](state: S, payload: string): void;
   [LocalMutationTypes.CHANGE_OPEN_STAFF_CREATE_MODAL](state: S, payload: boolean): void;
   [LocalMutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL](state: S, payload: boolean): void;
+  [LocalMutationTypes.CHANGE_RESERVED_APPOINTMENTS](state: S, payload: Appointment[]): void;
   [LocalMutationTypes.ADD_RESERVED_APPOINTMENTS](state: S, payload: Appointment[]): void;
+  [LocalMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID](state: S, payload: number): void;
 }
 
 // Mutuation implementation.
@@ -39,6 +42,9 @@ export const mutations: MutationTree<State> & Mutations = {
   [LocalMutationTypes.CHANGE_SELECTED_STAFF](state, payload: Staff | null) {
     state.selectedStaff = payload;
   },
+  [LocalMutationTypes.CHANGE_SELECTED_WORKER](state, payload: Staff | null) {
+    state.selectedWorker = payload;
+  },
   [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state, payload: {date: string; time: string}) {
     state.selectedDateTime = payload;
   },
@@ -54,7 +60,14 @@ export const mutations: MutationTree<State> & Mutations = {
   [LocalMutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL](state, payload: boolean) {
     state.isStaffEditOpen = payload;
   },
+  [LocalMutationTypes.CHANGE_RESERVED_APPOINTMENTS](state, payload: Appointment[]) {
+    state.reservedAppointments = payload;
+  },
   [LocalMutationTypes.ADD_RESERVED_APPOINTMENTS](state, payload: Appointment[]) {
     state.reservedAppointments.push(...payload);
+  },
+  [LocalMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID](state, payload: number) {
+    const appointmentToRemoveIndex = state.reservedAppointments.findIndex((app) => app.id === payload);
+    state.reservedAppointments.splice(appointmentToRemoveIndex, 1);
   },
 };

@@ -30,11 +30,11 @@ type AugmentedSharedActionContext = {
 
 export interface Actions {
   [LocalActionTypes.FETCH_STAFF_BY_ID](
-    { commit }: AugmentedSharedActionContext,
+    { commit }: AugmentedSharedActionContext & AugmentedSharedActionContext,
     IDs: number[]
   ): Promise<unknown>;
   [LocalActionTypes.FETCH_STAFF](
-    { commit }: AugmentedActionContext,
+    { commit }: AugmentedActionContext & AugmentedSharedActionContext,
     ID: number | string
   ): Promise<unknown>;
   [LocalActionTypes.CREATE_STAFF](
@@ -72,7 +72,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
             return newAppointment;
           });
 
-          commit(SharedMutationTypes.ADD_RESERVED_APPOINTMENTS, formattedAppointments);
+          commit(SharedMutationTypes.CHANGE_RESERVED_APPOINTMENTS, formattedAppointments);
         } else {
           reject(new ApiError('No staff by this ID.'));
         }
@@ -85,6 +85,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
     const response = await staffService.getByCompanyID(companyID);
     if (response.status === 200 && response.data) {
       commit(LocalMutationTypes.CHANGE_STAFF, response.data as Staff[]);
+      commit(SharedMutationTypes.CHANGE_SELECTED_WORKER, response.data[0] as Staff);
     } else {
       throw new ApiError('No staff with this company ID.');
     }

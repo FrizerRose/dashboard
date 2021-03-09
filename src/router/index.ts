@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/kalendar',
     name: 'Calendar',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "kalendar" */ '../views/Calendar.vue'),
+    component: () => import(/* webpackChunkName: "kalendar" */ '../views/CalendarView.vue'),
   },
   {
     path: '/usluge',

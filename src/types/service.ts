@@ -1,4 +1,4 @@
-import Staff from './staff';
+// import Staff from './staff';
 
 type Service = {
   id: number;
@@ -6,7 +6,7 @@ type Service = {
   duration: number;
   price: number;
   company: number;
-  staff?: Staff[];
+  // staff?: Staff[];
 }
 
 export default Service;

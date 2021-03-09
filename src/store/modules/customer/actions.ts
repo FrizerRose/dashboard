@@ -31,7 +31,7 @@ export interface Actions {
   [LocalActionTypes.CREATE_CUSTOMER](
     { commit }: AugmentedActionContext & AugmentedSharedActionContext,
     payload: Customer
-  ): Promise<unknown>;
+  ): Promise<Customer>;
 }
 
 // API access.
@@ -39,13 +39,13 @@ const customerService = new CustomerService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
-  async [LocalActionTypes.CREATE_CUSTOMER]({ commit }, payload: Customer): Promise<unknown> {
+  async [LocalActionTypes.CREATE_CUSTOMER]({ commit }, payload: Customer): Promise<Customer> {
     return new Promise((resolve, reject) => (async () => {
       const response = await customerService.create(payload);
       if (response.status === 201 && response.data) {
         commit(LocalMutationTypes.CHANGE_CUSTOMER, response.data);
         commit(SharedMutationTypes.CHANGE_SELECTED_CUSTOMER, response.data);
-        resolve(true);
+        resolve(response.data as Customer);
       } else {
         reject(new ApiError('Could not create an appointment.'));
       }

@@ -13,39 +13,37 @@
   -->
     <main class="content">
       <div class="container-fluid p-0">
-        kalendar
+        <h1 class="h3 mb-3">
+          Kalendar
+        </h1>
+        <CalendarComponent v-if="selectedWorker" />
       </div>
     </main>
   </Dashboard>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {
+  defineComponent, computed,
+} from 'vue';
+
 import Dashboard from '@/components/layout/Dashboard.vue';
-// import { Calendar } from '@fullcalendar/core';
-// import dayGridPlugin from '@fullcalendar/daygrid';
-// import timeGridPlugin from '@fullcalendar/timegrid';
-// import listPlugin from '@fullcalendar/list';
+import CalendarComponent from '@/components/Calendar.vue';
+import { useStore } from '@/store';
 
 export default defineComponent({
   components: {
-    // Calendar,
     Dashboard,
+    CalendarComponent,
   },
 
   setup() {
-    // const calendar = new Calendar(calendarEl, {
-    //   plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
-    //   initialView: 'dayGridMonth',
-    //   headerToolbar: {
-    //     left: 'prev,next today',
-    //     center: 'title',
-    //     right: 'dayGridMonth,timeGridWeek,listWeek',
-    //   },
-    // });
-    // return {
-    //   calendar,
-    // };
+    const store = useStore();
+    const selectedWorker = computed(() => store.state.shared.selectedWorker);
+
+    return {
+      selectedWorker,
+    };
   },
 });
 </script>

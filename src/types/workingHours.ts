@@ -9,6 +9,7 @@ export type Day = {
 };
 
 export type WorkingHours = {
+  [key: string]: Day;
   monday: Day;
   tuesday: Day;
   wednesday: Day;

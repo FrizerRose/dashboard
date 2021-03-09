@@ -84,12 +84,12 @@ export const actions: ActionTree<State, RootState> & Actions = {
       }
     })());
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async [LocalActionTypes.CANCEL_APPOINTMENT]({ commit }, id: number | undefined): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
       if (id !== undefined) {
         const response = await appointmentService.destroy(id.toString());
         if (response.status === 200) {
+          commit(SharedMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID, id);
           resolve(true);
         } else {
           reject(new ApiError('Could not delete an appointment.'));

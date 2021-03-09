@@ -26,7 +26,62 @@
       </h5>
     </div>
     <div class="card-body">
-      <div v-if="isAppointmentModalOpen && selectedDateTime">
+      <div v-if="isAppointmentModalOpen && selectedDateTime && isEventSelected">
+        <label
+          for="id-service"
+          class="form-label w-100"
+        >
+          <strong>Radnik</strong>
+        </label>
+        <select
+          id="id-service"
+          v-model="rescheduleSelectedStaff"
+          class="form-control mb-3"
+          name="id-service"
+          @change="changeRescheduleSelectedStaffServices()"
+        >
+          <option
+            v-for="staff in allStaff"
+            :key="staff.id"
+            :value="staff"
+          >
+            {{ staff.name }}
+          </option>
+        </select>
+        <label
+          for="id-service-reschedule"
+          class="form-label w-100"
+        >
+          <strong>Usluga</strong>
+        </label>
+        <select
+          id="id-service-reschedule"
+          v-model="rescheduleSelectedService"
+          class="form-control mb-3"
+          name="id-service-reschedule"
+        >
+          <option
+            v-for="service in rescheduleSelectedStaffServices.data"
+            :key="service.id"
+            :value="service"
+          >
+            {{ service.name }}
+          </option>
+        </select>
+        <button
+          class="btn btn-primary"
+          @click="reschedule()"
+        >
+          Spremi
+        </button>
+        <button
+          class="btn btn-danger"
+          @click="cancel()"
+        >
+          Otkaži
+        </button>
+      </div>
+      <div v-if="isAppointmentModalOpen && selectedDateTime && !isEventSelected">
         <label
           v-if="selectedWorker"
           for="id-staff"
@@ -101,18 +156,18 @@
           v-model="selectedNotice"
           class="c-form_textarea"
         />
+        <button
+          :class="{
+            btn: true,
+            'btn-primary': !requestSent,
+            'btn-success': requestSent && status,
+            'btn-danger': requestSent && !status,
+          }"
+          @click="createAppointment()"
+        >
+          Spremi
+        </button>
       </div>
-      <button
-        :class="{
-          btn: true,
-          'btn-primary': !requestSent,
-          'btn-success': requestSent && status,
-          'btn-danger': requestSent && !status,
-        }"
-        @click="createAppointment()"
-      >
-        Spremi
-      </button>
     </div>
 
     <div id="fullcalendar" />
@@ -147,9 +202,14 @@ export default defineComponent({
     const allStaff = computed(() => store.state.staff.allStaff);
     const selectedWorker = computed(() => store.state.shared.selectedWorker);
     const isAppointmentModalOpen = ref(false);
+    const isEventSelected = ref(false);
     const selectedDateTime = ref(new Date());
-    const services = reactive({ data: selectedWorker.value?.services });
-    const selectedService = reactive({} as Service);
+    const selectedAppointmentID = ref(-1);
+    const services = ref({ data: selectedWorker.value?.services });
+    const selectedService = ref({} as Service);
+    const rescheduleSelectedService = ref({} as Service);
+    const rescheduleSelectedStaff = ref({} as Staff);
+    const rescheduleSelectedStaffServices = reactive({ data: rescheduleSelectedStaff.value.services });
     const selectedCustomer = reactive({
       name: '', email: '', phone: '', company: selectedCompany.value,
     } as Customer);
@@ -181,8 +241,12 @@ export default defineComponent({
     }
 
     const formattedAppointments = computed(() => reservedAppointments.value.map((appointment) => {
-      if (appointment?.service?.duration) {
-        const startDate = new Date(`${appointment.date}T${appointment.time}`);
+      let timeString = `${appointment.date}T${appointment.time}`;
+      if (timeString.slice(-2) === ':0') {
+        timeString += '0';
+      }
+      const startDate = new Date(timeString);
+      if (typeof appointment.service !== 'number' && appointment.service) {
         const endDate = new Date(startDate.getTime() + appointment.service.duration * 60000);
         return {
           id: appointment.id?.toString(),
@@ -192,15 +256,15 @@ export default defineComponent({
           // ...appointment,
         };
       }
-      const startDate = new Date(`${appointment.date}T${appointment.time}`);
-      const endDate = new Date(startDate.getTime() + selectedService.duration * 60000);
-      return {
+      const endDate = new Date(startDate.getTime() + selectedService.value.duration * 60000);
+      const aa = {
         id: appointment.id?.toString(),
         title: selectedCustomer.name,
         start: startDate,
         end: endDate,
         // ...appointment,
       };
+      return aa;
     }));
 
     onMounted(() => {
@@ -218,6 +282,7 @@ export default defineComponent({
             timeGridWeek: {
             },
           },
+          allDaySlot: false,
           locale: hrLocale,
           slotDuration: '00:15:00',
           slotLabelInterval: '01:00',
@@ -226,13 +291,20 @@ export default defineComponent({
           events: formattedAppointments.value,
           selectable: true,
           select(info) {
-            console.log('🚀 ~ file: Calendar.vue ~ line 118 ~ select ~ info', info);
             selectedDateTime.value = info.start;
+            isEventSelected.value = false;
             isAppointmentModalOpen.value = true;
           },
           unselect(info) {
             console.log('🚀 ~ file: Calendar.vue ~ line 121 ~ unselect ~ info', info);
             // isAppointmentModalOpen.value = false;
+          },
+          eventClick(info) {
+            console.log('🚀 ~ file: Calendar.vue ~ line 238 ~ onMounted ~ info', info);
+            // eslint-disable-next-line no-underscore-dangle
+            selectedAppointmentID.value = parseInt(info.event._def.publicId, 10);
+            isEventSelected.value = true;
+            isAppointmentModalOpen.value = true;
           },
           // Sa auto heightom se prikaže cijeli calendar bez scrollabara, ali ne radi scrollanje to odredjenog vremena
           // height: 'auto',
@@ -302,25 +374,39 @@ export default defineComponent({
             phone: selectedCustomer.phone,
             company: selectedCompany.value?.id,
           } as Customer);
-          console.log('🚀 ~ file: Calendar.vue ~ line 306 ~ createAppointment ~ createdCustomer', createdCustomer);
 
           const appointmentObject = {
             date: getDateStringFromDate(selectedDateTime.value),
-            time: `${selectedDateTime.value.getHours()}:${selectedDateTime.value.getMinutes()}0`,
+            time: `${selectedDateTime.value.getHours()}:${selectedDateTime.value.getMinutes()}`,
             company: selectedCompany.value?.id,
             staff: selectedWorker.value.id,
-            service: selectedService.id,
+            service: selectedService.value.id,
             customer: createdCustomer.id,
             message: selectedNotice.value,
           };
-          console.log('🚀 ~ file: Calendar.vue ~ line 202 ~ createAppointment ~ appointmentObject', appointmentObject);
+
           await store.dispatch(ActionTypes.CREATE_APPOINTMENT, appointmentObject);
           requestSent.value = true;
           status.value = true;
+          isAppointmentModalOpen.value = false;
         }
       } catch {
         requestSent.value = true;
         status.value = false;
+      }
+    }
+
+    async function cancel() {
+      if (selectedAppointmentID.value > 0) {
+        await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, selectedAppointmentID.value);
+      }
+    }
+
+    async function reschedule() {
+      try {
+        cancel();
+      } catch {
+        console.log('aa');
       }
     }
 
@@ -338,7 +424,11 @@ export default defineComponent({
     fetchSelectedWorkerAppointments();
 
     function changeServices(newServices: Service[]) {
-      services.data = newServices;
+      services.value.data = newServices;
+    }
+
+    function changeRescheduleSelectedStaffServices() {
+      rescheduleSelectedStaffServices.data = rescheduleSelectedStaff.value.services;
     }
 
     return {
@@ -358,6 +448,13 @@ export default defineComponent({
       requestSent,
       status,
       changeServices,
+      isEventSelected,
+      reschedule,
+      cancel,
+      rescheduleSelectedService,
+      rescheduleSelectedStaff,
+      rescheduleSelectedStaffServices,
+      changeRescheduleSelectedStaffServices,
     };
   },
 });

@@ -73,11 +73,11 @@ export const actions: ActionTree<State, RootState> & Actions = {
 
     return response;
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async [LocalActionTypes.CREATE_APPOINTMENT]({ commit }, payload): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
       const response = await appointmentService.create(payload);
       if (response.status === 201) {
+        commit(SharedMutationTypes.ADD_RESERVED_APPOINTMENTS, [{ ...response.data }]);
         resolve(true);
       } else {
         reject(new ApiError('Could not create an appointment.'));

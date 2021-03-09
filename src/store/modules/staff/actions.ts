@@ -72,7 +72,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
             return newAppointment;
           });
 
-          commit(SharedMutationTypes.ADD_RESERVED_APPOINTMENTS, formattedAppointments);
+          commit(SharedMutationTypes.CHANGE_RESERVED_APPOINTMENTS, formattedAppointments);
         } else {
           reject(new ApiError('No staff by this ID.'));
         }

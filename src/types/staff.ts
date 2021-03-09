@@ -1,4 +1,5 @@
 import Break from './break';
+import Service from './service';
 import { WorkingHours } from './workingHours';
 
 type Staff = {
@@ -8,6 +9,7 @@ type Staff = {
   company: number;
   hours: WorkingHours;
   breaks: Break[];
+  services: Service[];
 }
 
 export default Staff;

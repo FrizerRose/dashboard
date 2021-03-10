@@ -1,15 +1,13 @@
 <template>
   <Modal>
     <template #header>
-      <h5
-        class="modal-title h4"
-      >
+      <h5 class="modal-title h4">
         Dodavanje radnika
       </h5>
       <button
         type="button"
         class="btn-close"
-        aria-label="Close"
+        aria-label="Zatvori"
         @click="closeStaffCreateModal()"
       />
     </template>
@@ -64,7 +62,7 @@
         data-bs-dismiss="modal"
         @click="closeStaffCreateModal()"
       >
-        Close
+        Zatvori
       </button>
     </template>
   </Modal>

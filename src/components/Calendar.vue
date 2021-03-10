@@ -308,7 +308,7 @@ export default defineComponent({
           },
           // Sa auto heightom se prikaže cijeli calendar bez scrollabara, ali ne radi scrollanje to odredjenog vremena
           // height: 'auto',
-          // themeSystem: 'bootstrap',
+          themeSystem: 'bootstrap',
           // events: [
           //   {
           //     end: '2021-03-09T14:45:00.000Z',

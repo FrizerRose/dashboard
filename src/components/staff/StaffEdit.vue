@@ -4,12 +4,12 @@
       <h5
         class="modal-title h4"
       >
-        Dodavanje radnika
+        Uređivanje radnika
       </h5>
       <button
         type="button"
         class="btn-close"
-        aria-label="Close"
+        aria-label="Zatvori"
         @click="closeStaffEditModal()"
       />
     </template>
@@ -18,7 +18,7 @@
         <label
           class="form-label w-100"
         >
-          <strong>Slika Radnika</strong>
+          <strong>Slika radnika</strong>
           <br>
           Za najbolje rezultate koristite kvadratnu ili vertikalnu (portrait) sliku
         </label>
@@ -137,205 +137,205 @@
             </div>
           </div>
         </div>
-        <div class="radnik-radni-dani">
-          <div class="row">
-            <div class="col-md-3 mb-4" />
-            <div class="col-md-9 mb-4 add-staff-section">
-              <label class="form-label w-100">
-                <strong>Radni dani</strong>
-                <br>
-                Označite na koje dane ste otvoreni
-              </label>
+      </div>
+      <div class="radnik-radni-dani">
+        <div class="row">
+          <div class="col-md-3 mb-4" />
+          <div class="col-md-9 mb-4 add-staff-section">
+            <label class="form-label w-100">
+              <strong>Radni dani</strong>
+              <br>
+              Označite na koje dane ste otvoreni
+            </label>
+            <div
+              v-for="(day, dayName) in formData.hours"
+              :key="dayName"
+              class="row"
+            >
+              <div class="col-12 col-md-3">
+                <label class="form-check m-0">
+                  <input
+                    v-model="day.active"
+                    type="checkbox"
+                    class="form-check-input"
+                    @change="toggleDayActive(day)"
+                  >
+                  <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
+                </label>
+              </div>
               <div
-                v-for="(day, dayName) in formData.hours"
-                :key="dayName"
-                class="row"
+                v-if="day.active"
+                class="col-12 col-md-9"
               >
-                <div class="col-12 col-md-3">
-                  <label class="form-check m-0">
-                    <input
-                      v-model="day.active"
-                      type="checkbox"
-                      class="form-check-input"
-                      @change="toggleDayActive(day)"
-                    >
-                    <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
-                  </label>
-                </div>
                 <div
-                  v-if="day.active"
-                  class="col-12 col-md-9"
+                  v-for="(shift, shiftIndex) in day.shifts"
+                  :key="shiftIndex"
+                  class="row"
                 >
-                  <div
-                    v-for="(shift, shiftIndex) in day.shifts"
-                    :key="shiftIndex"
-                    class="row"
-                  >
-                    <div class="col-12">
-                      <div class="row mb-4 d-flex align-items-end">
-                        <div class="col-4 col-md-4">
-                          <label
-                            class="form-label w-100"
-                            for="id-monday-shift-start"
-                          >
-                            <strong>Od</strong>
-                          </label>
-                          <input
-                            v-model="shift.start"
-                            type="text"
-                            name="id-monday-shift-start"
-                            class="form-control"
-                          >
-                        </div>
-                        <div class="col-4 col-md-4">
-                          <label
-                            class="form-label w-100"
-                            for="id-monday-shift-end"
-                          >
-                            <strong>Do</strong>
-                          </label>
-                          <input
-                            v-model="shift.end"
-                            type="text"
-                            name="id-monday-shift-end"
-                            class="form-control"
-                          >
-                        </div>
-                        <div
-                          v-if="shiftIndex === day.shifts.length - 1"
-                          class="col-4 col-md-4"
+                  <div class="col-12">
+                    <div class="row mb-4 d-flex align-items-end">
+                      <div class="col-4 col-md-4">
+                        <label
+                          class="form-label w-100"
+                          for="id-monday-shift-start"
                         >
-                          <button
-                            class="btn btn-primary"
-                            @click="addShift(day.shifts)"
-                          >
-                            Dodaj smjenu
-                          </button>
-                        </div>
+                          <strong>Od</strong>
+                        </label>
+                        <input
+                          v-model="shift.start"
+                          type="text"
+                          name="id-monday-shift-start"
+                          class="form-control"
+                        >
                       </div>
-                    </div>
-                    <div
-                      v-if="shiftIndex === day.shifts.length - 1"
-                      class="col-12"
-                    >
-                      <div class="row mb-4 d-flex align-items-end">
-                        <div class="col-12 col-md-12">
-                          <button
-                            v-if="dayName.toString() === 'monday'"
-                            class="btn btn-primary"
-                            @click="copyShiftsToOtherDays(day)"
-                          >
-                            Kopiraj u sve označene dane
-                          </button>
-                        </div>
+                      <div class="col-4 col-md-4">
+                        <label
+                          class="form-label w-100"
+                          for="id-monday-shift-end"
+                        >
+                          <strong>Do</strong>
+                        </label>
+                        <input
+                          v-model="shift.end"
+                          type="text"
+                          name="id-monday-shift-end"
+                          class="form-control"
+                        >
+                      </div>
+                      <div
+                        v-if="shiftIndex === day.shifts.length - 1"
+                        class="col-4 col-md-4"
+                      >
+                        <button
+                          class="btn btn-primary"
+                          @click="addShift(day.shifts)"
+                        >
+                          Dodaj smjenu
+                        </button>
                       </div>
                     </div>
                   </div>
-                </div>
-                <hr v-if="day.shifts.length">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="radnik-djelatnosti">
-          <div class="row">
-            <div class="col-md-3 mb-4" />
-            <div class="col-md-9 mb-4 add-staff-section">
-              <label class="form-label w-100">
-                <strong>Usluge i odgovornosti</strong>
-                <br>
-                Označite usluge koje ovaj radnik pruža
-              </label>
-              <div
-                v-for="service in allServices"
-                :key="service.id"
-                class="row"
-              >
-                <div class="col-md-9">
-                  <label class="form-check m-0">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      :checked="isAssigned(service)"
-                      @change="toggleService(service)"
-                    >
-                    <span class="form-check-label lead">{{ service.name }}</span>
-                  </label>
-                </div>
-                <div class="col-md-3">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <strong>{{ service.price }}</strong> kn
-                    </div>
-                    <div class="col-md-6">
-                      <strong>{{ service.duration }}</strong> min
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="radnik-godisnji">
-          <div class="row">
-            <div class="col-md-3 mb-4" />
-            <div class="col-md-9 mb-4 add-staff-section">
-              <div class="row">
-                <div class="col-12">
-                  <label class="form-label w-100">
-                    <strong>Godišnji</strong>
-                  </label>
-                </div>
-                <div class="col-12">
                   <div
-                    v-for="(breakDate, index) in breakDates"
-                    :key="index"
-                    class="row mb-4 d-flex align-items-end"
+                    v-if="shiftIndex === day.shifts.length - 1"
+                    class="col-12"
                   >
-                    <div class="col-12 col-md-3" />
-                    <div class="col-12 col-md-3">
-                      <label class="form-label w-100">
-                        <strong>Od</strong>
-                      </label>
-                      <input
-                        id="date-start"
-                        v-model="breakDate.start"
-                        class="form-control"
-                        type="date"
-                        name="data-start"
-                      >
-                    </div>
-                    <div class="col-12 col-md-3">
-                      <label class="form-label w-100">
-                        <strong>Do</strong>
-                      </label>
-                      <input
-                        id="date-end"
-                        v-model="breakDate.end"
-                        class="form-control"
-                        type="date"
-                        name="data-end"
-                      >
-                    </div>
-                    <div class="col-12 col-md-3">
-                      <button
-                        class="btn btn-danger"
-                        @click="removeBreak(index)"
-                      >
-                        Ukloni razdoblje
-                      </button>
+                    <div class="row mb-4 d-flex align-items-end">
+                      <div class="col-12 col-md-12">
+                        <button
+                          v-if="dayName.toString() === 'monday'"
+                          class="btn btn-primary"
+                          @click="copyShiftsToOtherDays(day)"
+                        >
+                          Kopiraj u sve označene dane
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <div class="row mb-4 d-flex align-items-end">
-                    <div class="col-md-3 mb-4" />
-                    <div class="col-md-9 mb-4">
-                      <button
-                        class="btn btn-primary"
-                        @click="addBreak()"
-                      >
-                        Dodaj razdoblje
-                      </button>
-                    </div>
+                </div>
+              </div>
+              <hr v-if="day.shifts.length">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="radnik-djelatnosti">
+        <div class="row">
+          <div class="col-md-3 mb-4" />
+          <div class="col-md-9 mb-4 add-staff-section">
+            <label class="form-label w-100">
+              <strong>Usluge i odgovornosti</strong>
+              <br>
+              Označite usluge koje ovaj radnik pruža
+            </label>
+            <div
+              v-for="service in allServices"
+              :key="service.id"
+              class="row"
+            >
+              <div class="col-md-9">
+                <label class="form-check m-0">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    :checked="isAssigned(service)"
+                    @change="toggleService(service)"
+                  >
+                  <span class="form-check-label lead">{{ service.name }}</span>
+                </label>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-6">
+                    <strong>{{ service.price }}</strong> kn
+                  </div>
+                  <div class="col-md-6">
+                    <strong>{{ service.duration }}</strong> min
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="radnik-godisnji">
+        <div class="row">
+          <div class="col-md-3 mb-4" />
+          <div class="col-md-9 mb-4 add-staff-section">
+            <div class="row">
+              <div class="col-12">
+                <label class="form-label w-100">
+                  <strong>Godišnji</strong>
+                </label>
+              </div>
+              <div class="col-12">
+                <div
+                  v-for="(breakDate, index) in breakDates"
+                  :key="index"
+                  class="row d-flex align-items-end"
+                >
+                  <div class="col-12 col-md-3" />
+                  <div class="col-12 col-md-3 mt-4">
+                    <label class="form-label w-100">
+                      <strong>Od</strong>
+                    </label>
+                    <input
+                      id="date-start"
+                      v-model="breakDate.start"
+                      class="form-control"
+                      type="date"
+                      name="data-start"
+                    >
+                  </div>
+                  <div class="col-12 col-md-3 mt-4">
+                    <label class="form-label w-100">
+                      <strong>Do</strong>
+                    </label>
+                    <input
+                      id="date-end"
+                      v-model="breakDate.end"
+                      class="form-control"
+                      type="date"
+                      name="data-end"
+                    >
+                  </div>
+                  <div class="col-12 col-md-3 mt-4">
+                    <button
+                      class="btn btn-danger"
+                      @click="removeBreak(index)"
+                    >
+                      Ukloni razdoblje
+                    </button>
+                  </div>
+                </div>
+                <div class="row d-flex align-items-end">
+                  <div class="col-md-3" />
+                  <div class="col-md-9 mt-4">
+                    <button
+                      class="btn btn-primary"
+                      @click="addBreak()"
+                    >
+                      Dodaj razdoblje
+                    </button>
                   </div>
                 </div>
               </div>
@@ -361,7 +361,7 @@
         data-bs-dismiss="modal"
         @click="closeStaffEditModal()"
       >
-        Close
+        Zatvori
       </button>
     </template>
   </Modal>

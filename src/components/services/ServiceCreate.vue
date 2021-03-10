@@ -1,41 +1,40 @@
 <template>
   <Modal>
     <template #header>
-      <h5
-        class="modal-title h4"
-      >
+      <h5 class="modal-title h4">
         Dodavanje usluge
       </h5>
       <button
         type="button"
         class="btn-close"
-        aria-label="Close"
+        aria-label="Zatvori"
         @click="closeServiceCreateModal()"
       />
     </template>
     <template #body>
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4 mb-4">
             <label
               class="form-label"
               for="id-add-service-name"
             >
-              <strong>Ime</strong>
+              <strong>Naziv usluge</strong>
             </label>
             <input
               id="id-add-service-name"
               v-model="newService.name"
               type="text"
               class="form-control"
+              placeholder="Ovdje upišite naziv usluge"
             >
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4 mb-4">
             <label
               class="form-label"
               for="id-add-service-price"
             >
-              <strong>E-mail</strong>
+              <strong>Cijena</strong>
             </label>
             <input
               id="id-add-service-price"
@@ -44,15 +43,18 @@
               class="form-control"
             >
           </div>
-          <div class="col-md-6">
-            <label for="id-add-service-duration">
-              Trajanje
+          <div class="col-md-4 mb-4">
+            <label
+              class="form-label"
+              for="id-add-service-duration"
+            >
+              <strong>Trajanje (u minutama)</strong>
             </label>
             <input
               id="id-add-service-duration"
               v-model="newService.duration"
               type="number"
-              name="duration"
+              class="form-control"
             >
           </div>
         </div>
@@ -75,7 +77,7 @@
         data-bs-dismiss="modal"
         @click="closeServiceCreateModal()"
       >
-        Close
+        Zatvori
       </button>
     </template>
   </Modal>

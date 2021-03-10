@@ -13,5 +13,8 @@ export type Getters = {
 export const getters: GetterTree<State, RootState> & Getters = {
   getCurrentStep: (state) => state.currentStep,
   getIsMenuOpen: (state) => state.isMenuOpen,
-  anyModelOpen: (state) => state.isStaffCreateOpen || state.isStaffEditOpen,
+  anyModelOpen: (state) => state.isStaffCreateOpen
+  || state.isStaffEditOpen
+  || state.isServicesCreateOpen
+  || state.isServicesEditOpen,
 };

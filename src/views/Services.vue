@@ -19,7 +19,7 @@
               Usluge
             </h1>
 
-            <div v-if="isServiceCreateOpen">
+            <div v-if="isServicesCreateOpen">
               <ServiceCreate />
             </div>
             <div class="tab">

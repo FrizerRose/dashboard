@@ -14,71 +14,75 @@
       />
     </template>
     <template #body>
-      <div class="card">
-        <div class="card-body">
+      <div class="usluga-naziv">
+        <div class="mb-4">
           <label
-            for="id-name"
+            for="id-edit-service-name"
             class="form-label w-100"
           >
-            <strong>Ime Usluge</strong>
+            <strong>Naziv usluge</strong>
             <br>
-            Ovdje možete promijeniti ime koje će pisati na stranici
+            Ovdje možete promijeniti naziv usluge koje će pisati na stranici
           </label>
           <input
+            id="id-edit-service-name"
             v-model="formData.name"
             type="text"
             class="form-control"
-            placeholder="Ime firme"
-            for="id-name"
+            placeholder="Naziv usluge"
           >
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="usluga-cijena">
+        <div class="mb-4">
           <label
-            for="id-name"
+            for="id-edit-service-price"
             class="form-label w-100"
           >
-            <strong>Cijena Usluge</strong>
+            <strong>Cijena usluge</strong>
             <br>
             Ovdje možete promijeniti cijenu usluge (kn)
           </label>
-          <input
-            v-model="formData.price"
-            type="text"
-            class="form-control"
-            placeholder="50"
-            for="id-name"
-          > kn
+          <div class="d-flex align-items-baseline">
+            <input
+              id="id-edit-service-price"
+              v-model="formData.price"
+              type="text"
+              class="form-control text-end"
+            >
+            <span class="ms-2">kn</span>
+          </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="usluga-trajanje">
+        <div class="mb-4">
           <label
-            for="id-name"
+            for="id-edit-service-duration"
             class="form-label w-100"
           >
             <strong>Trajanje Usluge</strong>
             <br>
             Ovdje možete promijeniti trajanje usluge (min)
           </label>
-          <input
-            v-model="formData.duration"
-            type="text"
-            class="form-control"
-            placeholder="Ime firme"
-            for="id-name"
-          > min
+          <div class="d-flex align-items-baseline">
+            <input
+              id="id-edit-service-duration"
+              v-model="formData.duration"
+              type="text"
+              class="form-control text-end"
+            >
+            <span class="ms-2">min</span>
+          </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="usluga-izvrsitelj">
+        <div class="mb-4">
           <div
             v-for="staff in allStaff"
             :key="staff.id"
             class="row"
           >
-            <div class="col-3">
+            <div class="col-12">
               <label class="form-check m-0">
                 <input
                   type="checkbox"

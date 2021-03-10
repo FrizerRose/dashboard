@@ -8,7 +8,7 @@
     aria-modal="true"
     role="dialog"
   >
-    <div class="modal-dialog modal-fullscreen modal-fullscreen-sm-down-X">
+    <div class="modal-dialog modal-xl modal-fullscreen-xl-down">
       <div class="modal-content">
         <div class="modal-header">
           <slot name="header" />
@@ -41,11 +41,11 @@ export default defineComponent({});
     z-index: 1;
     width: 100%;
   }
-  .modal {
-    transform: translateX(100%);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
-  }
-  .modal-open .modal {
-    transform: none;
-  }
+  // .modal {
+  //   transform: translateX(100%);
+  //   transition: transform 0.5s cubic-bezier(0.4, 0, 0, 1);
+  // }
+  // .modal-open .modal {
+  //   transform: none;
+  // }
 </style>

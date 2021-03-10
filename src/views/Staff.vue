@@ -48,13 +48,13 @@
                       </th>
                       <th
                         scope="col"
-                        style="width:10%"
+                        style="width:10%; text-align: center;"
                       >
                         Promjeni
                       </th>
                       <th
                         scope="col"
-                        style="width:10%"
+                        style="width:10%; text-align: center;"
                       >
                         Izbriši
                       </th>
@@ -76,7 +76,7 @@
                         >
                       </td>
                       <td> {{ worker.name }}</td>
-                      <td>
+                      <td style="text-align: center;">
                         <a
                           :class="{'btn': true, 'btn-outline-secondary': true, 'active': selectedWorker === worker.id}"
                           :href="'#tab-' + worker.id"
@@ -85,7 +85,7 @@
                           <span class="fa fa-pen" />
                         </a>
                       </td>
-                      <td>
+                      <td style="text-align: center;">
                         <button
                           class="btn btn-danger"
                           @click="deleteWorker(worker)"
@@ -100,52 +100,19 @@
             </div>
           </div>
         </div>
-
-        <div class="tab">
-          <ul
-            class="nav nav-tabs flex-column"
-            role="tablist"
-          >
-            <li
-              v-for="(worker, index) in staff"
-              :key="index"
-              :class="{'nav-item': true, 'active': selectedWorker === worker.id}"
-              @click="selectedWorker = worker.id"
-            >
-              <a
-                :class="{'nav-link': true, 'd-inline-block': true, 'active': selectedWorker === worker.id}"
-                :href="'#tab-' + worker.id"
-                data-bs-toggle="tab"
-                role="tab"
-              >{{ worker.name }}</a>
-              <button
-                class="btn btn-danger"
-                @click="deleteWorker(worker)"
-              >
-                -
-              </button>
-            </li>
-          </ul>
-        </div>
       </div>
 
-      <div class="col-10">
-        <div class="tab">
-          <div class="tab-content">
-            <div
-              v-for="worker in staff"
-              :id="'tab-' + worker.id"
-              :key="worker.id"
-              :class="{'tab-pane': true, 'active': selectedWorker === worker.id}"
-              role="tabpanel"
-            >
-              <StaffEdit
-                v-if="isStaffEditOpen && selectedWorker === worker.id"
-                :worker="worker"
-              />
-            </div>
-          </div>
-        </div>
+      <div
+        v-for="worker in staff"
+        :id="'tab-' + worker.id"
+        :key="worker.id"
+        :class="{'tab-pane': true, 'active': selectedWorker === worker.id}"
+        role="tabpanel"
+      >
+        <StaffEdit
+          v-if="isStaffEditOpen && selectedWorker === worker.id"
+          :worker="worker"
+        />
       </div>
     </main>
   </Dashboard>

@@ -6,50 +6,21 @@
         class="container-fluid p-0"
       >
         <div class="row">
-          <div class="col-2">
-            <h3>Usluge</h3>
-            <button @click="isCreateDropdownOpen = !isCreateDropdownOpen">
-              +
+          <div class="col-xl-12">
+            <button
+              class="btn btn-primary float-end mt-n1"
+              aria-label="Dodaj uslugu"
+              @click="openServiceCreateModal()"
+            >
+              <span class="fa fa-plus" /> Dodaj uslugu
             </button>
-            <div v-if="isCreateDropdownOpen">
-              <label for="create-name">
-                Ime
-              </label>
-              <input
-                id="create-name"
-                v-model="newService.name"
-                type="text"
-                name="name"
-              >
-              <label for="create-price">
-                Cijena
-              </label>
-              <input
-                id="create-price"
-                v-model="newService.price"
-                type="number"
-                name="price"
-              >
-              <label for="create-duration">
-                Trajanje
-              </label>
-              <input
-                id="create-duration"
-                v-model="newService.duration"
-                type="number"
-                name="duration"
-              >
-              <button
-                :class="{
-                  btn: true,
-                  'btn-primary': !requestSent,
-                  'btn-success': requestSent && status,
-                  'btn-danger': requestSent && !status,
-                }"
-                @click="createService()"
-              >
-                Spremi
-              </button>
+
+            <h1 class="h3 mb-3">
+              Usluge
+            </h1>
+
+            <div v-if="isServiceCreateOpen">
+              <ServiceCreate />
             </div>
             <div class="tab">
               <ul
@@ -78,6 +49,7 @@
               </ul>
             </div>
           </div>
+
           <div class="col-10">
             <div class="tab">
               <div class="tab-content">
@@ -109,20 +81,23 @@ import {
 import { useStore } from '@/store';
 import Dashboard from '@/components/layout/Dashboard.vue';
 import ServiceEdit from '@/components/services/ServiceEdit.vue';
+import ServiceCreate from '@/components/services/ServiceCreate.vue';
 import ActionTypes from '@/store/action-types';
+import MutationTypes from '@/store/mutation-types';
 import Service from '@/types/service';
 
 export default defineComponent({
   components: {
     Dashboard,
     ServiceEdit,
+    ServiceCreate,
   },
   setup() {
     const store = useStore();
     const services = computed(() => store.state.service.services);
+    const isServicesCreateOpen = computed(() => store.state.shared.isServicesCreateOpen);
     const selectedService = ref(services.value[0]?.id);
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
-    const isCreateDropdownOpen = ref(false);
     const requestSent = ref(false);
     const status = ref(false);
     const newService = reactive({
@@ -139,30 +114,20 @@ export default defineComponent({
       }
     }
 
-    async function createService() {
-      try {
-        await store.dispatch(ActionTypes.CREATE_SERVICE, newService as Service);
-        requestSent.value = true;
-        status.value = true;
-        isCreateDropdownOpen.value = false;
-        newService.name = '';
-        newService.price = 0;
-        newService.duration = 0;
-      } catch {
-        requestSent.value = true;
-        status.value = false;
-      }
+    function openServiceCreateModal() {
+      store.commit(MutationTypes.CHANGE_OPEN_SERVICE_CREATE_MODAL, true);
+      document.body.classList.add('modal-open');
     }
 
     return {
       services,
       selectedService,
       deleteService,
-      isCreateDropdownOpen,
+      isServicesCreateOpen,
+      openServiceCreateModal,
       newService,
       requestSent,
       status,
-      createService,
     };
   },
 });

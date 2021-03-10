@@ -45,6 +45,12 @@
                   >
                     -
                   </button>
+                  <button
+                    class="btn btn-info"
+                    @click="openServiceEditModal(service)"
+                  >
+                    EDIT
+                  </button>
                 </li>
               </ul>
             </div>
@@ -61,7 +67,7 @@
                   role="tabpanel"
                 >
                   <ServiceEdit
-                    v-if="selectedService === service.id"
+                    v-if="isServiceEditOpen && selectedService === service.id"
                     :service="service"
                   />
                 </div>
@@ -96,6 +102,7 @@ export default defineComponent({
     const store = useStore();
     const services = computed(() => store.state.service.services);
     const isServicesCreateOpen = computed(() => store.state.shared.isServicesCreateOpen);
+    const isServiceEditOpen = computed(() => store.state.shared.isServicesEditOpen);
     const selectedService = ref(services.value[0]?.id);
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const requestSent = ref(false);
@@ -119,12 +126,20 @@ export default defineComponent({
       document.body.classList.add('modal-open');
     }
 
+    function openServiceEditModal(service: Service) {
+      selectedService.value = service.id;
+      store.commit(MutationTypes.CHANGE_OPEN_SERVICE_EDIT_MODAL, true);
+      document.body.classList.add('modal-open');
+    }
+
     return {
       services,
       selectedService,
       deleteService,
       isServicesCreateOpen,
+      isServiceEditOpen,
       openServiceCreateModal,
+      openServiceEditModal,
       newService,
       requestSent,
       status,

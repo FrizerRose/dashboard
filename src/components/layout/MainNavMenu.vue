@@ -8,7 +8,13 @@
         to="/"
         class="sidebar-brand"
       >
+        <img
+          v-if="selectedCompany && selectedCompany.image && selectedCompany.image.link"
+          :src="selectedCompany.image.link"
+          alt="logo"
+        >
         <svg
+          v-else
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -73,7 +79,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
+import { useStore } from '@/store';
 import MainNavSubmenu from './MainNavSubmenu.vue';
 
 export default defineComponent({
@@ -87,11 +94,18 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const store = useStore();
+    const selectedCompany = computed(() => store.state.shared.selectedCompany);
+
     props.nodes.forEach((node) => {
       if (node.nodes !== undefined) {
         console.log(node.nodes);
       }
     });
+
+    return {
+      selectedCompany,
+    };
   },
 });
 </script>

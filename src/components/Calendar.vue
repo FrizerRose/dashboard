@@ -90,24 +90,11 @@
           name="id-service-reschedule"
         >
           <option
-            value="00:00"
+            v-for="time in timeOptions"
+            :key="time"
+            :value="time"
           >
-            00:00
-          </option>
-          <option
-            value="16:30"
-          >
-            16:30
-          </option>
-          <option
-            value="16:45"
-          >
-            16:45
-          </option>
-          <option
-            value="17:00"
-          >
-            17:00
+            {{ time }}
           </option>
         </select>
         <label
@@ -289,7 +276,7 @@ import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
 import Customer from '@/types/customer';
 import Service from '@/types/service';
-import { formatDateString, getDateStringFromDate } from '@/helpers/time';
+import { formatDateString, getDateStringFromDate, getTimeOptions } from '@/helpers/time';
 import { getFormattedBusinessHours } from '@/helpers/calendar';
 
 export default defineComponent({
@@ -325,6 +312,8 @@ export default defineComponent({
     const rescheduledCustomer = reactive({
       name: '', email: '', phone: '', company: selectedCompany.value,
     } as Customer);
+
+    const timeOptions = getTimeOptions();
 
     const formattedAppointments = computed(() => reservedAppointments.value.map((appointment) => {
       let timeString = `${appointment.date}T${appointment.time}`;
@@ -586,6 +575,7 @@ export default defineComponent({
       isAppointmentModalOpen,
       creationDatetime,
       createAppointment,
+      timeOptions,
       services,
       creationService,
       creationCustomer,

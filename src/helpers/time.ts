@@ -27,3 +27,15 @@ export function getDateStringFromDate(date: Date): string {
 
   return `${yyyy}-${mm}-${dd}`;
 }
+
+export function getTimeOptions() {
+  const quarterHours = ['00', '15', '30', '45'];
+
+  const times = [];
+  for (let i = 0; i < 24; i += 1) {
+    for (let j = 0; j < 4; j += 1) {
+      times.push(`${(`0${i}`).slice(-2)}:${quarterHours[j]}`);
+    }
+  }
+  return times;
+}

@@ -142,7 +142,7 @@
 
     <div class="narucivanje-korisnici">
       <div class="mb-4">
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-12">
             <label class="form-check m-0">
               <input
@@ -154,7 +154,7 @@
             </label>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-12">
             <label class="form-check m-0">
               <input

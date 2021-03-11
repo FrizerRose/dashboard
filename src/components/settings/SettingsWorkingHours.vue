@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div class="card-body">
+  <div>
+    <div class="working-hours-interaktivno mb-4">
       <button
         :class="{
           btn: true,
@@ -13,86 +13,119 @@
         Spremi
       </button>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <div
-        v-for="(day, dayName) in formData.hours"
-        :key="dayName"
-        class="row"
-      >
-        <div class="col-2 pt-4">
-          <label class="form-check m-0">
-            <input
-              v-model="day.active"
-              type="checkbox"
-              class="form-check-input"
-              @change="toggleDayActive(day)"
-            >
-            <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
+
+    <div class="working-hours-aaaaaaaaaaaaa">
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <label class="form-label w-100">
+            <strong>Radni dani</strong>
+            <br>
+            Označite na koje dane ste otvoreni
           </label>
-        </div>
-        <div
-          v-if="day.active"
-          class="col-10"
-        >
           <div
-            v-for="(shift, shiftIndex) in day.shifts"
-            :key="shiftIndex"
+            v-for="(day, dayName) in formData.hours"
+            :key="dayName"
             class="row"
           >
-            <div class="col-1">
-              <label
-                class="form-label w-100"
-                for="id-working-hour-from"
-              >
-                <strong>Od</strong>
+            <div class="col-12 col-md-3">
+              <label class="form-check m-0">
+                <input
+                  v-model="day.active"
+                  type="checkbox"
+                  class="form-check-input"
+                  @change="toggleDayActive(day)"
+                >
+                <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
               </label>
-            </div>
-            <div class="col-3">
-              <input
-                v-model="shift.start"
-                type="text"
-                name="shift-end"
-              >
-            </div>
-            <div class="col-1">
-              <label
-                class="form-label w-100"
-                for="id-working-hour-to"
-              >
-                <strong>Do</strong>
-              </label>
-            </div>
-            <div class="col-3">
-              <input
-                v-model="shift.end"
-                type="text"
-                name="shift-end"
-              >
             </div>
             <div
-              v-if="shiftIndex === day.shifts.length - 1"
-              class="col-3"
+              v-if="day.active"
+              class="col-12 col-md-9"
             >
-              <button
-                class="btn btn-info"
-                @click="addShift(day.shifts)"
+              <div
+                v-for="(shift, shiftIndex) in day.shifts"
+                :key="shiftIndex"
+                class="row"
               >
-                +
-              </button>
-              <button
-                v-if="dayName.toString() === 'monday'"
-                class="btn btn-secondary"
-                @click="copyShiftsToOtherDays(day)"
-              >
-                Copy to other days
-              </button>
+                <div class="col-12">
+                  <div class="row mb-4 d-flex align-items-end">
+                    <div class="col-4 col-md-4">
+                      <label
+                        class="form-label w-100"
+                        for="id-monday-shift-start"
+                      >
+                        <strong>Od</strong>
+                      </label>
+                      <input
+                        v-model="shift.start"
+                        type="text"
+                        name="id-monday-shift-start"
+                        class="form-control"
+                      >
+                    </div>
+                    <div class="col-4 col-md-4">
+                      <label
+                        class="form-label w-100"
+                        for="id-monday-shift-end"
+                      >
+                        <strong>Do</strong>
+                      </label>
+                      <input
+                        v-model="shift.end"
+                        type="text"
+                        name="id-monday-shift-end"
+                        class="form-control"
+                      >
+                    </div>
+                    <div
+                      v-if="shiftIndex === day.shifts.length - 1"
+                      class="col-4 col-md-4"
+                    >
+                      <button
+                        class="btn btn-primary"
+                        @click="addShift(day.shifts)"
+                      >
+                        Dodaj smjenu
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  v-if="shiftIndex === day.shifts.length - 1"
+                  class="col-12"
+                >
+                  <div class="row mb-4 d-flex align-items-end">
+                    <div class="col-12 col-md-12">
+                      <button
+                        v-if="dayName.toString() === 'monday'"
+                        class="btn btn-primary"
+                        @click="copyShiftsToOtherDays(day)"
+                      >
+                        Kopiraj u sve označene dane
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+            <hr v-if="day.shifts.length">
           </div>
         </div>
-        <hr v-if="day.shifts.length">
       </div>
+    </div>
+
+    <div class="working-hours-interaktivno">
+      <button
+        :class="{
+          btn: true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
+      >
+        Spremi
+      </button>
     </div>
   </div>
 </template>

@@ -14,8 +14,7 @@
       </button>
     </div>
     <div class="row">
-      <div class="col-md-3" />
-      <div class="col-md-9 mb-4">
+      <div class="col-md-12 mb-4">
         <div class="row">
           <div class="col-12 col-md-6 mb-4">
             <div class="authentication-password-new">

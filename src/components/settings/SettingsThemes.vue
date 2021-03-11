@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div class="card-body">
+  <div>
+    <div class="izgled-interaktivno mb-4">
       <button
         :class="{
           btn: true,
@@ -13,59 +13,21 @@
         Spremi
       </button>
     </div>
-  </div>
-  <!-- <div class="card">
-    <div class="card-body">
-      <fieldset class="mb-3">
-        <label class="form-label w-100">
-          <strong>Odabir pozadinskog osvjetljenja</strong>
-          <br>
-          Odaberite pozadinsko osjetljenje
-        </label>
-        <label class="form-check">
-          <input
-            name="radio-color-mode"
-            type="radio"
-            class="form-check-input"
-            checked
-          >
-          <span class="form-check-label">Light mode (zadano)</span>
-        </label>
-        <label class="form-check">
-          <input
-            name="radio-color-mode"
-            type="radio"
-            class="form-check-input"
-          >
-          <span class="form-check-label">Dark mode</span>
-        </label>
-        <label class="form-check">
-          <input
-            name="radio-color-mode"
-            type="radio"
-            class="form-check-input"
-            disabled
-          >
-          <span class="form-check-label">High contrast</span>
-        </label>
-      </fieldset>
-    </div>
-  </div> -->
-  <div class="card">
-    <div class="card-body">
+
+    <div class="izgled-boja">
       <label
-        for="id-lead-time"
+        id="id-theme-color"
         class="form-label w-100"
       >
         <strong>Odabir boje elemenata</strong>
         <br>
-        Odaberite akcentnu boju za neke od elemenata na stanici
+        Odaberite akcentnu boju za neke od elemenata na stranici
       </label>
       <select
-        id="id-lead-time"
+        id="id-theme-color"
         v-model="formData.preferences.colorVariant"
         class="form-control mb-3"
-        name="id-lead-time"
+        name="id-theme-color"
       >
         <option value="default">
           Crno-bijelo
@@ -80,6 +42,20 @@
           Goldenrod
         </option>
       </select>
+    </div>
+
+    <div class="izgled-interaktivno">
+      <button
+        :class="{
+          btn: true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
+      >
+        Spremi
+      </button>
     </div>
   </div>
 </template>

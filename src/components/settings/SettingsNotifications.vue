@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div class="card-body">
+  <div>
+    <div class="notifikacije-interaktivno mb-4">
       <button
         :class="{
           btn: true,
@@ -13,151 +13,188 @@
         Spremi
       </button>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label class="form-check m-0">
-        <input
-          v-model="formData.preferences.clientReminderEmail"
-          type="checkbox"
-          class="form-check-input"
-        >
-        <span class="form-check-label">Korisnici će primati email za podsjetnik prije termina</span>
-      </label>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label class="form-check m-0">
-        <input
-          v-model="formData.preferences.staffReminderEmail"
-          type="checkbox"
-          class="form-check-input"
-        >
-        <span class="form-check-label">Radnici će primati email kada se rezervira novi termin</span>
-      </label>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label class="form-check m-0">
-        <input
-          v-model="formData.preferences.staffCancellationNotice"
-          type="checkbox"
-          class="form-check-input"
-        >
-        <span class="form-check-label">Radnici će primati email kada se otkaže termin</span>
-      </label>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-6">
-          <label class="form-label w-100">
-            <strong>Vrijeme za podsjetnik - klijent</strong>
-            <br>
-            Odaberite koliko sati prije termina želite klijentu poslati podsjetnik.
-          </label>
-          <select
-            id="id-reminder-time"
-            v-model="formData.preferences.clientReminderTime"
-            class="form-control mb-3"
-            name="id-reminder-time"
-          >
-            <option value="1">
-              1
-            </option>
-            <option value="2">
-              2
-            </option>
-            <option
-              value="3"
-              selected
-            >
-              3
-            </option>
-            <option value="4">
-              4
-            </option>
-            <option value="5">
-              5
-            </option>
-            <option value="6">
-              6
-            </option>
-            <option value="7">
-              7
-            </option>
-            <option
-              value="8"
-            >
-              8
-            </option>
-            <option value="9">
-              9
-            </option>
-            <option value="10">
-              10
-            </option>
-          </select>
+
+    <div class="row">
+      <div class="col-md-12 mb-4">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="mb-4">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.preferences.clientReminderEmail"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label">Korisnici će primati email za podsjetnik prije termina</span>
+              </label>
+            </div>
+            <div class="mb-4">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.preferences.staffReminderEmail"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label">Radnici će primati email kada se rezervira novi termin</span>
+              </label>
+            </div>
+            <div class="mb-4">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.preferences.staffCancellationNotice"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label">Radnici će primati email kada se otkaže termin</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="mb-4">
+              <label class="form-label w-100">
+                <strong>Vrijeme za podsjetnik - klijent</strong>
+                <br>
+                Odaberite koliko sati prije termina želite klijentu poslati podsjetnik.
+              </label>
+              <div class="d-flex align-items-baseline">
+                <select
+                  id="id-reminder-time"
+                  v-model="formData.preferences.clientReminderTime"
+                  class="form-control mb-3"
+                  name="id-reminder-time"
+                >
+                  <option value="1">
+                    1
+                  </option>
+                  <option value="2">
+                    2
+                  </option>
+                  <option
+                    value="3"
+                    selected
+                  >
+                    3
+                  </option>
+                  <option value="4">
+                    4
+                  </option>
+                  <option value="5">
+                    5
+                  </option>
+                  <option value="6">
+                    6
+                  </option>
+                  <option value="7">
+                    7
+                  </option>
+                  <option
+                    value="8"
+                  >
+                    8
+                  </option>
+                  <option value="9">
+                    9
+                  </option>
+                  <option value="10">
+                    10
+                  </option>
+                </select>
+                <span
+                  v-if="formData.preferences.clientReminderTime < 2"
+                  class="ms-2"
+                >sat</span>
+                <span
+                  v-if="formData.preferences.clientReminderTime >= 2 && formData.preferences.clientReminderTime <= 4"
+                  class="ms-2"
+                >sata</span>
+                <span
+                  v-if="formData.preferences.clientReminderTime > 4"
+                  class="ms-2"
+                >sati</span>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label w-100">
+                <strong>Vrijeme za podsjetnik - radnik</strong>
+                <br>
+                Odaberite koliko sati prije termina želite radniku poslati podsjetnik.
+              </label>
+              <div class="d-flex align-items-baseline">
+                <select
+                  id="id-reminder-time"
+                  v-model="formData.preferences.staffReminderTime"
+                  class="form-control mb-3"
+                  name="id-reminder-time"
+                >
+                  <option value="1">
+                    1
+                  </option>
+                  <option value="2">
+                    2
+                  </option>
+                  <option
+                    value="3"
+                    selected
+                  >
+                    3
+                  </option>
+                  <option value="4">
+                    4
+                  </option>
+                  <option value="5">
+                    5
+                  </option>
+                  <option value="6">
+                    6
+                  </option>
+                  <option value="7">
+                    7
+                  </option>
+                  <option
+                    value="8"
+                  >
+                    8
+                  </option>
+                  <option value="9">
+                    9
+                  </option>
+                  <option value="10">
+                    10
+                  </option>
+                </select>
+                <span
+                  v-if="formData.preferences.staffReminderTime < 2"
+                  class="ms-2"
+                >sat</span>
+                <span
+                  v-if="formData.preferences.staffReminderTime >= 2 && formData.preferences.staffReminderTime <= 4"
+                  class="ms-2"
+                >sata</span>
+                <span
+                  v-if="formData.preferences.staffReminderTime > 4"
+                  class="ms-2"
+                >sati</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-6">
-          <label class="form-label w-100">
-            <strong>Vrijeme za podsjetnik - radnik</strong>
-            <br>
-            Odaberite koliko sati prije termina želite radniku poslati podsjetnik.
-          </label>
-          <select
-            id="id-reminder-time"
-            v-model="formData.preferences.staffReminderTime"
-            class="form-control mb-3"
-            name="id-reminder-time"
-          >
-            <option value="1">
-              1
-            </option>
-            <option value="2">
-              2
-            </option>
-            <option
-              value="3"
-              selected
-            >
-              3
-            </option>
-            <option value="4">
-              4
-            </option>
-            <option value="5">
-              5
-            </option>
-            <option value="6">
-              6
-            </option>
-            <option value="7">
-              7
-            </option>
-            <option
-              value="8"
-            >
-              8
-            </option>
-            <option value="9">
-              9
-            </option>
-            <option value="10">
-              10
-            </option>
-          </select>
-        </div>
-      </div>
+
+    <div class="notifikacije-interaktivno">
+      <button
+        :class="{
+          btn: true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
+      >
+        Spremi
+      </button>
     </div>
   </div>
 </template>

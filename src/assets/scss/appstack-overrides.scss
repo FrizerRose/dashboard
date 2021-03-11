@@ -75,10 +75,14 @@
 
 	> span {
 		position: absolute;
-		bottom: 0;
+		bottom: auto;
 		font-size: 5rem;
 		left: auto;
 		right: auto;
+
+		&.is-user {
+			bottom: 0;
+		}
 	}
 }
 

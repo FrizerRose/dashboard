@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div class="card-body">
+  <div>
+    <div class="authentication-interaktivno mb-4">
       <button
         :class="{
           btn: true,
@@ -13,60 +13,82 @@
         Spremi
       </button>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        for="id-change-password-old"
-        class="form-label w-100"
-      >
-        <strong>Stara lozinka</strong>
-        <br>
-        Upišite trenutnu lozinku
-      </label>
-      <input
-        id="id-change-password-old"
-        v-model="formData.oldPassowrd"
-        class="form-control"
-        type="password"
-      >
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        for="id-change-password-new-1"
-        class="form-label w-100"
-      >
-        <strong>Nova lozinka</strong>
-        <br>
-        Upišite novu lozinku
-      </label>
-      <input
-        id="id-change-password-new-1"
-        v-model="formData.newPassword"
-        class="form-control"
-        type="password"
-      >
-      <label
-        for="id-change-password-new-2"
-        class="form-label w-100"
-      >
-        <br>
-        Ponovno upišite novu lozinku
-      </label>
-      <div
-        v-if="passwordMismatch"
-        class="text-danger"
-      >
-        Lozinke nisu jednake. Upišite ih ponovo. TODO: marko
+    <div class="row">
+      <div class="col-md-3" />
+      <div class="col-md-9 mb-4">
+        <div class="row">
+          <div class="col-12 col-md-6 mb-4">
+            <div class="authentication-password-new">
+              <label
+                for="id-change-password-old"
+                class="form-label w-100"
+              >
+                <strong>Stara lozinka</strong>
+                <br>
+                Upišite trenutnu lozinku
+              </label>
+              <input
+                id="id-change-password-old"
+                v-model="formData.oldPassowrd"
+                class="form-control"
+                type="password"
+              >
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="authentication-password-new">
+              <label
+                for="id-change-password-new-1"
+                class="form-label w-100"
+              >
+                <strong>Nova lozinka</strong>
+                <br>
+                Upišite novu lozinku
+              </label>
+              <input
+                id="id-change-password-new-1"
+                v-model="formData.newPassword"
+                class="form-control"
+                type="password"
+              >
+              <label
+                for="id-change-password-new-2"
+                class="form-label w-100"
+              >
+                <br>
+                Ponovno upišite novu lozinku
+              </label>
+              <input
+                id="id-change-password-new-2"
+                v-model="formData.newPasswordRepeated"
+                class="form-control"
+                type="password"
+              >
+              <p
+                v-if="passwordMismatch"
+                class="text-danger mt-4 mb-4"
+              >
+                Lozinke nisu jednake. Upišite ih ponovo. TODO: marko
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <input
-        id="id-change-password-new-2"
-        v-model="formData.newPasswordRepeated"
-        class="form-control"
-        type="password"
+    </div>
+
+    <div class="authentication-interaktivno">
+      <button
+        :class="{
+          btn: true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
       >
+        Spremi
+      </button>
     </div>
   </div>
 </template>

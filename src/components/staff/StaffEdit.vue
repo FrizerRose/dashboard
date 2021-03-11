@@ -39,7 +39,7 @@
                         class="override-upload-image-layer override-upload-image-missing"
                       >
                         <span class="override-upload-image-layer override-upload-image-missing-placeholder">
-                          <span class="fa fa-user" />
+                          <span class="fa fa-user is-user" />
                         <!-- <i class="align-middle" data-feather="user"></i> -->
                         </span>
                       </span>
@@ -106,7 +106,7 @@
                 for="id-name"
                 class="form-label w-100"
               >
-                <strong>Ime Radnika</strong>
+                <strong>Ime radnika</strong>
                 <br>
                 Ovdje možete promijeniti ime koje će pisati na stranici
               </label>

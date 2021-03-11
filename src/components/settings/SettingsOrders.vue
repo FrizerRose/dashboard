@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div class="card-body">
+  <div>
+    <div class="narucivanje-interaktivno mb-4">
       <button
         :class="{
           btn: true,
@@ -13,9 +13,8 @@
         Spremi
       </button>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
+
+    <div class="narucivanje-najkasnije">
       <label
         for="id-lead-time"
         class="form-label w-100"
@@ -58,9 +57,8 @@
         </option>
       </select>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
+
+    <div class="narucivanje-u-buducnost">
       <label
         class="form-label w-100"
         for="id-scheduling-window"
@@ -91,9 +89,8 @@
         </option>
       </select>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
+
+    <div class="narucivanje-ponisti">
       <label
         class="form-label w-100"
         for="id-cancel-time"
@@ -142,29 +139,48 @@
         </option>
       </select>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label class="form-check m-0">
-        <input
-          v-model="formData.preferences.hasStaffPick"
-          type="checkbox"
-          class="form-check-input"
-        >
-        <span class="form-check-label">Korisnici mogu birati radnika</span>
-      </label>
+
+    <div class="narucivanje-korisnici">
+      <div class="mb-4">
+        <div class="row">
+          <div class="col-12">
+            <label class="form-check m-0">
+              <input
+                v-model="formData.preferences.hasStaffPick"
+                type="checkbox"
+                class="form-check-input"
+              >
+              <span class="form-check-label">Korisnici mogu birati radnika</span>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label class="form-check m-0">
+              <input
+                v-model="formData.preferences.canCancel"
+                type="checkbox"
+                class="form-check-input"
+              >
+              <span class="form-check-label">Korisnici mogu otkazati termin</span>
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label class="form-check m-0">
-        <input
-          v-model="formData.preferences.canCancel"
-          type="checkbox"
-          class="form-check-input"
-        >
-        <span class="form-check-label">Korisnici mogu otkazati termin</span>
-      </label>
+
+    <div class="narucivanje-interaktivno">
+      <button
+        :class="{
+          btn: true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
+      >
+        Spremi
+      </button>
     </div>
   </div>
 </template>

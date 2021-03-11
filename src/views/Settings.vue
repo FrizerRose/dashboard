@@ -1,6 +1,6 @@
 <template>
   <Dashboard>
-    <main class="content">
+    <main class="content-X postavke-content">
       <div
         v-if="selectedCompany"
         class="container-fluid p-0"
@@ -200,19 +200,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.postavke-content {
+  background-color: var(--bs-light);
+}
+
 .postavke-nav {
   @media (max-width: 575px) {
       position: fixed;
       bottom: 0;
       left: 0;
-      background: white;
+      background: var(--bs-light);
       z-index: 10;
       overflow: hidden;
       overflow-x: auto;
       width: 100%;
   }
   @media (min-width: 576px) and (max-width: 1199px) {
-      background: white;
+      background: var(--bs-light);
       overflow: hidden;
       overflow-x: auto;
       width: 100%;
@@ -235,6 +239,9 @@ export default defineComponent({
       white-space: nowrap;
       display: flex;
     }
+    @media (min-width: 1200px) {
+      margin-top: 2rem;
+    }
   }
 
   &__list-item {
@@ -249,7 +256,8 @@ export default defineComponent({
 
   &__link {
     display: flex;
-      align-items: center;
+    align-items: center;
+    color: var(--bs-dark);
 
     @media (max-width: 575px) {
       padding: 0 1rem;
@@ -261,7 +269,11 @@ export default defineComponent({
       flex-direction: column;
     }
     @media (min-width: 1200px) {
-      padding: 0;
+      padding: 0.5rem 0.75rem;
+    }
+
+    &:hover, &.active {
+      background-color: white;
     }
   }
 

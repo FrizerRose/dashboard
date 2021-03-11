@@ -1,39 +1,6 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      <label
-        class="form-label w-100"
-      >
-        <strong>Logotip</strong>
-        <br>
-        Ovdje možete promijeniti logotip koji će biti prikazan na stranici
-      </label>
-      <img
-        v-if="imageLocation"
-        :src="imageLocation"
-        alt="logo"
-        style="max-width: 200px; max-height: 200px;"
-      >
-      <input
-        id="id-file"
-        class="override-input-file"
-        type="file"
-        name="id-file"
-        accept="image/svg, image/png, image/jpeg"
-        @change="upload"
-      >
-      <label
-        for="id-file"
-        class="btn btn-primary"
-      >
-        {{ inputFileText }}
-      </label>
-      <span v-if="imageUploadSent && imageUploadStatus">Logo uspješno promjenjen!</span>
-      <span v-if="imageUploadSent && !imageUploadStatus">Došlo je do greške, molimo probajte kasnije!</span>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
+  <div>
+    <div class="firma-interaktivno mb-4">
       <button
         :class="{
           btn: true,
@@ -46,216 +13,339 @@
         Spremi
       </button>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
+
+    <div class="firma-logo-ime">
       <label
-        for="id-name"
-        class="form-label w-100"
+        class="form-label w-100 mb-4"
       >
-        <strong>Ime firme</strong>
+        <strong>Logotip</strong>
         <br>
-        Ovdje možete promijeniti ime koje će pisati na stranici
+        Ovdje možete promijeniti logotip koji će biti prikazan na stranici
       </label>
-      <input
-        v-model="formData.name"
-        type="text"
-        class="form-control"
-        placeholder="Ime firme"
-        for="id-name"
-      >
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        for="id-about-text"
-        class="form-label w-100"
-      >
-        <strong>O nama</strong>
-      </label>
-      <textarea
-        id="id-about-text"
-        v-model="formData.about"
-        class="form-control"
-        placeholder="Ovdje možete upisati kratki tekst koje će biti prikazan na stranici"
-        rows="3"
-      />
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        for="id-street-address"
-        class="form-label w-100"
-      >
-        <strong>Ulica</strong>
-        <br>
-        Ovdje možete promijeniti ulicu i kućni broj koji će biti prikazani na stranici u sklopu adrese
-      </label>
-      <input
-        id="id-street-address"
-        v-model="formData.streetName"
-        class="form-control"
-        type="text"
-        placeholder="Ulica borova 55, 10000 Zargeb"
-      >
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        for="id-city"
-        class="form-label w-100"
-      >
-        <strong>Grad</strong>
-        <br>
-        Ovdje možete promijeniti grad koja će biti prikazana na stranici u sklopu adrese
-      </label>
-      <input
-        id="id-city"
-        v-model="formData.city"
-        class="form-control"
-        type="text"
-        placeholder="Zagreb"
-      >
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        for="id-phone"
-        class="form-label w-100"
-      >
-        <strong>Telefon</strong>
-        <br>
-        Ovdje možete promijeniti broj telefona koji će biti prikazana na stranici
-      </label>
-      <input
-        id="id-phone"
-        v-model="formData.phoneNumber"
-        class="form-control"
-        type="tel"
-        placeholder="+385 (91) 000-11-22"
-      >
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        class="form-label"
-        for="id-email"
-      >
-        <strong>E-mail adresa</strong>
-        <br>
-        Ovdje možete promijeniti e-mail adresu koji će biti prikazana na stranici
-      </label>
-      <input
-        id="id-email"
-        v-model="formData.contactEmail"
-        type="email"
-        class="form-control"
-        placeholder="adresa@firma.hr"
-      >
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        for="id-subdomain"
-        class="form-label w-100"
-      >
-        <strong>Promjenite domenu</strong>
-        <br>
-        nakon promjene bit ćete prebačeni na novu stranicu gdje će te se trebati ponovo logirati
-      </label>
-      <input
-        id="id-subdomain"
-        v-model="formData.bookingPageSlug"
-        class="form-control"
-        type="text"
-        placeholder="placeholder text"
-      >
-      <div>
-        .frizerrose.info
+
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <div class="row d-flex align-items-center">
+            <div class="col-6 col-md-12">
+              <div class="override-upload-image-wrap">
+                <div class="override-upload-image">
+                  <div class="override-upload-image-square">
+                    <img
+                      v-if="imageLocation"
+                      :src="imageLocation"
+                      alt="logo"
+                    >
+                    <span
+                      v-if="!imageLocation"
+                      class="override-upload-image-layer override-upload-image-missing"
+                    >
+                      <span class="override-upload-image-layer override-upload-image-missing-placeholder">
+                        <span class="fa fa-image" />
+                        <!-- <i class="align-middle" data-feather="user"></i> -->
+                      </span>
+                    </span>
+                  </div>
+                  <span class="override-upload-image-layer override-upload-image-input-wrap">
+                    <input
+                      id="id-file-over-img"
+                      class="override-input-file"
+                      type="file"
+                      name="id-file-over-img"
+                      accept="image/svg, image/png, image/jpeg"
+                      @change="upload"
+                    >
+                    <label
+                      for="id-file-over-img"
+                      class="override-upload-image-layer override-upload-image-input-wrap-label"
+                    >
+                      <span class="override-upload-image-layer override-upload-image-input-wrap-label-icon">
+                        <span class="fa fa-camera" />
+                      </span>
+                    </label>
+                  </span>
+                </div>
+                <button class="override-upload-image-remove override-upload-image-square">
+                  <span class="override-upload-image-layer override-upload-image-remove-center">
+                    <span class="fa fa-trash" />
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div class="col-6 col-md-12 mt-4">
+              <input
+                id="id-file"
+                class="override-input-file"
+                type="file"
+                name="id-file"
+                accept="image/svg, image/png, image/jpeg"
+                @change="upload"
+              >
+              <label
+                for="id-file"
+                class="btn btn-primary"
+              >
+                {{ inputFileText }}
+              </label>
+              <div
+                v-if="imageUploadSent && imageUploadStatus"
+                class="mt-2"
+              >
+                Logo uspješno promjenjen!
+              </div>
+              <div
+                v-if="imageUploadSent && !imageUploadStatus"
+                class="mt-2"
+              >
+                Došlo je do greške, molimo probajte kasnije!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="mb-4">
+            <label
+              for="id-name"
+              class="form-label w-100"
+            >
+              <strong>Ime firme</strong>
+              <br>
+              Ovdje možete promijeniti ime koje će pisati na stranici
+            </label>
+            <input
+              v-model="formData.name"
+              type="text"
+              class="form-control"
+              placeholder="Ime firme"
+              for="id-name"
+            >
+          </div>
+          <div class="mb-4">
+            <label
+              for="id-about-text"
+              class="form-label w-100"
+            >
+              <strong>O nama</strong>
+            </label>
+            <textarea
+              id="id-about-text"
+              v-model="formData.about"
+              class="form-control"
+              placeholder="Ovdje možete upisati kratki tekst koje će biti prikazan na stranici"
+              rows="3"
+            />
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="card-body">
-      <label
-        class="form-label"
-        for="id-website-url"
-      >
-        <strong>Web stranica URL</strong>
-        <br>
-        Ako imate, ovdje zalijepite URL od vaše web stranice
-      </label>
-      <input
-        id="id-website-url"
-        v-model="formData.webstieLink"
-        type="text"
-        class="form-control"
-        placeholder="https://www.ime-firme.hr"
-      >
+    <div class="firma-adresa">
+      <div class="row">
+        <div class="col-md-3 mb-4" />
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
+              <label
+                for="id-street-address"
+                class="form-label w-100"
+              >
+                <strong>Ulica</strong>
+                <br>
+                Ovdje možete promijeniti ulicu i kućni broj koji će biti prikazani na stranici u sklopu adrese
+              </label>
+              <input
+                id="id-street-address"
+                v-model="formData.streetName"
+                class="form-control"
+                type="text"
+                placeholder="Ulica borova 55, 10000 Zargeb"
+              >
+            </div>
+            <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
+              <label
+                for="id-city"
+                class="form-label w-100"
+              >
+                <strong>Grad</strong>
+                <br>
+                Ovdje možete promijeniti grad koja će biti prikazana na stranici u sklopu adrese
+              </label>
+              <input
+                id="id-city"
+                v-model="formData.city"
+                class="form-control"
+                type="text"
+                placeholder="Zagreb"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 mb-4" />
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
+              <label
+                for="id-phone"
+                class="form-label w-100"
+              >
+                <strong>Telefon</strong>
+                <br>
+                Ovdje možete promijeniti broj telefona koji će biti prikazana na stranici
+              </label>
+              <input
+                id="id-phone"
+                v-model="formData.phoneNumber"
+                class="form-control"
+                type="tel"
+                placeholder="+385 (91) 000-11-22"
+              >
+            </div>
+            <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
+              <label
+                class="form-label"
+                for="id-email"
+              >
+                <strong>E-mail adresa</strong>
+                <br>
+                Ovdje možete promijeniti e-mail adresu koji će biti prikazana na stranici
+              </label>
+              <input
+                id="id-email"
+                v-model="formData.contactEmail"
+                type="email"
+                class="form-control"
+                placeholder="adresa@firma.hr"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        class="form-label"
-        for="id-facebook-page-url"
-      >
-        <strong>Facebook URL</strong>
-        <br>
-        Ako imate, ovdje zalijepite URL od vaše Facebook stranice
-      </label>
-      <input
-        id="id-facebook-page-url"
-        v-model="formData.facebookLink"
-        type="text"
-        class="form-control"
-        placeholder="https://www.facebook.com/ime-firme"
-      >
+
+    <div class="firma-na-webu">
+      <div class="row">
+        <div class="col-md-3 mb-4" />
+        <div class="col-md-9 mb-4">
+          <label
+            for="id-subdomain"
+            class="form-label w-100"
+          >
+            <strong>Promjenite domenu</strong>
+            <br>
+            nakon promjene bit ćete prebačeni na novu stranicu gdje će te se trebati ponovo logirati
+          </label>
+          <div class="d-flex align-items-baseline">
+            <input
+              id="id-subdomain"
+              v-model="formData.bookingPageSlug"
+              class="form-control"
+              type="text"
+              placeholder="placeholder text"
+            >
+            <span class="ms-2">.frizerrose.info</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 mb-4" />
+        <div class="col-md-9 mb-4">
+          <label
+            class="form-label"
+            for="id-website-url"
+          >
+            <strong>Web stranica URL</strong>
+            <br>
+            Ako imate, ovdje zalijepite URL od vaše web stranice
+          </label>
+          <input
+            id="id-website-url"
+            v-model="formData.webstieLink"
+            type="text"
+            class="form-control"
+            placeholder="https://www.ime-firme.hr"
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 mb-4" />
+        <div class="col-md-9 mb-4">
+          <label
+            class="form-label"
+            for="id-facebook-page-url"
+          >
+            <strong>Facebook URL</strong>
+            <br>
+            Ako imate, ovdje zalijepite URL od vaše Facebook stranice
+          </label>
+          <input
+            id="id-facebook-page-url"
+            v-model="formData.facebookLink"
+            type="text"
+            class="form-control"
+            placeholder="https://www.facebook.com/ime-firme"
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 mb-4" />
+        <div class="col-md-9 mb-4">
+          <label
+            class="form-label"
+            for="id-instagram-page-url"
+          >
+            <strong>Instagram URL</strong>
+            <br>
+            Ako imate, ovdje zalijepite URL od vašeg Instagram profila vaše firme
+          </label>
+          <input
+            id="id-instagram-page-url"
+            v-model="formData.instagramLink"
+            type="text"
+            class="form-control"
+            placeholder="https://www.instagram.com/ime-firme"
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 mb-4" />
+        <div class="col-md-9 mb-4">
+          <label
+            class="form-label"
+            for="id-terms-and-conditions-page-url"
+          >
+            <strong>Pravila korištenja URL</strong>
+            <br>
+            Ovdje zalijepite URL od stranice na kojoj pišu pravila korištenja. Ovo polje je obavezno
+          </label>
+          <input
+            id="id-terms-and-conditions-page-url"
+            v-model="formData.termsLink"
+            type="text"
+            class="form-control"
+            placeholder="https://www.ime-firme.hr/pravila-koristenja"
+          >
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        class="form-label"
-        for="id-instagram-page-url"
+
+    <div class="firma-interaktivno">
+      <button
+        :class="{
+          btn: true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
       >
-        <strong>Instagram URL</strong>
-        <br>
-        Ako imate, ovdje zalijepite URL od vašeg Instagram profila vaše firme
-      </label>
-      <input
-        id="id-instagram-page-url"
-        v-model="formData.instagramLink"
-        type="text"
-        class="form-control"
-        placeholder="https://www.instagram.com/ime-firme"
-      >
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <label
-        class="form-label"
-        for="id-terms-and-conditions-page-url"
-      >
-        <strong>Pravila korištenja URL</strong>
-        <br>
-        Ovdje zalijepite URL od stranice na kojoj pišu pravila korištenja. Ovo polje je obavezno
-      </label>
-      <input
-        id="id-terms-and-conditions-page-url"
-        v-model="formData.termsLink"
-        type="text"
-        class="form-control"
-        placeholder="https://www.ime-firem.hr/pravila-koristenja"
-      >
+        Spremi
+      </button>
     </div>
   </div>
 </template>
@@ -272,7 +362,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const inputFileText = ref('Odabri logo...');
+    const inputFileText = ref('Odaberi logo...');
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
     const requestSent = ref(false);

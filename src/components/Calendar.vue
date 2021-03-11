@@ -336,7 +336,7 @@ export default defineComponent({
         const endDate = new Date(startDate.getTime() + appointment.service.duration * 60000);
         return {
           id: appointment.id?.toString(),
-          title: appointment.customer.name,
+          title: `${appointment.customer.name} - ${appointment.service.name}`,
           start: startDate,
           end: endDate,
           extendedProps: { isNewAppointment: false, ...appointment },

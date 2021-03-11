@@ -5,130 +5,156 @@
         v-if="selectedCompany"
         class="container-fluid p-0"
       >
-        <div class="row">
-          <div class="col-2">
-            <div class="tab">
-              <ul
-                class="nav nav-tabs flex-column"
-                role="tablist"
-              >
-                <li
-                  class="nav-item"
-                  @click="currentTab = 'CompanyDetails'"
-                >
-                  <a
-                    class="nav-link active"
-                    href="#tab-1"
-                    data-bs-toggle="tab"
-                    role="tab"
-                  >Podatci o firmi</a>
-                </li>
-                <li
-                  class="nav-item"
-                  @click="currentTab = 'Orders'"
-                >
-                  <a
-                    class="nav-link"
-                    href="#tab-2"
-                    data-bs-toggle="tab"
-                    role="tab"
-                  >Narudžbe</a>
-                </li>
-                <li
-                  class="nav-item"
-                  @click="currentTab = 'PersonalDetails'"
-                >
-                  <a
-                    class="nav-link"
-                    href="#tab-3"
-                    data-bs-toggle="tab"
-                    role="tab"
-                  >Korisnički podaci</a>
-                </li>
-                <li
-                  class="nav-item"
-                  @click="currentTab = 'WorkingHours'"
-                >
-                  <a
-                    class="nav-link"
-                    href="#tab-4"
-                    data-bs-toggle="tab"
-                    role="tab"
-                  >Radno vrijeme</a>
-                </li>
-                <li
-                  class="nav-item"
-                  @click="currentTab = 'Themes'"
-                >
-                  <a
-                    class="nav-link"
-                    href="#tab-5"
-                    data-bs-toggle="tab"
-                    role="tab"
-                  >Izgled</a>
-                </li>
-                <li
-                  class="nav-item"
-                  @click="currentTab = 'Notifications'"
-                >
-                  <a
-                    class="nav-link"
-                    href="#tab-6"
-                    data-bs-toggle="tab"
-                    role="tab"
-                  >Notifikacije</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div
-            v-if="selectedCompany"
-            class="col-10"
+        <div class="postavke-nav">
+          <ul
+            class="postavke-nav__list"
+            role="tablist"
           >
-            <div class="tab">
-              <div class="tab-content">
-                <div
-                  id="tab-1"
-                  class="tab-pane active"
-                  role="tabpanel"
-                >
-                  <SettingsCompanyDetails v-if="currentTab === 'CompanyDetails'" />
-                </div>
-                <div
-                  id="tab-2"
-                  class="tab-pane active"
-                  role="tabpanel"
-                >
-                  <SettingsOrders v-if="currentTab === 'Orders'" />
-                </div>
-                <div
-                  id="tab-3"
-                  class="tab-pane active"
-                  role="tabpanel"
-                >
-                  <SettingsPersonalDetails v-if="currentTab === 'PersonalDetails'" />
-                </div>
-                <div
-                  id="tab-4"
-                  class="tab-pane active"
-                  role="tabpanel"
-                >
-                  <SettingsWorkingHours v-if="currentTab === 'WorkingHours'" />
-                </div>
-                <div
-                  id="tab-5"
-                  class="tab-pane active"
-                  role="tabpanel"
-                >
-                  <SettingsThemes v-if="currentTab === 'Themes'" />
-                </div>
-                <div
-                  id="tab-6"
-                  class="tab-pane active"
-                  role="tabpanel"
-                >
-                  <SettingsNotifications v-if="currentTab === 'Notifications'" />
-                </div>
+            <li
+              class="postavke-nav__list-item"
+              @click="currentTab = 'CompanyDetails'"
+            >
+              <a
+                class="postavke-nav__link active"
+                href="#tab-1"
+                data-bs-toggle="tab"
+                role="tab"
+              >
+                <span class="postavke-nav__icon">
+                  <span class="fa fa-building" />
+                </span>
+                <span class="postavke-nav__label">Podatci o firmi</span>
+              </a>
+            </li>
+            <li
+              class="postavke-nav__list-item"
+              @click="currentTab = 'Orders'"
+            >
+              <a
+                class="postavke-nav__link"
+                href="#tab-2"
+                data-bs-toggle="tab"
+                role="tab"
+              >
+                <span class="postavke-nav__icon">
+                  <span class="fa fa-user" />
+                </span>
+                <span class="postavke-nav__label">Narudžbe</span>
+              </a>
+            </li>
+            <li
+              class="postavke-nav__list-item"
+              @click="currentTab = 'PersonalDetails'"
+            >
+              <a
+                class="postavke-nav__link"
+                href="#tab-3"
+                data-bs-toggle="tab"
+                role="tab"
+              >
+                <span class="postavke-nav__icon">
+                  <span class="fa fa-key" />
+                </span>
+                <span class="postavke-nav__label">Korisnički podaci</span>
+              </a>
+            </li>
+            <li
+              class="postavke-nav__list-item"
+              @click="currentTab = 'WorkingHours'"
+            >
+              <a
+                class="postavke-nav__link"
+                href="#tab-4"
+                data-bs-toggle="tab"
+                role="tab"
+              >
+                <span class="postavke-nav__icon">
+                  <span class="fa fa-clock" />
+                </span>
+                <span class="postavke-nav__label">Radno vrijeme</span>
+              </a>
+            </li>
+            <li
+              class="postavke-nav__list-item"
+              @click="currentTab = 'Themes'"
+            >
+              <a
+                class="postavke-nav__link"
+                href="#tab-5"
+                data-bs-toggle="tab"
+                role="tab"
+              >
+                <span class="postavke-nav__icon">
+                  <span class="fa fa-palette" />
+                </span>
+                <span class="postavke-nav__label">Izgled</span>
+              </a>
+            </li>
+            <li
+              class="postavke-nav__list-item"
+              @click="currentTab = 'Notifications'"
+            >
+              <a
+                class="postavke-nav__link"
+                href="#tab-6"
+                data-bs-toggle="tab"
+                role="tab"
+              >
+                <span class="postavke-nav__icon">
+                  <span class="fa fa-bell" />
+                </span>
+                <span class="postavke-nav__label">Noifikacije</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          v-if="selectedCompany"
+          class="postavke-main"
+        >
+          <div class="tab">
+            <div class="tab-content">
+              <div
+                id="tab-1"
+                class="tab-pane active"
+                role="tabpanel"
+              >
+                <SettingsCompanyDetails v-if="currentTab === 'CompanyDetails'" />
+              </div>
+              <div
+                id="tab-2"
+                class="tab-pane active"
+                role="tabpanel"
+              >
+                <SettingsOrders v-if="currentTab === 'Orders'" />
+              </div>
+              <div
+                id="tab-3"
+                class="tab-pane active"
+                role="tabpanel"
+              >
+                <SettingsPersonalDetails v-if="currentTab === 'PersonalDetails'" />
+              </div>
+              <div
+                id="tab-4"
+                class="tab-pane active"
+                role="tabpanel"
+              >
+                <SettingsWorkingHours v-if="currentTab === 'WorkingHours'" />
+              </div>
+              <div
+                id="tab-5"
+                class="tab-pane active"
+                role="tabpanel"
+              >
+                <SettingsThemes v-if="currentTab === 'Themes'" />
+              </div>
+              <div
+                id="tab-6"
+                class="tab-pane active"
+                role="tabpanel"
+              >
+                <SettingsNotifications v-if="currentTab === 'Notifications'" />
               </div>
             </div>
           </div>
@@ -172,3 +198,89 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.postavke-nav {
+  @media (max-width: 575px) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background: white;
+      z-index: 10;
+      overflow: hidden;
+      overflow-x: auto;
+      width: 100%;
+  }
+  @media (min-width: 576px) and (max-width: 1199px) {
+      background: white;
+      overflow: hidden;
+      overflow-x: auto;
+      width: 100%;
+  }
+  @media (min-width: 1200px) {
+    display: inline-block;
+    width: 25%;
+    vertical-align: top;
+  }
+
+  &__list {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    @media (max-width: 575px) {
+      white-space: nowrap;
+      display: flex;
+    }
+    @media (min-width: 576px) and (max-width: 1199px) {
+      white-space: nowrap;
+      display: flex;
+    }
+  }
+
+  &__list-item {
+    @media (max-width: 575px) {
+      // display: inline-block;
+      // white-space: nowrap;
+      // flex: 0 0 auto;
+      // min-width: 30%;
+      flex: 0 0 30%;
+    }
+  }
+
+  &__link {
+    display: flex;
+      align-items: center;
+
+    @media (max-width: 575px) {
+      padding: 0 1rem;
+    }
+    @media (min-width: 576px) {
+      padding: 1rem 2rem;
+    }
+    @media (max-width: 1199px) {
+      flex-direction: column;
+    }
+    @media (min-width: 1200px) {
+      padding: 0;
+    }
+  }
+
+  &__icon {
+    padding: 0.5em 1em;
+    font-size: 1rem;
+  }
+}
+
+//
+
+.postavke-main {
+  @media (max-width: 575px) {
+  }
+  @media (min-width: 576px) {
+  }
+  @media (min-width: 1200px) {
+    display: inline-block;
+    width: 75%;
+  }
+}
+</style>

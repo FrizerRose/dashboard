@@ -1,16 +1,33 @@
 <template>
   <router-view />
+
+  <InitialFlow v-if="!isTutorialFinished && selectedCompany !== null" />
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, watch } from 'vue';
 import ActionTypes from '@/store/action-types';
 import { useStore } from '@/store';
+import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
 
 export default defineComponent({
+  components: {
+    InitialFlow,
+  },
   setup() {
     const store = useStore();
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const isTutorialFinished = computed(() => store.getters.isTutorialFinished);
+
+    watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
+      if (newState) {
+        document.body.classList.add('modal-open');
+      }
+
+      if (!newState && oldState) {
+        document.body.classList.remove('modal-open');
+      }
+    });
 
     let companyID: string | number = 6;
     console.log('🚀 ~ file: helpers.ts ~ line 23 ~ fetchCompanyFromURL ~ process.env.NODE_ENV', process.env.NODE_ENV);
@@ -29,6 +46,11 @@ export default defineComponent({
     }
 
     fetchState();
+
+    return {
+      selectedCompany,
+      isTutorialFinished,
+    };
   },
 });
 </script>

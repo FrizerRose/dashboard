@@ -18,6 +18,6 @@ export const getters: GetterTree<State, RootState> & Getters = {
   anyModalOpen: (state) => state.isStaffCreateOpen
   || state.isStaffEditOpen
   || state.isServicesCreateOpen
-  || state.isServicesEditOpen
-  || state.selectedCompany?.preferences?.isTutorialFinished === false,
+  || state.isServicesEditOpen,
+  // || state.selectedCompany?.preferences?.isTutorialFinished === false,
 };

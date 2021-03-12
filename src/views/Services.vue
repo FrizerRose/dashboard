@@ -1,6 +1,9 @@
 <template>
   <Dashboard>
-    <main class="content">
+    <main
+      id="serviceContainer"
+      class="content"
+    >
       <div
         v-if="services.length"
         class="container-fluid p-0"

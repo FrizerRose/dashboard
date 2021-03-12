@@ -42,10 +42,12 @@
     >
       <li
         v-for="node in nodes"
+        :id="'menu-' + node.name"
         :key="node.name"
         class="sidebar-item"
         :class="{ active : node.templateName === $route.name }"
         :style="{position: 'relative'}"
+        @click="tourNextStep()"
       >
         <router-link
           :to="node.slug"
@@ -73,7 +75,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
+import { useStore } from '@/store';
 import MainNavSubmenu from './MainNavSubmenu.vue';
 
 export default defineComponent({
@@ -86,12 +89,18 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
-    props.nodes.forEach((node) => {
-      if (node.nodes !== undefined) {
-        console.log(node.nodes);
-      }
-    });
+  setup() {
+    const store = useStore();
+    const tour = computed(() => store.state.shared.tour);
+
+    function tourNextStep() {
+      const tourReference = tour.value;
+      setTimeout((() => {
+        tourReference.next();
+      }), 200);
+    }
+
+    return { tourNextStep };
   },
 });
 </script>

@@ -41,9 +41,6 @@
         </div>
 
         <div class="row">
-          <div class="col-12 col-lg-6 col-xl-4 d-flex">
-            <Calendar />
-          </div>
           <div class="col-12 col-xl-4 d-none d-xl-flex">
             <WeeklySales />
           </div>
@@ -70,7 +67,6 @@ import PendingOrders from '../components/PendingOrders.vue';
 import TotalRevenue from '../components/TotalRevenue.vue';
 import Sales from '../components/Sales.vue';
 import DailyFeed from '../components/DailyFeed.vue';
-import Calendar from '../components/Calendar.vue';
 import WeeklySales from '../components/WeeklySales.vue';
 import Appointments from '../components/Appointments.vue';
 import UpcomingAppointments from '../components/UpcomingAppointments.vue';
@@ -85,7 +81,6 @@ export default defineComponent({
     TotalRevenue,
     Sales,
     DailyFeed,
-    Calendar,
     WeeklySales,
     Appointments,
     UpcomingAppointments,

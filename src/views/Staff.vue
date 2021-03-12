@@ -1,6 +1,9 @@
 <template>
   <Dashboard>
-    <main class="content">
+    <main
+      id="staffContainer"
+      class="content"
+    >
       <div
         v-if="staff.length"
         class="container-fluid p-0"
@@ -8,6 +11,7 @@
         <div class="row">
           <div class="col-xl-12">
             <button
+              id="staffCreateButton"
               class="btn btn-primary float-end mt-n1"
               aria-label="Dodaj radnika"
               @click="openStaffCreateModal()"

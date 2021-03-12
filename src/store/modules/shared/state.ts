@@ -19,6 +19,7 @@ export interface State {
   selectedNotice: string;
   reservedAppointments: Appointment[];
   selectedWorker: Staff | null;
+  tour: object | null;
 }
 
 const state: State = {
@@ -36,6 +37,7 @@ const state: State = {
   selectedNotice: '',
   reservedAppointments: [],
   selectedWorker: null,
+  tour: null,
 };
 
 export default state;

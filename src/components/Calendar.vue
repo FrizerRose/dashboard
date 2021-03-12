@@ -13,244 +13,337 @@
   <div class="card">
     <div class="card-header">
       <h5 class="card-title">
-        <div
+        <label
           v-for="worker in allStaff"
           :key="worker.id"
+          class="form-check"
         >
-          <span
-            v-if="selectedWorker && selectedWorker.id === worker.id"
-            class="mr-3"
-          >-----></span>
-          <a @click.prevent="selectWorker(worker)">{{ worker.name }}</a>
-        </div>
+          <input
+            :checked="selectedWorker && selectedWorker.id === worker.id"
+            class="form-check-input"
+            type="radio"
+            name="radios-example"
+            :value="'option' + allStaff.length"
+            @click="selectWorker(worker)"
+          >
+          <span class="form-check-label">
+            {{ worker.name }}
+          </span>
+        </label>
       </h5>
     </div>
     <div class="card-body">
       <!-- EDIT/CANCEL -->
       <div v-if="isAppointmentModalOpen && creationDatetime && isEventSelected">
-        <label
-          for="id-service"
-          class="form-label w-100"
-        >
-          <strong>Radnik</strong>
-        </label>
-        <select
-          id="id-service"
-          v-model="rescheduledStaff"
-          class="form-control mb-3"
-          name="id-service"
-          @change="changeRescheduleSelectedStaffServices()"
-        >
-          <option
-            v-for="staff in allStaff"
-            :key="staff.id"
-            :value="staff"
-          >
-            {{ staff.name }}
-          </option>
-        </select>
-        <label
-          for="id-service-reschedule"
-          class="form-label w-100"
-        >
-          <strong>Usluga</strong>
-        </label>
-        <select
-          id="id-service-reschedule"
-          v-model="rescheduledService"
-          class="form-control mb-3"
-          name="id-service-reschedule"
-        >
-          <option
-            v-for="service in rescheduledStaffServices.data"
-            :key="service.id"
-            :value="service"
-          >
-            {{ service.name }}
-          </option>
-        </select>
-
-        <label class="form-label w-100">
-          <strong>Dan</strong>
-        </label>
-        <input
-          id="date-start"
-          v-model="rescheduledDateTime.date"
-          class="form-control"
-          type="date"
-          name="data-start"
-        >
-        <label class="form-label w-100">
-          <strong>Vrijeme</strong>
-        </label>
-        <select
-          id="id-service-reschedule"
-          v-model="rescheduledDateTime.time"
-          class="form-control mb-3"
-          name="id-service-reschedule"
-        >
-          <option
-            v-for="time in timeOptions"
-            :key="time"
-            :value="time"
-          >
-            {{ time }}
-          </option>
-        </select>
-        <label
-          class="form-label"
-          for="id-client-name"
-        >
-          <strong>Ime klijenta</strong>
-        </label>
-        <input
-          id="id-client-name"
-          v-model="rescheduledCustomer.name"
-          type="text"
-          class="form-control"
-        >
-        <label
-          class="form-label"
-          for="id-client-email"
-        >
-          <strong>Email klijenta</strong>
-        </label>
-        <input
-          id="id-client-email"
-          v-model="rescheduledCustomer.email"
-          type="text"
-          class="form-control"
-        >
-        <label
-          class="form-label"
-          for="id-client-phone"
-        >
-          <strong>Mobitel klijenta</strong>
-        </label>
-        <input
-          id="id-client-phone"
-          v-model="rescheduledCustomer.phone"
-          type="text"
-          class="form-control"
-        >
-        <label
-          class="form-label"
-          for="id-client-notice"
-        >
-          <strong>Napomena</strong>
-        </label>
-        <textarea
-          id="id-client-notice"
-          v-model="rescheduledNotice"
-          class="c-form_textarea"
-        />
-        <button
-          :class="{
-            btn: true,
-            'btn-primary': !rescheduleRequestSent,
-            'btn-success': rescheduleRequestSent && rescheduleStatus,
-            'btn-danger': rescheduleRequestSent && !rescheduleStatus,
-          }"
-          @click="reschedule()"
-        >
-          Spremi
-        </button>
-        <button
-          class="btn btn-danger"
-          @click="cancel()"
-        >
-          Otkaži
-        </button>
+        <Modal>
+          <template #header>
+            <h5 class="modal-title h4">
+              Uređivanje/brisanje termina
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              aria-label="Zatvori"
+              @click="closeCalendarModal()"
+            />
+          </template>
+          <template #body>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <label
+                    for="id-calendar-edit-slot-staff"
+                    class="form-label w-100"
+                  >
+                    <strong>Radnik</strong>
+                  </label>
+                  <select
+                    id="id-calendar-edit-slot-staff"
+                    v-model="rescheduledStaff"
+                    class="form-control mb-3"
+                    name="id-calendar-edit-slot-staff"
+                    @change="changeRescheduleSelectedStaffServices()"
+                  >
+                    <option
+                      v-for="staff in allStaff"
+                      :key="staff.id"
+                      :value="staff"
+                    >
+                      {{ staff.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <label
+                    for="id-calendar-edit-slot-service"
+                    class="form-label w-100"
+                  >
+                    <strong>Usluga</strong>
+                  </label>
+                  <select
+                    id="id-calendar-edit-slot-service"
+                    v-model="rescheduledService"
+                    class="form-control mb-3"
+                    name="id-calendar-edit-slot-service"
+                  >
+                    <option
+                      v-for="service in rescheduledStaffServices.data"
+                      :key="service.id"
+                      :value="service"
+                    >
+                      {{ service.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <label class="form-label w-100">
+                    <strong>Dan</strong>
+                  </label>
+                  <input
+                    id="id-calendar-edit-slot-day"
+                    v-model="rescheduledDateTime.date"
+                    class="form-control mb-3"
+                    type="date"
+                    name="id-calendar-edit-slot-day"
+                  >
+                </div>
+                <div class="col-md-6 mb-4">
+                  <label class="form-label w-100">
+                    <strong>Vrijeme</strong>
+                  </label>
+                  <select
+                    id="id-calendar-edit-slot-day-time"
+                    v-model="rescheduledDateTime.time"
+                    class="form-control mb-3"
+                    name="id-calendar-edit-slot-day-time"
+                  >
+                    <option
+                      v-for="time in timeOptions"
+                      :key="time"
+                      :value="time"
+                    >
+                      {{ time }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mb-4">
+                  <label
+                    class="form-label"
+                    for="id-calendar-edit-slot-customer-name"
+                  >
+                    <strong>Ime klijenta</strong>
+                  </label>
+                  <input
+                    id="id-calendar-edit-slot-customer-name"
+                    v-model="rescheduledCustomer.name"
+                    type="text"
+                    class="form-control mb-3"
+                  >
+                </div>
+                <div class="col-md-4 mb-4">
+                  <label
+                    class="form-label"
+                    for="id-calendar-edit-slot-customer-email"
+                  >
+                    <strong>E-mail klijenta</strong>
+                  </label>
+                  <input
+                    id="id-calendar-edit-slot-customer-email"
+                    v-model="rescheduledCustomer.email"
+                    type="text"
+                    class="form-control mb-3"
+                  >
+                </div>
+                <div class="col-md-4 mb-4">
+                  <label
+                    class="form-label"
+                    for="id-calendar-edit-slot-customer-phone"
+                  >
+                    <strong>Mobitel klijenta</strong>
+                  </label>
+                  <input
+                    id="id-calendar-edit-slot-customer-phone"
+                    v-model="rescheduledCustomer.phone"
+                    type="text"
+                    class="form-control mb-3"
+                  >
+                </div>
+                <div class="col-md-12 mb-4">
+                  <label
+                    class="form-label"
+                    for="id-calendar-edit-slot-customer-notice"
+                  >
+                    <strong>Napomena</strong>
+                  </label>
+                  <textarea
+                    id="id-calendar-edit-slot-customer-notice"
+                    v-model="rescheduledNotice"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+          </template>
+          <template #footer>
+            <button
+              :class="{
+                btn: true,
+                'btn-primary': !rescheduleRequestSent,
+                'btn-success': rescheduleRequestSent && rescheduleStatus,
+                'btn-danger': rescheduleRequestSent && !rescheduleStatus,
+              }"
+              @click="reschedule()"
+            >
+              Spremi
+            </button>
+            <button
+              class="btn btn-danger"
+              @click="cancel()"
+            >
+              Otkaži
+            </button>
+          </template>
+        </Modal>
       </div>
 
       <!-- CREATE -->
       <div v-if="isAppointmentModalOpen && creationDatetime && !isEventSelected">
-        <label
-          v-if="selectedWorker"
-          for="id-staff"
-          class="form-label w-100"
-        >
-          <strong>Radnik: {{ selectedWorker.name }} </strong>
-        </label>
-        <label
-          for="id-service"
-          class="form-label w-100"
-        >
-          <strong>Usluga</strong>
-        </label>
-        <select
-          v-if="services.data"
-          id="id-service"
-          v-model="creationService"
-          class="form-control mb-3"
-          name="id-service"
-        >
-          <option
-            v-for="service in services.data"
-            :key="service.id"
-            :value="service"
-          >
-            {{ service.name }}
-          </option>
-        </select>
-        <label
-          class="form-label"
-          for="id-client-name"
-        >
-          <strong>Ime klijenta</strong>
-        </label>
-        <input
-          id="id-client-name"
-          v-model="creationCustomer.name"
-          type="text"
-          class="form-control"
-        >
-        <label
-          class="form-label"
-          for="id-client-email"
-        >
-          <strong>Email klijenta</strong>
-        </label>
-        <input
-          id="id-client-email"
-          v-model="creationCustomer.email"
-          type="text"
-          class="form-control"
-        >
-        <label
-          class="form-label"
-          for="id-client-phone"
-        >
-          <strong>Mobitel klijenta</strong>
-        </label>
-        <input
-          id="id-client-phone"
-          v-model="creationCustomer.phone"
-          type="text"
-          class="form-control"
-        >
-        <label
-          class="form-label"
-          for="id-client-notice"
-        >
-          <strong>Napomena</strong>
-        </label>
-        <textarea
-          id="id-client-notice"
-          v-model="creationNotice"
-          class="c-form_textarea"
-        />
-        <button
-          :class="{
-            btn: true,
-            'btn-primary': !requestSent,
-            'btn-success': requestSent && status,
-            'btn-danger': requestSent && !status,
-          }"
-          @click="createAppointment()"
-        >
-          Spremi
-        </button>
+        <Modal>
+          <template #header>
+            <h5 class="modal-title h4">
+              Popunjavanje termina
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              aria-label="Zatvori"
+              @click="closeCalendarModal()"
+            />
+          </template>
+          <template #body>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <label
+                    v-if="selectedWorker"
+                    for="id-calendar-create-slot-staff"
+                    class="form-label w-100"
+                  >
+                    <strong>Radnik</strong>
+                  </label>
+                  <select
+                    v-if="services.data"
+                    id="id-calendar-create-slot-staff"
+                    class="form-control mb-3"
+                    name="id-calendar-create-slot-staff"
+                    disabled
+                  >
+                    <option>
+                      {{ selectedWorker.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <label
+                    for="id-calendar-create-slot-service"
+                    class="form-label w-100"
+                  >
+                    <strong>Usluga</strong>
+                  </label>
+                  <select
+                    v-if="services.data"
+                    id="id-calendar-create-slot-service"
+                    v-model="creationService"
+                    class="form-control mb-3"
+                    name="id-calendar-create-slot-service"
+                  >
+                    <option
+                      v-for="service in services.data"
+                      :key="service.id"
+                      :value="service"
+                    >
+                      {{ service.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mb-4">
+                  <label
+                    class="form-label"
+                    for="id-calendar-create-customer-name"
+                  >
+                    <strong>Ime klijenta</strong>
+                  </label>
+                  <input
+                    id="id-calendar-create-customer-name"
+                    v-model="creationCustomer.name"
+                    type="text"
+                    class="form-control"
+                  >
+                </div>
+                <div class="col-md-4 mb-4">
+                  <label
+                    class="form-label"
+                    for="id-calendar-create-customer-email"
+                  >
+                    <strong>E-mail klijenta</strong>
+                  </label>
+                  <input
+                    id="id-calendar-create-customer-email"
+                    v-model="creationCustomer.email"
+                    type="text"
+                    class="form-control"
+                  >
+                </div>
+                <div class="col-md-4 mb-4">
+                  <label
+                    class="form-label"
+                    for="id-calendar-create-customer-phone"
+                  >
+                    <strong>Mobitel klijenta</strong>
+                  </label>
+                  <input
+                    id="id-calendar-create-customer-phone"
+                    v-model="creationCustomer.phone"
+                    type="text"
+                    class="form-control"
+                  >
+                </div>
+                <div class="col-md-12 mb-4">
+                  <label
+                    class="form-label"
+                    for="id-calendar-create-customer-notice"
+                  >
+                    <strong>Napomena</strong>
+                  </label>
+                  <textarea
+                    id="id-calendar-create-customer-notice"
+                    v-model="creationNotice"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+          </template>
+          <template #footer>
+            <button
+              :class="{
+                btn: true,
+                'btn-primary': !requestSent,
+                'btn-success': requestSent && status,
+                'btn-danger': requestSent && !status,
+              }"
+              @click="createAppointment()"
+            >
+              Spremi
+            </button>
+          </template>
+        </Modal>
       </div>
     </div>
 
@@ -262,6 +355,7 @@
 import {
   defineComponent, onMounted, computed, watch, ref, reactive,
 } from 'vue';
+import Modal from '@/components/layout/Modal.vue';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -280,6 +374,9 @@ import { formatDateString, getDateStringFromDate, getTimeOptions } from '@/helpe
 import { getFormattedBusinessHours } from '@/helpers/calendar';
 
 export default defineComponent({
+  components: {
+    Modal,
+  },
   setup() {
     const store = useStore();
 
@@ -289,7 +386,8 @@ export default defineComponent({
     const reservedAppointments = computed(() => store.state.shared.reservedAppointments);
 
     const isEventSelected = ref(false);
-    const isAppointmentModalOpen = ref(false);
+    // const isAppointmentModalOpen = ref(false);
+    const isAppointmentModalOpen = computed(() => store.state.shared.isCalendarModalOpen);
     const status = ref(false);
     const requestSent = ref(false);
     const rescheduleStatus = ref(false);
@@ -371,7 +469,9 @@ export default defineComponent({
           select(info) {
             creationDatetime.value = info.start;
             isEventSelected.value = false;
-            isAppointmentModalOpen.value = true;
+            // isAppointmentModalOpen.value = true;
+            store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, true);
+            document.body.classList.add('modal-open');
           },
 
           eventClick(info) {
@@ -412,7 +512,9 @@ export default defineComponent({
               }
 
               isEventSelected.value = true;
-              isAppointmentModalOpen.value = true;
+              // isAppointmentModalOpen.value = true;
+              store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, true);
+              document.body.classList.add('modal-open');
             }
           },
           // Sa auto heightom se prikaže cijeli calendar bez scrollabara, ali ne radi scrollanje to odredjenog vremena
@@ -519,7 +621,9 @@ export default defineComponent({
             status.value = true;
           }
 
-          isAppointmentModalOpen.value = false;
+          // isAppointmentModalOpen.value = false;
+          store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
+          document.body.classList.remove('modal-open');
         }
       } catch {
         if (isRescheduling) {
@@ -538,7 +642,9 @@ export default defineComponent({
           await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, createdAppointmentID.value);
 
           if (!isRescheduling) {
-            isAppointmentModalOpen.value = false;
+            // isAppointmentModalOpen.value = false;
+            store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
+            document.body.classList.remove('modal-open');
           }
         }
       } catch {
@@ -565,6 +671,12 @@ export default defineComponent({
 
     fetchSelectedWorkerAppointments();
 
+    function closeCalendarModal() {
+      console.log('closeCalendarModal');
+      store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
+      document.body.classList.remove('modal-open');
+    }
+
     return {
       selectedCompany,
       allStaff,
@@ -573,6 +685,7 @@ export default defineComponent({
       reservedAppointments,
       formattedAppointments,
       isAppointmentModalOpen,
+      closeCalendarModal,
       creationDatetime,
       createAppointment,
       timeOptions,

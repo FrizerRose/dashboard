@@ -7,6 +7,7 @@ import Staff from '@/types/staff';
 export interface State {
   isMenuOpen: boolean;
   isServicesCreateOpen: boolean;
+  isCalendarModalOpen: boolean;
   isServicesEditOpen: boolean;
   isStaffCreateOpen: boolean;
   isStaffEditOpen: boolean;
@@ -25,6 +26,7 @@ export interface State {
 const state: State = {
   isMenuOpen: false,
   isServicesCreateOpen: false,
+  isCalendarModalOpen: false,
   isServicesEditOpen: false,
   isStaffCreateOpen: false,
   isStaffEditOpen: false,

@@ -13,6 +13,7 @@ type CompanyPreferences = {
   clientReminderEmail: boolean;
   staffReminderEmail: boolean;
   staffCancellationNotice: boolean;
+  isTutorialFinished: boolean;
   clientReminderTime: number;
   staffReminderTime: number;
 }

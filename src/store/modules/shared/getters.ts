@@ -7,14 +7,17 @@ import { State } from './state';
 export type Getters = {
   getCurrentStep(state: State): number | null;
   getIsMenuOpen(state: State): boolean;
-  anyModelOpen(state: State): boolean;
+  isTutorialFinished(state: State): boolean;
+  anyModalOpen(state: State): boolean;
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
   getCurrentStep: (state) => state.currentStep,
   getIsMenuOpen: (state) => state.isMenuOpen,
-  anyModelOpen: (state) => state.isStaffCreateOpen
+  isTutorialFinished: (state) => state.selectedCompany?.preferences?.isTutorialFinished === true,
+  anyModalOpen: (state) => state.isStaffCreateOpen
   || state.isStaffEditOpen
   || state.isServicesCreateOpen
-  || state.isServicesEditOpen,
+  || state.isServicesEditOpen
+  || state.selectedCompany?.preferences?.isTutorialFinished === false,
 };

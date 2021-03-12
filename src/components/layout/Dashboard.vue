@@ -14,14 +14,17 @@
       v-if="anyModalOpen"
       class="modal-backdrop fade show"
     />
+
+    <InitialFlow v-if="!isTutorialFinished" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, watch } from 'vue';
 import MainNavMenu from '@/components/layout/MainNavMenu.vue';
 import TopNavbar from '@/components/layout/TopNavbar.vue';
 import Footer from '@/components/layout/Footer.vue';
+import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
 import { useStore } from '@/store';
 
 export default defineComponent({
@@ -29,12 +32,26 @@ export default defineComponent({
     MainNavMenu,
     TopNavbar,
     Footer,
+    InitialFlow,
   },
   setup() {
     const store = useStore();
-    const anyModalOpen = computed(() => store.getters.anyModelOpen);
+    const anyModalOpen = computed(() => store.getters.anyModalOpen);
+    const isTutorialFinished = computed(() => store.getters.isTutorialFinished);
+
+    watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
+      if (newState) {
+        document.body.classList.add('modal-open');
+      }
+
+      if (!newState && oldState) {
+        document.body.classList.remove('modal-open');
+      }
+    });
+
     return {
       anyModalOpen,
+      isTutorialFinished,
       tree: {
         nodes: [
           { name: 'Naslovnica', templateName: 'Home', slug: '/' },

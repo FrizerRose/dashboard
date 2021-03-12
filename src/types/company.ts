@@ -14,7 +14,7 @@ type Company = {
   streetName: string;
   services: Service[];
   staff: Staff[];
-  companyPreferences: CompanyPreferences;
+  preferences: CompanyPreferences;
   hours: WorkingHours;
   image: object;
 }

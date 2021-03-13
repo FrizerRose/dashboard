@@ -13,23 +13,20 @@
   <div class="card">
     <div class="card-header">
       <h5 class="card-title">
-        <label
-          v-for="worker in allStaff"
-          :key="worker.id"
-          class="form-check"
+        <select
+          id="selectedWorker"
+          v-model="selectedWorker"
+          name="selectedWorker"
+          @change="selectWorker()"
         >
-          <input
-            :checked="selectedWorker && selectedWorker.id === worker.id"
-            class="form-check-input"
-            type="radio"
-            name="radios-example"
-            :value="'option' + allStaff.length"
-            @click="selectWorker(worker)"
+          <option
+            v-for="worker in allStaff"
+            :key="worker.id"
+            :value="worker"
           >
-          <span class="form-check-label">
-            {{ worker.name }}
-          </span>
-        </label>
+            <a>{{ worker.name }}</a>
+          </option>
+        </select>
       </h5>
     </div>
     <div class="card-body">
@@ -381,7 +378,7 @@ export default defineComponent({
     const store = useStore();
 
     const allStaff = computed(() => store.state.staff.allStaff);
-    const selectedWorker = computed(() => store.state.shared.selectedWorker);
+    const selectedWorker = ref(JSON.parse(JSON.stringify(allStaff.value[0])));
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const reservedAppointments = computed(() => store.state.shared.reservedAppointments);
 
@@ -552,6 +549,7 @@ export default defineComponent({
         watch(
           () => selectedWorker.value,
           (worker) => {
+            console.log('🚀 ~ file: Calendar.vue ~ line 454 ~ onMounted ~ worker', worker);
             calendar.scrollToTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
             if (worker) {
               calendar.setOption('businessHours', getFormattedBusinessHours(worker));
@@ -664,8 +662,8 @@ export default defineComponent({
       }
     }
 
-    function selectWorker(worker: Staff) {
-      store.commit(MutationTypes.CHANGE_SELECTED_WORKER, worker);
+    function selectWorker() {
+      store.commit(MutationTypes.CHANGE_SELECTED_WORKER, selectedWorker.value);
       fetchSelectedWorkerAppointments();
     }
 

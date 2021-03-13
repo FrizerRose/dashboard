@@ -58,16 +58,22 @@
 
         <button
           v-if="node.nodes !== undefined"
-          :data-bs-target="'#bs-target-id-' + node.target"
           :data-bs-toggle="node.nodes === undefined ? 'collapsed' : 'collapse'"
-          class="btn sidebar-link collapsed"
-          aria-expanded="false"
+          :class="{
+            btn : true,
+            'sidebar-link' : true,
+            collapsed : !submenuShow,
+            show : submenuShow
+          }"
+          :aria-expanded="submenuShow"
           :style="{position: 'absolute', top: 0, right: 0, height: '41px', 'z-index': 1}"
+          @click="submenuToggle()"
         />
 
         <MainNavSubmenu
           v-if="node.nodes"
           :node="node"
+          :submenu-show="submenuShow"
         />
       </li>
     </ul>
@@ -75,7 +81,7 @@
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 import { useStore } from '@/store';
 import MainNavSubmenu from './MainNavSubmenu.vue';
 
@@ -93,6 +99,12 @@ export default defineComponent({
     const store = useStore();
     const tour = computed(() => store.state.shared.tour);
 
+    const submenuShow = ref(false);
+
+    function submenuToggle() {
+      submenuShow.value = !submenuShow.value;
+    }
+
     function tourNextStep() {
       const tourReference = tour.value;
       setTimeout((() => {
@@ -100,7 +112,11 @@ export default defineComponent({
       }), 200);
     }
 
-    return { tourNextStep };
+    return {
+      tourNextStep,
+      submenuToggle,
+      submenuShow,
+    };
   },
 });
 </script>

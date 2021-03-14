@@ -27,6 +27,7 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.ADD_RESERVED_APPOINTMENTS](state: S, payload: Appointment[]): void;
   [LocalMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID](state: S, payload: number): void;
   [LocalMutationTypes.CHANGE_TOUR](state: S, payload: object | null): void;
+  [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state: S, payload: number): void;
 }
 
 // Mutuation implementation.
@@ -85,5 +86,8 @@ export const mutations: MutationTree<State> & Mutations = {
   },
   [LocalMutationTypes.CHANGE_TOUR](state, payload: object | null) {
     state.tour = payload;
+  },
+  [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state, payload: number) {
+    state.calendarSelectedAppointmentID = payload;
   },
 };

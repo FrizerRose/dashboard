@@ -19,6 +19,7 @@ export interface State {
   selectedCustomer: Customer | null;
   selectedNotice: string;
   reservedAppointments: Appointment[];
+  calendarSelectedAppointmentID: number;
   selectedWorker: Staff | null;
   tour: object | null;
 }
@@ -38,6 +39,7 @@ const state: State = {
   selectedCustomer: null,
   selectedNotice: '',
   reservedAppointments: [],
+  calendarSelectedAppointmentID: -1,
   selectedWorker: null,
   tour: null,
 };

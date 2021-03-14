@@ -268,7 +268,22 @@
                   </select>
                 </div>
               </div>
-              <div class="row">
+              <button
+                class="btn btn-primary"
+                @click="changeIsCreateCustomer(false)"
+              >
+                Stari klijent
+              </button>
+              <button
+                class="btn btn-secondary"
+                @click="changeIsCreateCustomer(true)"
+              >
+                Novi klijent
+              </button>
+              <div
+                v-if="isCreateCustomer"
+                class="row"
+              >
                 <div class="col-md-4 mb-4">
                   <label
                     class="form-label"
@@ -323,6 +338,34 @@
                     v-model="creationNotice"
                     class="form-control"
                   />
+                </div>
+              </div>
+              <div
+                v-else
+                class="row"
+              >
+                Ime Klijenta
+                <input
+                  id="oldCustomerName"
+                  v-model="oldCustomerName"
+                  placeholder="Počnite upisivati ime klijenta"
+                  type="text"
+                  name="oldCustomerName"
+                  autocomplete="off"
+                  @input="oldCustomerInputChange()"
+                >
+
+                <button
+                  v-for="candidate in oldCustomerCandidates"
+                  :key="candidate.id"
+                  :value="candidate"
+                  @click="selectOldCustomer(candidate)"
+                >
+                  {{ candidate.name }}
+                </button>
+
+                <div v-if="creationCustomer.name">
+                  Odabrani klijent: {{ creationCustomer.name }}
                 </div>
               </div>
             </div>
@@ -389,15 +432,16 @@ export default defineComponent({
     const requestSent = ref(false);
     const rescheduleStatus = ref(false);
     const rescheduleRequestSent = ref(false);
+    const isCreateCustomer = ref(false);
 
     const services = ref(selectedWorker.value?.services);
     const creationDatetime = ref(new Date());
     const createdAppointmentID = ref(-1);
     const creationService = ref(services.value[0] as Service);
     const creationNotice = ref('');
-    const creationCustomer = reactive({
-      name: '', email: '', phone: '', company: selectedCompany.value,
-    } as Customer);
+    const creationCustomer = ref({} as Customer);
+    const oldCustomerName = ref('');
+    const oldCustomerCandidates = ref([] as Customer[]);
 
     const rescheduledService = ref({} as Service);
     const rescheduledStaff = ref({} as Staff);
@@ -578,9 +622,9 @@ export default defineComponent({
             };
           } else {
             customerObject = {
-              name: creationCustomer.name,
-              email: creationCustomer.email,
-              phone: creationCustomer.phone,
+              name: creationCustomer.value.name,
+              email: creationCustomer.value.email,
+              phone: creationCustomer.value.phone,
               company: selectedCompany.value?.id,
             };
           }
@@ -588,7 +632,7 @@ export default defineComponent({
 
           let appointmentObject = {};
           if (isRescheduling) {
-            creationCustomer.name = createdCustomer.name;
+            creationCustomer.value.name = createdCustomer.name;
 
             appointmentObject = {
               date: formatDateString(rescheduledDateTime.value.date),
@@ -619,6 +663,8 @@ export default defineComponent({
             requestSent.value = true;
             status.value = true;
           }
+
+          creationCustomer.value = {} as Customer;
 
           // isAppointmentModalOpen.value = false;
           store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
@@ -676,6 +722,40 @@ export default defineComponent({
       document.body.classList.remove('modal-open');
     }
 
+    function selectOldCustomer(customer: Customer) {
+      creationCustomer.value = customer;
+      oldCustomerCandidates.value = [];
+    }
+
+    function changeIsCreateCustomer(value: boolean) {
+      isCreateCustomer.value = value;
+      creationCustomer.value = {} as Customer;
+      oldCustomerName.value = '';
+    }
+
+    async function fetchCustomersByName() {
+      try {
+        const response = await store.dispatch(ActionTypes.FETCH_CUSTOMERS_BY_NAME, {
+          name: oldCustomerName.value,
+          company: selectedCompany.value?.id,
+        });
+
+        oldCustomerCandidates.value = response;
+      } catch {
+        oldCustomerCandidates.value = [];
+      }
+    }
+
+    const debounce = (func: Function, timeout = 300) => {
+      let timer: number;
+      return (...args: unknown[]) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
+      };
+    };
+
+    const oldCustomerInputChange = debounce(() => fetchCustomersByName());
+
     return {
       selectedCompany,
       allStaff,
@@ -706,6 +786,12 @@ export default defineComponent({
       rescheduleRequestSent,
       rescheduleStatus,
       rescheduledNotice,
+      isCreateCustomer,
+      oldCustomerName,
+      oldCustomerCandidates,
+      oldCustomerInputChange,
+      selectOldCustomer,
+      changeIsCreateCustomer,
     };
   },
 });

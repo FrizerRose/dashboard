@@ -10,26 +10,38 @@
     - Klik na prazan slot otvara modal sa Kreiranjem termina, klik na zauzet slot otvara modal sa Editiranjem termina. Kopirati setmore.
     - Quick actions button - linkovi na dodavanje servica/ranika, etc. TODO:
   -->
-  <div class="card">
-    <div class="card-header">
-      <h5 class="card-title">
-        <select
-          id="selectedWorker"
-          v-model="selectedWorker"
-          name="selectedWorker"
-          @change="selectWorker()"
-        >
-          <option
-            v-for="worker in allStaff"
-            :key="worker.id"
-            :value="worker"
+  <div>
+    <div class="card">
+      <div class="card-body">
+        <header class="page-calendar-header">
+          <label
+            for="selectedWorker"
+            class="form-label w-100"
           >
-            <a>{{ worker.name }}</a>
-          </option>
-        </select>
-      </h5>
-    </div>
-    <div class="card-body">
+            <strong>Odaberite radnika</strong>
+          </label>
+          <select
+            id="selectedWorker"
+            v-model="selectedWorker"
+            name="selectedWorker"
+            class="form-control mb-3"
+            @change="selectWorker()"
+          >
+            <option
+              v-for="worker in allStaff"
+              :key="worker.id"
+              :value="worker"
+            >
+              {{ worker.name }}
+            </option>
+          </select>
+        </header>
+
+        <div class="page-calendar-main">
+          <div id="fullcalendar" />
+        </div>
+      </div>
+
       <!-- EDIT/CANCEL -->
       <div v-if="isAppointmentModalOpen && isEventSelected">
         <CalendarEditModal />
@@ -40,8 +52,6 @@
         <CalendarCreateModal />
       </div>
     </div>
-
-    <div id="fullcalendar" />
   </div>
 </template>
 
@@ -259,3 +269,19 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+.fc .fc-toolbar {
+  @media (max-width: 1199px) {
+    flex-direction: column;
+  }
+}
+.fc-toolbar-chunk {
+  @media (max-width: 1199px) {
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+</style>

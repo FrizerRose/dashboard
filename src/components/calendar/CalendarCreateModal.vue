@@ -25,7 +25,7 @@
             <select
               v-if="services"
               id="id-calendar-create-slot-staff"
-              class="form-control mb-3"
+              class="form-control"
               name="id-calendar-create-slot-staff"
               disabled
             >
@@ -45,7 +45,7 @@
               v-if="services"
               id="id-calendar-create-slot-service"
               v-model="creationService"
-              class="form-control mb-3"
+              class="form-control"
               name="id-calendar-create-slot-service"
             >
               <option
@@ -58,104 +58,135 @@
             </select>
           </div>
         </div>
-        <button
-          class="btn btn-primary"
-          @click="changeIsCreateCustomer(false)"
-        >
-          Stari klijent
-        </button>
-        <button
-          class="btn btn-secondary"
-          @click="changeIsCreateCustomer(true)"
-        >
-          Novi klijent
-        </button>
+
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              class="btn btn-primary me-4"
+              @click="changeIsCreateCustomer(false)"
+            >
+              Stari klijent
+            </button>
+            <button
+              class="btn btn-secondary"
+              @click="changeIsCreateCustomer(true)"
+            >
+              Novi klijent
+            </button>
+          </div>
+        </div>
+
+        <hr class="mt-4 mb-4">
+
         <div
           v-if="isCreateCustomer"
-          class="row"
+          class="novi-klijent"
         >
-          <div class="col-md-4 mb-4">
-            <label
-              class="form-label"
-              for="id-calendar-create-customer-name"
-            >
-              <strong>Ime klijenta</strong>
-            </label>
-            <input
-              id="id-calendar-create-customer-name"
-              v-model="creationCustomer.name"
-              type="text"
-              class="form-control"
-            >
-          </div>
-          <div class="col-md-4 mb-4">
-            <label
-              class="form-label"
-              for="id-calendar-create-customer-email"
-            >
-              <strong>E-mail klijenta</strong>
-            </label>
-            <input
-              id="id-calendar-create-customer-email"
-              v-model="creationCustomer.email"
-              type="text"
-              class="form-control"
-            >
-          </div>
-          <div class="col-md-4 mb-4">
-            <label
-              class="form-label"
-              for="id-calendar-create-customer-phone"
-            >
-              <strong>Mobitel klijenta</strong>
-            </label>
-            <input
-              id="id-calendar-create-customer-phone"
-              v-model="creationCustomer.phone"
-              type="text"
-              class="form-control"
-            >
-          </div>
-          <div class="col-md-12 mb-4">
-            <label
-              class="form-label"
-              for="id-calendar-create-customer-notice"
-            >
-              <strong>Napomena</strong>
-            </label>
-            <textarea
-              id="id-calendar-create-customer-notice"
-              v-model="creationNotice"
-              class="form-control"
-            />
+          <h5 class="modal-title h4 mb-3">
+            Dodavanje novog klijenta
+          </h5>
+          <div class="row">
+            <div class="col-md-4 mb-4">
+              <label
+                class="form-label"
+                for="id-calendar-create-customer-name"
+              >
+                <strong>Ime klijenta</strong>
+              </label>
+              <input
+                id="id-calendar-create-customer-name"
+                v-model="creationCustomer.name"
+                type="text"
+                class="form-control"
+              >
+            </div>
+            <div class="col-md-4 mb-4">
+              <label
+                class="form-label"
+                for="id-calendar-create-customer-email"
+              >
+                <strong>E-mail klijenta</strong>
+              </label>
+              <input
+                id="id-calendar-create-customer-email"
+                v-model="creationCustomer.email"
+                type="text"
+                class="form-control"
+              >
+            </div>
+            <div class="col-md-4 mb-4">
+              <label
+                class="form-label"
+                for="id-calendar-create-customer-phone"
+              >
+                <strong>Mobitel klijenta</strong>
+              </label>
+              <input
+                id="id-calendar-create-customer-phone"
+                v-model="creationCustomer.phone"
+                type="text"
+                class="form-control"
+              >
+            </div>
+            <div class="col-md-12 mb-4">
+              <label
+                class="form-label"
+                for="id-calendar-create-customer-notice"
+              >
+                <strong>Napomena</strong>
+              </label>
+              <textarea
+                id="id-calendar-create-customer-notice"
+                v-model="creationNotice"
+                class="form-control"
+              />
+            </div>
           </div>
         </div>
         <div
           v-else
-          class="row"
+          class="postojeci-klijent"
         >
-          Ime Klijenta
-          <input
-            id="oldCustomerName"
-            v-model="oldCustomerName"
-            placeholder="Počnite upisivati ime klijenta"
-            type="text"
-            name="oldCustomerName"
-            autocomplete="off"
-            @input="oldCustomerInputChange()"
-          >
-
-          <button
-            v-for="candidate in oldCustomerCandidates"
-            :key="candidate.id"
-            :value="candidate"
-            @click="selectOldCustomer(candidate)"
-          >
-            {{ candidate.name }}
-          </button>
-
-          <div v-if="creationCustomer.name">
-            Odabrani klijent: {{ creationCustomer.name }}
+          <h5 class="modal-title h4 mb-3">
+            Odabir postojećeg klijenta
+          </h5>
+          <div class="row">
+            <div class="col-md-12 mb-4">
+              <label
+                class="form-label"
+                for="id-calendar-create-customer-name"
+              >
+                <strong>Ime klijenta</strong>
+              </label>
+              <input
+                id="oldCustomerName"
+                v-model="oldCustomerName"
+                placeholder="Počnite upisivati ime klijenta"
+                type="text"
+                name="oldCustomerName"
+                autocomplete="off"
+                class="form-control"
+                @input="oldCustomerInputChange()"
+              >
+              <div class="search-results__items">
+                <button
+                  v-for="candidate in oldCustomerCandidates"
+                  :key="candidate.id"
+                  class="btn search-results__match"
+                  :value="candidate"
+                  @click="selectOldCustomer(candidate)"
+                >
+                  {{ candidate.name }}
+                </button>
+              </div>
+              <div v-if="creationCustomer.name">
+                <div class="alert alert-success">
+                  <div class="alert-message">
+                    Odabrani klijent: <strong>{{ creationCustomer.name }}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -307,3 +338,16 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+.search-results__items {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.search-results__match {
+  display: block;
+  background-color: var(--bs-light);
+  border: 2px solid white;
+  color: black;
+}
+</style>

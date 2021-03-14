@@ -38,6 +38,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "radnici" */ '../views/Staff.vue'),
   },
   {
+    path: '/korisnici',
+    name: 'Customers',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "radnici" */ '../views/Customers.vue'),
+  },
+  {
     path: '/postavke',
     name: 'Settings',
     // lazy loaded route

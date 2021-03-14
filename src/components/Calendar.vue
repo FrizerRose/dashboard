@@ -464,6 +464,15 @@ export default defineComponent({
             center: 'title',
             right: 'timeGridDay,timeGridWeek,listWeek',
           },
+          footerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridDay,timeGridWeek,listWeek',
+          },
+          titleFormat: {
+            month: 'numeric',
+            day: 'numeric',
+          },
           views: {
             timeGridWeek: {
             },

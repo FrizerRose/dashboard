@@ -67,11 +67,13 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const customers = computed(() => store.state.customer.customers);
     const currentTab = ref('CompanyDetails');
 
     return {
       selectedCompany,
       currentTab,
+      customers,
     };
   },
 });

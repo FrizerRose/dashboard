@@ -14,24 +14,19 @@ import { State } from './state';
 
 // Constraints commit to mutations from the right module
 type AugmentedActionContext = {
-  commit<K extends keyof Mutations>(
-    key: K,
-    payload: Parameters<Mutations[K]>[1],
-  ): ReturnType<Mutations[K]>;
-} & Omit<ActionContext<State, RootState>, 'commit'>
+  commit<K extends keyof Mutations>(key: K, payload: Parameters<Mutations[K]>[1]): ReturnType<Mutations[K]>;
+} & Omit<ActionContext<State, RootState>, 'commit'>;
 
 type AugmentedSharedActionContext = {
-  commit<K extends keyof SharedMutations>(
-    key: K,
-    payload: Parameters<SharedMutations[K]>[1],
-  ): ReturnType<SharedMutations[K]>;
-} & Omit<ActionContext<State, RootState>, 'commit'>
+  commit<K extends keyof SharedMutations>(key: K, payload: Parameters<SharedMutations[K]>[1]): ReturnType<SharedMutations[K]>;
+} & Omit<ActionContext<State, RootState>, 'commit'>;
 
 export interface Actions {
   [LocalActionTypes.CREATE_CUSTOMER](
     { commit }: AugmentedActionContext & AugmentedSharedActionContext,
-    payload: Customer
+    payload: Customer,
   ): Promise<Customer>;
+  [LocalActionTypes.FETCH_CUSTOMERS]({ commit }: AugmentedActionContext, params: object): void;
 }
 
 // API access.
@@ -50,5 +45,13 @@ export const actions: ActionTree<State, RootState> & Actions = {
         reject(new ApiError('Could not create an appointment.'));
       }
     })());
+  },
+  async [LocalActionTypes.FETCH_CUSTOMERS]({ commit }, params: object) {
+    const response = await customerService.query(params);
+    if (response.status === 200 && response.data) {
+      commit(LocalMutationTypes.CHANGE_CUSTOMERS, response.data);
+    } else {
+      throw new ApiError('No services with this company ID.');
+    }
   },
 };

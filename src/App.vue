@@ -19,15 +19,18 @@ export default defineComponent({
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const isTutorialFinished = computed(() => store.getters.isTutorialFinished);
 
-    watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
-      if (newState) {
-        document.body.classList.add('modal-open');
-      }
+    watch(
+      () => isTutorialFinished.value,
+      (newState: boolean | undefined, oldState: boolean | undefined) => {
+        if (newState) {
+          document.body.classList.add('modal-open');
+        }
 
-      if (!newState && oldState) {
-        document.body.classList.remove('modal-open');
-      }
-    });
+        if (!newState && oldState) {
+          document.body.classList.remove('modal-open');
+        }
+      },
+    );
 
     let companyID: string | number = 6;
     console.log('🚀 ~ file: helpers.ts ~ line 23 ~ fetchCompanyFromURL ~ process.env.NODE_ENV', process.env.NODE_ENV);
@@ -42,6 +45,7 @@ export default defineComponent({
       if (selectedCompany.value) {
         store.dispatch(ActionTypes.FETCH_STAFF, selectedCompany.value.id);
         store.dispatch(ActionTypes.FETCH_SERVICES, selectedCompany.value.id);
+        store.dispatch(ActionTypes.FETCH_CUSTOMERS, { id: selectedCompany.value.id, limit: 10 });
       }
     }
 

@@ -38,54 +38,64 @@
         </header>
 
         <div class="page-calendar-main">
-          <div class="row headerRonik mb-5 mt-5">
-            <button
-              class="btn btn-primary col-1"
-              @click="prevWeek()"
-            >
-              prev
-            </button>
-            <button
-              class="btn btn-primary col-1"
-              @click="nextWeek()"
-            >
-              next
-            </button>
-            <button
-              class="btn btn-primary col-1"
-              @click="goToToday()"
-            >
-              today
-            </button>
+          <div class="page-calendar-toolbar">
+            <div class="page-calendar-toolbar__item">
+              <button
+                class="btn btn-primary me-2"
+                @click="prevWeek()"
+              >
+                <i class="fas fa-angle-left" />
+              </button>
+              <button
+                class="btn btn-primary me-2"
+                @click="nextWeek()"
+              >
+                <i class="fas fa-angle-right" />
+              </button>
+              <button
+                class="btn btn-primary"
+                @click="goToToday()"
+              >
+                Danas
+              </button>
+            </div>
 
-            <h3 class="col-4">
-              {{ headerTitle }}
-            </h3>
-            <button
-              class="btn btn-primary col-2"
-              @click="changeViewGrid()"
-            >
-              Tjedan
-            </button>
-            <button
-              class="btn btn-secondary col-2"
-              @click="changeViewList()"
-            >
-              Raspored
-            </button>
+            <div class="page-calendar-toolbar__item">
+              <h3 class="h3 mb-0">
+                {{ headerTitle }}
+              </h3>
+            </div>
+
+            <div class="page-calendar-toolbar__item">
+              <button
+                class="btn btn-primary me-2"
+                @click="changeViewGrid()"
+              >
+                Tjedan
+              </button>
+              <button
+                class="btn btn-secondary"
+                @click="changeViewList()"
+              >
+                Raspored
+              </button>
+            </div>
           </div>
-          <div id="fullcalendar" />
+
+          <div class="row">
+            <div id="fullcalendar" />
+          </div>
         </div>
-      </div>
 
-      <!-- EDIT/CANCEL -->
-      <div v-if="isAppointmentModalOpen && isEventSelected">
-        <CalendarEditModal />
-      </div>
+        <!-- EDIT/CANCEL -->
+        <div v-if="isAppointmentModalOpen && isEventSelected">
+          <CalendarEditModal />
+        </div>
 
-      <!-- CREATE -->
-      <div v-if="isAppointmentModalOpen && !isEventSelected">
-        <CalendarCreateModal />
+        <!-- CREATE -->
+        <div v-if="isAppointmentModalOpen && !isEventSelected">
+          <CalendarCreateModal />
+        </div>
       </div>
     </div>
   </div>
@@ -152,7 +162,7 @@ export default defineComponent({
         let backgroundColor = '#3788d8';
         let textColor = 'white';
         if (startDate.getTime() < (new Date()).getTime()) {
-          backgroundColor = 'yellow';
+          backgroundColor = 'lightgray';
           textColor = 'black';
         }
 
@@ -173,7 +183,8 @@ export default defineComponent({
         title: 'Novi termin',
         start: startDate,
         end: endDate,
-        backgroundColor: 'green',
+        backgroundColor: '#37d866',
+        color: 'black',
         extendedProps: { isNewAppointment: true, ...appointment },
       };
     }));
@@ -194,6 +205,8 @@ export default defineComponent({
             timeGridWeek: {
             },
           },
+          nowIndicator: true,
+          stickyHeaderDates: true,
           allDaySlot: false,
           locale: hrLocale,
           slotDuration: '00:15:00',
@@ -380,17 +393,41 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.fc .fc-toolbar {
+.page-calendar-toolbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1rem;
   @media (max-width: 1199px) {
     flex-direction: column;
   }
+  @media (min-width: 1200px) {
+  }
 }
-.fc-toolbar-chunk {
+.page-calendar-toolbar__item {
   @media (max-width: 1199px) {
     margin-bottom: 1rem;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  }
+  @media (min-width: 1200px) {
+  }
+}
+.fc .fc-timegrid-slot {
+  height: 2rem;
+}
+.fc-event-main {
+  line-height: 1.25;
+  font-size: 1rem;
+  transition: font-size 0.3s cubic-bezier(0.4, 0, 0, 1);
+}
+.fc-theme-bootstrap a:not([href]) {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+
+  &:hover {
+    transform: scale(2);
+
+    .fc-event-main {
+      font-size: 0.5rem;
+    }
   }
 }
 </style>

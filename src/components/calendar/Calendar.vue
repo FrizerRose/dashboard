@@ -342,6 +342,7 @@ export default defineComponent({
     function goToToday() {
       calendar.value.today();
       headerTitle.value = calendar.value.view.title;
+      fetchAppointmentsWithCalendarDates();
     }
 
     function changeViewGrid() {

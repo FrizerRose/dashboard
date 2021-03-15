@@ -17,6 +17,7 @@ export interface State {
   selectedStaff: Staff | null;
   selectedDateTime: {date: string; time: string};
   selectedCustomer: Customer | null;
+  selectedAppointment: Appointment | null;
   selectedNotice: string;
   reservedAppointments: Appointment[];
   calendarSelectedAppointmentID: number;
@@ -37,6 +38,7 @@ const state: State = {
   selectedStaff: null,
   selectedDateTime: { date: '', time: '' },
   selectedCustomer: null,
+  selectedAppointment: null,
   selectedNotice: '',
   reservedAppointments: [],
   calendarSelectedAppointmentID: -1,

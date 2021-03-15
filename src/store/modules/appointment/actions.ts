@@ -45,6 +45,10 @@ export interface Actions {
     { commit }: AugmentedSharedActionContext,
     payload: object
   ): Promise<unknown>;
+  [LocalActionTypes.UPDATE_APPOINTMENT](
+    { commit }: AugmentedSharedActionContext,
+    payload: object
+  ): Promise<unknown>;
   [LocalActionTypes.CANCEL_APPOINTMENT](
     { commit }: AugmentedSharedActionContext,
     id: number | undefined
@@ -81,6 +85,17 @@ export const actions: ActionTree<State, RootState> & Actions = {
         resolve(true);
       } else {
         reject(new ApiError('Could not create an appointment.'));
+      }
+    })());
+  },
+  async [LocalActionTypes.UPDATE_APPOINTMENT]({ commit }, payload): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await appointmentService.update(payload);
+      if (response.status === 200) {
+        commit(SharedMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT, response.data);
+        resolve(true);
+      } else {
+        reject(new ApiError('Could not update an appointment.'));
       }
     })());
   },

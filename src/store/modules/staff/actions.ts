@@ -31,7 +31,7 @@ type AugmentedSharedActionContext = {
 export interface Actions {
   [LocalActionTypes.FETCH_STAFF_BY_ID](
     { commit }: AugmentedSharedActionContext & AugmentedSharedActionContext,
-    IDs: number[]
+    payload: {id: number; customDates?: {start: string; end: string}}
   ): Promise<unknown>;
   [LocalActionTypes.FETCH_STAFF](
     { commit }: AugmentedActionContext & AugmentedSharedActionContext,
@@ -56,30 +56,30 @@ const staffService = new StaffService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
-  async [LocalActionTypes.FETCH_STAFF_BY_ID]({ commit }, IDs: number[]): Promise<unknown> {
-    return new Promise((resolve, reject) => {
-      IDs.forEach(async (id) => {
-        const response = await staffService.get(id);
+  async [LocalActionTypes.FETCH_STAFF_BY_ID]({ commit }, payload: {
+    id: number;
+    customDates: {start: string; end: string};
+  }): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await staffService.query(payload.id, payload.customDates);
 
-        if (response.status === 200 && response.data) {
-          const formattedAppointments = response.data.appointments.map((appointment: Appointment) => {
-            const newAppointment = { ...appointment };
-            // Removing ':00' from the time attribute
-            newAppointment.time = appointment.time.slice(0, -3);
-            // Add the Staff who is responsible for the appointment
-            newAppointment.staff = response.data;
+      if (response.status === 200 && response.data) {
+        const formattedAppointments = response.data.appointments.map((appointment: Appointment) => {
+          const newAppointment = { ...appointment };
+          // Removing ':00' from the time attribute
+          newAppointment.time = appointment.time.slice(0, -3);
+          // Add the Staff who is responsible for the appointment
+          newAppointment.staff = response.data;
 
-            return newAppointment;
-          });
+          return newAppointment;
+        });
 
-          commit(SharedMutationTypes.CHANGE_RESERVED_APPOINTMENTS, formattedAppointments);
-        } else {
-          reject(new ApiError('No staff by this ID.'));
-        }
-      });
-
-      resolve(true);
-    });
+        commit(SharedMutationTypes.CHANGE_RESERVED_APPOINTMENTS, formattedAppointments);
+        resolve(true);
+      } else {
+        reject(new ApiError('No staff by this ID.'));
+      }
+    })());
   },
   async [LocalActionTypes.FETCH_STAFF]({ commit }, companyID: number | string) {
     const response = await staffService.getByCompanyID(companyID);

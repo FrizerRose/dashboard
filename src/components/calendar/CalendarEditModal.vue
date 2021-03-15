@@ -12,7 +12,28 @@
       />
     </template>
     <template #body>
-      <div class="container">
+      <div
+        v-if="isInThePast"
+        class="container"
+      >
+        <div class="row">
+          <div class="col-12">
+            <label class="form-check m-0">
+              <input
+                v-model="hasCustomerArrived"
+                type="checkbox"
+                class="form-check-input"
+              >
+              <span class="form-check-label lead">Klijent se pojavio u dogovoreno vrijeme.</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div
+        v-else
+        class="container"
+      >
         <div class="row">
           <div class="col-md-6 mb-4">
             <label
@@ -153,6 +174,14 @@
     </template>
     <template #footer>
       <button
+        v-if="isInThePast"
+        class="btn btn-primary"
+        @click="updateAppointment()"
+      >
+        Spremi
+      </button>
+      <button
+        v-if="!isInThePast"
         :class="{
           btn: true,
           'btn-primary': !rescheduleRequestSent,
@@ -164,6 +193,7 @@
         Spremi
       </button>
       <button
+        v-if="!isInThePast"
         class="btn btn-danger"
         @click="cancel()"
       >
@@ -193,23 +223,22 @@ export default defineComponent({
 
     const allStaff = computed(() => store.state.staff.allStaff);
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
-    const selectedService = computed(() => store.state.shared.selectedService);
-    const selectedCustomer = computed(() => store.state.shared.selectedCustomer);
-    const selectedDateTime = computed(() => store.state.shared.selectedDateTime);
-    const selectedStaff = computed(() => store.state.shared.selectedStaff);
-    const selectedNotice = computed(() => store.state.shared.selectedNotice);
+    const selectedAppointment = computed(() => store.state.shared.selectedAppointment);
 
-    const calendarSelectedAppointmentID = computed(() => store.state.shared.calendarSelectedAppointmentID);
-
-    const rescheduledService = ref(JSON.parse(JSON.stringify(selectedService.value)));
-    const rescheduledStaff = ref(JSON.parse(JSON.stringify(selectedStaff.value)));
-    const rescheduledDateTime = ref(JSON.parse(JSON.stringify(selectedDateTime.value)));
-    const rescheduledNotice = ref(JSON.parse(JSON.stringify(selectedNotice.value)));
-    const rescheduledCustomer = ref(JSON.parse(JSON.stringify(selectedCustomer.value || {} as Customer)));
+    const rescheduledService = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.service)));
+    const rescheduledStaff = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.staff)));
+    const rescheduledDateTime = ref(JSON.parse(JSON.stringify({
+      date: selectedAppointment.value?.date,
+      time: selectedAppointment.value?.time,
+    })));
+    const rescheduledNotice = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.message)));
+    const rescheduledCustomer = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.customer || {} as Customer)));
     const rescheduledStaffServices = computed(() => rescheduledStaff.value.services);
+    const hasCustomerArrived = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.hasCustomerArrived)));
     const rescheduleStatus = ref(false);
     const rescheduleRequestSent = ref(false);
 
+    const isInThePast = new Date(`${selectedAppointment.value?.date}T${selectedAppointment.value?.time}`) < new Date();
     const timeOptions = getTimeOptions();
 
     function closeCalendarModal() {
@@ -217,16 +246,24 @@ export default defineComponent({
       document.body.classList.remove('modal-open');
     }
 
+    async function updateAppointment() {
+      try {
+        await store.dispatch(ActionTypes.UPDATE_APPOINTMENT, {
+          ...selectedAppointment.value,
+          hasCustomerArrived: hasCustomerArrived.value,
+        });
+      } catch {
+        // TODO:
+      }
+    }
+
     async function cancel(isRescheduling = false) {
       try {
-        if (calendarSelectedAppointmentID.value > 0) {
-          await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, calendarSelectedAppointmentID.value);
+        await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, selectedAppointment.value?.id);
 
-          if (!isRescheduling) {
-            // isAppointmentModalOpen.value = false;
-            store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
-            document.body.classList.remove('modal-open');
-          }
+        if (!isRescheduling) {
+          store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
+          document.body.classList.remove('modal-open');
         }
       } catch {
         // eslint-disable-next-line no-alert
@@ -286,9 +323,12 @@ export default defineComponent({
       rescheduleRequestSent,
       rescheduleStatus,
       rescheduledNotice,
+      hasCustomerArrived,
       reschedule,
       cancel,
       timeOptions,
+      isInThePast,
+      updateAppointment,
     };
   },
 });

@@ -38,6 +38,42 @@
         </header>
 
         <div class="page-calendar-main">
+          <div class="row headerRonik mb-5 mt-5">
+            <button
+              class="btn btn-primary col-1"
+              @click="prevWeek()"
+            >
+              prev
+            </button>
+            <button
+              class="btn btn-primary col-1"
+              @click="nextWeek()"
+            >
+              next
+            </button>
+            <button
+              class="btn btn-primary col-1"
+              @click="goToToday()"
+            >
+              today
+            </button>
+
+            <h3 class="col-4">
+              {{ headerTitle }}
+            </h3>
+            <button
+              class="btn btn-primary col-2"
+              @click="changeViewGrid()"
+            >
+              Tjedan
+            </button>
+            <button
+              class="btn btn-secondary col-2"
+              @click="changeViewList()"
+            >
+              Raspored
+            </button>
+          </div>
           <div id="fullcalendar" />
         </div>
       </div>
@@ -76,6 +112,7 @@ import { getFormattedBusinessHours } from '@/helpers/calendar';
 import Customer from '@/types/customer';
 import Service from '@/types/service';
 import { getDateStringFromDate } from '@/helpers/time';
+import Appointment from '@/types/appointment';
 
 export default defineComponent({
   components: {
@@ -95,6 +132,9 @@ export default defineComponent({
 
     const selectedService = computed(() => store.state.shared.selectedService);
 
+    const calendar = ref({} as Calendar);
+    const headerTitle = ref('');
+
     function openModal() {
       store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, true);
       document.body.classList.add('modal-open');
@@ -108,14 +148,25 @@ export default defineComponent({
       const startDate = new Date(timeString);
       if (typeof appointment.service !== 'number' && appointment.service) {
         const endDate = new Date(startDate.getTime() + appointment.service.duration * 60000);
+
+        let backgroundColor = '#3788d8';
+        let textColor = 'white';
+        if (startDate.getTime() < (new Date()).getTime()) {
+          backgroundColor = 'yellow';
+          textColor = 'black';
+        }
+
         return {
           id: appointment.id?.toString(),
           title: `${appointment.customer.name} - ${appointment.service.name}`,
           start: startDate,
           end: endDate,
+          backgroundColor,
+          textColor,
           extendedProps: { isNewAppointment: false, ...appointment },
         };
       }
+
       const endDate = new Date(startDate.getTime() + (selectedService.value?.duration || 45) * 60000);
       return {
         id: appointment.id?.toString(),
@@ -130,14 +181,15 @@ export default defineComponent({
     onMounted(() => {
       const calendarEl = document.getElementById('fullcalendar');
       if (calendarEl && selectedWorker.value) {
-        const calendar = new Calendar(calendarEl, {
+        calendar.value = new Calendar(calendarEl, {
           plugins: [dayGridPlugin, timeGridPlugin, listPlugin, resourcePlugin, interactionPlugin, bootstrapPlugin],
           initialView: 'timeGridWeek',
-          headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'timeGridWeek,listWeek',
-          },
+          headerToolbar: false,
+          // headerToolbar: {
+          //   left: 'prev,next today',
+          //   center: 'title',
+          //   right: 'timeGridWeek,listWeek',
+          // },
           views: {
             timeGridWeek: {
             },
@@ -161,8 +213,6 @@ export default defineComponent({
 
           eventClick(info) {
             console.log('🚀 ~ file: Calendar.vue ~ line 238 ~ onMounted ~ info', info);
-            // eslint-disable-next-line no-underscore-dangle
-            store.commit(MutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT, parseInt(info.event._def.publicId, 10));
 
             // eslint-disable-next-line no-underscore-dangle
             const appointmentData = info.event._def.extendedProps;
@@ -171,19 +221,25 @@ export default defineComponent({
               // eslint-disable-next-line no-alert
               window.alert('Refreshajte stranicu prije nego otkazujete novo dodani termin.');
             } else {
+              const selectedAppointment = {
+                // eslint-disable-next-line no-underscore-dangle
+                id: parseInt(info.event._def.publicId, 10),
+                date: appointmentData.date,
+                time: appointmentData.time,
+                hasCustomerArrived: appointmentData.hasCustomerArrived,
+              } as Appointment;
+
               const staffId = appointmentData.staff.id;
               const eventStaff = allStaff.value.find((worker) => worker.id === staffId);
               if (eventStaff) {
-                store.commit(MutationTypes.CHANGE_SELECTED_STAFF, eventStaff);
+                selectedAppointment.staff = eventStaff;
               }
 
               const serviceId = appointmentData.service.id;
               const eventService = allServices.value.find((service: Service) => service.id === serviceId);
               if (eventService) {
-                store.commit(MutationTypes.CHANGE_SELECTED_SERVICE, eventService);
+                selectedAppointment.service = eventService;
               }
-
-              store.commit(MutationTypes.CHANGE_SELECTED_DATETIME, { date: appointmentData.date, time: appointmentData.time });
 
               const rescheduledCustomer = {
                 name: appointmentData.customer.name,
@@ -194,11 +250,13 @@ export default defineComponent({
               if (appointmentData.customer.phone !== undefined) {
                 rescheduledCustomer.phone = appointmentData.customer.phone;
               }
-              store.commit(MutationTypes.CHANGE_SELECTED_CUSTOMER, rescheduledCustomer);
+              selectedAppointment.customer = rescheduledCustomer;
 
               if (appointmentData.message !== undefined) {
-                store.commit(MutationTypes.CHANGE_SELECTED_NOTICE, appointmentData.message);
+                selectedAppointment.message = appointmentData.message;
               }
+
+              store.commit(MutationTypes.CHANGE_SELECTED_APPOINTMENT, selectedAppointment);
 
               isEventSelected.value = true;
               openModal();
@@ -209,20 +267,22 @@ export default defineComponent({
           themeSystem: 'bootstrap',
         });
 
+        headerTitle.value = calendar.value.view.title;
+
         // Updates calendar events
         watch(
           () => formattedAppointments.value,
           (appointments, prevAppointments) => {
             prevAppointments.forEach((appointment) => {
               if (appointment.id) {
-                const event = calendar.getEventById(appointment.id);
+                const event = calendar.value.getEventById(appointment.id);
                 if (event) {
                   event.remove();
                 }
               }
             });
             appointments.forEach((appointment) => {
-              calendar.addEvent(appointment);
+              calendar.value.addEvent(appointment);
             });
           },
         );
@@ -232,32 +292,74 @@ export default defineComponent({
           () => selectedWorker.value,
           (worker) => {
             console.log('🚀 ~ file: Calendar.vue ~ line 454 ~ onMounted ~ worker', worker);
-            calendar.scrollToTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
+            calendar.value.scrollToTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
             if (worker) {
-              calendar.setOption('businessHours', getFormattedBusinessHours(worker));
+              calendar.value.setOption('businessHours', getFormattedBusinessHours(worker));
             }
           },
         );
 
-        calendar.render();
+        calendar.value.render();
 
         // Scroll to current time of day
         // calendar.scrollToTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
       }
     });
 
-    function fetchSelectedWorkerAppointments() {
+    function fetchSelectedWorkerAppointments(customDates: {start: string; end: string}) {
       if (selectedWorker.value) {
-        store.dispatch(ActionTypes.FETCH_STAFF_BY_ID, [selectedWorker.value.id]);
+        store.dispatch(ActionTypes.FETCH_STAFF_BY_ID, {
+          id: selectedWorker.value.id,
+          customDates,
+        });
       }
+    }
+
+    function fetchAppointmentsWithCalendarDates() {
+      fetchSelectedWorkerAppointments({
+        start: getDateStringFromDate(calendar.value.view.activeStart),
+        end: getDateStringFromDate(calendar.value.view.activeEnd),
+      });
     }
 
     function selectWorker() {
       store.commit(MutationTypes.CHANGE_SELECTED_WORKER, selectedWorker.value);
-      fetchSelectedWorkerAppointments();
+      fetchAppointmentsWithCalendarDates();
     }
 
-    fetchSelectedWorkerAppointments();
+    function prevWeek() {
+      calendar.value.prev();
+      headerTitle.value = calendar.value.view.title;
+      fetchAppointmentsWithCalendarDates();
+    }
+
+    function nextWeek() {
+      calendar.value.next();
+      headerTitle.value = calendar.value.view.title;
+      fetchAppointmentsWithCalendarDates();
+    }
+
+    function goToToday() {
+      calendar.value.today();
+      headerTitle.value = calendar.value.view.title;
+    }
+
+    function changeViewGrid() {
+      calendar.value.changeView('timeGridWeek');
+    }
+
+    function changeViewList() {
+      calendar.value.changeView('listWeek');
+    }
+
+    const today = new Date(); // get current date
+    const firstDayOfWeek = today.getDate() - today.getDay(); // First day is the day of the month - the day of the week
+    const lastDayOfWeek = firstDayOfWeek + 6; // last day is the first day + 6
+
+    fetchSelectedWorkerAppointments({
+      start: getDateStringFromDate(new Date(today.setDate(firstDayOfWeek))),
+      end: getDateStringFromDate(new Date(today.setDate(lastDayOfWeek))),
+    });
 
     return {
       allStaff,
@@ -265,6 +367,12 @@ export default defineComponent({
       selectedWorker,
       isAppointmentModalOpen,
       isEventSelected,
+      headerTitle,
+      prevWeek,
+      nextWeek,
+      goToToday,
+      changeViewGrid,
+      changeViewList,
     };
   },
 });

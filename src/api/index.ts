@@ -165,8 +165,8 @@ export class StaffService {
     this.resource = 'staff';
   }
 
-  query(params: object) {
-    return this.apiService.query(this.resource, {
+  query(slug: number, params: object) {
+    return this.apiService.query(`${this.resource}/${slug.toString()}`, {
       params,
     });
   }

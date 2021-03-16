@@ -102,7 +102,7 @@ import ActionTypes from '@/store/action-types';
 export default defineComponent({
   setup() {
     const store = useStore();
-    const token = computed(() => store.state.auth.accessToken);
+    const token = computed(() => store.getters.getAccessToken);
 
     const formData = reactive({
       oldPassowrd: '',

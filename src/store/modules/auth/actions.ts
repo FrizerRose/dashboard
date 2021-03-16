@@ -26,6 +26,10 @@ export interface Actions {
     { commit }: AugmentedActionContext,
     payload: {email: string; password: string; company: number}
   ): Promise<unknown>;
+  [LocalActionTypes.RESET_PASSWORD](
+    { commit }: AugmentedActionContext,
+    email: string
+  ): Promise<unknown>;
   [LocalActionTypes.CHANGE_PASSWORD](
     { commit }: AugmentedActionContext,
     payload: {oldPassword: string; password: string; token: string}
@@ -63,6 +67,20 @@ export const actions: ActionTree<State, RootState> & Actions = {
           localStorage.setItem('accessToken', response.data.accessToken);
           localStorage.setItem('expiration', (Date.now() + parseInt(response.data.expiresIn, 10) - 5).toString());
           commit(LocalMutationTypes.CHANGE_IS_AUTHORIZED, true);
+          resolve(true);
+        } else {
+          reject(new ApiError('Credentials dont match.'));
+        }
+      } catch {
+        reject(new ApiError('Credentials dont match.'));
+      }
+    })());
+  },
+  async [LocalActionTypes.RESET_PASSWORD]({ commit }, email: string): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      try {
+        const response = await authService.resetPassword({ email });
+        if (response.status === 201) {
           resolve(true);
         } else {
           reject(new ApiError('Credentials dont match.'));

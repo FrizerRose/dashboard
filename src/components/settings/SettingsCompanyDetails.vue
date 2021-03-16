@@ -332,6 +332,38 @@
           >
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-3 mb-4" />
+        <div class="col-md-9 mb-4">
+          <label class="form-check m-0">
+            <input
+              v-model="formData.preferences.showRules"
+              type="checkbox"
+              class="form-check-input"
+            >
+            <span class="form-check-label">Prikaži pravila na stranici.</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 mb-4" />
+      <div class="col-md-9 mb-4">
+        <label
+          class="form-label"
+          for="id-rules"
+        >
+          <strong>Pravila</strong>
+        </label>
+        <input
+          id="id-rules"
+          v-model="formData.preferences.rules"
+          type="text"
+          class="form-control"
+        >
+      </div>
     </div>
 
     <div class="firma-interaktivno">

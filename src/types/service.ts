@@ -6,7 +6,7 @@ type Service = {
   duration: number;
   price: number;
   company: number;
-  // staff?: Staff[];
+  staff?: [];
 }
 
 export default Service;

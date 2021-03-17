@@ -50,12 +50,82 @@
             >
               <strong>Trajanje (u minutama)</strong>
             </label>
-            <input
+            <select
               id="id-add-service-duration"
               v-model="newService.duration"
-              type="number"
               class="form-control"
+              name="add-service-duration"
             >
+              <option value="15">
+                15
+              </option>
+              <option value="30">
+                30
+              </option>
+              <option value="45">
+                45
+              </option>
+              <option value="60">
+                60
+              </option>
+              <option value="75">
+                75
+              </option>
+              <option value="90">
+                90
+              </option>
+              <option value="105">
+                105
+              </option>
+              <option value="120">
+                120
+              </option>
+              <option value="135">
+                135
+              </option>
+              <option value="150">
+                150
+              </option>
+              <option value="165">
+                165
+              </option>
+              <option value="180">
+                180
+              </option>
+              <option value="195">
+                195
+              </option>
+              <option value="210">
+                210
+              </option>
+              <option value="225">
+                225
+              </option>
+              <option value="240">
+                240
+              </option>
+            </select>
+          </div>
+          <div class="usluga-izvrsitelj">
+            <div class="mb-4">
+              <div
+                v-for="staff in allStaff"
+                :key="staff.id"
+                class="row"
+              >
+                <div class="col-12">
+                  <label class="form-check m-0">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      :checked="isAssigned(staff)"
+                      @change="toggleStaff(staff)"
+                    >
+                    <span class="form-check-label lead">{{ staff.name }}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -81,10 +151,10 @@ import {
   defineComponent, reactive, ref, computed,
 } from 'vue';
 import Modal from '@/components/layout/Modal.vue';
-import Service from '@/types/service';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
+import Staff from '@/types/staff';
 
 export default defineComponent({
   components: {
@@ -94,6 +164,7 @@ export default defineComponent({
     const store = useStore();
 
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const allStaff = computed(() => store.state.staff.allStaff);
     const requestSent = ref(false);
     const status = ref(false);
 
@@ -108,13 +179,27 @@ export default defineComponent({
     const newService = reactive({
       name: '',
       price: 0,
-      duration: 0,
+      duration: 30,
       company: selectedCompany.value?.id,
+      staff: [] as Staff[],
     });
+
+    function isAssigned(staff: Staff) {
+      return newService.staff.findIndex((assignedStaff: Staff) => assignedStaff.id === staff.id) !== -1;
+    }
+
+    function toggleStaff(staff: Staff) {
+      if (isAssigned(staff)) {
+        const staffIndex = newService.staff.findIndex((assignedStaff: Staff) => assignedStaff.id === staff.id);
+        newService.staff.splice(staffIndex, 1);
+      } else {
+        newService.staff.push(staff);
+      }
+    }
 
     async function createService() {
       try {
-        await store.dispatch(ActionTypes.CREATE_SERVICE, newService as Service);
+        await store.dispatch(ActionTypes.CREATE_SERVICE, newService);
         requestSent.value = true;
         status.value = true;
         newService.name = '';
@@ -133,6 +218,9 @@ export default defineComponent({
       newService,
       createService,
       closeServiceCreateModal,
+      allStaff,
+      isAssigned,
+      toggleStaff,
     };
   },
 });

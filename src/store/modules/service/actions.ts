@@ -37,7 +37,7 @@ export interface Actions {
   ): void;
   [LocalActionTypes.CREATE_SERVICE](
     { commit }: AugmentedActionContext,
-    staff: Service
+    payload: object
   ): Promise<unknown>;
   [LocalActionTypes.UPDATE_SERVICE](
     { commit }: AugmentedActionContext,
@@ -70,11 +70,11 @@ export const actions: ActionTree<State, RootState> & Actions = {
       throw new ApiError('No services with this company ID.');
     }
   },
-  async [LocalActionTypes.CREATE_SERVICE]({ commit }, staff: Service): Promise<unknown> {
+  async [LocalActionTypes.CREATE_SERVICE]({ commit }, payload: object): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await servicesService.create(staff);
+      const response = await servicesService.create(payload);
       if (response.status === 201 && response.data) {
-        commit(LocalMutationTypes.ADD_SERVICE, { id: staff.id, ...response.data } as Service);
+        commit(LocalMutationTypes.ADD_SERVICE, response.data as Service);
         resolve(true);
       } else {
         reject(new ApiError('Creating staff failed.'));

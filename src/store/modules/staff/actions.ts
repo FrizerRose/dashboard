@@ -94,7 +94,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
     return new Promise((resolve, reject) => (async () => {
       const response = await staffService.create(staff);
       if (response.status === 201 && response.data) {
-        commit(LocalMutationTypes.ADD_STAFF, { id: staff.id, ...response.data } as Staff);
+        commit(LocalMutationTypes.ADD_STAFF, response.data as Staff);
         resolve(true);
       } else {
         reject(new ApiError('Cereating staff failed.'));

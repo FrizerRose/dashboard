@@ -169,6 +169,9 @@
                 @input="oldCustomerInputChange()"
               >
               <div class="search-results__items">
+                <div v-if="!oldCustomerCandidates.length && oldCustomerName">
+                  Nema pronadjenih klijenata kojima ime počinje sa "{{ oldCustomerName }}"
+                </div>
                 <button
                   v-for="candidate in oldCustomerCandidates"
                   :key="candidate.id"
@@ -178,6 +181,9 @@
                 >
                   {{ candidate.name }}
                 </button>
+                <div v-if="oldCustomerCandidates.length === 10">
+                  Prikazano 10 klijenata kojima ime počinje sa "{{ oldCustomerName }}"
+                </div>
               </div>
               <div v-if="creationCustomer.name">
                 <div class="alert alert-success">
@@ -193,6 +199,7 @@
     </template>
     <template #footer>
       <button
+        :disabled="!creationCustomer?.name"
         :class="{
           btn: true,
           'btn-primary': !requestSent,

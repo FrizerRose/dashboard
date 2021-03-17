@@ -1,19 +1,5 @@
 <template>
   <div>
-    <div class="izgled-interaktivno mb-4">
-      <button
-        :class="{
-          btn: true,
-          'btn-primary': !requestSent,
-          'btn-success': requestSent && status,
-          'btn-danger': requestSent && !status,
-        }"
-        @click="save()"
-      >
-        Spremi
-      </button>
-    </div>
-
     <div class="izgled-boja">
       <label
         id="id-theme-color"

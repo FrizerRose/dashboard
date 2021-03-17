@@ -19,7 +19,7 @@
                 @click="currentTab = 'CompanyDetails'"
               >
                 <a
-                  class="postavke-nav__link active"
+                  :class="{'postavke-nav__link' : true, 'active': currentTab === 'CompanyDetails'}"
                   href="#tab-1"
                   data-bs-toggle="tab"
                   role="tab"
@@ -35,7 +35,7 @@
                 @click="currentTab = 'Orders'"
               >
                 <a
-                  class="postavke-nav__link"
+                  :class="{'postavke-nav__link' : true, 'active': currentTab === 'Orders'}"
                   href="#tab-2"
                   data-bs-toggle="tab"
                   role="tab"
@@ -51,7 +51,7 @@
                 @click="currentTab = 'PersonalDetails'"
               >
                 <a
-                  class="postavke-nav__link"
+                  :class="{'postavke-nav__link' : true, 'active': currentTab === 'PersonalDetails'}"
                   href="#tab-3"
                   data-bs-toggle="tab"
                   role="tab"
@@ -67,7 +67,7 @@
                 @click="currentTab = 'WorkingHours'"
               >
                 <a
-                  class="postavke-nav__link"
+                  :class="{'postavke-nav__link' : true, 'active': currentTab === 'WorkingHours'}"
                   href="#tab-4"
                   data-bs-toggle="tab"
                   role="tab"
@@ -83,7 +83,7 @@
                 @click="currentTab = 'Themes'"
               >
                 <a
-                  class="postavke-nav__link"
+                  :class="{'postavke-nav__link' : true, 'active': currentTab === 'Themes'}"
                   href="#tab-5"
                   data-bs-toggle="tab"
                   role="tab"
@@ -99,7 +99,7 @@
                 @click="currentTab = 'Notifications'"
               >
                 <a
-                  class="postavke-nav__link"
+                  :class="{'postavke-nav__link' : true, 'active': currentTab === 'Notifications'}"
                   href="#tab-6"
                   data-bs-toggle="tab"
                   role="tab"

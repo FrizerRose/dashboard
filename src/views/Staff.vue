@@ -9,7 +9,6 @@
         class="content"
       >
         <div
-          v-if="staff.length"
           class="container-fluid p-0"
         >
           <div class="row mb-3">

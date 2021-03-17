@@ -1,19 +1,5 @@
 <template>
   <div>
-    <div class="working-hours-interaktivno mb-4">
-      <button
-        :class="{
-          btn: true,
-          'btn-primary': !requestSent,
-          'btn-success': requestSent && status,
-          'btn-danger': requestSent && !status,
-        }"
-        @click="save()"
-      >
-        Spremi
-      </button>
-    </div>
-
     <div class="working-hours-aaaaaaaaaaaaa">
       <div class="row">
         <div class="col-md-12 mb-4">

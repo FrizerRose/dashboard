@@ -72,13 +72,6 @@
       >
         Spremi
       </button>
-      <button
-        class="btn btn-secondary"
-        data-bs-dismiss="modal"
-        @click="closeServiceCreateModal()"
-      >
-        Zatvori
-      </button>
     </template>
   </Modal>
 </template>

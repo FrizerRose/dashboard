@@ -361,13 +361,6 @@
       >
         Spremi
       </button>
-      <button
-        class="btn btn-secondary"
-        data-bs-dismiss="modal"
-        @click="closeStaffEditModal()"
-      >
-        Zatvori
-      </button>
     </template>
   </Modal>
 </template>

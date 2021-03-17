@@ -91,6 +91,8 @@
               class="form-control mb-3"
               type="date"
               name="id-calendar-edit-slot-day"
+              :min="startLimitDatepicker"
+              :max="endLimitDatepicker"
             >
           </div>
           <div class="col-md-6 mb-4">
@@ -212,7 +214,7 @@ import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
 import Customer from '@/types/customer';
-import { getTimeOptions, formatDateString } from '@/helpers/time';
+import { getTimeOptions, formatDateString, getDateStringFromDate } from '@/helpers/time';
 
 export default defineComponent({
   components: {
@@ -240,6 +242,11 @@ export default defineComponent({
 
     const isInThePast = new Date(`${selectedAppointment.value?.date}T${selectedAppointment.value?.time}`) < new Date();
     const timeOptions = getTimeOptions();
+
+    const endLimitDate = new Date();
+    endLimitDate.setDate(endLimitDate.getDate() + (selectedCompany.value?.preferences.schedulingWindow || 30));
+    const startLimitDatepicker = getDateStringFromDate(new Date());
+    const endLimitDatepicker = getDateStringFromDate(endLimitDate);
 
     function closeCalendarModal() {
       store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
@@ -329,6 +336,8 @@ export default defineComponent({
       timeOptions,
       isInThePast,
       updateAppointment,
+      startLimitDatepicker,
+      endLimitDatepicker,
     };
   },
 });

@@ -17,8 +17,10 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.CHANGE_SELECTED_WORKER](state: S, payload: Staff | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state: S, payload: {date: string; time: string}): void;
   [LocalMutationTypes.CHANGE_SELECTED_CUSTOMER](state: S, payload: Customer | null): void;
+  [LocalMutationTypes.CHANGE_SELECTED_APPOINTMENT](state: S, payload: Appointment | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_NOTICE](state: S, payload: string): void;
   [LocalMutationTypes.CHANGE_OPEN_SERVICE_CREATE_MODAL](state: S, payload: boolean): void;
+  [LocalMutationTypes.CHANGE_OPEN_CALENDAR_MODAL](state: S, payload: boolean): void;
   [LocalMutationTypes.CHANGE_OPEN_SERVICE_EDIT_MODAL](state: S, payload: boolean): void;
   [LocalMutationTypes.CHANGE_OPEN_STAFF_CREATE_MODAL](state: S, payload: boolean): void;
   [LocalMutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL](state: S, payload: boolean): void;
@@ -26,6 +28,7 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.ADD_RESERVED_APPOINTMENTS](state: S, payload: Appointment[]): void;
   [LocalMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID](state: S, payload: number): void;
   [LocalMutationTypes.CHANGE_TOUR](state: S, payload: object | null): void;
+  [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state: S, payload: number): void;
 }
 
 // Mutuation implementation.
@@ -54,11 +57,17 @@ export const mutations: MutationTree<State> & Mutations = {
   [LocalMutationTypes.CHANGE_SELECTED_CUSTOMER](state, payload: Customer | null) {
     state.selectedCustomer = payload;
   },
+  [LocalMutationTypes.CHANGE_SELECTED_APPOINTMENT](state, payload: Appointment | null) {
+    state.selectedAppointment = payload;
+  },
   [LocalMutationTypes.CHANGE_SELECTED_NOTICE](state, payload: string) {
     state.selectedNotice = payload;
   },
   [LocalMutationTypes.CHANGE_OPEN_SERVICE_CREATE_MODAL](state, payload: boolean) {
     state.isServicesCreateOpen = payload;
+  },
+  [LocalMutationTypes.CHANGE_OPEN_CALENDAR_MODAL](state, payload: boolean) {
+    state.isCalendarModalOpen = payload;
   },
   [LocalMutationTypes.CHANGE_OPEN_SERVICE_EDIT_MODAL](state, payload: boolean) {
     state.isServicesEditOpen = payload;
@@ -81,5 +90,8 @@ export const mutations: MutationTree<State> & Mutations = {
   },
   [LocalMutationTypes.CHANGE_TOUR](state, payload: object | null) {
     state.tour = payload;
+  },
+  [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state, payload: number) {
+    state.calendarSelectedAppointmentID = payload;
   },
 };

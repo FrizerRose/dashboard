@@ -1,13 +1,15 @@
 <template>
   <Dashboard>
-    <main class="content">
-      <div class="container-fluid p-0">
-        <h1 class="h3 mb-3">
-          Kalendar
-        </h1>
-        <CalendarComponent v-if="selectedWorker" />
-      </div>
-    </main>
+    <template #header>
+      Kalendar
+    </template>
+    <template #body>
+      <main class="content">
+        <div class="container-fluid p-0">
+          <CalendarComponent v-if="selectedWorker" />
+        </div>
+      </main>
+    </template>
   </Dashboard>
 </template>
 
@@ -17,7 +19,7 @@ import {
 } from 'vue';
 
 import Dashboard from '@/components/layout/Dashboard.vue';
-import CalendarComponent from '@/components/Calendar.vue';
+import CalendarComponent from '@/components/calendar/Calendar.vue';
 import { useStore } from '@/store';
 
 export default defineComponent({

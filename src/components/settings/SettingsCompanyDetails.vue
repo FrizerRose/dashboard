@@ -31,12 +31,12 @@
                 <div class="override-upload-image">
                   <div class="override-upload-image-square">
                     <img
-                      v-if="imageLocation"
-                      :src="imageLocation"
+                      v-if="image?.link"
+                      :src="image.link"
                       alt="logo"
                     >
                     <span
-                      v-if="!imageLocation"
+                      v-if="!image?.link"
                       class="override-upload-image-layer override-upload-image-missing"
                     >
                       <span class="override-upload-image-layer override-upload-image-missing-placeholder">
@@ -64,7 +64,11 @@
                     </label>
                   </span>
                 </div>
-                <button class="override-upload-image-remove override-upload-image-square">
+                <button
+                  v-if="image?.link"
+                  class="override-upload-image-remove override-upload-image-square"
+                  @click="removeImage()"
+                >
                   <span class="override-upload-image-layer override-upload-image-remove-center">
                     <span class="fa fa-trash" />
                   </span>
@@ -93,7 +97,7 @@
                 Logo uspješno promjenjen!
               </div>
               <div
-                v-if="imageUploadSent && !imageUploadStatus"
+                v-if="(imageUploadSent && !imageUploadStatus) || imageRemoveHasError"
                 class="mt-2"
               >
                 Došlo je do greške, molimo probajte kasnije!
@@ -332,6 +336,38 @@
           >
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-3 mb-4" />
+        <div class="col-md-9 mb-4">
+          <label class="form-check m-0">
+            <input
+              v-model="formData.preferences.showRules"
+              type="checkbox"
+              class="form-check-input"
+            >
+            <span class="form-check-label">Prikaži pravila na stranici.</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 mb-4" />
+      <div class="col-md-9 mb-4">
+        <label
+          class="form-label"
+          for="id-rules"
+        >
+          <strong>Pravila</strong>
+        </label>
+        <input
+          id="id-rules"
+          v-model="formData.preferences.rules"
+          type="text"
+          class="form-control"
+        >
+      </div>
     </div>
 
     <div class="firma-interaktivno">
@@ -369,7 +405,8 @@ export default defineComponent({
     const status = ref(false);
     const imageUploadSent = ref(false);
     const imageUploadStatus = ref(false);
-    const imageLocation = ref(formData?.image?.link);
+    const imageRemoveHasError = ref(false);
+    const image = ref(formData?.image);
 
     async function save() {
       try {
@@ -391,19 +428,29 @@ export default defineComponent({
     async function upload(event: { target: EventTarget & { files: FileList } }) {
       try {
         const imageData = new FormData();
-        const image = event.target.files[0];
+        const imageToUpload = event.target.files[0];
 
-        inputFileText.value = image.name;
-        imageData.append('image', image);
+        inputFileText.value = imageToUpload.name;
+        imageData.append('image', imageToUpload);
         imageData.append('company', formData.id.toString());
 
-        const newImageLocation = await store.dispatch(ActionTypes.UPLOAD_IMAGE, imageData);
-        imageLocation.value = newImageLocation;
+        const newImage = await store.dispatch(ActionTypes.UPLOAD_IMAGE, imageData);
+        image.value = newImage;
         imageUploadSent.value = true;
         imageUploadStatus.value = true;
       } catch {
         imageUploadSent.value = true;
         imageUploadStatus.value = false;
+      }
+    }
+
+    async function removeImage() {
+      imageRemoveHasError.value = false;
+      try {
+        await store.dispatch(ActionTypes.DELETE_IMAGE, image.value.id);
+        image.value = null;
+      } catch {
+        imageRemoveHasError.value = true;
       }
     }
 
@@ -416,7 +463,9 @@ export default defineComponent({
       upload,
       imageUploadSent,
       imageUploadStatus,
-      imageLocation,
+      image,
+      removeImage,
+      imageRemoveHasError,
     };
   },
 });

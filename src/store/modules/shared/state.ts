@@ -7,6 +7,7 @@ import Staff from '@/types/staff';
 export interface State {
   isMenuOpen: boolean;
   isServicesCreateOpen: boolean;
+  isCalendarModalOpen: boolean;
   isServicesEditOpen: boolean;
   isStaffCreateOpen: boolean;
   isStaffEditOpen: boolean;
@@ -16,8 +17,10 @@ export interface State {
   selectedStaff: Staff | null;
   selectedDateTime: {date: string; time: string};
   selectedCustomer: Customer | null;
+  selectedAppointment: Appointment | null;
   selectedNotice: string;
   reservedAppointments: Appointment[];
+  calendarSelectedAppointmentID: number;
   selectedWorker: Staff | null;
   tour: object | null;
 }
@@ -25,6 +28,7 @@ export interface State {
 const state: State = {
   isMenuOpen: false,
   isServicesCreateOpen: false,
+  isCalendarModalOpen: false,
   isServicesEditOpen: false,
   isStaffCreateOpen: false,
   isStaffEditOpen: false,
@@ -34,8 +38,10 @@ const state: State = {
   selectedStaff: null,
   selectedDateTime: { date: '', time: '' },
   selectedCustomer: null,
+  selectedAppointment: null,
   selectedNotice: '',
   reservedAppointments: [],
+  calendarSelectedAppointmentID: -1,
   selectedWorker: null,
   tour: null,
 };

@@ -165,8 +165,8 @@ export class StaffService {
     this.resource = 'staff';
   }
 
-  query(params: object) {
-    return this.apiService.query(this.resource, {
+  query(slug: number, params: object) {
+    return this.apiService.query(`${this.resource}/${slug.toString()}`, {
       params,
     });
   }
@@ -289,6 +289,10 @@ export class AuthService {
 
   login(params: object) {
     return this.apiService.post(`${this.resource}/login`, params);
+  }
+
+  resetPassword(params: object) {
+    return this.apiService.post(`${this.resource}/reset-password`, params);
   }
 
   changePassword(params: object) {

@@ -5,6 +5,7 @@ import { ActionContext, ActionTree } from 'vuex';
 import { CompanyService, ImageService } from '@/api';
 import { ApiError } from '@/types/customError';
 import Company from '@/types/company';
+import Image from '@/types/image';
 import LocalActionTypes from './action-types';
 import SharedMutationTypes from '../shared/mutation-types';
 import { Mutations as SharedMutations } from '../shared/mutations';
@@ -30,7 +31,11 @@ export interface Actions {
   [LocalActionTypes.UPLOAD_IMAGE](
     { commit }: AugmentedSharedActionContext,
     image: object
-  ): Promise<string | unknown>;
+  ): Promise<Image>;
+  [LocalActionTypes.DELETE_IMAGE](
+    { commit }: AugmentedSharedActionContext,
+    id: number
+  ): Promise<Image>;
 }
 
 // API access.
@@ -67,11 +72,22 @@ export const actions: ActionTree<State, RootState> & Actions = {
     })());
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async [LocalActionTypes.UPLOAD_IMAGE]({ commit }, image: object): Promise<string | unknown> {
+  async [LocalActionTypes.UPLOAD_IMAGE]({ commit }, image: object): Promise<Image> {
     return new Promise((resolve, reject) => (async () => {
       const response = await imageService.create(image);
       if (response.status === 201 && response.data) {
-        resolve(response.data[0].location);
+        resolve(response.data);
+      } else {
+        reject(new ApiError('Uploading image failed.'));
+      }
+    })());
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async [LocalActionTypes.DELETE_IMAGE]({ commit }, id: number): Promise<Image> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await imageService.destroy(id);
+      if (response.status === 200) {
+        resolve(response.data);
       } else {
         reject(new ApiError('Uploading image failed.'));
       }

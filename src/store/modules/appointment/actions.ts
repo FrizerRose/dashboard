@@ -45,6 +45,10 @@ export interface Actions {
     { commit }: AugmentedSharedActionContext,
     payload: object
   ): Promise<unknown>;
+  [LocalActionTypes.UPDATE_APPOINTMENT](
+    { commit }: AugmentedSharedActionContext,
+    payload: object
+  ): Promise<unknown>;
   [LocalActionTypes.CANCEL_APPOINTMENT](
     { commit }: AugmentedSharedActionContext,
     id: number | undefined
@@ -74,13 +78,26 @@ export const actions: ActionTree<State, RootState> & Actions = {
     return response;
   },
   async [LocalActionTypes.CREATE_APPOINTMENT]({ commit }, payload): Promise<unknown> {
+    console.log('🚀 ~ file: actions.ts ~ line 81 ~ payload', payload);
     return new Promise((resolve, reject) => (async () => {
       const response = await appointmentService.create(payload);
+      console.log('🚀 ~ file: actions.ts ~ line 108 ~ returnnewPromise ~ response.data', response.data);
       if (response.status === 201) {
         commit(SharedMutationTypes.ADD_RESERVED_APPOINTMENTS, [{ ...response.data }]);
         resolve(true);
       } else {
         reject(new ApiError('Could not create an appointment.'));
+      }
+    })());
+  },
+  async [LocalActionTypes.UPDATE_APPOINTMENT]({ commit }, payload): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await appointmentService.update(payload);
+      if (response.status === 200) {
+        commit(SharedMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT, response.data);
+        resolve(true);
+      } else {
+        reject(new ApiError('Could not update an appointment.'));
       }
     })());
   },

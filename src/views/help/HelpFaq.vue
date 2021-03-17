@@ -1,10 +1,15 @@
 <template>
   <Dashboard>
-    <main class="content">
-      <div class="container-fluid p-0">
-        česta pitanja
-      </div>
-    </main>
+    <template #header>
+      Česta pitanja
+    </template>
+    <template #body>
+      <main class="content">
+        <div class="container-fluid p-0">
+          česta pitanja
+        </div>
+      </main>
+    </template>
   </Dashboard>
 </template>
 

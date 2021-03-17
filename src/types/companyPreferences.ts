@@ -16,6 +16,8 @@ type CompanyPreferences = {
   isTutorialFinished: boolean;
   clientReminderTime: number;
   staffReminderTime: number;
+  showRules: boolean;
+  rules: string;
 }
 
 export default CompanyPreferences;

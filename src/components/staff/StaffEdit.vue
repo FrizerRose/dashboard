@@ -30,12 +30,12 @@
                   <div class="override-upload-image">
                     <div class="override-upload-image-square">
                       <img
-                        v-if="imageLocation"
-                        :src="imageLocation"
+                        v-if="image?.link"
+                        :src="image.link"
                         alt="logo"
                       >
                       <span
-                        v-if="!imageLocation"
+                        v-if="!image?.link"
                         class="override-upload-image-layer override-upload-image-missing"
                       >
                         <span class="override-upload-image-layer override-upload-image-missing-placeholder">
@@ -63,7 +63,12 @@
                       </label>
                     </span>
                   </div>
-                  <button class="override-upload-image-remove override-upload-image-square">
+                  <button
+                    v-if="image?.link"
+                    class="override-upload-image-remove override-upload-image-square"
+
+                    @click="removeImage()"
+                  >
                     <span class="override-upload-image-layer override-upload-image-remove-center">
                       <span class="fa fa-trash" />
                     </span>
@@ -92,7 +97,7 @@
                   Slika uspješno promjenjena!
                 </div>
                 <div
-                  v-if="imageUploadSent && !imageUploadStatus"
+                  v-if="(imageUploadSent && !imageUploadStatus) || imageRemoveHasError"
                   class="mt-2"
                 >
                   Došlo je do greške, molimo probajte kasnije!
@@ -181,12 +186,20 @@
                         >
                           <strong>Od</strong>
                         </label>
-                        <input
+                        <select
+                          id="id-monday-shift-start"
                           v-model="shift.start"
-                          type="text"
-                          name="id-monday-shift-start"
-                          class="form-control"
+                          class="form-control mb-3"
+                          name="monday-shift-start"
                         >
+                          <option
+                            v-for="time in timeOptions"
+                            :key="time"
+                            :value="time"
+                          >
+                            {{ time }}
+                          </option>
+                        </select>
                       </div>
                       <div class="col-4 col-md-4">
                         <label
@@ -195,16 +208,35 @@
                         >
                           <strong>Do</strong>
                         </label>
-                        <input
+                        <select
+                          id="id-monday-shift-end"
                           v-model="shift.end"
-                          type="text"
-                          name="id-monday-shift-end"
-                          class="form-control"
+                          class="form-control mb-3"
+                          name="monday-shift-end"
                         >
+                          <option
+                            v-for="time in timeOptions"
+                            :key="time"
+                            :value="time"
+                          >
+                            {{ time }}
+                          </option>
+                        </select>
+                      </div>
+                      <div
+                        v-if="shiftIndex !== 0"
+                        class="col-2 col-md-2"
+                      >
+                        <button
+                          class="btn btn-danger"
+                          @click="removeShift(day.shifts, shiftIndex)"
+                        >
+                          Makni smjenu
+                        </button>
                       </div>
                       <div
                         v-if="shiftIndex === day.shifts.length - 1"
-                        class="col-4 col-md-4"
+                        class="col-2 col-md-2"
                       >
                         <button
                           class="btn btn-primary"
@@ -327,6 +359,9 @@
                     </button>
                   </div>
                 </div>
+                <div v-if="!breakDates.length">
+                  Nema unešenih godišnjih
+                </div>
                 <div class="row d-flex align-items-end">
                   <div class="col-md-3" />
                   <div class="col-md-9 mt-4">
@@ -356,13 +391,6 @@
       >
         Spremi
       </button>
-      <button
-        class="btn btn-secondary"
-        data-bs-dismiss="modal"
-        @click="closeStaffEditModal()"
-      >
-        Zatvori
-      </button>
     </template>
   </Modal>
 </template>
@@ -377,6 +405,7 @@ import MutationTypes from '@/store/mutation-types';
 import { Day, StartEnd } from '@/types/workingHours';
 import Service from '@/types/service';
 import Modal from '@/components/layout/Modal.vue';
+import { getTimeOptions } from '@/helpers/time';
 
 export default defineComponent({
   components: {
@@ -397,11 +426,23 @@ export default defineComponent({
     const status = ref(false);
     const imageUploadSent = ref(false);
     const imageUploadStatus = ref(false);
-    const imageLocation = ref(formData?.image?.link);
+    const imageRemoveHasError = ref(false);
+    const image = ref(formData?.image);
     const inputFileText = ref('Odaberi sliku...');
+
+    const timeOptions = getTimeOptions();
+
+    // For newly added staff
+    if (formData.breaks === undefined) {
+      formData.breaks = [];
+    }
 
     function addShift(shifts: StartEnd[]) {
       shifts.push(({ start: '08:00', end: '16:00' }));
+    }
+
+    function removeShift(shifts: StartEnd[], index: number) {
+      shifts.splice(index, 1);
     }
 
     function toggleDayActive(day: Day) {
@@ -437,19 +478,29 @@ export default defineComponent({
     async function upload(event: { target: EventTarget & { files: FileList } }) {
       try {
         const imageData = new FormData();
-        const image = event.target.files[0];
+        const imageToUpload = event.target.files[0];
 
-        inputFileText.value = image.name;
-        imageData.append('image', image);
+        inputFileText.value = imageToUpload.name;
+        imageData.append('image', imageToUpload);
         imageData.append('staff', formData.id.toString());
 
-        const newImageLocation = await store.dispatch(ActionTypes.UPLOAD_IMAGE, imageData);
-        imageLocation.value = newImageLocation;
+        const newImage = await store.dispatch(ActionTypes.UPLOAD_IMAGE, imageData);
+        image.value = newImage;
         imageUploadSent.value = true;
         imageUploadStatus.value = true;
       } catch {
         imageUploadSent.value = true;
         imageUploadStatus.value = false;
+      }
+    }
+
+    async function removeImage() {
+      imageRemoveHasError.value = false;
+      try {
+        await store.dispatch(ActionTypes.DELETE_IMAGE, image.value.id);
+        image.value = null;
+      } catch {
+        imageRemoveHasError.value = true;
       }
     }
 
@@ -515,6 +566,7 @@ export default defineComponent({
     return {
       save,
       addShift,
+      removeShift,
       toggleDayActive,
       copyShiftsToOtherDays,
       formData,
@@ -528,11 +580,14 @@ export default defineComponent({
       upload,
       imageUploadSent,
       imageUploadStatus,
-      imageLocation,
+      image,
+      removeImage,
+      imageRemoveHasError,
       breakDates,
       addBreak,
       removeBreak,
       closeStaffEditModal,
+      timeOptions,
     };
   },
 });

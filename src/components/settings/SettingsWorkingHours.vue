@@ -1,19 +1,5 @@
 <template>
   <div>
-    <div class="working-hours-interaktivno mb-4">
-      <button
-        :class="{
-          btn: true,
-          'btn-primary': !requestSent,
-          'btn-success': requestSent && status,
-          'btn-danger': requestSent && !status,
-        }"
-        @click="save()"
-      >
-        Spremi
-      </button>
-    </div>
-
     <div class="working-hours-aaaaaaaaaaaaa">
       <div class="row">
         <div class="col-md-12 mb-4">
@@ -56,12 +42,20 @@
                       >
                         <strong>Od</strong>
                       </label>
-                      <input
+                      <select
+                        id="id-monday-shift-start"
                         v-model="shift.start"
-                        type="text"
-                        name="id-monday-shift-start"
-                        class="form-control"
+                        class="form-control mb-3"
+                        name="monday-shift-start"
                       >
+                        <option
+                          v-for="time in timeOptions"
+                          :key="time"
+                          :value="time"
+                        >
+                          {{ time }}
+                        </option>
+                      </select>
                     </div>
                     <div class="col-4 col-md-4">
                       <label
@@ -70,16 +64,35 @@
                       >
                         <strong>Do</strong>
                       </label>
-                      <input
+                      <select
+                        id="id-monday-shift-end"
                         v-model="shift.end"
-                        type="text"
-                        name="id-monday-shift-end"
-                        class="form-control"
+                        class="form-control mb-3"
+                        name="monday-shift-end"
                       >
+                        <option
+                          v-for="time in timeOptions"
+                          :key="time"
+                          :value="time"
+                        >
+                          {{ time }}
+                        </option>
+                      </select>
+                    </div>
+                    <div
+                      v-if="shiftIndex !== 0"
+                      class="col-2 col-md-2"
+                    >
+                      <button
+                        class="btn btn-danger"
+                        @click="removeShift(day.shifts, shiftIndex)"
+                      >
+                        Makni smjenu
+                      </button>
                     </div>
                     <div
                       v-if="shiftIndex === day.shifts.length - 1"
-                      class="col-4 col-md-4"
+                      class="col-2 col-md-2"
                     >
                       <button
                         class="btn btn-primary"
@@ -137,6 +150,7 @@ import {
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import { Day, StartEnd } from '@/types/workingHours';
+import { getTimeOptions } from '@/helpers/time';
 
 export default defineComponent({
   setup() {
@@ -146,6 +160,8 @@ export default defineComponent({
     const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
     const requestSent = ref(false);
     const status = ref(false);
+
+    const timeOptions = getTimeOptions();
 
     async function save() {
       try {
@@ -160,6 +176,10 @@ export default defineComponent({
 
     function addShift(shifts: StartEnd[]) {
       shifts.push(({ start: '08:00', end: '16:00' }));
+    }
+
+    function removeShift(shifts: StartEnd[], index: number) {
+      shifts.splice(index, 1);
     }
 
     function toggleDayActive(day: Day) {
@@ -182,12 +202,14 @@ export default defineComponent({
     return {
       save,
       addShift,
+      removeShift,
       toggleDayActive,
       copyShiftsToOtherDays,
       formData,
       status,
       requestSent,
       capitalize,
+      timeOptions,
     };
   },
 });

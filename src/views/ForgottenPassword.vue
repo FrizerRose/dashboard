@@ -9,7 +9,7 @@
           <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
             <div class="d-table-cell align-middle">
               <div
-                v-if="!resetDone"
+                v-if="resetDone"
                 class="text-center mt-4"
               >
                 <h1 class="h2">
@@ -18,6 +18,14 @@
                 <p class="lead">
                   Lozinka je resetirana. U poruci koju ćete primiti na e-mail adresu se nalazi vaša nova lozinka.
                 </p>
+              </div>
+              <div class="text-center mt-3">
+                <button
+                  class="btn btn-lg btn-primary"
+                  @click.prevent="goToLogin()"
+                >
+                  Back to login
+                </button>
               </div>
 
               <div
@@ -34,16 +42,13 @@
                         >Email</label>
                         <input
                           id="LOGIN-MODAL-EMAIL"
+                          v-model="chosenEmail"
                           required=""
                           class="form-control form-control-lg"
                           type="email"
                           name="validation-email"
                           placeholder="Enter your email"
                         >
-                        <small class="form-text d-block text-muted">Ako email
-                          nije dobar format, izbaci error. Ako je format dobar,
-                          zatvori formu i napiši da je na email adresu poslana
-                          poruka s lozinkom.</small>
                         <label
                           v-if="hasError"
                           class="error jquery-validation-error small form-text invalid-feedback"
@@ -54,9 +59,17 @@
                       <div class="text-center mt-3">
                         <button
                           class="btn btn-lg btn-primary"
-                          @click="goToLogin()"
+                          @click.prevent="resetPassword()"
                         >
                           Reset password
+                        </button>
+                      </div>
+                      <div class="text-center mt-3">
+                        <button
+                          class="btn btn-lg btn-primary"
+                          @click.prevent="goToLogin()"
+                        >
+                          Back to login
                         </button>
                       </div>
                     </form>
@@ -74,20 +87,37 @@
 <script lang='ts'>
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from '@/store';
+import ActionTypes from '@/store/action-types';
 
 export default defineComponent({
   setup() {
+    const store = useStore();
     const router = useRouter();
 
+    const chosenEmail = ref('');
     const resetDone = ref(false);
     const hasError = ref(false);
 
     function goToLogin() {
-      router.push('/login');
+      router.push('/prijava');
+    }
+
+    async function resetPassword() {
+      hasError.value = false;
+
+      try {
+        await store.dispatch(ActionTypes.RESET_PASSWORD, chosenEmail.value);
+        resetDone.value = true;
+      } catch {
+        hasError.value = true;
+      }
     }
 
     return {
       goToLogin,
+      resetPassword,
+      chosenEmail,
       resetDone,
       hasError,
     };

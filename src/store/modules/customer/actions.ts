@@ -27,6 +27,10 @@ export interface Actions {
     payload: Customer,
   ): Promise<Customer>;
   [LocalActionTypes.FETCH_CUSTOMERS]({ commit }: AugmentedActionContext, params: object): void;
+  [LocalActionTypes.FETCH_CUSTOMERS_BY_NAME](
+    { commit }: AugmentedActionContext & AugmentedSharedActionContext,
+    payload: object,
+  ): Promise<Customer[]>;
 }
 
 // API access.
@@ -42,7 +46,17 @@ export const actions: ActionTree<State, RootState> & Actions = {
         commit(SharedMutationTypes.CHANGE_SELECTED_CUSTOMER, response.data);
         resolve(response.data as Customer);
       } else {
-        reject(new ApiError('Could not create an appointment.'));
+        reject(new ApiError('Could not create a customer.'));
+      }
+    })());
+  },
+  async [LocalActionTypes.FETCH_CUSTOMERS_BY_NAME]({ commit }, payload: object): Promise<Customer[]> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await customerService.query(payload);
+      if (response.status === 200 && response.data) {
+        resolve(response.data as Customer[]);
+      } else {
+        reject(new ApiError('Could not find customers.'));
       }
     })());
   },

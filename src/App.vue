@@ -1,18 +1,18 @@
 <template>
   <router-view />
 
-  <InitialFlow v-if="!isTutorialFinished && selectedCompany !== null" />
+  <!-- <InitialFlow v-if="!isTutorialFinished && selectedCompany !== null" /> -->
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, watch } from 'vue';
 import ActionTypes from '@/store/action-types';
 import { useStore } from '@/store';
-import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
+// import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
 
 export default defineComponent({
   components: {
-    InitialFlow,
+    // InitialFlow,
   },
   setup() {
     const store = useStore();
@@ -32,7 +32,7 @@ export default defineComponent({
       },
     );
 
-    let companyID: string | number = 6;
+    let companyID: string | number = 1;
     console.log('🚀 ~ file: helpers.ts ~ line 23 ~ fetchCompanyFromURL ~ process.env.NODE_ENV', process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'production') {
       const urlFragments = window.location.hostname.split('.');

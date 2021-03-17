@@ -2,7 +2,11 @@
   <ul
     v-if="node.nodes"
     :id="'bs-target-id-' + node.target"
-    class="sidebar-dropdown list-unstyled collapse"
+    :class="{
+      'sidebar-dropdown' : true,
+      'list-unstyled' : true,
+      collapse : !submenuShow,
+    }"
     data-bs-parent="#sidebar"
   >
     <li
@@ -27,6 +31,10 @@ export default defineComponent({
   props: {
     node: {
       type: Object,
+      required: true,
+    },
+    submenuShow: {
+      type: Boolean,
       required: true,
     },
   },

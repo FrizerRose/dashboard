@@ -140,7 +140,7 @@ export default defineComponent({
       },
     ]);
 
-    tour.start();
+    // tour.start();
   },
 });
 </script>

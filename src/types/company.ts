@@ -1,4 +1,5 @@
 import CompanyPreferences from './companyPreferences';
+import Image from './image';
 import Service from './service';
 import Staff from './staff';
 import { WorkingHours } from './workingHours';
@@ -16,7 +17,7 @@ type Company = {
   staff: Staff[];
   preferences: CompanyPreferences;
   hours: WorkingHours;
-  image: object;
+  image: Image;
 }
 
 export default Company;

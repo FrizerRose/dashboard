@@ -7,8 +7,10 @@ import { State } from './state';
 
 export type Getters = {
   getUser(state: State): User | null;
+  getAccessToken(): string | null;
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
   getUser: (state) => (typeof state.user === 'string' ? JSON.parse(state.user) as User : null),
+  getAccessToken: () => localStorage.getItem('accessToken'),
 };

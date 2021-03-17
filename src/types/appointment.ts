@@ -12,6 +12,7 @@ type Appointment = {
   staff: Staff;
   service: Service;
   customer: Customer;
+  hasCustomerArrived: boolean;
 }
 
 export default Appointment;

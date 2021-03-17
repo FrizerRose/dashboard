@@ -1,19 +1,5 @@
 <template>
   <div>
-    <div class="narucivanje-interaktivno mb-4">
-      <button
-        :class="{
-          btn: true,
-          'btn-primary': !requestSent,
-          'btn-success': requestSent && status,
-          'btn-danger': requestSent && !status,
-        }"
-        @click="save()"
-      >
-        Spremi
-      </button>
-    </div>
-
     <div class="narucivanje-najkasnije">
       <label
         for="id-lead-time"

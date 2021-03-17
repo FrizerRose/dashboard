@@ -1,8 +1,15 @@
 <template>
   <nav class="navbar navbar-expand navbar-light navbar-bg">
-    <a class="sidebar-toggle">
+    <a
+      class="sidebar-toggle"
+    >
       <i class="hamburger align-self-center" />
     </a>
+
+    <h3 class="ml-5 mt-2">
+      <slot />
+    </h3>
+
     <div class="navbar-collapse collapse">
       <ul class="navbar-nav navbar-align">
         <button
@@ -17,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 import MutationTypes from '@/store/mutation-types';
 import { useStore } from '@/store';
 import { useRouter } from 'vue-router';
@@ -32,6 +39,19 @@ export default defineComponent({
       store.commit(MutationTypes.LOGOUT, true);
       router.push('/prijava');
     }
+
+    onMounted(() => {
+      const sidebarElement = document.getElementsByClassName('sidebar')[0];
+      const sidebarToggleElement = document.getElementsByClassName('sidebar-toggle')[0];
+
+      sidebarToggleElement.addEventListener('click', () => {
+        sidebarElement.classList.toggle('collapsed');
+
+        sidebarElement.addEventListener('transitionend', () => {
+          window.dispatchEvent(new Event('resize'));
+        });
+      });
+    });
 
     return {
       logout,

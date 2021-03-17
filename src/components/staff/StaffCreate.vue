@@ -42,6 +42,156 @@
               class="form-control"
             >
           </div>
+          <div class="radnik-radni-dani">
+            <div class="row">
+              <div class="col-md-3 mb-4" />
+              <div class="col-md-9 mb-4 add-staff-section">
+                <label class="form-label w-100">
+                  <strong>Radni dani</strong>
+                  <br>
+                  Označite na koje dane ste otvoreni
+                </label>
+                <div
+                  v-for="(day, dayName) in newStaff.hours"
+                  :key="dayName"
+                  class="row"
+                >
+                  <div class="col-12 col-md-3">
+                    <label class="form-check m-0">
+                      <input
+                        v-model="day.active"
+                        type="checkbox"
+                        class="form-check-input"
+                        @change="toggleDayActive(day)"
+                      >
+                      <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
+                    </label>
+                  </div>
+                  <div
+                    v-if="day.active"
+                    class="col-12 col-md-9"
+                  >
+                    <div
+                      v-for="(shift, shiftIndex) in day.shifts"
+                      :key="shiftIndex"
+                      class="row"
+                    >
+                      <div class="col-12">
+                        <div class="row mb-4 d-flex align-items-end">
+                          <div class="col-4 col-md-4">
+                            <label
+                              class="form-label w-100"
+                              for="id-monday-shift-start"
+                            >
+                              <strong>Od</strong>
+                            </label>
+                            <input
+                              v-model="shift.start"
+                              type="text"
+                              name="id-monday-shift-start"
+                              class="form-control"
+                            >
+                          </div>
+                          <div class="col-4 col-md-4">
+                            <label
+                              class="form-label w-100"
+                              for="id-monday-shift-end"
+                            >
+                              <strong>Do</strong>
+                            </label>
+                            <input
+                              v-model="shift.end"
+                              type="text"
+                              name="id-monday-shift-end"
+                              class="form-control"
+                            >
+                          </div>
+                          <div
+                            v-if="shiftIndex !== 0"
+                            class="col-2 col-md-2"
+                          >
+                            <button
+                              class="btn btn-danger"
+                              @click="removeShift(day.shifts, shiftIndex)"
+                            >
+                              Makni smjenu
+                            </button>
+                          </div>
+                          <div
+                            v-if="shiftIndex === day.shifts.length - 1"
+                            class="col-2 col-md-2"
+                          >
+                            <button
+                              class="btn btn-primary"
+                              @click="addShift(day.shifts)"
+                            >
+                              Dodaj smjenu
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        v-if="shiftIndex === day.shifts.length - 1"
+                        class="col-12"
+                      >
+                        <div class="row mb-4 d-flex align-items-end">
+                          <div class="col-12 col-md-12">
+                            <button
+                              v-if="dayName.toString() === 'monday'"
+                              class="btn btn-primary"
+                              @click="copyShiftsToOtherDays(day)"
+                            >
+                              Kopiraj u sve označene dane
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr v-if="day.shifts.length">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="radnik-djelatnosti">
+            <div class="row">
+              <div class="col-md-3 mb-4" />
+              <div class="col-md-9 mb-4 add-staff-section">
+                <label class="form-label w-100">
+                  <strong>Usluge i odgovornosti</strong>
+                  <br>
+                  Označite usluge koje ovaj radnik pruža
+                </label>
+                <div
+                  v-for="service in allServices"
+                  :key="service.id"
+                  class="row"
+                >
+                  <div class="col-md-9">
+                    <label class="form-check m-0">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        :checked="isAssigned(service)"
+                        @change="toggleService(service)"
+                      >
+                      <span class="form-check-label lead">{{ service.name }}</span>
+                    </label>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <strong>{{ service.price }}</strong> kn
+                      </div>
+                      <div class="col-md-6">
+                        <strong>{{ service.duration }}</strong> min
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </template>
@@ -57,27 +207,21 @@
       >
         Spremi
       </button>
-      <button
-        class="btn btn-secondary"
-        data-bs-dismiss="modal"
-        @click="closeStaffCreateModal()"
-      >
-        Zatvori
-      </button>
     </template>
   </Modal>
 </template>
 
 <script lang='ts'>
 import {
-  defineComponent, reactive, ref, computed,
+  defineComponent, reactive, ref, computed, capitalize,
 } from 'vue';
 import Modal from '@/components/layout/Modal.vue';
-import { WorkingHours } from '@/types/workingHours';
+import { Day, StartEnd, WorkingHours } from '@/types/workingHours';
 import Staff from '@/types/staff';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
+import Service from '@/types/service';
 
 export default defineComponent({
   components: {
@@ -87,6 +231,7 @@ export default defineComponent({
     const store = useStore();
 
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const allServices = computed(() => store.state.service.services);
     const requestSent = ref(false);
     const status = ref(false);
     const newStaff = reactive({
@@ -102,6 +247,7 @@ export default defineComponent({
         saturday: { active: false, shifts: [] },
         sunday: { active: false, shifts: [] },
       } as WorkingHours,
+      services: [] as Service[],
     });
 
     function closeStaffCreateModal() {
@@ -110,6 +256,44 @@ export default defineComponent({
       const modal = document.getElementById('exampleModalFullscreen');
       if (modal) {
         modal.classList.remove('show');
+      }
+    }
+
+    function addShift(shifts: StartEnd[]) {
+      shifts.push(({ start: '08:00', end: '16:00' }));
+    }
+
+    function removeShift(shifts: StartEnd[], index: number) {
+      shifts.splice(index, 1);
+    }
+
+    function toggleDayActive(day: Day) {
+      if (day.active) {
+        addShift(day.shifts);
+      } else {
+        // Remove all shifts
+        day.shifts.splice(0, day.shifts.length);
+      }
+    }
+
+    function copyShiftsToOtherDays(selectedDay: Day) {
+      Object.entries(newStaff.hours).forEach(([key]) => {
+        if (newStaff.hours[key].active) {
+          newStaff.hours[key].shifts = JSON.parse(JSON.stringify(selectedDay.shifts));
+        }
+      });
+    }
+
+    function isAssigned(service: Service) {
+      return newStaff.services.findIndex((assignedService: Service) => assignedService.id === service.id) !== -1;
+    }
+
+    function toggleService(service: Service) {
+      if (isAssigned(service)) {
+        const serviceIndex = newStaff.services.findIndex((assignedService: Service) => assignedService.id === service.id);
+        newStaff.services.splice(serviceIndex, 1);
+      } else {
+        newStaff.services.push(service);
       }
     }
 
@@ -133,6 +317,14 @@ export default defineComponent({
       newStaff,
       createStaff,
       closeStaffCreateModal,
+      isAssigned,
+      toggleService,
+      addShift,
+      removeShift,
+      toggleDayActive,
+      copyShiftsToOtherDays,
+      allServices,
+      capitalize,
     };
   },
 });

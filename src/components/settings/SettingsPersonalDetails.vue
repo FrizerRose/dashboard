@@ -1,18 +1,5 @@
 <template>
   <div>
-    <div class="authentication-interaktivno mb-4">
-      <button
-        :class="{
-          btn: true,
-          'btn-primary': !requestSent,
-          'btn-success': requestSent && status,
-          'btn-danger': requestSent && !status,
-        }"
-        @click="save()"
-      >
-        Spremi
-      </button>
-    </div>
     <div class="row">
       <div class="col-md-12 mb-4">
         <div class="row">
@@ -102,7 +89,7 @@ import ActionTypes from '@/store/action-types';
 export default defineComponent({
   setup() {
     const store = useStore();
-    const token = computed(() => store.state.auth.accessToken);
+    const token = computed(() => store.getters.getAccessToken);
 
     const formData = reactive({
       oldPassowrd: '',

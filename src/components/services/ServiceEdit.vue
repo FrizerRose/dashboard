@@ -65,12 +65,61 @@
             Ovdje možete promijeniti trajanje usluge (min)
           </label>
           <div class="d-flex align-items-baseline">
-            <input
+            <select
               id="id-edit-service-duration"
               v-model="formData.duration"
-              type="text"
-              class="form-control text-end"
+              class="form-control"
+              name="edit-service-duration"
             >
+              <option value="15">
+                15
+              </option>
+              <option value="30">
+                30
+              </option>
+              <option value="45">
+                45
+              </option>
+              <option value="60">
+                60
+              </option>
+              <option value="75">
+                75
+              </option>
+              <option value="90">
+                90
+              </option>
+              <option value="105">
+                105
+              </option>
+              <option value="120">
+                120
+              </option>
+              <option value="135">
+                135
+              </option>
+              <option value="150">
+                150
+              </option>
+              <option value="165">
+                165
+              </option>
+              <option value="180">
+                180
+              </option>
+              <option value="195">
+                195
+              </option>
+              <option value="210">
+                210
+              </option>
+              <option value="225">
+                225
+              </option>
+              <option value="240">
+                240
+              </option>
+            </select>
             <span class="ms-2">min</span>
           </div>
         </div>
@@ -110,13 +159,6 @@
         @click="save()"
       >
         Spremi
-      </button>
-      <button
-        class="btn btn-secondary"
-        data-bs-dismiss="modal"
-        @click="closeServiceEditModal()"
-      >
-        Zatvori
       </button>
     </template>
   </Modal>

@@ -12,50 +12,54 @@
       />
     </template>
     <template #body>
-      <div class="container x-override-desktop-limit">
-        <div class="row">
-          <div class="col-md-6">
-            <label
-              class="form-label"
-              for="id-add-worker-name"
-            >
-              <strong>Ime</strong>
-            </label>
-            <input
-              id="id-add-worker-name"
-              v-model="newStaff.name"
-              type="text"
-              class="form-control"
-            >
+      <div class="container px-0 override-desktop-limit">
+        <div class="radnik-identifikacija">
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <label
+                class="form-label"
+                for="id-add-worker-name"
+              >
+                <strong>Ime</strong>
+              </label>
+              <input
+                id="id-add-worker-name"
+                v-model="newStaff.name"
+                type="text"
+                class="form-control"
+              >
+            </div>
+            <div class="col-md-6 mb-4">
+              <label
+                class="form-label"
+                for="id-add-worker-email"
+              >
+                <strong>E-mail</strong>
+              </label>
+              <input
+                id="id-add-worker-email"
+                v-model="newStaff.email"
+                type="email"
+                class="form-control"
+              >
+            </div>
           </div>
-          <div class="col-md-6">
-            <label
-              class="form-label"
-              for="id-add-worker-email"
-            >
-              <strong>E-mail</strong>
-            </label>
-            <input
-              id="id-add-worker-email"
-              v-model="newStaff.email"
-              type="email"
-              class="form-control"
-            >
-          </div>
-          <div class="radnik-radni-dani">
-            <div class="row">
-              <div class="col-md-3 mb-4" />
-              <div class="col-md-9 mb-4 add-staff-section">
-                <label class="form-label w-100">
-                  <strong>Radni dani</strong>
-                  <br>
-                  Označite na koje dane ste otvoreni
-                </label>
-                <div
-                  v-for="(day, dayName) in newStaff.hours"
-                  :key="dayName"
-                  class="row"
-                >
+        </div>
+
+        <div class="radnik-radni-dani">
+          <div class="row">
+            <div class="col-md-12 mb-4">
+              <label class="form-label w-100">
+                <strong>Radni dani</strong>
+                <br>
+                Označite na koje dane ste otvoreni
+              </label>
+              <div
+                v-for="(day, dayName) in newStaff.hours"
+                :key="dayName"
+                class="striped-row p-1"
+              >
+                <div class="row">
                   <div class="col-12 col-md-3">
                     <label class="form-check m-0">
                       <input
@@ -69,105 +73,110 @@
                   </div>
                   <div
                     v-if="day.active"
-                    class="col-12 col-md-9"
+                    class="col-12 col-md-9 mb-4 section-reveal"
                   >
                     <div
                       v-for="(shift, shiftIndex) in day.shifts"
                       :key="shiftIndex"
-                      class="row"
                     >
-                      <div class="col-12">
-                        <div class="row mb-4 d-flex align-items-end">
-                          <div class="col-4 col-md-4">
-                            <label
-                              class="form-label w-100"
-                              for="id-monday-shift-start"
-                            >
-                              <strong>Od</strong>
-                            </label>
-                            <input
-                              v-model="shift.start"
-                              type="text"
-                              name="id-monday-shift-start"
-                              class="form-control"
-                            >
-                          </div>
-                          <div class="col-4 col-md-4">
-                            <label
-                              class="form-label w-100"
-                              for="id-monday-shift-end"
-                            >
-                              <strong>Do</strong>
-                            </label>
-                            <input
-                              v-model="shift.end"
-                              type="text"
-                              name="id-monday-shift-end"
-                              class="form-control"
-                            >
-                          </div>
+                      <div class="row">
+                        <div class="col-md-12">
                           <div
-                            v-if="shiftIndex !== 0"
-                            class="col-2 col-md-2"
+                            class="section-reveal"
+                            :class="{ 'mt-4' : shiftIndex !== 0 }"
                           >
-                            <button
-                              class="btn btn-danger"
-                              @click="removeShift(day.shifts, shiftIndex)"
-                            >
-                              Makni smjenu
-                            </button>
-                          </div>
-                          <div
-                            v-if="shiftIndex === day.shifts.length - 1"
-                            class="col-2 col-md-2"
-                          >
-                            <button
-                              class="btn btn-primary"
-                              @click="addShift(day.shifts)"
-                            >
-                              Dodaj smjenu
-                            </button>
+                            <div class="row d-flex align-items-end">
+                              <div class="col-6 col-md-2">
+                                <label
+                                  class="form-label w-100"
+                                  for="id-monday-shift-start"
+                                >
+                                  <strong>Od</strong>
+                                </label>
+                                <input
+                                  v-model="shift.start"
+                                  type="text"
+                                  name="id-monday-shift-start"
+                                  class="form-control"
+                                >
+                              </div>
+                              <div class="col-6 col-md-2">
+                                <label
+                                  class="form-label w-100"
+                                  for="id-monday-shift-end"
+                                >
+                                  <strong>Do</strong>
+                                </label>
+                                <input
+                                  v-model="shift.end"
+                                  type="text"
+                                  name="id-monday-shift-end"
+                                  class="form-control"
+                                >
+                              </div>
+                              <div class="col-12 col-md-8">
+                                <div class="row">
+                                  <div class="col-12 col-md-6">
+                                    <div v-if="shiftIndex !== 0">
+                                      <button
+                                        class="btn btn-danger w-100 mt-4 section-reveal__item is-red"
+                                        @click="removeShift(day.shifts, shiftIndex)"
+                                      >
+                                        Makni smjenu
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <div class="col-12 col-md-6">
+                                    <div v-if="shiftIndex === day.shifts.length - 1">
+                                      <button
+                                        class="btn btn-primary w-100 mt-4"
+                                        @click="addShift(day.shifts)"
+                                      >
+                                        Dodaj smjenu
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div
-                        v-if="shiftIndex === day.shifts.length - 1"
-                        class="col-12"
-                      >
-                        <div class="row mb-4 d-flex align-items-end">
-                          <div class="col-12 col-md-12">
-                            <button
-                              v-if="dayName.toString() === 'monday'"
-                              class="btn btn-primary"
-                              @click="copyShiftsToOtherDays(day)"
-                            >
-                              Kopiraj u sve označene dane
-                            </button>
-                          </div>
+                        <div
+                          v-if="shiftIndex === day.shifts.length - 1"
+                          class="col-12"
+                        >
+                          <button
+                            v-if="dayName.toString() === 'monday'"
+                            class="btn btn-secondary w-100 mt-4 section-reveal__item"
+                            @click="copyShiftsToOtherDays(day)"
+                          >
+                            Kopiraj u sve označene dane
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <hr v-if="day.shifts.length">
                 </div>
               </div>
             </div>
           </div>
-          <div class="radnik-djelatnosti">
-            <div class="row">
-              <div class="col-md-3 mb-4" />
-              <div class="col-md-9 mb-4 add-staff-section">
-                <label class="form-label w-100">
-                  <strong>Usluge i odgovornosti</strong>
-                  <br>
-                  Označite usluge koje ovaj radnik pruža
-                </label>
-                <div
-                  v-for="service in allServices"
-                  :key="service.id"
-                  class="row"
-                >
-                  <div class="col-md-9">
+        </div>
+
+        <div class="radnik-djelatnosti">
+          <div class="row">
+            <div class="col-md-12 mb-4">
+              <label class="form-label w-100">
+                <strong>Usluge i odgovornosti</strong>
+                <br>
+                Označite usluge koje ovaj radnik pruža
+              </label>
+              <div
+                v-for="service in allServices"
+                :key="service.id"
+                class="striped-row p-1"
+              >
+                <div class="row">
+                  <div class="col-6 col-sm-8">
                     <label class="form-check m-0">
                       <input
                         type="checkbox"
@@ -178,12 +187,12 @@
                       <span class="form-check-label lead">{{ service.name }}</span>
                     </label>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-6 col-sm-4">
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-6 col-sm-6">
                         <strong>{{ service.price }}</strong> kn
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-6 col-sm-6">
                         <strong>{{ service.duration }}</strong> min
                       </div>
                     </div>
@@ -329,3 +338,59 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+
+.section-reveal {
+  position: relative;
+  z-index: 0;
+}
+
+.section-reveal__item {
+  position: static;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bs-secondary);
+    z-index: -1;
+    margin: -0.25rem;
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0, 1), transform 0.1s cubic-bezier(0.4, 0, 0, 1);
+  }
+
+  &:hover {
+    &:before {
+      opacity: .1;
+      transform: none;
+    }
+  }
+
+  &.is-red {
+    &:before {
+      background-color: var(--bs-danger);
+    }
+    &:hover {
+      &:before {
+        opacity: .2;
+        transform: none;
+      }
+    }
+  }
+}
+
+.striped-row {
+  border: 0 solid;
+  border-bottom-width: 1px;
+  border-color: #dee6ed;
+
+  &:nth-child(odd) {
+    background-color: #f4f7f9;
+  }
+}
+</style>

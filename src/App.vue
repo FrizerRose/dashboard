@@ -29,7 +29,7 @@ export default defineComponent({
       }
     });
 
-    let companyID: string | number = 1;
+    let companyID: string | number = 6;
     console.log('🚀 ~ file: helpers.ts ~ line 23 ~ fetchCompanyFromURL ~ process.env.NODE_ENV', process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'production') {
       const urlFragments = window.location.hostname.split('.');

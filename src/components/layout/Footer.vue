@@ -1,44 +1,131 @@
 <template>
-  <footer class="footer">
-    <div class="container-fluid">
-      <div class="row text-muted">
-        <div class="col-6 text-start">
-          <ul class="list-inline">
-            <li class="list-inline-item">
-              <a
+  <div>
+    <div class="round-button-wrap">
+      <router-link
+        to="/pomoc"
+        class="round-button has-shadow"
+      >
+        <span class="o-background-wrap o-ratio">
+          <span class="o-background is-white" />
+          <span class="o-front">
+            <span class="round-button__label">?</span>
+          </span>
+        </span>
+      </router-link>
+    </div>
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="row text-muted">
+          <div class="col-6 text-start">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a
+                  class="text-muted"
+                  href="#"
+                >Support</a>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  class="text-muted"
+                  href="#"
+                >Help Center</a>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  class="text-muted"
+                  href="#"
+                >Privacy</a>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  class="text-muted"
+                  href="#"
+                >Terms of Service</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 text-end">
+            <p class="mb-0">
+              &copy; 2020 - <a
+                href="index.html"
                 class="text-muted"
-                href="#"
-              >Support</a>
-            </li>
-            <li class="list-inline-item">
-              <a
-                class="text-muted"
-                href="#"
-              >Help Center</a>
-            </li>
-            <li class="list-inline-item">
-              <a
-                class="text-muted"
-                href="#"
-              >Privacy</a>
-            </li>
-            <li class="list-inline-item">
-              <a
-                class="text-muted"
-                href="#"
-              >Terms of Service</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-6 text-end">
-          <p class="mb-0">
-            &copy; 2020 - <a
-              href="index.html"
-              class="text-muted"
-            >Frizerrose</a>
-          </p>
+              >Frizerrose</a>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.round-button-wrap {
+  position: relative;
+}
+.round-button {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin: 1rem;
+  border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 9999px;
+  width: 3rem;
+  overflow: hidden;
+  color: black;
+  font-size: 1.5rem;
+
+  &.has-shadow {
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+.o-background-wrap {
+  position: relative;
+  z-index: 0;
+}
+.o-background {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  z-index: -1;
+
+  &.is-white {
+    background-color: white;
+  }
+}
+
+.o-front {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.o-ratio {
+  position: relative;
+  display: block;
+  overflow: hidden;
+
+  &:before {
+    display: block;
+    padding-bottom: 100%; /* [1] */
+    width: 100%;
+    content: "";
+  }
+}
+
+.o-ratio_content,
+  .o-ratio > img,
+  .o-ratio > iframe,
+  .o-ratio > embed,
+  .o-ratio > object {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  // height: 100%;
+}
+</style>

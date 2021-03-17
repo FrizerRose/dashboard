@@ -1,8 +1,6 @@
 <template>
   <div class="wrapper">
-    <!-- <div class="sidebar"> -->
     <MainNavMenu :nodes="tree.nodes" />
-    <!-- end sidebar -->
     <div class="main">
       <TopNavbar>
         <slot name="header" />

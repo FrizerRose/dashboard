@@ -206,6 +206,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .postavke-content {
+  flex: 1;
   background-color: var(--bs-light);
 }
 

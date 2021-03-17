@@ -108,7 +108,9 @@ export default defineComponent({
     function tourNextStep() {
       const tourReference = tour.value;
       setTimeout((() => {
-        tourReference.next();
+        if (tourReference) {
+          tourReference.next();
+        }
       }), 200);
     }
 

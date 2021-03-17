@@ -1,18 +1,18 @@
 <template>
   <router-view />
 
-  <InitialFlow v-if="!isTutorialFinished && selectedCompany !== null" />
+  <!-- <InitialFlow v-if="!isTutorialFinished && selectedCompany !== null" /> -->
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, watch } from 'vue';
 import ActionTypes from '@/store/action-types';
 import { useStore } from '@/store';
-import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
+// import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
 
 export default defineComponent({
   components: {
-    InitialFlow,
+    // InitialFlow,
   },
   setup() {
     const store = useStore();

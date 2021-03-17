@@ -4,9 +4,11 @@
     <MainNavMenu :nodes="tree.nodes" />
     <!-- end sidebar -->
     <div class="main">
-      <TopNavbar />
+      <TopNavbar>
+        <slot name="header" />
+      </TopNavbar>
 
-      <slot />
+      <slot name="body" />
 
       <Footer />
     </div>
@@ -50,7 +52,6 @@ export default defineComponent({
             target: 'help',
             nodes: [
               { name: 'Česta Pitanja', templateName: 'HelpFaq', slug: '/cesta-pitanja' },
-              { name: 'Uputstvo', templateName: 'HelpManual', slug: '/uputstvo' },
               { name: 'Kontakt', templateName: 'HelpContact', slug: '/kontakt' },
             ],
           },

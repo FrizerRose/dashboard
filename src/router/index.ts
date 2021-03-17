@@ -56,12 +56,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/help/HelpFaq.vue'),
   },
   {
-    path: '/uputstvo',
-    name: 'Manual',
-    // lazy loaded route
-    component: () => import(/* webpackChunkName: "uputstvo" */ '../views/help/HelpManual.vue'),
-  },
-  {
     path: '/kontakt',
     name: 'Contact',
     // lazy loaded route
@@ -97,7 +91,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/prijava', '/zaboravljena-lozinka', '/404'];
+  const authPages = ['/prijava', '/zaboravljena-lozinka'];
   const authRequired = !publicPages.includes(to.path);
+  const authDisallowed = authPages.includes(to.path);
   const hasToken = localStorage.getItem('accessToken');
   const expiration = localStorage.getItem('expiration');
   const isTokenExpired = typeof expiration !== 'string' || Date.now() > parseInt(expiration, 10);
@@ -106,6 +102,8 @@ router.beforeEach((to, from, next) => {
   // Redirect to login page
   if (authRequired && !hasToken && isTokenExpired) {
     next('/prijava');
+  } else if (authDisallowed && hasToken) {
+    next('/');
   } else {
     next();
   }

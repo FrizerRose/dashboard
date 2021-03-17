@@ -1,57 +1,59 @@
 <template>
   <Dashboard>
-    <main class="content">
-      <div class="container-fluid p-0">
-        <DashboardHeaderControls />
-        <div class="row">
-          <div class="col-12 col-sm-6 col-xxl d-flex">
-            <button
-              class="btn"
-              @click="fetchQrCode()"
-            >
-              Prikaži QR kod
-            </button>
-            <img
-              v-if="qrCode"
-              :src="qrCode"
-              alt="qrCode"
-            >
+    <template #body>
+      <main class="content">
+        <div class="container-fluid p-0">
+          <DashboardHeaderControls />
+          <div class="row">
+            <div class="col-12 col-sm-6 col-xxl d-flex">
+              <button
+                class="btn"
+                @click="fetchQrCode()"
+              >
+                Prikaži QR kod
+              </button>
+              <img
+                v-if="qrCode"
+                :src="qrCode"
+                alt="qrCode"
+              >
+            </div>
+            <div class="col-12 col-sm-6 col-xxl d-flex">
+              <WelcomeBack />
+            </div>
+            <div class="col-12 col-sm-6 col-xxl d-flex">
+              <TotalSales />
+            </div>
+            <div class="col-12 col-sm-6 col-xxl d-flex">
+              <PendingOrders />
+            </div>
+            <div class="col-12 col-sm-6 col-xxl d-flex">
+              <TotalRevenue />
+            </div>
           </div>
-          <div class="col-12 col-sm-6 col-xxl d-flex">
-            <WelcomeBack />
-          </div>
-          <div class="col-12 col-sm-6 col-xxl d-flex">
-            <TotalSales />
-          </div>
-          <div class="col-12 col-sm-6 col-xxl d-flex">
-            <PendingOrders />
-          </div>
-          <div class="col-12 col-sm-6 col-xxl d-flex">
-            <TotalRevenue />
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-12 col-lg-8 d-flex">
-            <Sales />
+          <div class="row">
+            <div class="col-12 col-lg-8 d-flex">
+              <Sales />
+            </div>
+            <div class="col-12 col-lg-4 d-flex">
+              <DailyFeed />
+            </div>
           </div>
-          <div class="col-12 col-lg-4 d-flex">
-            <DailyFeed />
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-12 col-xl-4 d-none d-xl-flex">
-            <WeeklySales />
+          <div class="row">
+            <div class="col-12 col-xl-4 d-none d-xl-flex">
+              <WeeklySales />
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 d-flex">
+              <Appointments />
+            </div>
           </div>
-          <div class="col-12 col-lg-6 col-xl-4 d-flex">
-            <Appointments />
-          </div>
-        </div>
 
-        <UpcomingAppointments />
-      </div>
-    </main>
+          <UpcomingAppointments />
+        </div>
+      </main>
+    </template>
   </Dashboard>
 </template>
 

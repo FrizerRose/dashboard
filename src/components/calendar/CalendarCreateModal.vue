@@ -223,13 +223,12 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const allStaff = computed(() => store.state.staff.allStaff);
-    const selectedWorker = ref(JSON.parse(JSON.stringify(allStaff.value[0])));
+    const selectedWorker = computed(() => store.state.shared.selectedWorker);
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
 
     const services = ref(selectedWorker.value?.services);
     const creationDatetime = computed(() => store.state.shared.selectedDateTime);
-    const creationService = ref(services.value[0] as Service);
+    const creationService = ref(services.value ? services.value[0] as Service : {} as Service);
     const creationNotice = ref('');
     const creationCustomer = ref({} as Customer);
     const oldCustomerName = ref('');
@@ -246,7 +245,7 @@ export default defineComponent({
 
     async function createAppointment() {
       try {
-        if (selectedWorker.value) {
+        if (selectedWorker.value && creationService.value) {
           let customerObject = {};
 
           customerObject = {
@@ -277,10 +276,12 @@ export default defineComponent({
           creationCustomer.value = {} as Customer;
 
           closeCalendarModal();
+        } else {
+          throw new Error();
         }
       } catch {
         requestSent.value = true;
-        status.value = true;
+        status.value = false;
       }
     }
 

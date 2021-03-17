@@ -78,8 +78,10 @@ export const actions: ActionTree<State, RootState> & Actions = {
     return response;
   },
   async [LocalActionTypes.CREATE_APPOINTMENT]({ commit }, payload): Promise<unknown> {
+    console.log('🚀 ~ file: actions.ts ~ line 81 ~ payload', payload);
     return new Promise((resolve, reject) => (async () => {
       const response = await appointmentService.create(payload);
+      console.log('🚀 ~ file: actions.ts ~ line 108 ~ returnnewPromise ~ response.data', response.data);
       if (response.status === 201) {
         commit(SharedMutationTypes.ADD_RESERVED_APPOINTMENTS, [{ ...response.data }]);
         resolve(true);

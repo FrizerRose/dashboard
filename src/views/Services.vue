@@ -1,109 +1,110 @@
 <template>
   <Dashboard>
-    <main
-      id="serviceContainer"
-      class="content"
-    >
-      <div
-        v-if="services.length"
-        class="container-fluid p-0"
+    <template #header>
+      Usluge
+    </template>
+    <template #body>
+      <main
+        id="serviceContainer"
+        class="content"
       >
-        <div class="row">
-          <div class="col-xl-12">
-            <button
-              class="btn btn-primary float-end mt-n1"
-              aria-label="Dodaj uslugu"
-              @click="openServiceCreateModal()"
-            >
-              <span class="fa fa-plus" /> Dodaj uslugu
-            </button>
+        <div
+          v-if="services.length"
+          class="container-fluid p-0"
+        >
+          <div class="row mb-3">
+            <div class="col-xl-12">
+              <button
+                class="btn btn-primary float-end mt-n1"
+                aria-label="Dodaj uslugu"
+                @click="openServiceCreateModal()"
+              >
+                <span class="fa fa-plus" /> Dodaj uslugu
+              </button>
 
-            <h1 class="h3 mb-3">
-              Usluge
-            </h1>
-
-            <div v-if="isServicesCreateOpen">
-              <ServiceCreate />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        style="width:80%"
-                      >
-                        Ime
-                      </th>
-                      <th
-                        scope="col"
-                        style="width:10%; text-align: center;"
-                      >
-                        Promjeni
-                      </th>
-                      <th
-                        scope="col"
-                        style="width:10%; text-align: center;"
-                      >
-                        Izbriši
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(service, index) in services"
-                      :key="index"
-                      :class="{'nav-item': true, 'active': selectedService === service.id}"
-                      @click="selectedService = service.id"
-                    >
-                      <td>{{ service.name }}</td>
-                      <td style="text-align: center;">
-                        <a
-                          :class="{'btn': true, 'btn-outline-secondary': true, 'active': selectedService === service.id}"
-                          :href="'#tab-' + service.id"
-                          @click="openServiceEditModal(service)"
-                        >
-                          <span class="fa fa-pen" />
-                        </a>
-                      </td>
-                      <td style="text-align: center;">
-                        <button
-                          class="btn btn-danger"
-                          @click="deleteService(service)"
-                        >
-                          <span class="fa fa-trash" />
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div v-if="isServicesCreateOpen">
+                <ServiceCreate />
               </div>
             </div>
           </div>
         </div>
 
-        <div
-          v-for="service in services"
-          :id="'tab-' + service.id"
-          :key="service.id"
-          :class="{'tab-pane': true, 'active': selectedService === service.id}"
-          role="tabpanel"
-        >
-          <ServiceEdit
-            v-if="isServiceEditOpen && selectedService === service.id"
-            :service="service"
-          />
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          style="width:80%"
+                        >
+                          Ime
+                        </th>
+                        <th
+                          scope="col"
+                          style="width:10%; text-align: center;"
+                        >
+                          Promjeni
+                        </th>
+                        <th
+                          scope="col"
+                          style="width:10%; text-align: center;"
+                        >
+                          Izbriši
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="(service, index) in services"
+                        :key="index"
+                        :class="{'nav-item': true, 'active': selectedService === service.id}"
+                        @click="selectedService = service.id"
+                      >
+                        <td>{{ service.name }}</td>
+                        <td style="text-align: center;">
+                          <a
+                            :class="{'btn': true, 'btn-outline-secondary': true, 'active': selectedService === service.id}"
+                            :href="'#tab-' + service.id"
+                            @click="openServiceEditModal(service)"
+                          >
+                            <span class="fa fa-pen" />
+                          </a>
+                        </td>
+                        <td style="text-align: center;">
+                          <button
+                            class="btn btn-danger"
+                            @click="deleteService(service)"
+                          >
+                            <span class="fa fa-trash" />
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            v-for="service in services"
+            :id="'tab-' + service.id"
+            :key="service.id"
+            :class="{'tab-pane': true, 'active': selectedService === service.id}"
+            role="tabpanel"
+          >
+            <ServiceEdit
+              v-if="isServiceEditOpen && selectedService === service.id"
+              :service="service"
+            />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </template>
   </Dashboard>
 </template>
 

@@ -2,10 +2,14 @@
   <nav class="navbar navbar-expand navbar-light navbar-bg">
     <a
       class="sidebar-toggle"
-      @click="sidebarToggle()"
     >
       <i class="hamburger align-self-center" />
     </a>
+
+    <h3 class="ml-5 mt-2">
+      <slot />
+    </h3>
+
     <div class="navbar-collapse collapse">
       <ul class="navbar-nav navbar-align">
         <button

@@ -1,166 +1,171 @@
 <template>
   <Dashboard>
-    <main class="content-X postavke-content">
-      <div
-        v-if="selectedCompany"
-        class="container-fluid p-0"
-      >
-        <div class="postavke-nav">
-          <ul
-            class="postavke-nav__list"
-            role="tablist"
-          >
-            <li
-              class="postavke-nav__list-item"
-              @click="currentTab = 'CompanyDetails'"
-            >
-              <a
-                class="postavke-nav__link active"
-                href="#tab-1"
-                data-bs-toggle="tab"
-                role="tab"
-              >
-                <span class="postavke-nav__icon">
-                  <span class="fa fa-building" />
-                </span>
-                <span class="postavke-nav__label">Podatci o firmi</span>
-              </a>
-            </li>
-            <li
-              class="postavke-nav__list-item"
-              @click="currentTab = 'Orders'"
-            >
-              <a
-                class="postavke-nav__link"
-                href="#tab-2"
-                data-bs-toggle="tab"
-                role="tab"
-              >
-                <span class="postavke-nav__icon">
-                  <span class="fa fa-user" />
-                </span>
-                <span class="postavke-nav__label">Narudžbe</span>
-              </a>
-            </li>
-            <li
-              class="postavke-nav__list-item"
-              @click="currentTab = 'PersonalDetails'"
-            >
-              <a
-                class="postavke-nav__link"
-                href="#tab-3"
-                data-bs-toggle="tab"
-                role="tab"
-              >
-                <span class="postavke-nav__icon">
-                  <span class="fa fa-key" />
-                </span>
-                <span class="postavke-nav__label">Korisnički podaci</span>
-              </a>
-            </li>
-            <li
-              class="postavke-nav__list-item"
-              @click="currentTab = 'WorkingHours'"
-            >
-              <a
-                class="postavke-nav__link"
-                href="#tab-4"
-                data-bs-toggle="tab"
-                role="tab"
-              >
-                <span class="postavke-nav__icon">
-                  <span class="fa fa-clock" />
-                </span>
-                <span class="postavke-nav__label">Radno vrijeme</span>
-              </a>
-            </li>
-            <li
-              class="postavke-nav__list-item"
-              @click="currentTab = 'Themes'"
-            >
-              <a
-                class="postavke-nav__link"
-                href="#tab-5"
-                data-bs-toggle="tab"
-                role="tab"
-              >
-                <span class="postavke-nav__icon">
-                  <span class="fa fa-palette" />
-                </span>
-                <span class="postavke-nav__label">Izgled</span>
-              </a>
-            </li>
-            <li
-              class="postavke-nav__list-item"
-              @click="currentTab = 'Notifications'"
-            >
-              <a
-                class="postavke-nav__link"
-                href="#tab-6"
-                data-bs-toggle="tab"
-                role="tab"
-              >
-                <span class="postavke-nav__icon">
-                  <span class="fa fa-bell" />
-                </span>
-                <span class="postavke-nav__label">Noifikacije</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+    <template #header>
+      Postavke
+    </template>
+    <template #body>
+      <main class="content-X postavke-content">
         <div
           v-if="selectedCompany"
-          class="postavke-main"
+          class="container-fluid p-0"
         >
-          <div class="tab">
-            <div class="tab-content">
-              <div
-                id="tab-1"
-                class="tab-pane active"
-                role="tabpanel"
+          <div class="postavke-nav">
+            <ul
+              class="postavke-nav__list"
+              role="tablist"
+            >
+              <li
+                class="postavke-nav__list-item"
+                @click="currentTab = 'CompanyDetails'"
               >
-                <SettingsCompanyDetails v-if="currentTab === 'CompanyDetails'" />
-              </div>
-              <div
-                id="tab-2"
-                class="tab-pane active"
-                role="tabpanel"
+                <a
+                  class="postavke-nav__link active"
+                  href="#tab-1"
+                  data-bs-toggle="tab"
+                  role="tab"
+                >
+                  <span class="postavke-nav__icon">
+                    <span class="fa fa-building" />
+                  </span>
+                  <span class="postavke-nav__label">Podatci o firmi</span>
+                </a>
+              </li>
+              <li
+                class="postavke-nav__list-item"
+                @click="currentTab = 'Orders'"
               >
-                <SettingsOrders v-if="currentTab === 'Orders'" />
-              </div>
-              <div
-                id="tab-3"
-                class="tab-pane active"
-                role="tabpanel"
+                <a
+                  class="postavke-nav__link"
+                  href="#tab-2"
+                  data-bs-toggle="tab"
+                  role="tab"
+                >
+                  <span class="postavke-nav__icon">
+                    <span class="fa fa-user" />
+                  </span>
+                  <span class="postavke-nav__label">Narudžbe</span>
+                </a>
+              </li>
+              <li
+                class="postavke-nav__list-item"
+                @click="currentTab = 'PersonalDetails'"
               >
-                <SettingsPersonalDetails v-if="currentTab === 'PersonalDetails'" />
-              </div>
-              <div
-                id="tab-4"
-                class="tab-pane active"
-                role="tabpanel"
+                <a
+                  class="postavke-nav__link"
+                  href="#tab-3"
+                  data-bs-toggle="tab"
+                  role="tab"
+                >
+                  <span class="postavke-nav__icon">
+                    <span class="fa fa-key" />
+                  </span>
+                  <span class="postavke-nav__label">Korisnički podaci</span>
+                </a>
+              </li>
+              <li
+                class="postavke-nav__list-item"
+                @click="currentTab = 'WorkingHours'"
               >
-                <SettingsWorkingHours v-if="currentTab === 'WorkingHours'" />
-              </div>
-              <div
-                id="tab-5"
-                class="tab-pane active"
-                role="tabpanel"
+                <a
+                  class="postavke-nav__link"
+                  href="#tab-4"
+                  data-bs-toggle="tab"
+                  role="tab"
+                >
+                  <span class="postavke-nav__icon">
+                    <span class="fa fa-clock" />
+                  </span>
+                  <span class="postavke-nav__label">Radno vrijeme</span>
+                </a>
+              </li>
+              <li
+                class="postavke-nav__list-item"
+                @click="currentTab = 'Themes'"
               >
-                <SettingsThemes v-if="currentTab === 'Themes'" />
-              </div>
-              <div
-                id="tab-6"
-                class="tab-pane active"
-                role="tabpanel"
+                <a
+                  class="postavke-nav__link"
+                  href="#tab-5"
+                  data-bs-toggle="tab"
+                  role="tab"
+                >
+                  <span class="postavke-nav__icon">
+                    <span class="fa fa-palette" />
+                  </span>
+                  <span class="postavke-nav__label">Izgled</span>
+                </a>
+              </li>
+              <li
+                class="postavke-nav__list-item"
+                @click="currentTab = 'Notifications'"
               >
-                <SettingsNotifications v-if="currentTab === 'Notifications'" />
+                <a
+                  class="postavke-nav__link"
+                  href="#tab-6"
+                  data-bs-toggle="tab"
+                  role="tab"
+                >
+                  <span class="postavke-nav__icon">
+                    <span class="fa fa-bell" />
+                  </span>
+                  <span class="postavke-nav__label">Noifikacije</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div
+            v-if="selectedCompany"
+            class="postavke-main"
+          >
+            <div class="tab">
+              <div class="tab-content">
+                <div
+                  id="tab-1"
+                  class="tab-pane active"
+                  role="tabpanel"
+                >
+                  <SettingsCompanyDetails v-if="currentTab === 'CompanyDetails'" />
+                </div>
+                <div
+                  id="tab-2"
+                  class="tab-pane active"
+                  role="tabpanel"
+                >
+                  <SettingsOrders v-if="currentTab === 'Orders'" />
+                </div>
+                <div
+                  id="tab-3"
+                  class="tab-pane active"
+                  role="tabpanel"
+                >
+                  <SettingsPersonalDetails v-if="currentTab === 'PersonalDetails'" />
+                </div>
+                <div
+                  id="tab-4"
+                  class="tab-pane active"
+                  role="tabpanel"
+                >
+                  <SettingsWorkingHours v-if="currentTab === 'WorkingHours'" />
+                </div>
+                <div
+                  id="tab-5"
+                  class="tab-pane active"
+                  role="tabpanel"
+                >
+                  <SettingsThemes v-if="currentTab === 'Themes'" />
+                </div>
+                <div
+                  id="tab-6"
+                  class="tab-pane active"
+                  role="tabpanel"
+                >
+                  <SettingsNotifications v-if="currentTab === 'Notifications'" />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </template>
   </Dashboard>
 </template>
 

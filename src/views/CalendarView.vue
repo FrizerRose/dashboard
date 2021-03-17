@@ -1,13 +1,15 @@
 <template>
   <Dashboard>
-    <main class="content">
-      <div class="container-fluid p-0">
-        <h1 class="h3 mb-3">
-          Kalendar
-        </h1>
-        <CalendarComponent v-if="selectedWorker" />
-      </div>
-    </main>
+    <template #header>
+      Kalendar
+    </template>
+    <template #body>
+      <main class="content">
+        <div class="container-fluid p-0">
+          <CalendarComponent v-if="selectedWorker" />
+        </div>
+      </main>
+    </template>
   </Dashboard>
 </template>
 

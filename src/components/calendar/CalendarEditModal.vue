@@ -264,11 +264,11 @@ export default defineComponent({
       }
     }
 
-    async function cancel(isRescheduling = false) {
+    async function cancel(isReschedule = false) {
       try {
-        await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, selectedAppointment.value?.id);
+        await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, { id: selectedAppointment.value?.id, isReschedule });
 
-        if (!isRescheduling) {
+        if (!isReschedule) {
           store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
           document.body.classList.remove('modal-open');
         }

@@ -54,12 +54,6 @@ export default class ApiService {
   }
 
   delete(resource: string, slug: string | number) {
-    // try {
-    //   return this.client.delete(`${resource}/${slug}`);
-    // } catch (error) {
-    //   throw new ApiError(error);
-    // }
-
     return this.client.delete(`${resource}/${slug}`).catch((error) => {
       throw new Error(`ApiService ${error}`);
     });

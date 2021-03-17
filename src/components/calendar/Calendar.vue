@@ -151,10 +151,18 @@ export default defineComponent({
     }
 
     const formattedAppointments = computed(() => reservedAppointments.value.map((appointment) => {
-      let timeString = `${appointment.date}T${appointment.time}`;
+      let time: string;
+      if (appointment.time.charAt(1) === ':') {
+        time = `0${appointment.time}`;
+      } else {
+        time = appointment.time;
+      }
+
+      let timeString = `${appointment.date}T${time}`;
       if (timeString.slice(-2) === ':0') {
         timeString += '0';
       }
+
       const startDate = new Date(timeString);
       if (typeof appointment.service !== 'number' && appointment.service) {
         const endDate = new Date(startDate.getTime() + appointment.service.duration * 60000);
@@ -367,7 +375,7 @@ export default defineComponent({
     }
 
     const today = new Date(); // get current date
-    const firstDayOfWeek = today.getDate() - today.getDay(); // First day is the day of the month - the day of the week
+    const firstDayOfWeek = today.getDate() - today.getDay() + 1; // First day is the day of the month - the day of the week
     const lastDayOfWeek = firstDayOfWeek + 6; // last day is the first day + 6
 
     fetchSelectedWorkerAppointments({
@@ -387,6 +395,8 @@ export default defineComponent({
       goToToday,
       changeViewGrid,
       changeViewList,
+      formattedAppointments,
+      reservedAppointments,
     };
   },
 });

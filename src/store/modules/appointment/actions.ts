@@ -51,7 +51,7 @@ export interface Actions {
   ): Promise<unknown>;
   [LocalActionTypes.CANCEL_APPOINTMENT](
     { commit }: AugmentedSharedActionContext,
-    id: number | undefined
+    payload: {id: number | undefined; isReschedule: boolean}
   ): Promise<unknown>;
 }
 
@@ -101,12 +101,12 @@ export const actions: ActionTree<State, RootState> & Actions = {
       }
     })());
   },
-  async [LocalActionTypes.CANCEL_APPOINTMENT]({ commit }, id: number | undefined): Promise<unknown> {
+  async [LocalActionTypes.CANCEL_APPOINTMENT]({ commit }, payload: {id: number | undefined; isReschedule: boolean}): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      if (id !== undefined) {
-        const response = await appointmentService.destroy(id.toString());
+      if (payload.id !== undefined) {
+        const response = await appointmentService.destroy(`${payload.id.toString()}?reschedule=${payload.isReschedule.toString()}`);
         if (response.status === 200) {
-          commit(SharedMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID, id);
+          commit(SharedMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID, payload.id);
           resolve(true);
         } else {
           reject(new ApiError('Could not delete an appointment.'));

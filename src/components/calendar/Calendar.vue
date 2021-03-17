@@ -427,17 +427,17 @@ export default defineComponent({
 .fc-event-main {
   line-height: 1.25;
   font-size: 1rem;
-  transition: font-size 0.3s cubic-bezier(0.4, 0, 0, 1);
+  // transition: font-size 0.3s cubic-bezier(0.4, 0, 0, 1);
 }
-.fc-theme-bootstrap a:not([href]) {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+// .fc-theme-bootstrap a:not([href]) {
+//   transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
 
-  &:hover {
-    transform: scale(2);
+//   &:hover {
+//     transform: scale(2);
 
-    .fc-event-main {
-      font-size: 0.5rem;
-    }
-  }
-}
+//     .fc-event-main {
+//       font-size: 0.5rem;
+//     }
+//   }
+// }
 </style>

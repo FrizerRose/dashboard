@@ -1,5 +1,5 @@
 <template>
-  <Modal>
+  <Modal :layout="'is-big'">
     <template #header>
       <h5 class="modal-title h4">
         Dodavanje radnika
@@ -12,7 +12,7 @@
       />
     </template>
     <template #body>
-      <div class="container">
+      <div class="container x-override-desktop-limit">
         <div class="row">
           <div class="col-md-6">
             <label

@@ -1,5 +1,5 @@
 <template>
-  <Modal>
+  <Modal :layout="'is-big'">
     <template #header>
       <h5 class="modal-title h4">
         Popunjavanje termina
@@ -12,7 +12,7 @@
       />
     </template>
     <template #body>
-      <div class="container">
+      <div class="container override-desktop-limit">
         <div class="row">
           <div class="col-md-6 mb-4">
             <label
@@ -61,26 +61,43 @@
 
         <div class="row">
           <div class="col-md-12">
-            <button
-              class="btn btn-primary me-4"
-              @click="changeIsCreateCustomer(false)"
+            <ul
+              class="nav nav-tabs"
+              role="tablist"
             >
-              Stari klijent
-            </button>
-            <button
-              class="btn btn-secondary"
-              @click="changeIsCreateCustomer(true)"
-            >
-              Novi klijent
-            </button>
+              <li class="nav-item">
+                <button
+                  :class="{
+                    'nav-link' : true,
+                    'selected' : !isCreateCustomer,
+                  }"
+                  role="tab"
+                  aria-selected="true"
+                  @click="changeIsCreateCustomer(false)"
+                >
+                  Postojeći klijent
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  :class="{
+                    'nav-link' : true,
+                    'selected' : isCreateCustomer,
+                  }"
+                  role="tab"
+                  aria-selected="false"
+                  @click="changeIsCreateCustomer(true)"
+                >
+                  Novi klijent
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <hr class="mt-4 mb-4">
-
         <div
           v-if="isCreateCustomer"
-          class="novi-klijent"
+          class="novi-klijent mt-4"
         >
           <h5 class="modal-title h4 mb-3">
             Dodavanje novog klijenta
@@ -145,7 +162,7 @@
         </div>
         <div
           v-else
-          class="postojeci-klijent"
+          class="postojeci-klijent mt-4"
         >
           <h5 class="modal-title h4 mb-3">
             Odabir postojećeg klijenta
@@ -357,5 +374,19 @@ export default defineComponent({
   background-color: var(--bs-light);
   border: 2px solid white;
   color: black;
+}
+
+// override tab styles
+.nav-tabs .nav-link {
+    border: none;
+  &:focus, &:hover {
+    background-color: #84aef2;
+    color: white;
+    transition: background-color 0.2s cubic-bezier(0.4, 0, 0, 1), color 0.2s cubic-bezier(0.4, 0, 0, 1);
+  }
+  &.selected {
+    background-color: #3f80ea;
+    color: white;
+  }
 }
 </style>

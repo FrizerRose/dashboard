@@ -1,5 +1,5 @@
 <template>
-  <Modal>
+  <Modal :layout="'is-big'">
     <template #header>
       <h5 class="modal-title h4">
         Uređivanje/brisanje termina
@@ -32,7 +32,7 @@
 
       <div
         v-else
-        class="container"
+        class="container override-desktop-limit"
       >
         <div class="row">
           <div class="col-md-6 mb-4">

@@ -8,7 +8,11 @@
     aria-modal="true"
     role="dialog"
   >
-    <div class="modal-dialog modal-xl modal-fullscreen-xl-down">
+    <div
+      class="modal-dialog"
+      :class="{ 'modal-xl' : layout === 'is-big',
+                'modal-fullscreen-xl-down' : layout === 'is-big' }"
+    >
       <div class="modal-content">
         <div class="modal-header">
           <slot name="header" />
@@ -25,9 +29,26 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 
-export default defineComponent({});
+export default defineComponent({
+  props: {
+    layout: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  },
+  setup(props) {
+    const modalPropLayout = computed(() => props.layout);
+
+    console.log(props.layout);
+
+    return {
+      modalPropLayout,
+    };
+  },
+});
 </script>
 
 <style scoped lang='scss'>

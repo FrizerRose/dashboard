@@ -46,8 +46,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/pomoc',
     name: 'Help',
-    // lazy loaded route
-    component: () => import(/* webpackChunkName: "pomoc" */ '../views/help/Help.vue'),
+    redirect: '/cesta-pitanja',
   },
   {
     path: '/cesta-pitanja',

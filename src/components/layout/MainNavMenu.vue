@@ -83,6 +83,7 @@
 <script>
 import { defineComponent, computed, ref } from 'vue';
 import { useStore } from '@/store';
+import { useRoute } from 'vue-router';
 import MainNavSubmenu from './MainNavSubmenu.vue';
 
 export default defineComponent({
@@ -97,6 +98,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const route = useRoute();
     const tour = computed(() => store.state.shared.tour);
 
     const submenuShow = ref(false);
@@ -112,6 +114,13 @@ export default defineComponent({
           tourReference.next();
         }
       }), 200);
+    }
+
+    const submenuPages = ['/cesta-pitanja', '/kontakt'];
+    const onSubMenu = submenuPages.includes(route.path);
+
+    if (onSubMenu) {
+      submenuShow.value = true;
     }
 
     return {

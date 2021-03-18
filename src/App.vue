@@ -26,7 +26,7 @@ export default defineComponent({
     const isOnAuthPages = computed(() => authPages.includes(route.path));
 
     const mq = window.matchMedia('(min-width: 992px)');
-    mq.addListener(() => {
+    mq.addEventListener('change', () => {
       store.commit(MutationTypes.CHANGE_IS_MOBILE, window.innerWidth <= 1024);
     });
 

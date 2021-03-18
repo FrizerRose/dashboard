@@ -3,54 +3,14 @@
     <template #body>
       <main class="content">
         <div class="container-fluid p-0">
-          <DashboardHeaderControls />
           <div class="row">
-            <div class="col-12 col-sm-6 col-xxl d-flex">
-              <button
-                class="btn"
-                @click="fetchQrCode()"
-              >
-                Prikaži QR kod
-              </button>
-              <img
-                v-if="qrCode"
-                :src="qrCode"
-                alt="qrCode"
-              >
+            <div class="col-6">
+              <CalendarHome v-if="reservedAppointments" />
             </div>
-            <div class="col-12 col-sm-6 col-xxl d-flex">
-              <WelcomeBack />
-            </div>
-            <div class="col-12 col-sm-6 col-xxl d-flex">
-              <TotalSales />
-            </div>
-            <div class="col-12 col-sm-6 col-xxl d-flex">
-              <PendingOrders />
-            </div>
-            <div class="col-12 col-sm-6 col-xxl d-flex">
-              <TotalRevenue />
+            <div class="col-6">
+              bb
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-12 col-lg-8 d-flex">
-              <Sales />
-            </div>
-            <div class="col-12 col-lg-4 d-flex">
-              <DailyFeed />
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12 col-xl-4 d-none d-xl-flex">
-              <WeeklySales />
-            </div>
-            <div class="col-12 col-lg-6 col-xl-4 d-flex">
-              <Appointments />
-            </div>
-          </div>
-
-          <UpcomingAppointments />
         </div>
       </main>
     </template>
@@ -58,38 +18,43 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import {
+  computed, defineComponent, ref, watch,
+} from 'vue';
 import { useRoute } from 'vue-router';
 import Dashboard from '@/components/layout/Dashboard.vue';
 import { useStore } from '@/store';
-import DashboardHeaderControls from '../components/DashboardHeaderControls.vue';
-import WelcomeBack from '../components/WelcomeBack.vue';
-import TotalSales from '../components/TotalSales.vue';
-import PendingOrders from '../components/PendingOrders.vue';
-import TotalRevenue from '../components/TotalRevenue.vue';
-import Sales from '../components/Sales.vue';
-import DailyFeed from '../components/DailyFeed.vue';
-import WeeklySales from '../components/WeeklySales.vue';
-import Appointments from '../components/Appointments.vue';
-import UpcomingAppointments from '../components/UpcomingAppointments.vue';
+import ActionTypes from '@/store/action-types';
+import { getDateStringFromDate } from '@/helpers/time';
+// import WelcomeBack from '../components/WelcomeBack.vue';
+// import TotalSales from '../components/TotalSales.vue';
+// import PendingOrders from '../components/PendingOrders.vue';
+// import TotalRevenue from '../components/TotalRevenue.vue';
+// import Sales from '../components/Sales.vue';
+// import DailyFeed from '../components/DailyFeed.vue';
+// import WeeklySales from '../components/WeeklySales.vue';
+// import Appointments from '../components/Appointments.vue';
+// import UpcomingAppointments from '../components/UpcomingAppointments.vue';
+import CalendarHome from '../components/calendar/CalendarHome.vue';
 
 export default defineComponent({
   components: {
     Dashboard,
-    DashboardHeaderControls,
-    WelcomeBack,
-    TotalSales,
-    PendingOrders,
-    TotalRevenue,
-    Sales,
-    DailyFeed,
-    WeeklySales,
-    Appointments,
-    UpcomingAppointments,
+    CalendarHome,
+    // WelcomeBack,
+    // TotalSales,
+    // PendingOrders,
+    // TotalRevenue,
+    // Sales,
+    // DailyFeed,
+    // WeeklySales,
+    // Appointments,
+    // UpcomingAppointments,
   },
   setup() {
     const store = useStore();
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const reservedAppointments = computed(() => store.state.shared.reservedAppointments);
 
     const route = useRoute();
     const routeName = computed(() => route.name);
@@ -105,10 +70,28 @@ export default defineComponent({
       }
     }
 
+    function fetchAppointmentsOnToday() {
+      if (selectedCompany.value?.id) {
+        store.dispatch(ActionTypes.FETCH_APPOINTMENTS_ON_DATE, {
+          companyID: selectedCompany.value.id,
+          dateString: getDateStringFromDate(new Date()),
+        });
+      }
+    }
+
+    watch(() => selectedCompany.value, (newCompany) => {
+      if (newCompany?.id) {
+        fetchAppointmentsOnToday();
+      }
+    });
+
+    fetchAppointmentsOnToday();
+
     return {
       routeName,
       qrCode,
       fetchQrCode,
+      reservedAppointments,
     };
   },
 });

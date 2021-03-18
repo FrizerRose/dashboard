@@ -215,7 +215,6 @@ export default defineComponent({
           },
           nowIndicator: true,
           stickyHeaderDates: true,
-          allDaySlot: false,
           locale: hrLocale,
           slotDuration: '00:15:00',
           slotLabelInterval: '01:00',

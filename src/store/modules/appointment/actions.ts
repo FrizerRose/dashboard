@@ -5,6 +5,7 @@ import { ActionContext, ActionTree } from 'vuex';
 import { AppointmentService } from '@/api';
 import { ApiError, ValidationError } from '@/types/customError';
 import { AxiosResponse } from 'axios';
+import Appointment from '@/types/appointment';
 import LocalActionTypes from './action-types';
 import LocalMutationTypes from './mutation-types';
 import SharedMutationTypes from '../shared/mutation-types';
@@ -40,6 +41,10 @@ export interface Actions {
   [LocalActionTypes.FETCH_APPOINTMENT](
     { commit }: AugmentedActionContext & AugmentedSharedActionContext & AugmentedStaffActionContext,
     id: number
+  ): Promise<AxiosResponse>;
+  [LocalActionTypes.FETCH_APPOINTMENTS_ON_DATE](
+    { commit }: AugmentedActionContext & AugmentedSharedActionContext,
+    payload: {companyID: number; dateString: string}
   ): Promise<AxiosResponse>;
   [LocalActionTypes.CREATE_APPOINTMENT](
     { commit }: AugmentedSharedActionContext,
@@ -77,11 +82,23 @@ export const actions: ActionTree<State, RootState> & Actions = {
 
     return response;
   },
+  async [LocalActionTypes.FETCH_APPOINTMENTS_ON_DATE](
+    { commit },
+    payload: {companyID: number; dateString: string},
+  ): Promise<AxiosResponse> {
+    const response = await appointmentService.get(`company/${payload.companyID.toString()}/${payload.dateString}`);
+    if (response.status === 200 && response.data) {
+      commit(SharedMutationTypes.CHANGE_RESERVED_APPOINTMENTS, response.data as Appointment[]);
+    } else {
+      throw new ApiError('No appointment by this ID.');
+    }
+
+    return response;
+  },
   async [LocalActionTypes.CREATE_APPOINTMENT]({ commit }, payload): Promise<unknown> {
     console.log('🚀 ~ file: actions.ts ~ line 81 ~ payload', payload);
     return new Promise((resolve, reject) => (async () => {
       const response = await appointmentService.create(payload);
-      console.log('🚀 ~ file: actions.ts ~ line 108 ~ returnnewPromise ~ response.data', response.data);
       if (response.status === 201) {
         commit(SharedMutationTypes.ADD_RESERVED_APPOINTMENTS, [{ ...response.data }]);
         resolve(true);

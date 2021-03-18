@@ -13,8 +13,9 @@ import MutationTypes from '@/store/mutation-types';
 import Shepherd from 'shepherd.js';
 
 export default defineComponent({
-  setup() {
+  setup(): void {
     const store = useStore();
+
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
 
     const tour = new Shepherd.Tour({
@@ -25,14 +26,12 @@ export default defineComponent({
       },
     });
 
-    store.commit(MutationTypes.CHANGE_TOUR, tour);
-
     async function finishTutorial() {
       try {
         const updatedCompany = JSON.parse(JSON.stringify(selectedCompany.value));
         updatedCompany.preferences.isTutorialFinished = true;
 
-        // await store.dispatch(ActionTypes.UPDATE_COMPANY, updatedCompany);
+        await store.dispatch(ActionTypes.UPDATE_COMPANY, updatedCompany);
         tour.complete();
       } catch {
         // eslint-disable-next-line no-alert
@@ -140,7 +139,9 @@ export default defineComponent({
       },
     ]);
 
-    // tour.start();
+    tour.start();
+
+    store.commit(MutationTypes.CHANGE_TOUR, tour);
   },
 });
 </script>

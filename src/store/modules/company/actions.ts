@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '@/store';
 import { ActionContext, ActionTree } from 'vuex';
-import { CompanyService, ImageService } from '@/api';
+import { CompanyService, ImageService, ContactService } from '@/api';
 import { ApiError } from '@/types/customError';
 import Company from '@/types/company';
 import Image from '@/types/image';
@@ -36,6 +36,10 @@ export interface Actions {
     { commit }: AugmentedSharedActionContext,
     image: object
   ): Promise<Image>;
+  [LocalActionTypes.SEND_CONTACT](
+    { commit }: AugmentedSharedActionContext,
+    image: object
+  ): Promise<unknown>;
   [LocalActionTypes.DELETE_IMAGE](
     { commit }: AugmentedSharedActionContext,
     id: number
@@ -45,6 +49,7 @@ export interface Actions {
 // API access.
 const companyService = new CompanyService();
 const imageService = new ImageService();
+const contactService = new ContactService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
@@ -94,6 +99,17 @@ export const actions: ActionTree<State, RootState> & Actions = {
         resolve(response.data);
       } else {
         reject(new ApiError('Uploading image failed.'));
+      }
+    })());
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async [LocalActionTypes.SEND_CONTACT]({ commit }, formData: object): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await contactService.create(formData);
+      if (response.status === 201 && response.data) {
+        resolve(response.data);
+      } else {
+        reject(new ApiError('Creating contact failed.'));
       }
     })());
   },

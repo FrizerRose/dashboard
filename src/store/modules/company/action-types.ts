@@ -4,6 +4,7 @@ enum ActionTypes {
   UPDATE_COMPANY = 'UPDATE_COMPANY',
   UPLOAD_IMAGE = 'UPLOAD_IMAGE',
   DELETE_IMAGE = 'DELETE_IMAGE',
+  SEND_CONTACT = 'SEND_CONTACT',
 }
 
 export default ActionTypes;

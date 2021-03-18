@@ -15,7 +15,7 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.CHANGE_SELECTED_SERVICE](state: S, payload: Service | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_STAFF](state: S, payload: Staff | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_WORKER](state: S, payload: Staff | null): void;
-  [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state: S, payload: {date: string; time: string}): void;
+  [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state: S, payload: { date: string; time: string }): void;
   [LocalMutationTypes.CHANGE_SELECTED_CUSTOMER](state: S, payload: Customer | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_APPOINTMENT](state: S, payload: Appointment | null): void;
   [LocalMutationTypes.CHANGE_SELECTED_NOTICE](state: S, payload: string): void;
@@ -29,7 +29,8 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID](state: S, payload: number): void;
   [LocalMutationTypes.CHANGE_TOUR](state: S, payload: object | null): void;
   [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state: S, payload: number): void;
-}
+  [LocalMutationTypes.CHANGE_CUSTOMERS_APPOINTMENTS](state: S, payload: Appointment[]): void;
+};
 
 // Mutuation implementation.
 export const mutations: MutationTree<State> & Mutations = {
@@ -51,7 +52,7 @@ export const mutations: MutationTree<State> & Mutations = {
   [LocalMutationTypes.CHANGE_SELECTED_WORKER](state, payload: Staff | null) {
     state.selectedWorker = payload;
   },
-  [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state, payload: {date: string; time: string}) {
+  [LocalMutationTypes.CHANGE_SELECTED_DATETIME](state, payload: { date: string; time: string }) {
     state.selectedDateTime = payload;
   },
   [LocalMutationTypes.CHANGE_SELECTED_CUSTOMER](state, payload: Customer | null) {
@@ -93,5 +94,8 @@ export const mutations: MutationTree<State> & Mutations = {
   },
   [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state, payload: number) {
     state.calendarSelectedAppointmentID = payload;
+  },
+  [LocalMutationTypes.CHANGE_CUSTOMERS_APPOINTMENTS](state, payload: Appointment[]) {
+    state.selectedCustomerAppointments = payload;
   },
 };

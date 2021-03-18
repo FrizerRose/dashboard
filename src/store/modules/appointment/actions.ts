@@ -16,43 +16,26 @@ import { State } from './state';
 
 // Constraints commit to mutations from the right module
 type AugmentedActionContext = {
-  commit<K extends keyof Mutations>(
-    key: K,
-    payload: Parameters<Mutations[K]>[1],
-  ): ReturnType<Mutations[K]>;
-} & Omit<ActionContext<State, RootState>, 'commit'>
+  commit<K extends keyof Mutations>(key: K, payload: Parameters<Mutations[K]>[1]): ReturnType<Mutations[K]>;
+} & Omit<ActionContext<State, RootState>, 'commit'>;
 
 type AugmentedSharedActionContext = {
-  commit<K extends keyof SharedMutations>(
-    key: K,
-    payload: Parameters<SharedMutations[K]>[1],
-  ): ReturnType<SharedMutations[K]>;
-} & Omit<ActionContext<State, RootState>, 'commit'>
+  commit<K extends keyof SharedMutations>(key: K, payload: Parameters<SharedMutations[K]>[1]): ReturnType<SharedMutations[K]>;
+} & Omit<ActionContext<State, RootState>, 'commit'>;
 
 type AugmentedStaffActionContext = {
-  commit<K extends keyof StaffMutations>(
-    key: K,
-    payload: Parameters<StaffMutations[K]>[1],
-  ): ReturnType<StaffMutations[K]>;
-} & Omit<ActionContext<State, RootState>, 'commit'>
+  commit<K extends keyof StaffMutations>(key: K, payload: Parameters<StaffMutations[K]>[1]): ReturnType<StaffMutations[K]>;
+} & Omit<ActionContext<State, RootState>, 'commit'>;
 
 export interface Actions {
   [LocalActionTypes.FETCH_APPOINTMENT](
     { commit }: AugmentedActionContext & AugmentedSharedActionContext & AugmentedStaffActionContext,
-    id: number
+    id: number,
   ): Promise<AxiosResponse>;
-  [LocalActionTypes.CREATE_APPOINTMENT](
-    { commit }: AugmentedSharedActionContext,
-    payload: object
-  ): Promise<unknown>;
-  [LocalActionTypes.UPDATE_APPOINTMENT](
-    { commit }: AugmentedSharedActionContext,
-    payload: object
-  ): Promise<unknown>;
-  [LocalActionTypes.CANCEL_APPOINTMENT](
-    { commit }: AugmentedSharedActionContext,
-    id: number | undefined
-  ): Promise<unknown>;
+  [LocalActionTypes.CREATE_APPOINTMENT]({ commit }: AugmentedSharedActionContext, payload: object): Promise<unknown>;
+  [LocalActionTypes.UPDATE_APPOINTMENT]({ commit }: AugmentedSharedActionContext, payload: object): Promise<unknown>;
+  [LocalActionTypes.CANCEL_APPOINTMENT]({ commit }: AugmentedSharedActionContext, id: number | undefined): Promise<unknown>;
+  [LocalActionTypes.FETCH_APPOINTMENT_BY_CUSTOMER]({ commit }: AugmentedSharedActionContext, id: number | undefined): Promise<unknown>;
 }
 
 // API access.
@@ -73,6 +56,16 @@ export const actions: ActionTree<State, RootState> & Actions = {
       }
     } else {
       throw new ApiError('No appointment by this ID.');
+    }
+
+    return response;
+  },
+  async [LocalActionTypes.FETCH_APPOINTMENT_BY_CUSTOMER]({ commit }, id: number): Promise<AxiosResponse> {
+    const response = await appointmentService.getByCustomerID(id);
+    if (response.status === 200 && response.data) {
+      commit(SharedMutationTypes.CHANGE_CUSTOMERS_APPOINTMENTS, response.data);
+    } else {
+      throw new ApiError('No appointments for this customer.');
     }
 
     return response;

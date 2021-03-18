@@ -15,7 +15,7 @@ export interface State {
   selectedCompany: Company | null;
   selectedService: Service | null;
   selectedStaff: Staff | null;
-  selectedDateTime: {date: string; time: string};
+  selectedDateTime: { date: string; time: string };
   selectedCustomer: Customer | null;
   selectedAppointment: Appointment | null;
   selectedNotice: string;
@@ -23,6 +23,7 @@ export interface State {
   calendarSelectedAppointmentID: number;
   selectedWorker: Staff | null;
   tour: object | null;
+  selectedCustomerAppointments: Appointment[];
 }
 
 const state: State = {
@@ -44,6 +45,7 @@ const state: State = {
   calendarSelectedAppointmentID: -1,
   selectedWorker: null,
   tour: null,
+  selectedCustomerAppointments: [],
 };
 
 export default state;

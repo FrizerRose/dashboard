@@ -18,7 +18,7 @@
             class="mb-0"
           >
             <span
-              :class="{'badge': true, 'badge-soft-danger': percentage < 0,'badge-soft-success': percentage > 0, 'me-2' : true}"
+              :class="{'badge': true, 'badge-soft-danger': percentage < 100,'badge-soft-success': percentage > 0, 'me-2' : true}"
             > <i class="mdi mdi-arrow-bottom-right" /> {{ percentage }}% </span>
             <span class="text-muted">Od prošlog tjedna</span>
           </div>

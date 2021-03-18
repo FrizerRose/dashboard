@@ -33,7 +33,7 @@
                 <div class="card-body">
                   Za ostala pitanja javite nam se direktno.
                   <br>
-                  <router-link to="/cesta-pitanja">
+                  <router-link to="/kontakt">
                     Kreni
                   </router-link>
                 </div>

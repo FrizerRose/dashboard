@@ -4,49 +4,52 @@
       <main class="content">
         <div class="container-fluid p-0">
           <div class="row">
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-md-6 col-xxl-9">
               <CalendarHome v-if="reservedAppointments" />
             </div>
             <div
               v-if="stats"
-              class="col-6"
+              class="col-12 col-md-6 col-xxl-3"
             >
-              <div class="row">
-                <div class="col-12 col-sm-6">
-                  <StatCard
-                    title="Narudžbi prošlih 7 dana"
-                    :figure="stats.lastWeekAppointmentCount"
-                  />
-                  <StatCard
-                    title="Promet prošlih 7 dana"
-                    :figure="stats.lastWeekAppointmentRevenue"
-                    :is-revenue="true"
-                  />
-                  <StatCard
-                    title="Narudžbi sljedećih 7 dana"
-                    :figure="stats.nextWeekAppointmentCount"
-                    :percentage="Math.floor((stats.nextWeekAppointmentCount / stats.lastWeekAppointmentCount) * 100)"
-                  />
-                  <StatCard
-                    title="Promet sljedećih 7 dana"
-                    :figure="stats.nextWeekAppointmentRevenue"
-                    :percentage="Math.floor((stats.nextWeekAppointmentRevenue / stats.lastWeekAppointmentRevenue) * 100)"
-                    :is-revenue="true"
-                  />
+              <StatCard
+                title="Narudžbi prošlih 7 dana"
+                :figure="stats.lastWeekAppointmentCount"
+              />
+              <StatCard
+                title="Promet prošlih 7 dana"
+                :figure="stats.lastWeekAppointmentRevenue"
+                :is-revenue="true"
+              />
+              <StatCard
+                title="Narudžbi sljedećih 7 dana"
+                :figure="stats.nextWeekAppointmentCount"
+                :percentage="Math.floor((stats.nextWeekAppointmentCount / stats.lastWeekAppointmentCount) * 100)"
+              />
+              <StatCard
+                title="Promet sljedećih 7 dana"
+                :figure="stats.nextWeekAppointmentRevenue"
+                :percentage="Math.floor((stats.nextWeekAppointmentRevenue / stats.lastWeekAppointmentRevenue) * 100)"
+                :is-revenue="true"
+              />
+              <div class="qr-code-button-wrap">
+                <div class="row">
+                  <div class="col-12">
+                    <button
+                      class="btn btn-secondary w-100"
+                      @click="fetchQrCode()"
+                    >
+                      Prikaži QR Kod
+                    </button>
+                  </div>
+                  <div class="col-12">
+                    <img
+                      v-if="qrCode"
+                      :src="qrCode"
+                      alt="qr kod"
+                    >
+                  </div>
                 </div>
               </div>
-              <button
-                class="btn btn-secondary"
-                @click="fetchQrCode()"
-              >
-                Prikaži QR Kod
-              </button>
-
-              <img
-                v-if="qrCode"
-                :src="qrCode"
-                alt="qr kod"
-              >
             </div>
           </div>
         </div>

@@ -6,28 +6,51 @@
     <template #body>
       <main class="content">
         <div class="container-fluid p-0">
-          Email
-          <input
-            id=""
-            v-model="formData.email"
-            type="email"
-            name="email"
-          >
-          Poruka
-          <textarea
-            id=""
-            v-model="formData.body"
-            name="body"
-            cols="30"
-            rows="10"
-          />
-
-          <button
-            class="btn btn-primary"
-            @click="send()"
-          >
-            Pošalji
-          </button>
+          <div class="row">
+            <div class="col-md-3" />
+            <div class="col-md-6">
+              <div class="mb-4">
+                <label
+                  for="id-contact-email"
+                  class="form-label w-100"
+                >
+                  <strong>E-mail</strong>
+                  <br>
+                  Ovdje upišite e-mail adresu na koju ćemo vam odgovoriti
+                </label>
+                <input
+                  id="id-contact-email"
+                  v-model="formData.email"
+                  type="text"
+                  class="form-control"
+                >
+              </div>
+              <div class="mb-4">
+                <label
+                  for="id-contact-message"
+                  class="form-label w-100"
+                >
+                  <strong>Poruka</strong>
+                  <br>
+                  Ovdje opišite problem
+                </label>
+                <textarea
+                  id="id-contact-message"
+                  v-model="formData.about"
+                  class="form-control"
+                  placeholder="Detaljno opišite o čemu se radi da što brže otkrijemo uzrok poteškoća i otklonimo problem"
+                  cols="30"
+                  rows="10"
+                />
+              </div>
+              <button
+                class="btn btn-primary"
+                @click="send()"
+              >
+                Pošalji
+              </button>
+            </div>
+          </div>
         </div>
       </main>
     </template>

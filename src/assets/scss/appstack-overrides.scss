@@ -2,6 +2,20 @@ body {
 	font-size: 16px;
 }
 
+// override 100vw overflow issue on mobile
+.navbar,
+footer.footer {
+	@media (max-width: 767.98px) {
+		width: 100%;
+	}
+}
+.content {
+	@media (max-width: 767.98px) {
+		width: 100%;
+		max-width: 100%;
+	}
+}
+
 // override modal-body container styles
 .override-desktop-limit {
 	@media (min-width: 1200px) {

@@ -7,6 +7,7 @@
       >
         <span class="o-background-wrap o-ratio">
           <span class="o-background is-white" />
+          <span class="o-background is-secondary anim-hover" />
           <span class="o-front">
             <span class="round-button__label">?</span>
           </span>
@@ -63,16 +64,25 @@
   position: relative;
 }
 .round-button {
-  position: absolute;
-  bottom: 100%;
+  position: fixed;
+  bottom: 0;
   right: 0;
   margin: 1rem;
-  border: 2px solid rgba(0,0,0,0.15);
+  border: 2px solid rgba(0,0,0,0.05);
   border-radius: 9999px;
   width: 3rem;
   overflow: hidden;
   color: black;
   font-size: 1.5rem;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0, 1);
+
+  &:hover {
+    color: white;
+  }
+
+  @media (min-width: 768px) {
+    margin: 0 0.5rem 4.5rem;
+  }
 
   &.has-shadow {
     box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.1);
@@ -93,6 +103,18 @@
 
   &.is-white {
     background-color: white;
+  }
+  &.is-secondary {
+    background-color: #495057;
+    border-radius: 9999px;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0, 1);
+  }
+  &.anim-hover {
+    transform: scale(0);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0, 1);
+    .round-button:hover & {
+      transform: scale(1);
+    }
   }
 }
 

@@ -4,57 +4,45 @@
       <main class="content">
         <div class="container-fluid p-0">
           <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-sm-6">
               <CalendarHome v-if="reservedAppointments" />
             </div>
-            <div class="col-6">
-              <div class="row">
-                <div class="col-6">
-                  <StatCard
-                    title="Narudžbi prošlih 7 dana"
-                    :figure="stats.lastWeekAppointmentCount"
-                  />
-                </div>
-                <div class="col-6">
-                  <StatCard
-                    title="Promet prošlih 7 dana"
-                    :figure="stats.lastWeekAppointmentRevenue"
-                    is-revenue="true"
-                  />
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <StatCard
-                    title="Narudžbi sljedećih 7 dana"
-                    :figure="stats.nextWeekAppointmentCount"
-                    :percentage="Math.floor((stats.nextWeekAppointmentCount / stats.lastWeekAppointmentCount) * 100)"
-                  />
-                </div>
-                <div class="col-6">
-                  <StatCard
-                    title="Promet sljedećih 7 dana"
-                    :figure="stats.nextWeekAppointmentRevenue"
-                    :percentage="Math.floor((stats.nextWeekAppointmentRevenue / stats.lastWeekAppointmentRevenue) * 100)"
-                    is-revenue="true"
-                  />
-                </div>
-              </div>
 
-              <button
-                class="btn btn-secondary"
-                @click="fetchQrCode()"
-              >
-                Prikaži QR Kod
-              </button>
-
-              <img
-                v-if="qrCode"
-                :src="qrCode"
-                alt="qr kod"
-              >
+            <div class="col-12 col-sm-6">
+              <StatCard
+                title="Narudžbi prošlih 7 dana"
+                :figure="stats.lastWeekAppointmentCount"
+              />
+              <StatCard
+                title="Promet prošlih 7 dana"
+                :figure="stats.lastWeekAppointmentRevenue"
+                is-revenue="true"
+              />
+              <StatCard
+                title="Narudžbi sljedećih 7 dana"
+                :figure="stats.nextWeekAppointmentCount"
+                :percentage="Math.floor((stats.nextWeekAppointmentCount / stats.lastWeekAppointmentCount) * 100)"
+              />
+              <StatCard
+                title="Promet sljedećih 7 dana"
+                :figure="stats.nextWeekAppointmentRevenue"
+                :percentage="Math.floor((stats.nextWeekAppointmentRevenue / stats.lastWeekAppointmentRevenue) * 100)"
+                is-revenue="true"
+              />
             </div>
           </div>
+          <button
+            class="btn btn-secondary"
+            @click="fetchQrCode()"
+          >
+            Prikaži QR Kod
+          </button>
+
+          <img
+            v-if="qrCode"
+            :src="qrCode"
+            alt="qr kod"
+          >
         </div>
       </main>
     </template>

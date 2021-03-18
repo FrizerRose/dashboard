@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div class="card">
-      <div class="card-body">
-        <div class="page-calendar-main">
-          <div class="row">
-            <div id="fullcalendar" />
-          </div>
+  <div class="card flex-fill">
+    <div class="card-body py-4">
+      <div class="d-flex align-items-start">
+        <div class="flex-grow-1">
+          <div id="fullcalendar" />
         </div>
       </div>
     </div>

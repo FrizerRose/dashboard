@@ -45,7 +45,7 @@
             <select
               id="id-calendar-edit-slot-staff"
               v-model="rescheduledStaff"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
               name="id-calendar-edit-slot-staff"
             >
               <option
@@ -67,7 +67,7 @@
             <select
               id="id-calendar-edit-slot-service"
               v-model="rescheduledService"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
               name="id-calendar-edit-slot-service"
             >
               <option
@@ -88,7 +88,7 @@
             <input
               id="id-calendar-edit-slot-day"
               v-model="rescheduledDateTime.date"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
               type="date"
               name="id-calendar-edit-slot-day"
               :min="startLimitDatepicker"
@@ -102,7 +102,7 @@
             <select
               id="id-calendar-edit-slot-day-time"
               v-model="rescheduledDateTime.time"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
               name="id-calendar-edit-slot-day-time"
             >
               <option
@@ -127,7 +127,7 @@
               id="id-calendar-edit-slot-customer-name"
               v-model="rescheduledCustomer.name"
               type="text"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
             >
           </div>
           <div class="col-md-4 mb-4">
@@ -141,7 +141,7 @@
               id="id-calendar-edit-slot-customer-email"
               v-model="rescheduledCustomer.email"
               type="text"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
             >
           </div>
           <div class="col-md-4 mb-4">
@@ -155,7 +155,7 @@
               id="id-calendar-edit-slot-customer-phone"
               v-model="rescheduledCustomer.phone"
               type="text"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
             >
           </div>
           <div class="col-md-12 mb-4">
@@ -177,7 +177,7 @@
     <template #footer>
       <button
         v-if="isInThePast"
-        class="btn btn-primary"
+        class="btn btn-lg btn-primary"
         @click="updateAppointment()"
       >
         Spremi
@@ -186,6 +186,7 @@
         v-if="!isInThePast"
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !rescheduleRequestSent,
           'btn-success': rescheduleRequestSent && rescheduleStatus,
           'btn-danger': rescheduleRequestSent && !rescheduleStatus,
@@ -196,7 +197,7 @@
       </button>
       <button
         v-if="!isInThePast"
-        class="btn btn-danger"
+        class="btn btn-lg btn-danger"
         @click="cancel()"
       >
         Otkaži

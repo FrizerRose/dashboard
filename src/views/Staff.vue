@@ -15,7 +15,7 @@
             <div class="col-xl-12">
               <button
                 id="staffCreateButton"
-                class="btn btn-primary float-end mt-n1"
+                class="btn btn-lg btn-primary float-end mt-n1"
                 aria-label="Dodaj radnika"
                 @click="openStaffCreateModal()"
               >
@@ -82,7 +82,7 @@
                         <td> {{ worker.name }}</td>
                         <td style="text-align: center;">
                           <a
-                            :class="{'btn': true, 'btn-outline-secondary': true, 'active': selectedWorker === worker.id}"
+                            :class="{'btn': true, 'btn-lg': true, 'btn-outline-secondary': true, 'active': selectedWorker === worker.id}"
                             :href="'#tab-' + worker.id"
                             @click="openStaffEditModal(worker);"
                           >
@@ -91,7 +91,7 @@
                         </td>
                         <td style="text-align: center;">
                           <button
-                            class="btn btn-danger"
+                            class="btn btn-lg btn-danger"
                             @click="deleteWorker(worker)"
                           >
                             <span class="fa fa-trash" />

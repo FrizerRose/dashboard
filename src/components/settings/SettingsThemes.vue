@@ -12,7 +12,7 @@
       <select
         id="id-theme-color"
         v-model="formData.preferences.colorVariant"
-        class="form-control mb-3"
+        class="form-control form-control-lg mb-3"
         name="id-theme-color"
       >
         <option value="default">
@@ -34,6 +34,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

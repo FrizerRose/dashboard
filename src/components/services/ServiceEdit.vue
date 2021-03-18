@@ -29,7 +29,7 @@
               id="id-edit-service-name"
               v-model="formData.name"
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               placeholder="Naziv usluge"
             >
           </div>
@@ -49,7 +49,7 @@
                 id="id-edit-service-price"
                 v-model="formData.price"
                 type="text"
-                class="form-control text-end"
+                class="form-control form-control-lg text-end"
               >
               <span class="ms-2">kn</span>
             </div>
@@ -69,7 +69,7 @@
               <select
                 id="id-edit-service-duration"
                 v-model="formData.duration"
-                class="form-control"
+                class="form-control form-control-lg"
                 name="edit-service-duration"
               >
                 <option value="15">
@@ -154,6 +154,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

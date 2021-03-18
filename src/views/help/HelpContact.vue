@@ -22,7 +22,7 @@
                   id="id-contact-email"
                   v-model="formData.email"
                   type="text"
-                  class="form-control"
+                  class="form-control form-control-lg"
                 >
               </div>
               <div class="mb-4">
@@ -37,14 +37,14 @@
                 <textarea
                   id="id-contact-message"
                   v-model="formData.about"
-                  class="form-control"
+                  class="form-control form-control-lg"
                   placeholder="Detaljno opišite o čemu se radi da što brže otkrijemo uzrok poteškoća i otklonimo problem"
                   cols="30"
                   rows="10"
                 />
               </div>
               <button
-                class="btn btn-primary"
+                class="btn btn-lg btn-primary"
                 @click="send()"
               >
                 Pošalji

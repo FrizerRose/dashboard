@@ -51,7 +51,7 @@
                 Ponovo pokrenite tutorial da vas provede kroz stranicu.
                 <br>
                 <button
-                  class="btn btn-primary"
+                  class="btn btn-lg btn-primary"
                   @click="restartTutorial()"
                 >
                   Kreni

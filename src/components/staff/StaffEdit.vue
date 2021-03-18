@@ -87,7 +87,7 @@
                   >
                   <label
                     for="id-file"
-                    class="btn btn-primary"
+                    class="btn btn-lg btn-primary"
                   >
                     {{ inputFileText }}
                   </label>
@@ -119,7 +119,7 @@
                 <input
                   v-model="formData.name"
                   type="text"
-                  class="form-control"
+                  class="form-control form-control-lg"
                   placeholder="Ime firme"
                   for="id-name"
                 >
@@ -137,7 +137,7 @@
                   id="id-email"
                   v-model="formData.email"
                   type="email"
-                  class="form-control"
+                  class="form-control form-control-lg"
                   placeholder="adresa@firma.hr"
                 >
               </div>
@@ -190,7 +190,7 @@
                           <select
                             id="id-monday-shift-start"
                             v-model="shift.start"
-                            class="form-control mb-3"
+                            class="form-control form-control-lg mb-3"
                             name="monday-shift-start"
                           >
                             <option
@@ -212,7 +212,7 @@
                           <select
                             id="id-monday-shift-end"
                             v-model="shift.end"
-                            class="form-control mb-3"
+                            class="form-control form-control-lg mb-3"
                             name="monday-shift-end"
                           >
                             <option
@@ -229,7 +229,7 @@
                           class="col-2 col-md-2"
                         >
                           <button
-                            class="btn btn-danger"
+                            class="btn btn-lg btn-danger"
                             @click="removeShift(day.shifts, shiftIndex)"
                           >
                             Makni smjenu
@@ -240,7 +240,7 @@
                           class="col-2 col-md-2"
                         >
                           <button
-                            class="btn btn-primary"
+                            class="btn btn-lg btn-primary"
                             @click="addShift(day.shifts)"
                           >
                             Dodaj smjenu
@@ -256,7 +256,7 @@
                         <div class="col-12 col-md-12">
                           <button
                             v-if="dayName.toString() === 'monday'"
-                            class="btn btn-primary"
+                            class="btn btn-lg btn-primary"
                             @click="copyShiftsToOtherDays(day)"
                           >
                             Kopiraj u sve označene dane
@@ -334,7 +334,7 @@
                       <input
                         id="date-start"
                         v-model="breakDate.start"
-                        class="form-control"
+                        class="form-control form-control-lg"
                         type="date"
                         name="data-start"
                       >
@@ -346,14 +346,14 @@
                       <input
                         id="date-end"
                         v-model="breakDate.end"
-                        class="form-control"
+                        class="form-control form-control-lg"
                         type="date"
                         name="data-end"
                       >
                     </div>
                     <div class="col-12 col-md-3 mt-4">
                       <button
-                        class="btn btn-danger"
+                        class="btn btn-lg btn-danger"
                         @click="removeBreak(index)"
                       >
                         Ukloni razdoblje
@@ -367,7 +367,7 @@
                     <div class="col-md-3" />
                     <div class="col-md-9 mt-4">
                       <button
-                        class="btn btn-primary"
+                        class="btn btn-lg btn-primary"
                         @click="addBreak()"
                       >
                         Dodaj razdoblje
@@ -385,6 +385,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

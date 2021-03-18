@@ -47,7 +47,7 @@
                 <select
                   id="id-reminder-time"
                   v-model="formData.preferences.clientReminderTime"
-                  class="form-control mb-3"
+                  class="form-control form-control-lg mb-3"
                   name="id-reminder-time"
                 >
                   <option value="1">
@@ -111,7 +111,7 @@
                 <select
                   id="id-reminder-time"
                   v-model="formData.preferences.staffReminderTime"
-                  class="form-control mb-3"
+                  class="form-control form-control-lg mb-3"
                   name="id-reminder-time"
                 >
                   <option value="1">
@@ -173,6 +173,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

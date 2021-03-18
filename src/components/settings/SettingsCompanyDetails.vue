@@ -4,6 +4,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,
@@ -86,7 +87,7 @@
               >
               <label
                 for="id-file"
-                class="btn btn-primary"
+                class="btn btn-lg btn-primary"
               >
                 {{ inputFileText }}
               </label>
@@ -118,7 +119,7 @@
             <input
               v-model="formData.name"
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               placeholder="Ime firme"
               for="id-name"
             >
@@ -133,7 +134,7 @@
             <textarea
               id="id-about-text"
               v-model="formData.about"
-              class="form-control"
+              class="form-control form-control-lg"
               placeholder="Ovdje možete upisati kratki tekst koje će biti prikazan na stranici"
               rows="3"
             />
@@ -159,7 +160,7 @@
               <input
                 id="id-street-address"
                 v-model="formData.streetName"
-                class="form-control"
+                class="form-control form-control-lg"
                 type="text"
                 placeholder="Ulica borova 55, 10000 Zargeb"
               >
@@ -176,7 +177,7 @@
               <input
                 id="id-city"
                 v-model="formData.city"
-                class="form-control"
+                class="form-control form-control-lg"
                 type="text"
                 placeholder="Zagreb"
               >
@@ -201,7 +202,7 @@
               <input
                 id="id-phone"
                 v-model="formData.phoneNumber"
-                class="form-control"
+                class="form-control form-control-lg"
                 type="tel"
                 placeholder="+385 (91) 000-11-22"
               >
@@ -219,7 +220,7 @@
                 id="id-email"
                 v-model="formData.contactEmail"
                 type="email"
-                class="form-control"
+                class="form-control form-control-lg"
                 placeholder="adresa@firma.hr"
               >
             </div>
@@ -244,7 +245,7 @@
             <input
               id="id-subdomain"
               v-model="formData.bookingPageSlug"
-              class="form-control"
+              class="form-control form-control-lg"
               type="text"
               placeholder="placeholder text"
             >
@@ -268,7 +269,7 @@
             id="id-website-url"
             v-model="formData.webstieLink"
             type="text"
-            class="form-control"
+            class="form-control form-control-lg"
             placeholder="https://www.ime-firme.hr"
           >
         </div>
@@ -289,7 +290,7 @@
             id="id-facebook-page-url"
             v-model="formData.facebookLink"
             type="text"
-            class="form-control"
+            class="form-control form-control-lg"
             placeholder="https://www.facebook.com/ime-firme"
           >
         </div>
@@ -310,7 +311,7 @@
             id="id-instagram-page-url"
             v-model="formData.instagramLink"
             type="text"
-            class="form-control"
+            class="form-control form-control-lg"
             placeholder="https://www.instagram.com/ime-firme"
           >
         </div>
@@ -331,7 +332,7 @@
             id="id-terms-and-conditions-page-url"
             v-model="formData.termsLink"
             type="text"
-            class="form-control"
+            class="form-control form-control-lg"
             placeholder="https://www.ime-firme.hr/pravila-koristenja"
           >
         </div>
@@ -365,7 +366,7 @@
           id="id-rules"
           v-model="formData.preferences.rules"
           type="text"
-          class="form-control"
+          class="form-control form-control-lg"
         >
       </div>
     </div>
@@ -374,6 +375,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

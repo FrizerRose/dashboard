@@ -16,7 +16,7 @@
               <input
                 id="id-change-password-old"
                 v-model="formData.oldPassowrd"
-                class="form-control"
+                class="form-control form-control-lg"
                 type="password"
               >
             </div>
@@ -35,7 +35,7 @@
               <input
                 id="id-change-password-new-1"
                 v-model="formData.newPassword"
-                class="form-control"
+                class="form-control form-control-lg"
                 type="password"
               >
               <label
@@ -48,7 +48,7 @@
               <input
                 id="id-change-password-new-2"
                 v-model="formData.newPasswordRepeated"
-                class="form-control"
+                class="form-control form-control-lg"
                 type="password"
               >
               <p
@@ -67,6 +67,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

@@ -14,7 +14,7 @@
           <div class="row mb-3">
             <div class="col-xl-12">
               <button
-                class="btn btn-primary float-end mt-n1"
+                class="btn btn-lg btn-primary float-end mt-n1"
                 aria-label="Dodaj uslugu"
                 @click="openServiceCreateModal()"
               >
@@ -66,7 +66,7 @@
                         <td>{{ service.name }}</td>
                         <td style="text-align: center;">
                           <a
-                            :class="{'btn': true, 'btn-outline-secondary': true, 'active': selectedService === service.id}"
+                            :class="{'btn': true, 'btn-lg': true, 'btn-outline-secondary': true, 'active': selectedService === service.id}"
                             :href="'#tab-' + service.id"
                             @click="openServiceEditModal(service)"
                           >
@@ -75,7 +75,7 @@
                         </td>
                         <td style="text-align: center;">
                           <button
-                            class="btn btn-danger"
+                            class="btn btn-lg btn-danger"
                             @click="deleteService(service)"
                           >
                             <span class="fa fa-trash" />

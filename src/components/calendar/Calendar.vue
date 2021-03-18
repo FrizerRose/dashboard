@@ -24,7 +24,7 @@
             id="selectedWorker"
             v-model="selectedWorker"
             name="selectedWorker"
-            class="form-control mb-3"
+            class="form-control form-control-lg mb-3"
             @change="selectWorker()"
           >
             <option
@@ -41,19 +41,19 @@
           <div class="page-calendar-toolbar">
             <div class="page-calendar-toolbar__item">
               <button
-                class="btn btn-primary me-2"
+                class="btn btn-lg btn-primary me-2"
                 @click="prevWeek()"
               >
                 <i class="fas fa-angle-left" />
               </button>
               <button
-                class="btn btn-primary me-2"
+                class="btn btn-lg btn-primary me-2"
                 @click="nextWeek()"
               >
                 <i class="fas fa-angle-right" />
               </button>
               <button
-                class="btn btn-primary"
+                class="btn btn-lg btn-primary"
                 @click="goToToday()"
               >
                 Danas
@@ -68,13 +68,13 @@
 
             <div class="page-calendar-toolbar__item">
               <button
-                class="btn btn-primary me-2"
+                class="btn btn-lg btn-primary me-2"
                 @click="changeViewGrid()"
               >
                 Tjedan
               </button>
               <button
-                class="btn btn-secondary"
+                class="btn btn-lg btn-secondary"
                 @click="changeViewList()"
               >
                 Raspored

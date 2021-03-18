@@ -12,7 +12,7 @@
       <select
         id="id-lead-time"
         v-model="formData.preferences.leadTimeWindow"
-        class="form-control mb-3"
+        class="form-control form-control-lg mb-3"
         name="id-lead-time"
       >
         <option
@@ -55,7 +55,7 @@
       <select
         id="id-scheduling-window"
         v-model="formData.preferences.schedulingWindow"
-        class="form-control mb-3"
+        class="form-control form-control-lg mb-3"
         name="id-scheduling-window"
       >
         <option value="7">
@@ -87,7 +87,7 @@
       <select
         id="id-cancel-time"
         v-model="formData.preferences.cancellationWindow"
-        class="form-control mb-3"
+        class="form-control form-control-lg mb-3"
         name="id-cancel-time"
       >
         <option value="1">
@@ -159,6 +159,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

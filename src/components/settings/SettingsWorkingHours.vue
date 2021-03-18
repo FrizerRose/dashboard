@@ -45,7 +45,7 @@
                       <select
                         id="id-monday-shift-start"
                         v-model="shift.start"
-                        class="form-control mb-3"
+                        class="form-control form-control-lg mb-3"
                         name="monday-shift-start"
                       >
                         <option
@@ -67,7 +67,7 @@
                       <select
                         id="id-monday-shift-end"
                         v-model="shift.end"
-                        class="form-control mb-3"
+                        class="form-control form-control-lg mb-3"
                         name="monday-shift-end"
                       >
                         <option
@@ -84,7 +84,7 @@
                       class="col-2 col-md-2"
                     >
                       <button
-                        class="btn btn-danger"
+                        class="btn btn-lg btn-lg-danger"
                         @click="removeShift(day.shifts, shiftIndex)"
                       >
                         Makni smjenu
@@ -95,7 +95,7 @@
                       class="col-2 col-md-2"
                     >
                       <button
-                        class="btn btn-primary"
+                        class="btn btn-lg btn-primary"
                         @click="addShift(day.shifts)"
                       >
                         Dodaj smjenu
@@ -111,7 +111,7 @@
                     <div class="col-12 col-md-12">
                       <button
                         v-if="dayName.toString() === 'monday'"
-                        class="btn btn-primary"
+                        class="btn btn-lg btn-primary"
                         @click="copyShiftsToOtherDays(day)"
                       >
                         Kopiraj u sve označene dane
@@ -131,6 +131,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

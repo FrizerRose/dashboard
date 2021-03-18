@@ -26,7 +26,7 @@
                 id="id-add-worker-name"
                 v-model="newStaff.name"
                 type="text"
-                class="form-control"
+                class="form-control form-control-lg"
               >
             </div>
             <div class="col-md-6 mb-4">
@@ -40,7 +40,7 @@
                 id="id-add-worker-email"
                 v-model="newStaff.email"
                 type="email"
-                class="form-control"
+                class="form-control form-control-lg"
               >
             </div>
           </div>
@@ -97,7 +97,7 @@
                                   v-model="shift.start"
                                   type="text"
                                   name="id-monday-shift-start"
-                                  class="form-control"
+                                  class="form-control form-control-lg"
                                 >
                               </div>
                               <div class="col-6 col-md-2">
@@ -111,7 +111,7 @@
                                   v-model="shift.end"
                                   type="text"
                                   name="id-monday-shift-end"
-                                  class="form-control"
+                                  class="form-control form-control-lg"
                                 >
                               </div>
                               <div class="col-12 col-md-8">
@@ -119,7 +119,7 @@
                                   <div class="col-12 col-md-6">
                                     <div v-if="shiftIndex !== 0">
                                       <button
-                                        class="btn btn-danger w-100 mt-4 section-reveal__item is-red"
+                                        class="btn btn-lg btn-danger w-100 mt-4 section-reveal__item is-red"
                                         @click="removeShift(day.shifts, shiftIndex)"
                                       >
                                         Makni smjenu
@@ -129,7 +129,7 @@
                                   <div class="col-12 col-md-6">
                                     <div v-if="shiftIndex === day.shifts.length - 1">
                                       <button
-                                        class="btn btn-primary w-100 mt-4"
+                                        class="btn btn-lg btn-primary w-100 mt-4"
                                         @click="addShift(day.shifts)"
                                       >
                                         Dodaj smjenu
@@ -147,7 +147,7 @@
                         >
                           <button
                             v-if="dayName.toString() === 'monday'"
-                            class="btn btn-secondary w-100 mt-4 section-reveal__item"
+                            class="btn btn-lg btn-secondary w-100 mt-4 section-reveal__item"
                             @click="copyShiftsToOtherDays(day)"
                           >
                             Kopiraj u sve označene dane
@@ -208,6 +208,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

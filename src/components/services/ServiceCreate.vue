@@ -25,7 +25,7 @@
               id="id-add-service-name"
               v-model="newService.name"
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               placeholder="Ovdje upišite naziv usluge"
             >
           </div>
@@ -40,7 +40,7 @@
               id="id-add-service-price"
               v-model="newService.price"
               type="number"
-              class="form-control"
+              class="form-control form-control-lg"
             >
           </div>
           <div class="col-md-4 mb-4">
@@ -53,7 +53,7 @@
             <select
               id="id-add-service-duration"
               v-model="newService.duration"
-              class="form-control"
+              class="form-control form-control-lg"
               name="add-service-duration"
             >
               <option value="15">
@@ -134,6 +134,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

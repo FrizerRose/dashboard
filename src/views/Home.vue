@@ -35,7 +35,7 @@
                 <div class="row">
                   <div class="col-12">
                     <button
-                      class="btn btn-secondary w-100"
+                      class="btn btn-lg btn-secondary w-100"
                       @click="fetchQrCode()"
                     >
                       Prikaži QR Kod

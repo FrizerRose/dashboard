@@ -25,7 +25,7 @@
             <select
               v-if="services"
               id="id-calendar-create-slot-staff"
-              class="form-control"
+              class="form-control form-control-lg"
               name="id-calendar-create-slot-staff"
               disabled
             >
@@ -45,7 +45,7 @@
               v-if="services"
               id="id-calendar-create-slot-service"
               v-model="creationService"
-              class="form-control"
+              class="form-control form-control-lg"
               name="id-calendar-create-slot-service"
             >
               <option
@@ -114,7 +114,7 @@
                 id="id-calendar-create-customer-name"
                 v-model="creationCustomer.name"
                 type="text"
-                class="form-control"
+                class="form-control form-control-lg"
               >
             </div>
             <div class="col-md-4 mb-4">
@@ -128,7 +128,7 @@
                 id="id-calendar-create-customer-email"
                 v-model="creationCustomer.email"
                 type="text"
-                class="form-control"
+                class="form-control form-control-lg"
               >
             </div>
             <div class="col-md-4 mb-4">
@@ -142,7 +142,7 @@
                 id="id-calendar-create-customer-phone"
                 v-model="creationCustomer.phone"
                 type="text"
-                class="form-control"
+                class="form-control form-control-lg"
               >
             </div>
             <div class="col-md-12 mb-4">
@@ -155,7 +155,7 @@
               <textarea
                 id="id-calendar-create-customer-notice"
                 v-model="creationNotice"
-                class="form-control"
+                class="form-control form-control-lg"
               />
             </div>
           </div>
@@ -182,7 +182,7 @@
                 type="text"
                 name="oldCustomerName"
                 autocomplete="off"
-                class="form-control"
+                class="form-control form-control-lg"
                 @input="oldCustomerInputChange()"
               >
               <div class="search-results__items">
@@ -219,6 +219,7 @@
         :disabled="!creationCustomer?.name"
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

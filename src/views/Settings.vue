@@ -107,7 +107,7 @@
                   <span class="postavke-nav__icon">
                     <span class="fa fa-bell" />
                   </span>
-                  <span class="postavke-nav__label">Noifikacije</span>
+                  <span class="postavke-nav__label">Notifikacije</span>
                 </a>
               </li>
             </ul>

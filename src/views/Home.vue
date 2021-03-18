@@ -8,7 +8,51 @@
               <CalendarHome v-if="reservedAppointments" />
             </div>
             <div class="col-6">
-              bb
+              <div class="row">
+                <div class="col-6">
+                  <StatCard
+                    title="Narudžbi prošlih 7 dana"
+                    :figure="stats.lastWeekAppointmentCount"
+                  />
+                </div>
+                <div class="col-6">
+                  <StatCard
+                    title="Promet prošlih 7 dana"
+                    :figure="stats.lastWeekAppointmentRevenue"
+                    is-revenue="true"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <StatCard
+                    title="Narudžbi sljedećih 7 dana"
+                    :figure="stats.nextWeekAppointmentCount"
+                    :percentage="Math.floor((stats.nextWeekAppointmentCount / stats.lastWeekAppointmentCount) * 100)"
+                  />
+                </div>
+                <div class="col-6">
+                  <StatCard
+                    title="Promet sljedećih 7 dana"
+                    :figure="stats.nextWeekAppointmentRevenue"
+                    :percentage="Math.floor((stats.nextWeekAppointmentRevenue / stats.lastWeekAppointmentRevenue) * 100)"
+                    is-revenue="true"
+                  />
+                </div>
+              </div>
+
+              <button
+                class="btn btn-secondary"
+                @click="fetchQrCode()"
+              >
+                Prikaži QR Kod
+              </button>
+
+              <img
+                v-if="qrCode"
+                :src="qrCode"
+                alt="qr kod"
+              >
             </div>
           </div>
         </div>
@@ -26,30 +70,14 @@ import Dashboard from '@/components/layout/Dashboard.vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import { getDateStringFromDate } from '@/helpers/time';
-// import WelcomeBack from '../components/WelcomeBack.vue';
-// import TotalSales from '../components/TotalSales.vue';
-// import PendingOrders from '../components/PendingOrders.vue';
-// import TotalRevenue from '../components/TotalRevenue.vue';
-// import Sales from '../components/Sales.vue';
-// import DailyFeed from '../components/DailyFeed.vue';
-// import WeeklySales from '../components/WeeklySales.vue';
-// import Appointments from '../components/Appointments.vue';
-// import UpcomingAppointments from '../components/UpcomingAppointments.vue';
 import CalendarHome from '../components/calendar/CalendarHome.vue';
+import StatCard from '../components/StatCard.vue';
 
 export default defineComponent({
   components: {
     Dashboard,
     CalendarHome,
-    // WelcomeBack,
-    // TotalSales,
-    // PendingOrders,
-    // TotalRevenue,
-    // Sales,
-    // DailyFeed,
-    // WeeklySales,
-    // Appointments,
-    // UpcomingAppointments,
+    StatCard,
   },
   setup() {
     const store = useStore();
@@ -60,6 +88,7 @@ export default defineComponent({
     const routeName = computed(() => route.name);
 
     const qrCode = ref('');
+    const stats = ref();
 
     async function fetchQrCode() {
       const bookingPageSlug = selectedCompany.value?.bookingPageSlug;
@@ -79,19 +108,28 @@ export default defineComponent({
       }
     }
 
+    async function fetchStats() {
+      if (selectedCompany.value?.id) {
+        stats.value = await store.dispatch(ActionTypes.FETCH_STATS, selectedCompany.value.id);
+      }
+    }
+
     watch(() => selectedCompany.value, (newCompany) => {
       if (newCompany?.id) {
         fetchAppointmentsOnToday();
+        fetchStats();
       }
     });
 
     fetchAppointmentsOnToday();
+    fetchStats();
 
     return {
       routeName,
       qrCode,
       fetchQrCode,
       reservedAppointments,
+      stats,
     };
   },
 });

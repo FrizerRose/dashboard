@@ -129,7 +129,7 @@ export class CompanyService {
     });
   }
 
-  get(slug: number) {
+  get(slug: number | string) {
     return this.apiService.get(this.resource, slug);
   }
 

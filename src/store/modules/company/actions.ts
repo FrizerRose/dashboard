@@ -24,6 +24,10 @@ export interface Actions {
     { commit }: AugmentedSharedActionContext,
     id: number | string
   ): Promise<unknown>;
+  [LocalActionTypes.FETCH_STATS](
+    { commit }: AugmentedSharedActionContext,
+    companyID: number
+  ): Promise<unknown>;
   [LocalActionTypes.UPDATE_COMPANY](
     { commit }: AugmentedSharedActionContext,
     company: Company
@@ -57,6 +61,17 @@ export const actions: ActionTree<State, RootState> & Actions = {
         resolve(true);
       } else {
         reject(new ApiError('No company by this ID.'));
+      }
+    })());
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async [LocalActionTypes.FETCH_STATS]({ commit }, companyID: number): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      const response = await companyService.get(`stats/${companyID.toString()}`);
+      if (response.status === 200 && response.data) {
+        resolve(response.data);
+      } else {
+        reject(new ApiError('API returned error.'));
       }
     })());
   },

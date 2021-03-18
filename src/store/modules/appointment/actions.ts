@@ -96,7 +96,6 @@ export const actions: ActionTree<State, RootState> & Actions = {
     return response;
   },
   async [LocalActionTypes.CREATE_APPOINTMENT]({ commit }, payload): Promise<unknown> {
-    console.log('🚀 ~ file: actions.ts ~ line 81 ~ payload', payload);
     return new Promise((resolve, reject) => (async () => {
       const response = await appointmentService.create(payload);
       if (response.status === 201) {

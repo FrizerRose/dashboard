@@ -7,7 +7,10 @@
             <div class="col-6">
               <CalendarHome v-if="reservedAppointments" />
             </div>
-            <div class="col-6">
+            <div
+              v-if="stats"
+              class="col-6"
+            >
               <div class="row">
                 <div class="col-6">
                   <StatCard
@@ -19,7 +22,7 @@
                   <StatCard
                     title="Promet prošlih 7 dana"
                     :figure="stats.lastWeekAppointmentRevenue"
-                    is-revenue="true"
+                    :is-revenue="true"
                   />
                 </div>
               </div>
@@ -36,7 +39,7 @@
                     title="Promet sljedećih 7 dana"
                     :figure="stats.nextWeekAppointmentRevenue"
                     :percentage="Math.floor((stats.nextWeekAppointmentRevenue / stats.lastWeekAppointmentRevenue) * 100)"
-                    is-revenue="true"
+                    :is-revenue="true"
                   />
                 </div>
               </div>

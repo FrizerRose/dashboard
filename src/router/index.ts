@@ -46,7 +46,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/pomoc',
     name: 'Help',
-    redirect: '/cesta-pitanja',
+    component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/help/Help.vue'),
   },
   {
     path: '/cesta-pitanja',

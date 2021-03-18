@@ -6,13 +6,28 @@
     <template #body>
       <main class="content">
         <div class="container-fluid p-0">
-          <div v-if="faq">
+          <div
+            v-if="faq"
+            class="row"
+          >
             <div
               v-for="(pair, index) in faq"
               :key="index"
+              class="col-12"
             >
-              <h1>{{ pair.question }}</h1>
-              <h3>{{ pair.answer }}</h3>
+              <div class="card">
+                <div class="card-header pb-0 help-header">
+                  <h5 class="card-title text-end">
+                    Kategorija pitanja
+                  </h5>
+                </div>
+                <div class="card-body py-0">
+                  <h3 class="mt-3 mb-4">
+                    {{ pair.question }}
+                  </h3>
+                  <p>{{ pair.answer }}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

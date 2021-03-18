@@ -16,6 +16,10 @@ footer.footer {
 	}
 }
 
+.help-header {
+	border-color: #eff2f6;
+}
+
 // override modal-body container styles
 .override-desktop-limit {
 	@media (min-width: 1200px) {

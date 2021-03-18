@@ -20,7 +20,15 @@
             <span
               :class="{'badge': true, 'badge-soft-danger': percentage < 100,'badge-soft-success': percentage > 0, 'me-2' : true}"
             > <i class="mdi mdi-arrow-bottom-right" /> {{ percentage }}% </span>
-            <span class="text-muted">Od prošlog tjedna</span>
+
+            <span
+              v-if="percentage < 100"
+              class="text-muted"
+            >Od prošlog tjedna</span>
+            <span
+              v-else
+              class="text-muted"
+            >Rast od prošlog tjedna</span>
           </div>
         </div>
         <div class="d-inline-block ms-3">

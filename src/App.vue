@@ -35,6 +35,8 @@ export default defineComponent({
       const urlFragments = window.location.hostname.split('.');
       [companyID] = urlFragments;
       console.log('🚀 ~ file: helpers.ts ~ line 25 ~ fetchCompanyFromURL ~ companyID', companyID);
+    } else if (process.env.VUE_APP_COMPANY_ID) {
+      companyID = parseInt(process.env.VUE_APP_COMPANY_ID, 10);
     }
 
     async function fetchState() {

@@ -142,6 +142,7 @@ export default defineComponent({
 
     const selectedService = computed(() => store.state.shared.selectedService);
 
+    const isMobile = computed(() => store.state.shared.isMobile);
     const calendar = ref({} as Calendar);
     const headerTitle = ref('');
 
@@ -191,13 +192,14 @@ export default defineComponent({
         title: 'Novi termin',
         start: startDate,
         end: endDate,
-        backgroundColor: '#37d866',
+        backgroundColor: '#379866',
         color: 'black',
         extendedProps: { isNewAppointment: true, ...appointment },
       };
     }));
 
     onMounted(() => {
+      console.log('aaaaaaa', isMobile.value);
       const calendarEl = document.getElementById('fullcalendar');
       if (calendarEl && selectedWorker.value) {
         calendar.value = new Calendar(calendarEl, {
@@ -213,7 +215,10 @@ export default defineComponent({
             timeGridWeek: {
             },
           },
+          handleWindowResize: !isMobile.value,
+          longPressDelay: 0,
           nowIndicator: true,
+          contentHeight: 400,
           stickyHeaderDates: true,
           locale: hrLocale,
           slotDuration: '00:15:00',
@@ -422,6 +427,15 @@ export default defineComponent({
 }
 .fc .fc-timegrid-slot {
   height: 2rem;
+}
+.fc th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.fc .fc-timegrid-axis-cushion {
+  max-width: none;
+  font-size: 0.75rem;
 }
 .fc-event-main {
   line-height: 1.25;

@@ -7,6 +7,7 @@
 <script lang="ts">
 import { defineComponent, computed, watch } from 'vue';
 import ActionTypes from '@/store/action-types';
+import MutationTypes from '@/store/mutation-types';
 import { useStore } from '@/store';
 import { useRoute } from 'vue-router';
 import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
@@ -23,6 +24,11 @@ export default defineComponent({
     const isTutorialFinished = computed(() => store.getters.isTutorialFinished);
     const authPages = ['/prijava', '/zaboravljena-lozinka'];
     const isOnAuthPages = computed(() => authPages.includes(route.path));
+
+    const mq = window.matchMedia('(min-width: 992px)');
+    mq.addListener(() => {
+      store.commit(MutationTypes.CHANGE_IS_MOBILE, window.innerWidth <= 1024);
+    });
 
     watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
       if (newState) {

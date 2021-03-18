@@ -31,11 +31,11 @@ export default defineComponent({
     });
 
     watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
-      if (newState) {
+      if (!newState) {
         document.body.classList.add('modal-open');
       }
 
-      if (!newState && oldState) {
+      if (newState && !oldState) {
         document.body.classList.remove('modal-open');
       }
     });

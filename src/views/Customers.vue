@@ -89,7 +89,11 @@ export default defineComponent({
     const customers = computed(() => store.state.customer.customers);
     const selectedCustomer = ref({ ...customers.value[0] });
     const oldCustomerName = ref('');
-    const oldCustomerCandidates = ref({ ...customers.value });
+    let oldCustomerCandidates = ref([] as Customer[]);
+
+    if (customers.value.length) {
+      oldCustomerCandidates = JSON.parse(JSON.stringify(customers.value));
+    }
 
     async function selectCustomer(customer: Customer) {
       try {
@@ -106,6 +110,7 @@ export default defineComponent({
           name: oldCustomerName.value,
           company: selectedCompany.value?.id,
         });
+        console.log(response);
         oldCustomerCandidates.value = response;
       } catch {
         oldCustomerCandidates.value = [];

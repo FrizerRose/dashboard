@@ -29,6 +29,7 @@ export default defineComponent({
     mq.addEventListener('change', () => {
       store.commit(MutationTypes.CHANGE_IS_MOBILE, window.innerWidth <= 1024);
     });
+    store.commit(MutationTypes.CHANGE_IS_MOBILE, window.innerWidth <= 1024);
 
     watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
       if (!newState) {

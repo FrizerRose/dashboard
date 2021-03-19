@@ -110,6 +110,7 @@ import CalendarEditModal from '@/components/calendar/CalendarEditModal.vue';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import scrollGridPlugin from '@fullcalendar/scrollgrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import resourcePlugin from '@fullcalendar/resource-common';
 import listPlugin from '@fullcalendar/list';
@@ -199,11 +200,10 @@ export default defineComponent({
     }));
 
     onMounted(() => {
-      console.log('aaaaaaa', isMobile.value);
       const calendarEl = document.getElementById('fullcalendar');
       if (calendarEl && selectedWorker.value) {
         calendar.value = new Calendar(calendarEl, {
-          plugins: [dayGridPlugin, timeGridPlugin, listPlugin, resourcePlugin, interactionPlugin, bootstrapPlugin],
+          plugins: [dayGridPlugin, timeGridPlugin, scrollGridPlugin, listPlugin, resourcePlugin, interactionPlugin, bootstrapPlugin],
           initialView: 'timeGridWeek',
           headerToolbar: false,
           // headerToolbar: {
@@ -215,10 +215,12 @@ export default defineComponent({
             timeGridWeek: {
             },
           },
-          handleWindowResize: !isMobile.value,
+          // handleWindowResize: !isMobile.value,
+          dayMinWidth: isMobile.value ? 120 : 0,
           longPressDelay: 0,
           nowIndicator: true,
-          contentHeight: 400,
+          contentHeight: isMobile.value ? 460 : 800,
+          allDaySlot: false,
           stickyHeaderDates: true,
           locale: hrLocale,
           slotDuration: '00:15:00',
@@ -226,7 +228,7 @@ export default defineComponent({
           schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
           businessHours: getFormattedBusinessHours(selectedWorker.value),
           events: formattedAppointments.value,
-          selectable: true,
+          // selectable: true,
           select(info) {
             store.commit(MutationTypes.CHANGE_SELECTED_DATETIME, {
               date: getDateStringFromDate(info.start),

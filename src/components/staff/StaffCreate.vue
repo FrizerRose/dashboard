@@ -12,9 +12,16 @@
       />
     </template>
     <template #body>
-      <div class="container px-0 override-desktop-limit">
-        <div class="radnik-identifikacija">
+      <div class="radnik-identifikacija px-4 py-4 border-bottom">
+        <div class="container px-0 override-desktop-limit">
           <div class="row">
+            <div class="col-md-12">
+              <label class="form-label w-100 mb-5 mt-2">
+                E-mail adresa se koristi kao identifikacija.
+                <br>
+                Ne možete koristiti istu e-mail adresu za više radnika, tj. svaki radnik treba koristiti jedinstvenu e-mail adresu.
+              </label>
+            </div>
             <div class="col-md-6 mb-4">
               <label
                 class="form-label"
@@ -45,11 +52,13 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="radnik-radni-dani">
+      <div class="radnik-radni-dani px-4 py-4 border-bottom">
+        <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
-              <label class="form-label w-100">
+              <label class="form-label w-100 mb-5 mt-2">
                 <strong>Radni dani</strong>
                 <br>
                 Označite na koje dane ste otvoreni
@@ -60,7 +69,7 @@
                 class="striped-row p-1"
               >
                 <div class="row">
-                  <div class="col-12 col-md-3">
+                  <div class="col-12 col-md-2">
                     <label class="form-check m-0">
                       <input
                         v-model="day.active"
@@ -73,7 +82,7 @@
                   </div>
                   <div
                     v-if="day.active"
-                    class="col-12 col-md-9 mb-4 section-reveal"
+                    class="col-12 col-md-10 mb-4 section-reveal"
                   >
                     <div
                       v-for="(shift, shiftIndex) in day.shifts"
@@ -93,12 +102,20 @@
                                 >
                                   <strong>Od</strong>
                                 </label>
-                                <input
+                                <select
+                                  id="id-monday-shift-start"
                                   v-model="shift.start"
-                                  type="text"
-                                  name="id-monday-shift-start"
                                   class="form-control form-control-lg"
+                                  name="monday-shift-start"
                                 >
+                                  <option
+                                    v-for="time in timeOptions"
+                                    :key="time"
+                                    :value="time"
+                                  >
+                                    {{ time }}
+                                  </option>
+                                </select>
                               </div>
                               <div class="col-6 col-md-2">
                                 <label
@@ -107,12 +124,20 @@
                                 >
                                   <strong>Do</strong>
                                 </label>
-                                <input
+                                <select
+                                  id="id-monday-shift-end"
                                   v-model="shift.end"
-                                  type="text"
-                                  name="id-monday-shift-end"
                                   class="form-control form-control-lg"
+                                  name="monday-shift-end"
                                 >
+                                  <option
+                                    v-for="time in timeOptions"
+                                    :key="time"
+                                    :value="time"
+                                  >
+                                    {{ time }}
+                                  </option>
+                                </select>
                               </div>
                               <div class="col-12 col-md-8">
                                 <div class="row">
@@ -161,11 +186,13 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="radnik-djelatnosti">
+      <div class="radnik-djelatnosti px-4 py-4">
+        <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
-              <label class="form-label w-100">
+              <label class="form-label w-100 mb-5 mt-2">
                 <strong>Usluge i odgovornosti</strong>
                 <br>
                 Označite usluge koje ovaj radnik pruža
@@ -232,6 +259,7 @@ import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
 import Service from '@/types/service';
+import { getTimeOptions } from '@/helpers/time';
 
 export default defineComponent({
   components: {
@@ -244,6 +272,8 @@ export default defineComponent({
     const allServices = computed(() => store.state.service.services);
     const requestSent = ref(false);
     const status = ref(false);
+    const timeOptions = getTimeOptions();
+
     const newStaff = reactive({
       name: '',
       email: '',
@@ -335,6 +365,7 @@ export default defineComponent({
       copyShiftsToOtherDays,
       allServices,
       capitalize,
+      timeOptions,
     };
   },
 });

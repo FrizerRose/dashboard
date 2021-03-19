@@ -31,6 +31,10 @@ footer.footer {
 	border-color: #eff2f6;
 }
 
+.modal-bg-body {
+	background-color: #F7F9FC;
+}
+
 // override modal-body container styles
 .override-desktop-limit {
 	@media (min-width: 1200px) {

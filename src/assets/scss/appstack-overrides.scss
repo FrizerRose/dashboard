@@ -15,6 +15,17 @@ footer.footer {
 		max-width: 100%;
 	}
 }
+.sidebar-brand {
+	text-align: left;
+	svg {
+		margin-right: 0;
+	}
+}
+.login-brand svg {
+	fill: #4a88eb;
+	height: 64px;
+	width: 64px;
+}
 
 .help-header {
 	border-color: #eff2f6;

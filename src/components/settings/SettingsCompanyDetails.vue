@@ -360,14 +360,50 @@
           class="form-label"
           for="id-rules"
         >
-          <strong>Pravila</strong>
+          <strong>Pravila ponašanja</strong>
+          <br>
+          Ovdje možete upisati kratki tekst s pravilima ponašanja koji će biti prikazan na stranici
         </label>
-        <input
+        <textarea
           id="id-rules"
           v-model="formData.preferences.rules"
-          type="text"
           class="form-control form-control-lg"
+          rows="12"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 mb-4" />
+      <div class="col-md-9 mb-4">
+        <label class="form-check m-0">
+          <input
+            v-model="formData.preferences.showCoronaRules"
+            type="checkbox"
+            class="form-check-input"
+          >
+          <span class="form-check-label">Prikaži COVID-19 upozorenje na stranici.</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 mb-4" />
+      <div class="col-md-9 mb-4">
+        <label
+          class="form-label"
+          for="id-rules-corona"
         >
+          <strong>COVID-19 upozorenje</strong>
+          <br>
+          Ovdje možete podsjetiti klijente na preporuke za korištenje maski za lice
+        </label>
+        <textarea
+          id="id-rules-corona"
+          v-model="formData.preferences.coronaRules"
+          class="form-control form-control-lg"
+          rows="4"
+        />
       </div>
     </div>
 

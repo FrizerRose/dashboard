@@ -14,6 +14,14 @@
     <template #body>
       <div
         v-if="isInThePast"
+        class="alert alert-success mb-0"
+      >
+        <div class="alert-message py-5">
+          <p><strong>{{ rescheduledCustomer.name }}</strong> se pojavio u dogovoreno vrijeme.</p>
+        </div>
+      </div>
+      <div
+        v-if="isInThePast"
         class="container"
       >
         <div class="row">

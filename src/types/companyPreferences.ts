@@ -18,6 +18,8 @@ type CompanyPreferences = {
   staffReminderTime: number;
   showRules: boolean;
   rules: string;
+  showCoronaRules: boolean;
+  coronaRules: string;
 }
 
 export default CompanyPreferences;

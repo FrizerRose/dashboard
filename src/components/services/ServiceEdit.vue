@@ -176,7 +176,7 @@
 <script lang='ts'>
 import Staff from '@/types/staff';
 import {
-  defineComponent, ref, reactive, computed, capitalize,
+  defineComponent, ref, reactive, computed,
 } from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
@@ -248,7 +248,6 @@ export default defineComponent({
       status,
       errorMsg,
       requestSent,
-      capitalize,
       allStaff,
       isAssigned,
       toggleStaff,

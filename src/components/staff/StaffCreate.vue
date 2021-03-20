@@ -77,7 +77,7 @@
                         class="form-check-input"
                         @change="toggleDayActive(day)"
                       >
-                      <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
+                      <span class="form-check-label lead">{{ getDayTranslation(dayName.toString()) }}</span>
                     </label>
                   </div>
                   <div
@@ -256,7 +256,7 @@
 
 <script lang='ts'>
 import {
-  defineComponent, reactive, ref, computed, capitalize,
+  defineComponent, reactive, ref, computed,
 } from 'vue';
 import Modal from '@/components/layout/Modal.vue';
 import { Day, StartEnd, WorkingHours } from '@/types/workingHours';
@@ -265,7 +265,7 @@ import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
 import Service from '@/types/service';
-import { getTimeOptions } from '@/helpers/time';
+import { getTimeOptions, getDayTranslation } from '@/helpers/time';
 
 export default defineComponent({
   components: {
@@ -379,7 +379,7 @@ export default defineComponent({
       toggleDayActive,
       copyShiftsToOtherDays,
       allServices,
-      capitalize,
+      getDayTranslation,
       timeOptions,
     };
   },

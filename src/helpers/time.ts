@@ -3,6 +3,12 @@ export function getDayNumber(day: string): number {
   return days.findIndex((dayName) => dayName === day) + 1;
 }
 
+export function getDayTranslation(day: string): string {
+  const translatedDays = ['Nedjelja', 'Ponedjeljak', 'Utorak', 'Srijeda', 'Četvrtak', 'Petak', 'Subota'];
+
+  return translatedDays[getDayNumber(day)];
+}
+
 export function formatDateString(oldFormat: string): string {
   const date = new Date(oldFormat);
   const dd = String(date.getDate());

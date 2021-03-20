@@ -166,7 +166,7 @@
                       class="form-check-input"
                       @change="toggleDayActive(day)"
                     >
-                    <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
+                    <span class="form-check-label lead">{{ getDayTranslation(dayName.toString()) }}</span>
                   </label>
                 </div>
                 <div
@@ -406,7 +406,7 @@
 
 <script lang='ts'>
 import {
-  defineComponent, ref, reactive, computed, capitalize,
+  defineComponent, ref, reactive, computed,
 } from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
@@ -414,7 +414,7 @@ import MutationTypes from '@/store/mutation-types';
 import { Day, StartEnd } from '@/types/workingHours';
 import Service from '@/types/service';
 import Modal from '@/components/layout/Modal.vue';
-import { getTimeOptions } from '@/helpers/time';
+import { getTimeOptions, getDayTranslation } from '@/helpers/time';
 
 export default defineComponent({
   components: {
@@ -496,6 +496,7 @@ export default defineComponent({
 
         const newImage = await store.dispatch(ActionTypes.UPLOAD_IMAGE, imageData);
         image.value = newImage;
+        formData.image = newImage;
         imageUploadSent.value = true;
         imageUploadStatus.value = true;
       } catch {
@@ -590,7 +591,7 @@ export default defineComponent({
       formData,
       status,
       requestSent,
-      capitalize,
+      getDayTranslation,
       allServices,
       isAssigned,
       toggleService,

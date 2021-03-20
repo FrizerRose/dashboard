@@ -101,7 +101,34 @@
             >
               <div class="c-sidebar-index">
                 <p
-                  v-for="(pair, index) in allFaq"
+                  v-for="(pair, index) in getFaqByCategory('Kalendar')"
+                  :key="index"
+                  style="cursor: pointer"
+                  class="mb-1"
+                  @click="scrollTo(pair)"
+                >
+                  > {{ pair.question }}
+                </p>
+                <p
+                  v-for="(pair, index) in getFaqByCategory('Termini')"
+                  :key="index"
+                  style="cursor: pointer"
+                  class="mb-1"
+                  @click="scrollTo(pair)"
+                >
+                  > {{ pair.question }}
+                </p>
+                <p
+                  v-for="(pair, index) in getFaqByCategory('Notifikacije')"
+                  :key="index"
+                  style="cursor: pointer"
+                  class="mb-1"
+                  @click="scrollTo(pair)"
+                >
+                  > {{ pair.question }}
+                </p>
+                <p
+                  v-for="(pair, index) in getFaqByCategory('')"
                   :key="index"
                   style="cursor: pointer"
                   class="mb-1"

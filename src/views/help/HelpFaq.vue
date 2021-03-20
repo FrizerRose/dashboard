@@ -193,11 +193,6 @@ export default defineComponent({
 <style lang="scss" scoped>
   .faq-main-wrap {
     @media (max-width: 767px) {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
     }
     @media (min-width: 768px) {
       display: flex;
@@ -208,7 +203,7 @@ export default defineComponent({
     @media (max-width: 767px) {
       height: 60vh;
       overflow-y: auto;
-      margin-top: 4.25rem;
+      // margin-top: 4.25rem;
       padding: 1.5rem 1.5rem 60vh;
       position: relative;
       width: 100%;
@@ -226,7 +221,7 @@ export default defineComponent({
   .faq-aside {
     @media (max-width: 767px) {
       position: fixed;
-      left: 0;
+      left: auto;
       top: 60vh;
       background: white;
       width: 100%;

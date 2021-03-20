@@ -4,63 +4,52 @@
       Korisnici
     </template>
     <template #body>
-      <main class="content-X postavke-content">
+      <main class="content p-0 responsive-content">
         <div
           v-if="customers"
           class="container-fluid p-0"
         >
-          <div class="postavke-nav">
+          <div class="customers-nav responsive-nav">
+            <div class="customers-search">
+              <label
+                for="customerName"
+                class="form-label w-100"
+              >
+                <strong>Tražilica</strong>
+              </label>
+              <input
+                id="customerName"
+                v-model="customerName"
+                placeholder="Počnite upisivati ime klijenta"
+                type="text"
+                name="customerName"
+                autocomplete="off"
+                class="form-control form-control-lg mb-3"
+                @input="customerSearchInputChange()"
+              >
+            </div>
             <ul
-              class="postavke-nav__list"
-              role="tablist"
+              class="customers-nav__list"
             >
-              <li class="postavke-nav__list-item">
-                <div class="postavke-nav__link active">
-                  <input
-                    id="customerName"
-                    v-model="customerName"
-                    placeholder="Počnite upisivati ime klijenta"
-                    type="text"
-                    name="customerName"
-                    autocomplete="off"
-                    class="form-control"
-                    @input="customerSearchInputChange()"
-                  >
-                </div>
-              </li>
-              <li class="postavke-nav__list-item">
-                <a
-                  v-for="customer in shownCustomers"
-                  :key="customer.id"
-                  class="postavke-nav__link active"
-                  href="#tab-1"
-                  data-bs-toggle="tab"
-                  role="tab"
+              <li
+                v-for="customer in shownCustomers"
+                :key="customer.id"
+                class=" responsive-nav__list-item"
+              >
+                <button
+                  class="customers-search__results"
                   @click="selectCustomer(customer)"
                 >
-                  <span class="postavke-nav__icon">
-                    <span class="fa fa-user" />
-                  </span>
-                  <span class="postavke-nav__label">{{ customer.name }}</span>
-                </a>
+                  <span class="customers-search__result-label">{{ customer.name }}</span>
+                </button>
               </li>
             </ul>
           </div>
-          <div class="postavke-main">
-            <div class="tab">
-              <div class="tab-content">
-                <div
-                  id="tab-1"
-                  class="tab-pane active"
-                  role="tabpanel"
-                >
-                  <CustomerDetails
-                    v-if="selectedCustomer"
-                    :customer="selectedCustomer"
-                  />
-                </div>
-              </div>
-            </div>
+          <div class="customer-details responsive-main">
+            <CustomerDetails
+              v-if="selectedCustomer"
+              :customer="selectedCustomer"
+            />
           </div>
         </div>
       </main>
@@ -146,105 +135,37 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.postavke-content {
-  background-color: var(--bs-light);
-
-  .tab-content {
-    background: none;
-    box-shadow: none;
-  }
+.customer-details {
+  margin-top: 2rem;
+  padding: 0 1.5rem 1.5rem;
 }
+.customers-nav {
+  position: relative;
+  margin-top: 2rem;
+  padding: 0 1.5rem 1.5rem;
 
-.postavke-nav {
-  @media (max-width: 575px) {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background: var(--bs-light);
-    z-index: 10;
-    overflow: hidden;
-    overflow-x: auto;
-    width: 100%;
-  }
-  @media (min-width: 576px) and (max-width: 1199px) {
-    background: var(--bs-light);
-    overflow: hidden;
-    overflow-x: auto;
-    width: 100%;
-  }
-  @media (min-width: 1200px) {
-    display: inline-block;
-    width: 25%;
-    vertical-align: top;
-  }
-
-  &__list {
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-    @media (max-width: 575px) {
-      white-space: nowrap;
-      display: flex;
-    }
-    @media (min-width: 576px) and (max-width: 1199px) {
-      white-space: nowrap;
-      display: flex;
-    }
-    // @media (min-width: 1200px) {
-    //   margin-top: 2rem;
-    // }
-  }
-
-  &__list-item {
-    @media (max-width: 575px) {
-      // display: inline-block;
-      // white-space: nowrap;
-      // flex: 0 0 auto;
-      // min-width: 30%;
-      flex: 0 0 30%;
-    }
-  }
-
-  &__link {
-    display: flex;
-    align-items: center;
-    color: var(--bs-dark);
-
-    @media (max-width: 575px) {
-      padding: 0 1rem;
-    }
-    @media (min-width: 576px) {
-      padding: 1rem 2rem;
-    }
-    @media (max-width: 1199px) {
-      flex-direction: column;
-    }
-    @media (min-width: 1200px) {
-      padding: 0.5rem 0.75rem;
-    }
-
-    &:hover,
-    &.active {
-      background-color: white;
-    }
-  }
-
-  &__icon {
-    padding: 0.5em 1em;
-    font-size: 1rem;
-  }
-}
-
-//
-
-.postavke-main {
   @media (max-width: 575px) {
   }
   @media (min-width: 576px) {
   }
+  @media (max-width: 1199px) {
+  }
   @media (min-width: 1200px) {
-    display: inline-block;
-    width: 75%;
+  }
+  &__list {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+}
+.customers-search {
+  &__results {
+    background: white;
+    border: none;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0.75rem;
   }
 }
 </style>

@@ -55,51 +55,71 @@ const servicesService = new ServicesService();
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
   async [LocalActionTypes.FETCH_SERVICE]({ commit }, id: number) {
-    const response = await servicesService.get(id);
-    if (response.status === 200 && response.data) {
-      commit(LocalMutationTypes.CHANGE_SERVICES, response.data);
-    } else {
+    try {
+      const response = await servicesService.get(id);
+      if (response.status === 200 && response.data) {
+        commit(LocalMutationTypes.CHANGE_SERVICES, response.data);
+      } else {
+        throw new ApiError('No service by this ID.');
+      }
+    } catch {
       throw new ApiError('No service by this ID.');
     }
   },
   async [LocalActionTypes.FETCH_SERVICES]({ commit }, companyID: number | string) {
-    const response = await servicesService.getByCompanyID(companyID);
-    if (response.status === 200 && response.data) {
-      commit(LocalMutationTypes.CHANGE_SERVICES, response.data);
-    } else {
+    try {
+      const response = await servicesService.getByCompanyID(companyID);
+      if (response.status === 200 && response.data) {
+        commit(LocalMutationTypes.CHANGE_SERVICES, response.data);
+      } else {
+        throw new ApiError('No services with this company ID.');
+      }
+    } catch {
       throw new ApiError('No services with this company ID.');
     }
   },
   async [LocalActionTypes.CREATE_SERVICE]({ commit }, payload: object): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await servicesService.create(payload);
-      if (response.status === 201 && response.data) {
-        commit(LocalMutationTypes.ADD_SERVICE, response.data as Service);
-        resolve(true);
-      } else {
-        reject(new ApiError('Creating staff failed.'));
+      try {
+        const response = await servicesService.create(payload);
+        if (response.status === 201 && response.data) {
+          commit(LocalMutationTypes.ADD_SERVICE, response.data as Service);
+          resolve(true);
+        } else {
+          reject(new ApiError('Creating service failed.'));
+        }
+      } catch {
+        reject(new ApiError('Creating service failed.'));
       }
     })());
   },
-  async [LocalActionTypes.UPDATE_SERVICE]({ commit }, staff: Service): Promise<unknown> {
+  async [LocalActionTypes.UPDATE_SERVICE]({ commit }, service: Service): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await servicesService.update(staff);
-      if (response.status === 200 && response.data) {
-        commit(LocalMutationTypes.UPDATE_SERVICE_BY_ID, response.data as Service);
-        resolve(true);
-      } else {
-        reject(new ApiError('Updating staff failed.'));
+      try {
+        const response = await servicesService.update(service);
+        if (response.status === 200 && response.data) {
+          commit(LocalMutationTypes.UPDATE_SERVICE_BY_ID, response.data as Service);
+          resolve(true);
+        } else {
+          reject(new ApiError('Updating service failed.'));
+        }
+      } catch {
+        reject(new ApiError('Updating service failed.'));
       }
     })());
   },
-  async [LocalActionTypes.DELETE_SERVICE]({ commit }, staff: Service): Promise<unknown> {
+  async [LocalActionTypes.DELETE_SERVICE]({ commit }, service: Service): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await servicesService.destroy(staff.id);
-      if (response.status === 200 && response.data) {
-        commit(LocalMutationTypes.REMOVE_SERVICE_BY_ID, { id: staff.id, ...response.data } as Service);
-        resolve(true);
-      } else {
-        reject(new ApiError('Deleting staff failed.'));
+      try {
+        const response = await servicesService.destroy(service.id);
+        if (response.status === 200 && response.data) {
+          commit(LocalMutationTypes.REMOVE_SERVICE_BY_ID, { id: service.id, ...response.data } as Service);
+          resolve(true);
+        } else {
+          reject(new ApiError('Deleting service failed.'));
+        }
+      } catch {
+        reject(new ApiError('Deleting service failed.'));
       }
     })());
   },

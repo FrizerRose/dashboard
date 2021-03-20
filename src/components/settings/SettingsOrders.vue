@@ -155,6 +155,13 @@
       </div>
     </div>
 
+    <p
+      v-if="requestSent && !status"
+      class="text-danger"
+    >
+      Spremanje nije uspjelo. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
+    </p>
+
     <div class="narucivanje-interaktivno">
       <button
         :class="{

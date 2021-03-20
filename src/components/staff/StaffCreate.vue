@@ -227,6 +227,12 @@
                 </div>
               </div>
             </div>
+            <p
+              v-if="requestSent && !status"
+              class="text-danger"
+            >
+              {{ errorMsg }}
+            </p>
           </div>
         </div>
       </div>
@@ -272,6 +278,7 @@ export default defineComponent({
     const allServices = computed(() => store.state.service.services);
     const requestSent = ref(false);
     const status = ref(false);
+    const errorMsg = ref('Promjena radnika nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.');
     const timeOptions = getTimeOptions();
 
     const newStaff = reactive({
@@ -338,22 +345,30 @@ export default defineComponent({
     }
 
     async function createStaff() {
-      try {
-        await store.dispatch(ActionTypes.CREATE_STAFF, newStaff as Staff);
-        requestSent.value = true;
-        status.value = true;
-        newStaff.name = '';
-        newStaff.email = '';
-        closeStaffCreateModal();
-      } catch {
+      if (newStaff.email && newStaff.email) {
+        try {
+          await store.dispatch(ActionTypes.CREATE_STAFF, newStaff as Staff);
+          requestSent.value = true;
+          status.value = true;
+          newStaff.name = '';
+          newStaff.email = '';
+          closeStaffCreateModal();
+        } catch {
+          requestSent.value = true;
+          status.value = false;
+          errorMsg.value = 'Promjena radnika nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.';
+        }
+      } else {
         requestSent.value = true;
         status.value = false;
+        errorMsg.value = 'Ime i email moraju biti unešeni.';
       }
     }
 
     return {
       requestSent,
       status,
+      errorMsg,
       newStaff,
       createStaff,
       closeStaffCreateModal,

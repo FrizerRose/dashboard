@@ -407,6 +407,13 @@
       </div>
     </div>
 
+    <p
+      v-if="requestSent && !status"
+      class="text-danger"
+    >
+      {{ errorMsg }}
+    </p>
+
     <div class="firma-interaktivno">
       <button
         :class="{
@@ -441,25 +448,33 @@ export default defineComponent({
     const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
     const requestSent = ref(false);
     const status = ref(false);
+    const errorMsg = ref('Spremanje nije uspjelo. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.');
     const imageUploadSent = ref(false);
     const imageUploadStatus = ref(false);
     const imageRemoveHasError = ref(false);
     const image = ref(formData?.image);
 
     async function save() {
-      try {
-        const hasBookingPageSlugChanged = formData.bookingPageSlug !== selectedCompany.value?.bookingPageSlug;
-        await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
+      if (formData.name && formData.contactEmail && formData.bookingPageSlug) {
+        try {
+          const hasBookingPageSlugChanged = formData.bookingPageSlug !== selectedCompany.value?.bookingPageSlug;
+          await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
 
-        if (process.env.NODE_ENV !== 'production' && hasBookingPageSlugChanged) {
-          window.location.href = `https://${formData.bookingPageSlug}.admin.frizerrose.info`;
+          if (process.env.NODE_ENV !== 'production' && hasBookingPageSlugChanged) {
+            window.location.href = `https://${formData.bookingPageSlug}.admin.frizerrose.info`;
+          }
+
+          requestSent.value = true;
+          status.value = true;
+        } catch {
+          requestSent.value = true;
+          status.value = false;
+          errorMsg.value = 'Spremanje nije uspjelo. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.';
         }
-
-        requestSent.value = true;
-        status.value = true;
-      } catch {
+      } else {
         requestSent.value = true;
         status.value = false;
+        errorMsg.value = 'Ime, email i domena moraju biti unešeni.';
       }
     }
 
@@ -495,6 +510,7 @@ export default defineComponent({
     return {
       save,
       formData,
+      errorMsg,
       status,
       requestSent,
       inputFileText,

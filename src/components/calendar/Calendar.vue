@@ -219,7 +219,7 @@ export default defineComponent({
           dayMinWidth: isMobile.value ? 120 : 0,
           longPressDelay: 0,
           nowIndicator: true,
-          contentHeight: isMobile.value ? 460 : 800,
+          contentHeight: isMobile.value ? (window.innerHeight * 0.7) : 800,
           allDaySlot: false,
           stickyHeaderDates: true,
           locale: hrLocale,
@@ -425,26 +425,26 @@ export default defineComponent({
   @media (min-width: 1200px) {
   }
 }
-.page-calendar-table {
-  @media (max-width: 768px) {
-    position: relative;
-    &:after {
-      content: "";
-      z-index: 1;
-      background-color: #3f80ea;
-      width: 3rem;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      right: 0;
-      opacity: .25;
-      background-image:
-        repeating-linear-gradient(45deg, #3f80ea 25%, transparent 25%, transparent 75%, #3f80ea 75%, #3f80ea),
-        repeating-linear-gradient(45deg, #3f80ea 25%, white 25%, white 75%, #3f80ea 75%, #3f80ea);
-      background-position: 0 0, 0.5rem 0.5rem;
-      background-size: 1rem 1rem;
-    }
-  }
+// .page-calendar-table {
+//   @media (max-width: 768px) {
+//     position: relative;
+//     &:after {
+//       content: "";
+//       z-index: 1;
+//       background-color: #3f80ea;
+//       width: 3rem;
+//       height: 100%;
+//       position: absolute;
+//       top: 0;
+//       right: 0;
+//       opacity: .25;
+//       background-image:
+//         repeating-linear-gradient(45deg, #3f80ea 25%, transparent 25%, transparent 75%, #3f80ea 75%, #3f80ea),
+//         repeating-linear-gradient(45deg, #3f80ea 25%, white 25%, white 75%, #3f80ea 75%, #3f80ea);
+//       background-position: 0 0, 0.5rem 0.5rem;
+//       background-size: 1rem 1rem;
+//     }
+//   }
   // -1.5rem to cancel out padding on .content
   @media (max-width: 991.98px) {
     margin-left: -1.5rem;

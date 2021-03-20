@@ -5,6 +5,7 @@ import Service from '@/types/service';
 import Staff from '@/types/staff';
 
 export interface State {
+  isMobile: boolean;
   isMenuOpen: boolean;
   isServicesCreateOpen: boolean;
   isCalendarModalOpen: boolean;
@@ -27,6 +28,7 @@ export interface State {
 }
 
 const state: State = {
+  isMobile: false,
   isMenuOpen: false,
   isServicesCreateOpen: false,
   isCalendarModalOpen: false,

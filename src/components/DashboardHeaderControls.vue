@@ -8,7 +8,7 @@
       <span class="dropdown mr-2">
         <button
           id="day"
-          class="btn btn-light bg-white shadow-sm dropdown-toggle"
+          class="btn btn-lg btn-light bg-white shadow-sm dropdown-toggle"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
@@ -43,13 +43,13 @@
         </div>
       </span>
 
-      <button class="btn btn-primary shadow-sm">
+      <button class="btn btn-lg btn-primary shadow-sm">
         <i
           class="align-middle"
           data-feather="filter"
         >&nbsp;</i>
       </button>
-      <button class="btn btn-primary shadow-sm">
+      <button class="btn btn-lg btn-primary shadow-sm">
         <i
           class="align-middle"
           data-feather="refresh-cw"

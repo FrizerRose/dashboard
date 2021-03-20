@@ -3,37 +3,30 @@
     id="sidebar"
     class="sidebar"
   >
-    <div class="sidebar-content js-simplebar">
+    <div class="sidebar-content">
       <router-link
         to="/"
         class="sidebar-brand"
       >
         <svg
-          version="1.1"
+          width="256"
+          height="256"
+          viewBox="0 0 256 256"
+          fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          x="0px"
-          y="0px"
-          width="20px"
-          height="20px"
-          viewBox="0 0 20 20"
-          enable-background="new 0 0 20 20"
-          xml:space="preserve"
         >
           <path
-            d="M19.4,4.1l-9-4C10.1,0,9.9,0,9.6,0.1l-9,4C0.2,4.2,0,4.6,0,5s0.2,0.8,0.6,0.9l9,4C9.7,10,9.9,10,10,10s0.3,0,0.4-0.1l9-4
-              C19.8,5.8,20,5.4,20,5S19.8,4.2,19.4,4.1z"
+            d="M167.111 128c0 23.564-19.102 42.667-42.667 42.667-23.564 0-42.666-19.103-42.666-42.667s19.102-42.667
+            42.666-42.667c23.565 0 42.667 19.103 42.667 42.667z"
           />
           <path
-            d="M10,15c-0.1,0-0.3,0-0.4-0.1l-9-4c-0.5-0.2-0.7-0.8-0.5-1.3c0.2-0.5,0.8-0.7,1.3-0.5l8.6,3.8l8.6-3.8c0.5-0.2,1.1,0,1.3,0.5
-              c0.2,0.5,0,1.1-0.5,1.3l-9,4C10.3,15,10.1,15,10,15z"
-          />
-          <path
-            d="M10,20c-0.1,0-0.3,0-0.4-0.1l-9-4c-0.5-0.2-0.7-0.8-0.5-1.3c0.2-0.5,0.8-0.7,1.3-0.5l8.6,3.8l8.6-3.8c0.5-0.2,1.1,0,1.3,0.5
-              c0.2,0.5,0,1.1-0.5,1.3l-9,4C10.3,20,10.1,20,10,20z"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M256 128c0 70.692-57.308 128-128 128H0V0h128c70.692 0 128 57.307 128 128zm-128 85.333c47.128 0
+            85.333-38.205 85.333-85.333S175.128 42.667 128 42.667H42.667v170.666H128z"
           />
         </svg>
-        <span class="align-middle me-3"> Frizerrose</span>
+        <span class="align-middle me-3"> Dolazim.hr</span>
       </router-link>
     </div>
     <ul
@@ -61,6 +54,7 @@
           :data-bs-toggle="node.nodes === undefined ? 'collapsed' : 'collapse'"
           :class="{
             btn : true,
+            'btn-lg' : true,
             'sidebar-link' : true,
             collapsed : !submenuShow,
             show : submenuShow
@@ -83,6 +77,7 @@
 <script>
 import { defineComponent, computed, ref } from 'vue';
 import { useStore } from '@/store';
+import { useRoute } from 'vue-router';
 import MainNavSubmenu from './MainNavSubmenu.vue';
 
 export default defineComponent({
@@ -97,6 +92,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const route = useRoute();
     const tour = computed(() => store.state.shared.tour);
 
     const submenuShow = ref(false);
@@ -112,6 +108,13 @@ export default defineComponent({
           tourReference.next();
         }
       }), 200);
+    }
+
+    const submenuPages = ['/cesta-pitanja', '/kontakt'];
+    const onSubMenu = submenuPages.includes(route.path);
+
+    if (onSubMenu) {
+      submenuShow.value = true;
     }
 
     return {

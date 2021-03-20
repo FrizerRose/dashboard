@@ -4,6 +4,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,
@@ -86,7 +87,7 @@
               >
               <label
                 for="id-file"
-                class="btn btn-primary"
+                class="btn btn-lg btn-primary"
               >
                 {{ inputFileText }}
               </label>
@@ -118,7 +119,7 @@
             <input
               v-model="formData.name"
               type="text"
-              class="form-control"
+              class="form-control form-control-lg"
               placeholder="Ime firme"
               for="id-name"
             >
@@ -133,7 +134,7 @@
             <textarea
               id="id-about-text"
               v-model="formData.about"
-              class="form-control"
+              class="form-control form-control-lg"
               placeholder="Ovdje možete upisati kratki tekst koje će biti prikazan na stranici"
               rows="3"
             />
@@ -159,7 +160,7 @@
               <input
                 id="id-street-address"
                 v-model="formData.streetName"
-                class="form-control"
+                class="form-control form-control-lg"
                 type="text"
                 placeholder="Ulica borova 55, 10000 Zargeb"
               >
@@ -176,7 +177,7 @@
               <input
                 id="id-city"
                 v-model="formData.city"
-                class="form-control"
+                class="form-control form-control-lg"
                 type="text"
                 placeholder="Zagreb"
               >
@@ -201,7 +202,7 @@
               <input
                 id="id-phone"
                 v-model="formData.phoneNumber"
-                class="form-control"
+                class="form-control form-control-lg"
                 type="tel"
                 placeholder="+385 (91) 000-11-22"
               >
@@ -219,7 +220,7 @@
                 id="id-email"
                 v-model="formData.contactEmail"
                 type="email"
-                class="form-control"
+                class="form-control form-control-lg"
                 placeholder="adresa@firma.hr"
               >
             </div>
@@ -238,13 +239,13 @@
           >
             <strong>Promjenite domenu</strong>
             <br>
-            nakon promjene bit ćete prebačeni na novu stranicu gdje će te se trebati ponovo logirati
+            nakon promjene bit ćete prebačeni na novu stranicu gdje će te se trebati ponovno logirati
           </label>
           <div class="d-flex align-items-baseline">
             <input
               id="id-subdomain"
               v-model="formData.bookingPageSlug"
-              class="form-control"
+              class="form-control form-control-lg"
               type="text"
               placeholder="placeholder text"
             >
@@ -268,7 +269,7 @@
             id="id-website-url"
             v-model="formData.webstieLink"
             type="text"
-            class="form-control"
+            class="form-control form-control-lg"
             placeholder="https://www.ime-firme.hr"
           >
         </div>
@@ -289,7 +290,7 @@
             id="id-facebook-page-url"
             v-model="formData.facebookLink"
             type="text"
-            class="form-control"
+            class="form-control form-control-lg"
             placeholder="https://www.facebook.com/ime-firme"
           >
         </div>
@@ -310,7 +311,7 @@
             id="id-instagram-page-url"
             v-model="formData.instagramLink"
             type="text"
-            class="form-control"
+            class="form-control form-control-lg"
             placeholder="https://www.instagram.com/ime-firme"
           >
         </div>
@@ -331,7 +332,7 @@
             id="id-terms-and-conditions-page-url"
             v-model="formData.termsLink"
             type="text"
-            class="form-control"
+            class="form-control form-control-lg"
             placeholder="https://www.ime-firme.hr/pravila-koristenja"
           >
         </div>
@@ -359,21 +360,65 @@
           class="form-label"
           for="id-rules"
         >
-          <strong>Pravila</strong>
+          <strong>Pravila ponašanja</strong>
+          <br>
+          Ovdje možete upisati kratki tekst s pravilima ponašanja koji će biti prikazan na stranici
         </label>
-        <input
+        <textarea
           id="id-rules"
           v-model="formData.preferences.rules"
-          type="text"
-          class="form-control"
-        >
+          class="form-control form-control-lg"
+          rows="12"
+        />
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-3 mb-4" />
+      <div class="col-md-9 mb-4">
+        <label class="form-check m-0">
+          <input
+            v-model="formData.preferences.showCoronaRules"
+            type="checkbox"
+            class="form-check-input"
+          >
+          <span class="form-check-label">Prikaži COVID-19 upozorenje na stranici.</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 mb-4" />
+      <div class="col-md-9 mb-4">
+        <label
+          class="form-label"
+          for="id-rules-corona"
+        >
+          <strong>COVID-19 upozorenje</strong>
+          <br>
+          Ovdje možete podsjetiti klijente na preporuke za korištenje maski za lice
+        </label>
+        <textarea
+          id="id-rules-corona"
+          v-model="formData.preferences.coronaRules"
+          class="form-control form-control-lg"
+          rows="4"
+        />
+      </div>
+    </div>
+
+    <p
+      v-if="requestSent && !status"
+      class="text-danger"
+    >
+      {{ errorMsg }}
+    </p>
 
     <div class="firma-interaktivno">
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,
@@ -403,25 +448,33 @@ export default defineComponent({
     const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
     const requestSent = ref(false);
     const status = ref(false);
+    const errorMsg = ref('Spremanje nije uspjelo. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.');
     const imageUploadSent = ref(false);
     const imageUploadStatus = ref(false);
     const imageRemoveHasError = ref(false);
     const image = ref(formData?.image);
 
     async function save() {
-      try {
-        const hasBookingPageSlugChanged = formData.bookingPageSlug !== selectedCompany.value?.bookingPageSlug;
-        await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
+      if (formData.name && formData.contactEmail && formData.bookingPageSlug) {
+        try {
+          const hasBookingPageSlugChanged = formData.bookingPageSlug !== selectedCompany.value?.bookingPageSlug;
+          await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
 
-        if (process.env.NODE_ENV !== 'production' && hasBookingPageSlugChanged) {
-          window.location.href = `https://${formData.bookingPageSlug}.admin.frizerrose.info`;
+          if (process.env.NODE_ENV !== 'production' && hasBookingPageSlugChanged) {
+            window.location.href = `https://${formData.bookingPageSlug}.admin.frizerrose.info`;
+          }
+
+          requestSent.value = true;
+          status.value = true;
+        } catch {
+          requestSent.value = true;
+          status.value = false;
+          errorMsg.value = 'Spremanje nije uspjelo. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.';
         }
-
-        requestSent.value = true;
-        status.value = true;
-      } catch {
+      } else {
         requestSent.value = true;
         status.value = false;
+        errorMsg.value = 'Ime, email i domena moraju biti unešeni.';
       }
     }
 
@@ -457,6 +510,7 @@ export default defineComponent({
     return {
       save,
       formData,
+      errorMsg,
       status,
       requestSent,
       inputFileText,

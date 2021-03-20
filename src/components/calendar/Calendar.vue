@@ -6,61 +6,61 @@
     - u kalendaru se nalaze slotovi za sva 24h. U jednom viewpointu na desktopu se vide - DONE
       8h sa scroll positionom na najranije vrijeme što imaju dodano u business hours.
     - inkrementi od 15min - DONE
-    - appointment boja slotove. Upcoming termini recimo zelena boja, past termini žuta boja. - TODO: past
+    - appointment boja slotove. Upcoming termini recimo zelena boja, past termini žuta boja. - DONE
     - Klik na prazan slot otvara modal sa Kreiranjem termina, klik na zauzet slot otvara modal sa Editiranjem termina. Kopirati setmore.
-    - Quick actions button - linkovi na dodavanje servica/ranika, etc. TODO:
+    - Quick actions button - linkovi na dodavanje servica/ranika, etc. - Post launch?
   -->
   <div>
-    <div class="card">
-      <div class="card-body">
-        <header class="page-calendar-header">
-          <label
-            for="selectedWorker"
-            class="form-label w-100"
-          >
-            <strong>Odaberite radnika</strong>
-          </label>
-          <select
-            id="selectedWorker"
-            v-model="selectedWorker"
-            name="selectedWorker"
-            class="form-control mb-3"
-            @change="selectWorker()"
-          >
-            <option
-              v-for="worker in allStaff"
-              :key="worker.id"
-              :value="worker"
+    <div class="page-calendar-main">
+      <div class="card">
+        <div class="card-body">
+          <header class="page-calendar-header">
+            <label
+              for="selectedWorker"
+              class="form-label w-100"
             >
-              {{ worker.name }}
-            </option>
-          </select>
-        </header>
+              <strong>Odaberite radnika</strong>
+            </label>
+            <select
+              id="selectedWorker"
+              v-model="selectedWorker"
+              name="selectedWorker"
+              class="form-control form-control-lg mb-4"
+              @change="selectWorker()"
+            >
+              <option
+                v-for="worker in allStaff"
+                :key="worker.id"
+                :value="worker"
+              >
+                {{ worker.name }}
+              </option>
+            </select>
+          </header>
 
-        <div class="page-calendar-main">
           <div class="page-calendar-toolbar">
-            <div class="page-calendar-toolbar__item">
+            <div class="page-calendar-toolbar__item mb-2">
               <button
-                class="btn btn-primary me-2"
+                class="btn btn-lg btn-primary me-2"
                 @click="prevWeek()"
               >
                 <i class="fas fa-angle-left" />
               </button>
               <button
-                class="btn btn-primary me-2"
+                class="btn btn-lg btn-primary me-2"
                 @click="nextWeek()"
               >
                 <i class="fas fa-angle-right" />
               </button>
               <button
-                class="btn btn-primary"
+                class="btn btn-lg btn-primary"
                 @click="goToToday()"
               >
                 Danas
               </button>
             </div>
 
-            <div class="page-calendar-toolbar__item">
+            <div class="page-calendar-toolbar__item mb-2">
               <h3 class="h3 mb-0">
                 {{ headerTitle }}
               </h3>
@@ -68,35 +68,35 @@
 
             <div class="page-calendar-toolbar__item">
               <button
-                class="btn btn-primary me-2"
+                class="btn btn-lg btn-primary me-2"
                 @click="changeViewGrid()"
               >
                 Tjedan
               </button>
               <button
-                class="btn btn-secondary"
+                class="btn btn-lg btn-secondary"
                 @click="changeViewList()"
               >
                 Raspored
               </button>
             </div>
           </div>
-
-          <div class="row">
-            <div id="fullcalendar" />
-          </div>
-        </div>
-
-        <!-- EDIT/CANCEL -->
-        <div v-if="isAppointmentModalOpen && isEventSelected">
-          <CalendarEditModal />
-        </div>
-
-        <!-- CREATE -->
-        <div v-if="isAppointmentModalOpen && !isEventSelected">
-          <CalendarCreateModal />
         </div>
       </div>
+
+      <div class="page-calendar-table">
+        <div id="fullcalendar" />
+      </div>
+    </div>
+
+    <!-- EDIT/CANCEL -->
+    <div v-if="isAppointmentModalOpen && isEventSelected">
+      <CalendarEditModal />
+    </div>
+
+    <!-- CREATE -->
+    <div v-if="isAppointmentModalOpen && !isEventSelected">
+      <CalendarCreateModal />
     </div>
   </div>
 </template>
@@ -110,6 +110,7 @@ import CalendarEditModal from '@/components/calendar/CalendarEditModal.vue';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import scrollGridPlugin from '@fullcalendar/scrollgrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import resourcePlugin from '@fullcalendar/resource-common';
 import listPlugin from '@fullcalendar/list';
@@ -142,6 +143,7 @@ export default defineComponent({
 
     const selectedService = computed(() => store.state.shared.selectedService);
 
+    const isMobile = computed(() => store.state.shared.isMobile);
     const calendar = ref({} as Calendar);
     const headerTitle = ref('');
 
@@ -151,10 +153,18 @@ export default defineComponent({
     }
 
     const formattedAppointments = computed(() => reservedAppointments.value.map((appointment) => {
-      let timeString = `${appointment.date}T${appointment.time}`;
+      let time: string;
+      if (appointment.time.charAt(1) === ':') {
+        time = `0${appointment.time}`;
+      } else {
+        time = appointment.time;
+      }
+
+      let timeString = `${appointment.date}T${time}`;
       if (timeString.slice(-2) === ':0') {
         timeString += '0';
       }
+
       const startDate = new Date(timeString);
       if (typeof appointment.service !== 'number' && appointment.service) {
         const endDate = new Date(startDate.getTime() + appointment.service.duration * 60000);
@@ -183,7 +193,7 @@ export default defineComponent({
         title: 'Novi termin',
         start: startDate,
         end: endDate,
-        backgroundColor: '#37d866',
+        backgroundColor: '#379866',
         color: 'black',
         extendedProps: { isNewAppointment: true, ...appointment },
       };
@@ -193,7 +203,7 @@ export default defineComponent({
       const calendarEl = document.getElementById('fullcalendar');
       if (calendarEl && selectedWorker.value) {
         calendar.value = new Calendar(calendarEl, {
-          plugins: [dayGridPlugin, timeGridPlugin, listPlugin, resourcePlugin, interactionPlugin, bootstrapPlugin],
+          plugins: [dayGridPlugin, timeGridPlugin, scrollGridPlugin, listPlugin, resourcePlugin, interactionPlugin, bootstrapPlugin],
           initialView: 'timeGridWeek',
           headerToolbar: false,
           // headerToolbar: {
@@ -205,9 +215,13 @@ export default defineComponent({
             timeGridWeek: {
             },
           },
+          // handleWindowResize: !isMobile.value,
+          dayMinWidth: isMobile.value ? 120 : 0,
+          longPressDelay: 0,
           nowIndicator: true,
-          stickyHeaderDates: true,
+          contentHeight: isMobile.value ? (window.innerHeight * 0.7) : 800,
           allDaySlot: false,
+          stickyHeaderDates: true,
           locale: hrLocale,
           slotDuration: '00:15:00',
           slotLabelInterval: '01:00',
@@ -367,7 +381,7 @@ export default defineComponent({
     }
 
     const today = new Date(); // get current date
-    const firstDayOfWeek = today.getDate() - today.getDay(); // First day is the day of the month - the day of the week
+    const firstDayOfWeek = today.getDate() - today.getDay() + 1; // First day is the day of the month - the day of the week
     const lastDayOfWeek = firstDayOfWeek + 6; // last day is the first day + 6
 
     fetchSelectedWorkerAppointments({
@@ -387,6 +401,8 @@ export default defineComponent({
       goToToday,
       changeViewGrid,
       changeViewList,
+      formattedAppointments,
+      reservedAppointments,
     };
   },
 });
@@ -397,7 +413,6 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 1rem;
   @media (max-width: 1199px) {
     flex-direction: column;
   }
@@ -406,28 +421,62 @@ export default defineComponent({
 }
 .page-calendar-toolbar__item {
   @media (max-width: 1199px) {
-    margin-bottom: 1rem;
   }
   @media (min-width: 1200px) {
+  }
+}
+.page-calendar-table {
+//   @media (max-width: 768px) {
+//     position: relative;
+//     &:after {
+//       content: "";
+//       z-index: 1;
+//       background-color: #3f80ea;
+//       width: 3rem;
+//       height: 100%;
+//       position: absolute;
+//       top: 0;
+//       right: 0;
+//       opacity: .25;
+//       background-image:
+//         repeating-linear-gradient(45deg, #3f80ea 25%, transparent 25%, transparent 75%, #3f80ea 75%, #3f80ea),
+//         repeating-linear-gradient(45deg, #3f80ea 25%, white 25%, white 75%, #3f80ea 75%, #3f80ea);
+//       background-position: 0 0, 0.5rem 0.5rem;
+//       background-size: 1rem 1rem;
+//     }
+//   }
+  // -1.5rem to cancel out padding on .content
+  @media (max-width: 991.98px) {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
   }
 }
 .fc .fc-timegrid-slot {
   height: 2rem;
 }
+.fc th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.fc .fc-timegrid-axis-cushion {
+  max-width: none;
+  font-size: 0.75rem;
+}
 .fc-event-main {
   line-height: 1.25;
   font-size: 1rem;
-  transition: font-size 0.3s cubic-bezier(0.4, 0, 0, 1);
+  // transition: font-size 0.3s cubic-bezier(0.4, 0, 0, 1);
 }
-.fc-theme-bootstrap a:not([href]) {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
+// .fc-theme-bootstrap a:not([href]) {
+//   transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
 
-  &:hover {
-    transform: scale(2);
+//   &:hover {
+//     transform: scale(2);
 
-    .fc-event-main {
-      font-size: 0.5rem;
-    }
-  }
-}
+//     .fc-event-main {
+//       font-size: 0.5rem;
+//     }
+//   }
+// }
 </style>

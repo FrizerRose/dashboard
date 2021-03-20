@@ -10,24 +10,35 @@
             <div class="d-table-cell align-middle">
               <div class="text-center mt-4">
                 <h1 class="h2">
-                  Welcome back
+                  Dobrodošli
                 </h1>
                 <p class="lead">
-                  Sign in to your account to continue
+                  Prijavite se za nastavak
                 </p>
               </div>
 
               <div class="card">
                 <div class="card-body">
                   <div class="m-sm-4">
-                    <div class="text-center">
-                      <img
-                        src="/appstack/img/avatars/avatar.jpg"
-                        alt="Chris Wood"
-                        class="img-fluid rounded-circle"
-                        width="132"
-                        height="132"
+                    <div class="login-brand mb-4 text-center">
+                      <svg
+                        width="256"
+                        height="256"
+                        viewBox="0 0 256 256"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
+                        <path
+                          d="M167.111 128c0 23.564-19.102 42.667-42.667 42.667-23.564 0-42.666-19.103-42.666-42.667s19.102-42.667
+            42.666-42.667c23.565 0 42.667 19.103 42.667 42.667z"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M256 128c0 70.692-57.308 128-128 128H0V0h128c70.692 0 128 57.307 128 128zm-128 85.333c47.128 0
+            85.333-38.205 85.333-85.333S175.128 42.667 128 42.667H42.667v170.666H128z"
+                        />
+                      </svg>
                     </div>
                     <form @submit.prevent="login()">
                       <div class="mb-3">
@@ -42,21 +53,14 @@
                           class="form-control form-control-lg"
                           type="email"
                           name="validation-email"
-                          placeholder="Enter your email"
+                          placeholder="Unesite email"
                         >
-                        <small class="form-text d-block text-muted">Example block-level help text here.</small>
-                        <label
-                          v-if="hasError"
-                          class="error jquery-validation-error small form-text invalid-feedback"
-                          :style="{display: 'inline-block'}"
-                          for="validation-email"
-                        >This field is required.</label>
                       </div>
                       <div class="mb-3">
                         <label
                           class="form-label"
                           for="LOGIN-MODAL-PASSWORD"
-                        >Password</label>
+                        >Lozinka</label>
                         <input
                           id="LOGIN-MODAL-PASSWORD"
                           v-model="credentials.password"
@@ -64,44 +68,27 @@
                           class="form-control form-control-lg"
                           type="password"
                           name="validation-password"
-                          placeholder="Enter your password"
+                          placeholder="Unesite lozinku"
                         >
                         <small>
                           <a
                             href=""
                             @click.prevent="goToForgottenPassword()"
-                          >Forgot password?</a>
+                          >Zaboravljena lozinka?</a>
                         </small>
-                        <small class="form-text d-block text-muted">Example block-level help text here.</small>
                         <label
                           v-if="hasError"
                           class="error jquery-validation-error small form-text invalid-feedback"
                           :style="{display: 'inline-block'}"
                           for="validation-password"
-                        >This field is required.</label>
+                        >{{ errorMsg }}</label>
                       </div>
-                      <div>
-                        <div class="form-check align-items-center">
-                          <input
-                            id="customControlInline"
-                            type="checkbox"
-                            class="form-check-input"
-                            value="remember-me"
-                            name="remember-me"
-                            checked
-                          >
-                          <label
-                            class="form-check-label text-small"
-                            for="customControlInline"
-                          >Remember me next time</label>
-                        </div>
-                      </div>
-                      <div class="text-center mt-3">
+                      <div class="mt-3">
                         <button
                           type="submit"
                           class="btn btn-lg btn-primary"
                         >
-                          Sign in
+                          Prijavi se
                         </button>
                       </div>
                     </form>
@@ -129,9 +116,11 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
 
+    const selectedCompany = computed(() => store.state.shared.selectedCompany);
+
     const credentials = reactive({ email: '', password: '' });
     const hasError = ref(false);
-    const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const errorMsg = ref('Prijava nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.');
 
     async function login() {
       hasError.value = false;
@@ -141,6 +130,7 @@ export default defineComponent({
           await store.dispatch(ActionTypes.LOGIN, { ...credentials, company: selectedCompany.value?.id });
           router.push('/');
         } else {
+          errorMsg.value = 'Došlo je do greške. Molimo vas da pokušate ponovno.';
           throw new Error();
         }
       } catch {
@@ -157,6 +147,7 @@ export default defineComponent({
       login,
       goToForgottenPassword,
       hasError,
+      errorMsg,
     };
   },
 });

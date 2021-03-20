@@ -2,6 +2,44 @@ body {
 	font-size: 16px;
 }
 
+.navbar {
+	@media (max-width: 767.98px) {
+		width: 100%;
+	}
+}
+.content {
+	@media (max-width: 767.98px) {
+		// width: 100%;
+		// max-width: 100%;
+	}
+}
+.sidebar-brand {
+	text-align: left;
+	svg {
+		margin-right: 0;
+	}
+}
+.login-brand svg {
+	fill: #4a88eb;
+	height: 64px;
+	width: 64px;
+}
+
+.help-header {
+	border-color: #eff2f6;
+}
+
+.modal-bg-body {
+	background-color: #F7F9FC;
+}
+
+// override modal-body container styles
+.override-desktop-limit {
+	@media (min-width: 1200px) {
+		max-width: 75%;
+	}
+}
+
 .add-staff-section {
     border-top: 1px solid #6c757d;
     padding-top: 2rem;

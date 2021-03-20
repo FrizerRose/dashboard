@@ -18,16 +18,15 @@
                 <p class="lead">
                   Lozinka je resetirana. U poruci koju ćete primiti na e-mail adresu se nalazi vaša nova lozinka.
                 </p>
+                <div class="text-center mt-3">
+                  <button
+                    class="btn btn-lg btn-primary"
+                    @click.prevent="goToLogin()"
+                  >
+                    Nazad na Login
+                  </button>
+                </div>
               </div>
-              <div class="text-center mt-3">
-                <button
-                  class="btn btn-lg btn-primary"
-                  @click.prevent="goToLogin()"
-                >
-                  Back to login
-                </button>
-              </div>
-
               <div
                 v-if="!resetDone"
                 class="card"
@@ -39,7 +38,7 @@
                         <label
                           class="form-label"
                           for="LOGIN-MODAL-EMAIL"
-                        >Email</label>
+                        >Email koji koristite za prijavu</label>
                         <input
                           id="LOGIN-MODAL-EMAIL"
                           v-model="chosenEmail"
@@ -47,29 +46,29 @@
                           class="form-control form-control-lg"
                           type="email"
                           name="validation-email"
-                          placeholder="Enter your email"
+                          placeholder="abc@abc.com"
                         >
                         <label
-                          v-if="hasError"
+                          v-if="hasError && errorMsg"
                           class="error jquery-validation-error small form-text invalid-feedback"
                           :style="{display: 'inline-block'}"
                           for="validation-email"
-                        >This field is required.</label>
+                        >{{ errorMsg }}</label>
                       </div>
                       <div class="text-center mt-3">
                         <button
                           class="btn btn-lg btn-primary"
                           @click.prevent="resetPassword()"
                         >
-                          Reset password
+                          Resetetiraj lozinku
                         </button>
                       </div>
                       <div class="text-center mt-3">
                         <button
-                          class="btn btn-lg btn-primary"
+                          class="btn btn-lg btn-secondary"
                           @click.prevent="goToLogin()"
                         >
-                          Back to login
+                          Nazad na Login
                         </button>
                       </div>
                     </form>
@@ -98,12 +97,19 @@ export default defineComponent({
     const chosenEmail = ref('');
     const resetDone = ref(false);
     const hasError = ref(false);
+    const errorMsg = ref('');
 
     function goToLogin() {
       router.push('/prijava');
     }
 
     async function resetPassword() {
+      if (!chosenEmail.value) {
+        hasError.value = true;
+        errorMsg.value = 'Potreno je unesti email.';
+        return;
+      }
+
       hasError.value = false;
 
       try {
@@ -111,6 +117,8 @@ export default defineComponent({
         resetDone.value = true;
       } catch {
         hasError.value = true;
+        errorMsg.value = `Resetiranje lozinke nije uspjelo.
+        Ako ste sigurni da je unešena email adresa ispravna, javite se na korisnički podršku.`;
       }
     }
 
@@ -120,6 +128,7 @@ export default defineComponent({
       chosenEmail,
       resetDone,
       hasError,
+      errorMsg,
     };
   },
 });

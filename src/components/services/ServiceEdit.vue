@@ -1,5 +1,5 @@
 <template>
-  <Modal>
+  <Modal :layout="'is-big'">
     <template #header>
       <h5
         class="modal-title h4"
@@ -14,134 +14,142 @@
       />
     </template>
     <template #body>
-      <div class="usluga-naziv">
-        <div class="mb-4">
-          <label
-            for="id-edit-service-name"
-            class="form-label w-100"
-          >
-            <strong>Naziv usluge</strong>
-            <br>
-            Ovdje možete promijeniti naziv usluge koje će pisati na stranici
-          </label>
-          <input
-            id="id-edit-service-name"
-            v-model="formData.name"
-            type="text"
-            class="form-control"
-            placeholder="Naziv usluge"
-          >
-        </div>
-      </div>
-      <div class="usluga-cijena">
-        <div class="mb-4">
-          <label
-            for="id-edit-service-price"
-            class="form-label w-100"
-          >
-            <strong>Cijena usluge</strong>
-            <br>
-            Ovdje možete promijeniti cijenu usluge (kn)
-          </label>
-          <div class="d-flex align-items-baseline">
+      <div class="container override-desktop-limit">
+        <div class="usluga-naziv">
+          <div class="mb-4">
+            <label
+              for="id-edit-service-name"
+              class="form-label w-100"
+            >
+              <strong>Naziv usluge</strong>
+              <br>
+              Ovdje možete promijeniti naziv usluge koje će pisati na stranici
+            </label>
             <input
-              id="id-edit-service-price"
-              v-model="formData.price"
+              id="id-edit-service-name"
+              v-model="formData.name"
               type="text"
-              class="form-control text-end"
+              class="form-control form-control-lg"
+              placeholder="Naziv usluge"
             >
-            <span class="ms-2">kn</span>
           </div>
         </div>
-      </div>
-      <div class="usluga-trajanje">
-        <div class="mb-4">
-          <label
-            for="id-edit-service-duration"
-            class="form-label w-100"
-          >
-            <strong>Trajanje Usluge</strong>
-            <br>
-            Ovdje možete promijeniti trajanje usluge (min)
-          </label>
-          <div class="d-flex align-items-baseline">
-            <select
-              id="id-edit-service-duration"
-              v-model="formData.duration"
-              class="form-control"
-              name="edit-service-duration"
+        <div class="usluga-cijena">
+          <div class="mb-4">
+            <label
+              for="id-edit-service-price"
+              class="form-label w-100"
             >
-              <option value="15">
-                15
-              </option>
-              <option value="30">
-                30
-              </option>
-              <option value="45">
-                45
-              </option>
-              <option value="60">
-                60
-              </option>
-              <option value="75">
-                75
-              </option>
-              <option value="90">
-                90
-              </option>
-              <option value="105">
-                105
-              </option>
-              <option value="120">
-                120
-              </option>
-              <option value="135">
-                135
-              </option>
-              <option value="150">
-                150
-              </option>
-              <option value="165">
-                165
-              </option>
-              <option value="180">
-                180
-              </option>
-              <option value="195">
-                195
-              </option>
-              <option value="210">
-                210
-              </option>
-              <option value="225">
-                225
-              </option>
-              <option value="240">
-                240
-              </option>
-            </select>
-            <span class="ms-2">min</span>
-          </div>
-        </div>
-      </div>
-      <div class="usluga-izvrsitelj">
-        <div class="mb-4">
-          <div
-            v-for="staff in allStaff"
-            :key="staff.id"
-            class="row"
-          >
-            <div class="col-12">
-              <label class="form-check m-0">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  :checked="isAssigned(staff)"
-                  @change="toggleStaff(staff)"
-                >
-                <span class="form-check-label lead">{{ staff.name }}</span>
-              </label>
+              <strong>Cijena usluge</strong>
+              <br>
+              Ovdje možete promijeniti cijenu usluge (kn)
+            </label>
+            <div class="d-flex align-items-baseline">
+              <input
+                id="id-edit-service-price"
+                v-model="formData.price"
+                type="text"
+                class="form-control form-control-lg text-end"
+              >
+              <span class="ms-2">kn</span>
             </div>
+          </div>
+        </div>
+        <div class="usluga-trajanje">
+          <div class="mb-4">
+            <label
+              for="id-edit-service-duration"
+              class="form-label w-100"
+            >
+              <strong>Trajanje Usluge</strong>
+              <br>
+              Ovdje možete promijeniti trajanje usluge (min)
+            </label>
+            <div class="d-flex align-items-baseline">
+              <select
+                id="id-edit-service-duration"
+                v-model="formData.duration"
+                class="form-control form-control-lg"
+                name="edit-service-duration"
+              >
+                <option value="15">
+                  15
+                </option>
+                <option value="30">
+                  30
+                </option>
+                <option value="45">
+                  45
+                </option>
+                <option value="60">
+                  60
+                </option>
+                <option value="75">
+                  75
+                </option>
+                <option value="90">
+                  90
+                </option>
+                <option value="105">
+                  105
+                </option>
+                <option value="120">
+                  120
+                </option>
+                <option value="135">
+                  135
+                </option>
+                <option value="150">
+                  150
+                </option>
+                <option value="165">
+                  165
+                </option>
+                <option value="180">
+                  180
+                </option>
+                <option value="195">
+                  195
+                </option>
+                <option value="210">
+                  210
+                </option>
+                <option value="225">
+                  225
+                </option>
+                <option value="240">
+                  240
+                </option>
+              </select>
+              <span class="ms-2">min</span>
+            </div>
+          </div>
+        </div>
+        <div class="usluga-izvrsitelj">
+          <div class="mb-4">
+            <div
+              v-for="staff in allStaff"
+              :key="staff.id"
+              class="row"
+            >
+              <div class="col-12">
+                <label class="form-check m-0">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    :checked="isAssigned(staff)"
+                    @change="toggleStaff(staff)"
+                  >
+                  <span class="form-check-label lead">{{ staff.name }}</span>
+                </label>
+              </div>
+            </div>
+            <p
+              v-if="requestSent && !status"
+              class="text-danger"
+            >
+              {{ errorMsg }}
+            </p>
           </div>
         </div>
       </div>
@@ -152,6 +160,7 @@
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,
@@ -167,7 +176,7 @@
 <script lang='ts'>
 import Staff from '@/types/staff';
 import {
-  defineComponent, ref, reactive, computed, capitalize,
+  defineComponent, ref, reactive, computed,
 } from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
@@ -191,15 +200,23 @@ export default defineComponent({
     const formData = reactive(JSON.parse(JSON.stringify(props.service)));
     const requestSent = ref(false);
     const status = ref(false);
+    const errorMsg = ref('Promjena usluge nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.');
 
     async function save() {
-      try {
-        await store.dispatch(ActionTypes.UPDATE_SERVICE, formData);
-        requestSent.value = true;
-        status.value = true;
-      } catch {
+      if (formData.name && formData.price && formData.duration) {
+        try {
+          await store.dispatch(ActionTypes.UPDATE_SERVICE, formData);
+          requestSent.value = true;
+          status.value = true;
+        } catch {
+          requestSent.value = true;
+          status.value = false;
+          errorMsg.value = 'Promjena usluge nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.';
+        }
+      } else {
         requestSent.value = true;
         status.value = false;
+        errorMsg.value = 'Ime, cijena i trajanje moraju biti unešeni.';
       }
     }
 
@@ -229,8 +246,8 @@ export default defineComponent({
       save,
       formData,
       status,
+      errorMsg,
       requestSent,
-      capitalize,
       allStaff,
       isAssigned,
       toggleStaff,

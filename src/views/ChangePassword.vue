@@ -1,0 +1,163 @@
+<template>
+  <Dashboard>
+    <template #header>
+      Promjena loznke
+    </template>
+    <template #body>
+      <main
+        class="content"
+      >
+        <div
+          class="container-fluid p-0"
+        >
+          <div class="row">
+            <div class="col-md-12 mb-4">
+              <div class="row">
+                <div class="col-12 col-md-6 mb-4">
+                  <div class="authentication-password-new">
+                    <label
+                      for="id-change-password-old"
+                      class="form-label w-100"
+                    >
+                      <strong>Stara lozinka</strong>
+                      <br>
+                      Upišite trenutnu lozinku
+                    </label>
+                    <input
+                      id="id-change-password-old"
+                      v-model="formData.oldPassowrd"
+                      class="form-control form-control-lg"
+                      type="password"
+                    >
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <div class="authentication-password-new">
+                    <label
+                      for="id-change-password-new-1"
+                      class="form-label w-100"
+                    >
+                      <strong>Nova lozinka</strong>
+                      <br>
+                      Upišite novu lozinku
+                    </label>
+                    <input
+                      id="id-change-password-new-1"
+                      v-model="formData.newPassword"
+                      class="form-control form-control-lg"
+                      type="password"
+                    >
+                    <label
+                      for="id-change-password-new-2"
+                      class="form-label w-100"
+                    >
+                      <br>
+                      Ponovno upišite novu lozinku
+                    </label>
+                    <input
+                      id="id-change-password-new-2"
+                      v-model="formData.newPasswordRepeated"
+                      class="form-control form-control-lg"
+                      type="password"
+                    >
+                    <p
+                      v-if="passwordMismatch"
+                      class="text-danger mt-4 mb-4"
+                    >
+                      Lozinke nisu jednake. Upišite ih ponovno.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p
+            v-if="hasError"
+            class="text-danger"
+          >
+            {{ errorMsg }}
+          </p>
+
+          <div class="authentication-interaktivno">
+            <button
+              :class="{
+                btn: true,
+                'btn-lg': true,
+                'btn-primary': !requestSent,
+                'btn-success': requestSent && !hasError,
+                'btn-danger': requestSent && hasError,
+              }"
+              @click="save()"
+            >
+              Spremi
+            </button>
+          </div>
+        </div>
+      </main>
+    </template>
+  </Dashboard>
+</template>
+
+<script lang='ts'>
+import {
+  defineComponent, computed, ref, reactive,
+} from 'vue';
+import { useStore } from '@/store';
+import ActionTypes from '@/store/action-types';
+import Dashboard from '@/components/layout/Dashboard.vue';
+
+export default defineComponent({
+  components: {
+    Dashboard,
+  },
+  setup() {
+    const store = useStore();
+    const token = computed(() => store.getters.getAccessToken);
+
+    const formData = reactive({
+      oldPassowrd: '',
+      newPassword: '',
+      newPasswordRepeated: '',
+    });
+    const requestSent = ref(false);
+    const hasError = ref(false);
+    const passwordMismatch = ref(false);
+    const errorMsg = 'Promjena lozinke nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.';
+
+    async function save() {
+      passwordMismatch.value = false;
+      requestSent.value = false;
+      hasError.value = false;
+
+      try {
+        if (formData.newPassword !== formData.newPasswordRepeated) {
+          passwordMismatch.value = true;
+          return;
+        }
+
+        await store.dispatch(ActionTypes.CHANGE_PASSWORD, {
+          oldPassword: formData.oldPassowrd,
+          password: formData.newPassword,
+          token: token.value || '',
+        });
+
+        requestSent.value = true;
+      } catch {
+        requestSent.value = true;
+        hasError.value = true;
+      }
+    }
+
+    return {
+      save,
+      formData,
+      hasError,
+      requestSent,
+      passwordMismatch,
+      errorMsg,
+    };
+  },
+});
+</script>

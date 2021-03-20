@@ -47,7 +47,7 @@
                 <select
                   id="id-reminder-time"
                   v-model="formData.preferences.clientReminderTime"
-                  class="form-control mb-3"
+                  class="form-control form-control-lg mb-3"
                   name="id-reminder-time"
                 >
                   <option value="1">
@@ -111,7 +111,7 @@
                 <select
                   id="id-reminder-time"
                   v-model="formData.preferences.staffReminderTime"
-                  class="form-control mb-3"
+                  class="form-control form-control-lg mb-3"
                   name="id-reminder-time"
                 >
                   <option value="1">
@@ -169,10 +169,18 @@
       </div>
     </div>
 
+    <p
+      v-if="requestSent && !status"
+      class="text-danger"
+    >
+      Spremanje nije uspjelo. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
+    </p>
+
     <div class="notifikacije-interaktivno">
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

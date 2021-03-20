@@ -54,12 +54,6 @@ export default class ApiService {
   }
 
   delete(resource: string, slug: string | number) {
-    // try {
-    //   return this.client.delete(`${resource}/${slug}`);
-    // } catch (error) {
-    //   throw new ApiError(error);
-    // }
-
     return this.client.delete(`${resource}/${slug}`).catch((error) => {
       throw new Error(`ApiService ${error}`);
     });
@@ -135,7 +129,7 @@ export class CompanyService {
     });
   }
 
-  get(slug: number) {
+  get(slug: number | string) {
     return this.apiService.get(this.resource, slug);
   }
 
@@ -207,7 +201,71 @@ export class AppointmentService {
     });
   }
 
-  get(slug: number) {
+  get(slug: number | string) {
+    return this.apiService.get(this.resource, slug);
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  update(params: object) {
+    return this.apiService.update(this.resource, params);
+  }
+
+  destroy(slug: string | number) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
+export class FaqService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'faq';
+  }
+
+  query(params: object) {
+    return this.apiService.query(this.resource, {
+      params,
+    });
+  }
+
+  get(slug: number | string) {
+    return this.apiService.get(this.resource, slug);
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  update(params: object) {
+    return this.apiService.update(this.resource, params);
+  }
+
+  destroy(slug: string | number) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
+export class ContactService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'contact';
+  }
+
+  query(params: object) {
+    return this.apiService.query(this.resource, {
+      params,
+    });
+  }
+
+  get(slug: number | string) {
     return this.apiService.get(this.resource, slug);
   }
 

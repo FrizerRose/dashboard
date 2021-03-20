@@ -21,7 +21,7 @@
                   class="form-check-input"
                   @change="toggleDayActive(day)"
                 >
-                <span class="form-check-label lead">{{ capitalize(dayName.toString()) }}</span>
+                <span class="form-check-label lead">{{ getDayTranslation(dayName.toString()) }}</span>
               </label>
             </div>
             <div
@@ -45,7 +45,7 @@
                       <select
                         id="id-monday-shift-start"
                         v-model="shift.start"
-                        class="form-control mb-3"
+                        class="form-control form-control-lg mb-3"
                         name="monday-shift-start"
                       >
                         <option
@@ -67,7 +67,7 @@
                       <select
                         id="id-monday-shift-end"
                         v-model="shift.end"
-                        class="form-control mb-3"
+                        class="form-control form-control-lg mb-3"
                         name="monday-shift-end"
                       >
                         <option
@@ -84,7 +84,7 @@
                       class="col-2 col-md-2"
                     >
                       <button
-                        class="btn btn-danger"
+                        class="btn btn-lg btn-lg-danger"
                         @click="removeShift(day.shifts, shiftIndex)"
                       >
                         Makni smjenu
@@ -95,7 +95,7 @@
                       class="col-2 col-md-2"
                     >
                       <button
-                        class="btn btn-primary"
+                        class="btn btn-lg btn-primary"
                         @click="addShift(day.shifts)"
                       >
                         Dodaj smjenu
@@ -111,7 +111,7 @@
                     <div class="col-12 col-md-12">
                       <button
                         v-if="dayName.toString() === 'monday'"
-                        class="btn btn-primary"
+                        class="btn btn-lg btn-primary"
                         @click="copyShiftsToOtherDays(day)"
                       >
                         Kopiraj u sve označene dane
@@ -127,10 +127,18 @@
       </div>
     </div>
 
+    <p
+      v-if="requestSent && !status"
+      class="text-danger"
+    >
+      Spremanje nije uspjelo. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
+    </p>
+
     <div class="working-hours-interaktivno">
       <button
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,
@@ -145,12 +153,12 @@
 
 <script lang='ts'>
 import {
-  defineComponent, computed, ref, reactive, capitalize,
+  defineComponent, computed, ref, reactive,
 } from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import { Day, StartEnd } from '@/types/workingHours';
-import { getTimeOptions } from '@/helpers/time';
+import { getTimeOptions, getDayTranslation } from '@/helpers/time';
 
 export default defineComponent({
   setup() {
@@ -208,8 +216,8 @@ export default defineComponent({
       formData,
       status,
       requestSent,
-      capitalize,
       timeOptions,
+      getDayTranslation,
     };
   },
 });

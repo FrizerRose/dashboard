@@ -9,6 +9,7 @@ import { State } from './state';
 
 // Blueprint for mutations. All of them have to be implemented.
 export type Mutations<S = State> = {
+  [LocalMutationTypes.CHANGE_IS_MOBILE](state: S, payload: boolean): void;
   [LocalMutationTypes.CHANGE_MENU_OPEN](state: S, payload: boolean): void;
   [LocalMutationTypes.CHANGE_CURRENT_STEP](state: S, payload: number): void;
   [LocalMutationTypes.CHANGE_SELECTED_COMPANY](state: S, payload: Company | null): void;
@@ -28,12 +29,15 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.ADD_RESERVED_APPOINTMENTS](state: S, payload: Appointment[]): void;
   [LocalMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID](state: S, payload: number): void;
   [LocalMutationTypes.CHANGE_TOUR](state: S, payload: object | null): void;
-  [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state: S, payload: number): void;
+  [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state: S, payload: Appointment): void;
   [LocalMutationTypes.CHANGE_CUSTOMERS_APPOINTMENTS](state: S, payload: Appointment[]): void;
 };
 
 // Mutuation implementation.
 export const mutations: MutationTree<State> & Mutations = {
+  [LocalMutationTypes.CHANGE_IS_MOBILE](state, payload: boolean) {
+    state.isMobile = payload;
+  },
   [LocalMutationTypes.CHANGE_MENU_OPEN](state, payload: boolean) {
     state.isMenuOpen = payload;
   },
@@ -92,8 +96,9 @@ export const mutations: MutationTree<State> & Mutations = {
   [LocalMutationTypes.CHANGE_TOUR](state, payload: object | null) {
     state.tour = payload;
   },
-  [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state, payload: number) {
-    state.calendarSelectedAppointmentID = payload;
+  [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state, payload: Appointment) {
+    const appointmentIndex = state.reservedAppointments.findIndex((app) => app.id === payload.id);
+    state.reservedAppointments[appointmentIndex] = payload;
   },
   [LocalMutationTypes.CHANGE_CUSTOMERS_APPOINTMENTS](state, payload: Appointment[]) {
     state.selectedCustomerAppointments = payload;

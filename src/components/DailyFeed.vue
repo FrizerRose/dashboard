@@ -63,7 +63,7 @@
       <div class="d-grid">
         <a
           href="#"
-          class="btn btn-primary"
+          class="btn btn-primary btn-lg"
         >Load more</a>
       </div>
     </div>

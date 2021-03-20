@@ -50,9 +50,15 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "postavke" */ '../views/Settings.vue'),
   },
   {
+    path: '/promjeni-lozinku',
+    name: 'ChangePassword',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "postavke" */ '../views/ChangePassword.vue'),
+  },
+  {
     path: '/pomoc',
     name: 'Help',
-    redirect: '/cesta-pitanja',
+    component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/help/Help.vue'),
   },
   {
     path: '/cesta-pitanja',
@@ -97,8 +103,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const publicPages = ['/prijava', '/zaboravljena-lozinka', '/404'];
   const authPages = ['/prijava', '/zaboravljena-lozinka'];
+
   const authRequired = !publicPages.includes(to.path);
   const authDisallowed = authPages.includes(to.path);
+
   const hasToken = localStorage.getItem('accessToken');
   const expiration = localStorage.getItem('expiration');
   const isTokenExpired = typeof expiration !== 'string' || Date.now() > parseInt(expiration, 10);

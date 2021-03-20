@@ -1,5 +1,5 @@
 <template>
-  <Modal>
+  <Modal :layout="'is-big'">
     <template #header>
       <h5 class="modal-title h4">
         Uređivanje/brisanje termina
@@ -12,6 +12,14 @@
       />
     </template>
     <template #body>
+      <div
+        v-if="isInThePast"
+        class="alert alert-success mb-0"
+      >
+        <div class="alert-message py-5">
+          <p><strong>{{ rescheduledCustomer.name }}</strong> se pojavio u dogovoreno vrijeme.</p>
+        </div>
+      </div>
       <div
         v-if="isInThePast"
         class="container"
@@ -32,7 +40,7 @@
 
       <div
         v-else
-        class="container"
+        class="container override-desktop-limit"
       >
         <div class="row">
           <div class="col-md-6 mb-4">
@@ -45,7 +53,7 @@
             <select
               id="id-calendar-edit-slot-staff"
               v-model="rescheduledStaff"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
               name="id-calendar-edit-slot-staff"
             >
               <option
@@ -67,7 +75,7 @@
             <select
               id="id-calendar-edit-slot-service"
               v-model="rescheduledService"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
               name="id-calendar-edit-slot-service"
             >
               <option
@@ -88,7 +96,7 @@
             <input
               id="id-calendar-edit-slot-day"
               v-model="rescheduledDateTime.date"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
               type="date"
               name="id-calendar-edit-slot-day"
               :min="startLimitDatepicker"
@@ -102,7 +110,7 @@
             <select
               id="id-calendar-edit-slot-day-time"
               v-model="rescheduledDateTime.time"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
               name="id-calendar-edit-slot-day-time"
             >
               <option
@@ -127,7 +135,7 @@
               id="id-calendar-edit-slot-customer-name"
               v-model="rescheduledCustomer.name"
               type="text"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
             >
           </div>
           <div class="col-md-4 mb-4">
@@ -141,7 +149,7 @@
               id="id-calendar-edit-slot-customer-email"
               v-model="rescheduledCustomer.email"
               type="text"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
             >
           </div>
           <div class="col-md-4 mb-4">
@@ -155,7 +163,7 @@
               id="id-calendar-edit-slot-customer-phone"
               v-model="rescheduledCustomer.phone"
               type="text"
-              class="form-control mb-3"
+              class="form-control form-control-lg mb-3"
             >
           </div>
           <div class="col-md-12 mb-4">
@@ -177,15 +185,17 @@
     <template #footer>
       <button
         v-if="isInThePast"
-        class="btn btn-primary"
+        class="btn btn-lg btn-primary"
         @click="updateAppointment()"
       >
         Spremi
       </button>
       <button
         v-if="!isInThePast"
+        :disabled="!rescheduledCustomer.name"
         :class="{
           btn: true,
+          'btn-lg': true,
           'btn-primary': !rescheduleRequestSent,
           'btn-success': rescheduleRequestSent && rescheduleStatus,
           'btn-danger': rescheduleRequestSent && !rescheduleStatus,
@@ -196,7 +206,7 @@
       </button>
       <button
         v-if="!isInThePast"
-        class="btn btn-danger"
+        class="btn btn-lg btn-danger"
         @click="cancel()"
       >
         Otkaži
@@ -259,16 +269,19 @@ export default defineComponent({
           ...selectedAppointment.value,
           hasCustomerArrived: hasCustomerArrived.value,
         });
+
+        closeCalendarModal();
       } catch {
-        // TODO:
+        rescheduleRequestSent.value = true;
+        rescheduleStatus.value = true;
       }
     }
 
-    async function cancel(isRescheduling = false) {
+    async function cancel(isReschedule = false) {
       try {
-        await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, selectedAppointment.value?.id);
+        await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, { id: selectedAppointment.value?.id, isReschedule });
 
-        if (!isRescheduling) {
+        if (!isReschedule) {
           store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
           document.body.classList.remove('modal-open');
         }
@@ -278,7 +291,13 @@ export default defineComponent({
       }
     }
 
-    async function createAppointment() {
+    async function reschedule() {
+      if (!rescheduledCustomer.value.name) {
+        throw new Error();
+      }
+
+      cancel(true);
+
       try {
         let customerObject = {};
         customerObject = {
@@ -290,33 +309,32 @@ export default defineComponent({
 
         const createdCustomer: Customer = await store.dispatch(ActionTypes.CREATE_CUSTOMER, customerObject as Customer);
 
-        let appointmentObject = {};
-        appointmentObject = {
-          date: formatDateString(rescheduledDateTime.value.date),
-          time: rescheduledDateTime.value.time,
-          company: selectedCompany.value?.id,
-          staff: rescheduledStaff.value.id,
-          service: rescheduledService.value.id,
-          customer: createdCustomer.id,
-          message: rescheduledNotice.value,
-        };
+        if (createdCustomer) {
+          let appointmentObject = {};
+          appointmentObject = {
+            date: formatDateString(rescheduledDateTime.value.date),
+            time: rescheduledDateTime.value.time,
+            company: selectedCompany.value?.id,
+            staff: rescheduledStaff.value.id,
+            service: rescheduledService.value.id,
+            customer: createdCustomer.id,
+            message: rescheduledNotice.value,
+          };
 
-        await store.dispatch(ActionTypes.CREATE_APPOINTMENT, appointmentObject);
-        store.commit(MutationTypes.CHANGE_SELECTED_SERVICE, rescheduledService.value);
+          await store.dispatch(ActionTypes.CREATE_APPOINTMENT, appointmentObject);
+          store.commit(MutationTypes.CHANGE_SELECTED_SERVICE, rescheduledService.value);
 
-        rescheduleRequestSent.value = true;
-        rescheduleStatus.value = true;
+          rescheduleRequestSent.value = true;
+          rescheduleStatus.value = true;
 
-        closeCalendarModal();
+          closeCalendarModal();
+        } else {
+          throw new Error();
+        }
       } catch {
         rescheduleRequestSent.value = true;
-        rescheduleStatus.value = true;
+        rescheduleStatus.value = false;
       }
-    }
-
-    function reschedule() {
-      cancel(true);
-      createAppointment();
     }
 
     return {

@@ -5,6 +5,7 @@ import { ActionContext, ActionTree } from 'vuex';
 import { AppointmentService } from '@/api';
 import { ApiError, ValidationError } from '@/types/customError';
 import { AxiosResponse } from 'axios';
+import Appointment from '@/types/appointment';
 import LocalActionTypes from './action-types';
 import LocalMutationTypes from './mutation-types';
 import SharedMutationTypes from '../shared/mutation-types';
@@ -32,9 +33,16 @@ export interface Actions {
     { commit }: AugmentedActionContext & AugmentedSharedActionContext & AugmentedStaffActionContext,
     id: number,
   ): Promise<AxiosResponse>;
+  [LocalActionTypes.FETCH_APPOINTMENTS_ON_DATE](
+    { commit }: AugmentedActionContext & AugmentedSharedActionContext,
+    payload: { companyID: number; dateString: string },
+  ): Promise<AxiosResponse>;
   [LocalActionTypes.CREATE_APPOINTMENT]({ commit }: AugmentedSharedActionContext, payload: object): Promise<unknown>;
   [LocalActionTypes.UPDATE_APPOINTMENT]({ commit }: AugmentedSharedActionContext, payload: object): Promise<unknown>;
-  [LocalActionTypes.CANCEL_APPOINTMENT]({ commit }: AugmentedSharedActionContext, id: number | undefined): Promise<unknown>;
+  [LocalActionTypes.CANCEL_APPOINTMENT](
+    { commit }: AugmentedSharedActionContext,
+    payload: { id: number | undefined; isReschedule: boolean },
+  ): Promise<unknown>;
   [LocalActionTypes.FETCH_APPOINTMENT_BY_CUSTOMER]({ commit }: AugmentedSharedActionContext, id: number | undefined): Promise<unknown>;
 }
 
@@ -44,21 +52,38 @@ const appointmentService = new AppointmentService();
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
   async [LocalActionTypes.FETCH_APPOINTMENT]({ commit }, id: number): Promise<AxiosResponse> {
-    const response = await appointmentService.get(id);
-    if (response.status === 200 && response.data) {
-      commit(LocalMutationTypes.CHANGE_APPOINTMENT, response.data);
-      commit(SharedMutationTypes.CHANGE_SELECTED_SERVICE, response.data.service);
-      commit(SharedMutationTypes.CHANGE_SELECTED_CUSTOMER, response.data.customer);
-      if (response.data.service.staff[0] === undefined) {
-        commit(StaffMutationTypes.CHANGE_STAFF, [response.data.service.staff]);
-      } else {
-        commit(StaffMutationTypes.CHANGE_STAFF, response.data.service.staff);
+    try {
+      const response = await appointmentService.get(id);
+      if (response.status === 200 && response.data) {
+        commit(LocalMutationTypes.CHANGE_APPOINTMENT, response.data);
+        commit(SharedMutationTypes.CHANGE_SELECTED_SERVICE, response.data.service);
+        commit(SharedMutationTypes.CHANGE_SELECTED_CUSTOMER, response.data.customer);
+        if (response.data.service.staff[0] === undefined) {
+          commit(StaffMutationTypes.CHANGE_STAFF, [response.data.service.staff]);
+        } else {
+          commit(StaffMutationTypes.CHANGE_STAFF, response.data.service.staff);
+        }
+        return response;
       }
-    } else {
+      throw new ApiError('No appointment by this ID.');
+    } catch {
       throw new ApiError('No appointment by this ID.');
     }
-
-    return response;
+  },
+  async [LocalActionTypes.FETCH_APPOINTMENTS_ON_DATE](
+    { commit },
+    payload: { companyID: number; dateString: string },
+  ): Promise<AxiosResponse> {
+    try {
+      const response = await appointmentService.get(`company/${payload.companyID.toString()}/${payload.dateString}`);
+      if (response.status === 200 && response.data) {
+        commit(SharedMutationTypes.CHANGE_RESERVED_APPOINTMENTS, response.data as Appointment[]);
+        return response;
+      }
+      throw new ApiError('No appointment by this ID.');
+    } catch {
+      throw new ApiError('No appointment by this ID.');
+    }
   },
   async [LocalActionTypes.FETCH_APPOINTMENT_BY_CUSTOMER]({ commit }, id: number): Promise<AxiosResponse> {
     const response = await appointmentService.getByCustomerID(id);
@@ -71,41 +96,51 @@ export const actions: ActionTree<State, RootState> & Actions = {
     return response;
   },
   async [LocalActionTypes.CREATE_APPOINTMENT]({ commit }, payload): Promise<unknown> {
-    console.log('🚀 ~ file: actions.ts ~ line 81 ~ payload', payload);
     return new Promise((resolve, reject) => (async () => {
-      const response = await appointmentService.create(payload);
-      console.log('🚀 ~ file: actions.ts ~ line 108 ~ returnnewPromise ~ response.data', response.data);
-      if (response.status === 201) {
-        commit(SharedMutationTypes.ADD_RESERVED_APPOINTMENTS, [{ ...response.data }]);
-        resolve(true);
-      } else {
+      try {
+        const response = await appointmentService.create(payload);
+        if (response.status === 201) {
+          commit(SharedMutationTypes.ADD_RESERVED_APPOINTMENTS, [{ ...response.data }]);
+          resolve(true);
+        } else {
+          reject(new ApiError('Could not create an appointment.'));
+        }
+      } catch {
         reject(new ApiError('Could not create an appointment.'));
       }
     })());
   },
   async [LocalActionTypes.UPDATE_APPOINTMENT]({ commit }, payload): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await appointmentService.update(payload);
-      if (response.status === 200) {
-        commit(SharedMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT, response.data);
-        resolve(true);
-      } else {
+      try {
+        const response = await appointmentService.update(payload);
+        if (response.status === 200) {
+          commit(SharedMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT, response.data as Appointment);
+          resolve(true);
+        } else {
+          reject(new ApiError('Could not update an appointment.'));
+        }
+      } catch {
         reject(new ApiError('Could not update an appointment.'));
       }
     })());
   },
-  async [LocalActionTypes.CANCEL_APPOINTMENT]({ commit }, id: number | undefined): Promise<unknown> {
+  async [LocalActionTypes.CANCEL_APPOINTMENT]({ commit }, payload: { id: number | undefined; isReschedule: boolean }): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      if (id !== undefined) {
-        const response = await appointmentService.destroy(id.toString());
-        if (response.status === 200) {
-          commit(SharedMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID, id);
-          resolve(true);
+      try {
+        if (payload.id !== undefined) {
+          const response = await appointmentService.destroy(`${payload.id.toString()}?reschedule=${payload.isReschedule.toString()}`);
+          if (response.status === 200) {
+            commit(SharedMutationTypes.REMOVE_RESERVED_APPOINTMENT_BY_ID, payload.id);
+            resolve(true);
+          } else {
+            reject(new ApiError('Could not delete an appointment.'));
+          }
         } else {
-          reject(new ApiError('Could not delete an appointment.'));
+          reject(new ValidationError('ID not a number'));
         }
-      } else {
-        reject(new ValidationError('ID not a number'));
+      } catch {
+        reject(new ApiError('Could not delete an appointment.'));
       }
     })());
   },

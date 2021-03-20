@@ -205,6 +205,10 @@ export class AppointmentService {
     return this.apiService.get(this.resource, slug);
   }
 
+  getByCustomerID(slug: number) {
+    return this.apiService.get(this.resource, `customer/${slug}`);
+  }
+
   create(params: object) {
     return this.apiService.post(this.resource, params);
   }
@@ -267,10 +271,6 @@ export class ContactService {
 
   get(slug: number | string) {
     return this.apiService.get(this.resource, slug);
-  }
-
-  getByCustomerID(slug: number) {
-    return this.apiService.get(this.resource, `customer/${slug}`);
   }
 
   create(params: object) {

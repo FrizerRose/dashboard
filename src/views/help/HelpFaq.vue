@@ -7,12 +7,12 @@
       <main class="content">
         <div class="container-fluid p-0">
           <div
-            v-if="orderedFaq"
+            v-if="allFaq"
             class="row"
           >
             <div class="col-9">
               <div
-                v-for="(pair, index) in orderedFaq"
+                v-for="(pair, index) in getFaqByCategory('Kalendar')"
                 :key="index"
               >
                 <div
@@ -21,7 +21,70 @@
                 >
                   <div class="card-header pb-0 help-header">
                     <h5 class="card-title text-end">
-                      Kategorija pitanja
+                      Kalendar
+                    </h5>
+                  </div>
+                  <div class="card-body py-0">
+                    <h3 class="mt-3 mb-4">
+                      {{ pair.question }}
+                    </h3>
+                    <p>{{ pair.answer }}</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                v-for="(pair, index) in getFaqByCategory('Termini')"
+                :key="index"
+              >
+                <div
+                  :id="'pitanje-' + pair.id"
+                  class="card"
+                >
+                  <div class="card-header pb-0 help-header">
+                    <h5 class="card-title text-end">
+                      Termini
+                    </h5>
+                  </div>
+                  <div class="card-body py-0">
+                    <h3 class="mt-3 mb-4">
+                      {{ pair.question }}
+                    </h3>
+                    <p>{{ pair.answer }}</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                v-for="(pair, index) in getFaqByCategory('Notifikacije')"
+                :key="index"
+              >
+                <div
+                  :id="'pitanje-' + pair.id"
+                  class="card"
+                >
+                  <div class="card-header pb-0 help-header">
+                    <h5 class="card-title text-end">
+                      Notifikacije
+                    </h5>
+                  </div>
+                  <div class="card-body py-0">
+                    <h3 class="mt-3 mb-4">
+                      {{ pair.question }}
+                    </h3>
+                    <p>{{ pair.answer }}</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                v-for="(pair, index) in getFaqByCategory('')"
+                :key="index"
+              >
+                <div
+                  :id="'pitanje-' + pair.id"
+                  class="card"
+                >
+                  <div class="card-header pb-0 help-header">
+                    <h5 class="card-title text-end">
+                      Ostalo
                     </h5>
                   </div>
                   <div class="card-body py-0">
@@ -38,7 +101,7 @@
             >
               <div class="c-sidebar-index">
                 <p
-                  v-for="(pair, index) in orderedFaq"
+                  v-for="(pair, index) in allFaq"
                   :key="index"
                   style="cursor: pointer"
                   class="mb-1"
@@ -77,7 +140,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const orderedFaq = computed(() => store.getters.getOrderedFaq);
+    const allFaq = computed(() => store.state.faq.faq);
 
     store.dispatch(ActionTypes.FETCH_FAQ, {});
 
@@ -88,8 +151,17 @@ export default defineComponent({
       }
     }
 
+    function getFaqByCategory(category: string) {
+      if (allFaq.value) {
+        const faqInCategory = allFaq.value.filter((faq) => faq.category === category);
+        return faqInCategory.sort((a, b) => a.order - b.order);
+      }
+      return [];
+    }
+
     return {
-      orderedFaq,
+      allFaq,
+      getFaqByCategory,
       scrollTo,
     };
   },

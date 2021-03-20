@@ -55,16 +55,20 @@ const contactService = new ContactService();
 export const actions: ActionTree<State, RootState> & Actions = {
   async [LocalActionTypes.FETCH_COMPANY]({ commit }, id: number | string): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      let response;
-      if (typeof id === 'number') {
-        response = await companyService.get(id);
-      } else {
-        response = await companyService.getBySlug(id);
-      }
-      if (response.status === 200 && response.data) {
-        commit(SharedMutationTypes.CHANGE_SELECTED_COMPANY, response.data);
-        resolve(true);
-      } else {
+      try {
+        let response;
+        if (typeof id === 'number') {
+          response = await companyService.get(id);
+        } else {
+          response = await companyService.getBySlug(id);
+        }
+        if (response.status === 200 && response.data) {
+          commit(SharedMutationTypes.CHANGE_SELECTED_COMPANY, response.data);
+          resolve(true);
+        } else {
+          reject(new ApiError('No company by this ID.'));
+        }
+      } catch {
         reject(new ApiError('No company by this ID.'));
       }
     })());
@@ -72,21 +76,29 @@ export const actions: ActionTree<State, RootState> & Actions = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async [LocalActionTypes.FETCH_STATS]({ commit }, companyID: number): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await companyService.get(`stats/${companyID.toString()}`);
-      if (response.status === 200 && response.data) {
-        resolve(response.data);
-      } else {
+      try {
+        const response = await companyService.get(`stats/${companyID.toString()}`);
+        if (response.status === 200 && response.data) {
+          resolve(response.data);
+        } else {
+          reject(new ApiError('API returned error.'));
+        }
+      } catch {
         reject(new ApiError('API returned error.'));
       }
     })());
   },
   async [LocalActionTypes.UPDATE_COMPANY]({ commit }, company: Company): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await companyService.update(company);
-      if (response.status === 200 && response.data) {
-        commit(SharedMutationTypes.CHANGE_SELECTED_COMPANY, response.data);
-        resolve(true);
-      } else {
+      try {
+        const response = await companyService.update(company);
+        if (response.status === 200 && response.data) {
+          commit(SharedMutationTypes.CHANGE_SELECTED_COMPANY, response.data);
+          resolve(true);
+        } else {
+          reject(new ApiError('Updating company failed.'));
+        }
+      } catch {
         reject(new ApiError('Updating company failed.'));
       }
     })());
@@ -94,10 +106,14 @@ export const actions: ActionTree<State, RootState> & Actions = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async [LocalActionTypes.UPLOAD_IMAGE]({ commit }, image: object): Promise<Image> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await imageService.create(image);
-      if (response.status === 201 && response.data) {
-        resolve(response.data);
-      } else {
+      try {
+        const response = await imageService.create(image);
+        if (response.status === 201 && response.data) {
+          resolve(response.data);
+        } else {
+          reject(new ApiError('Uploading image failed.'));
+        }
+      } catch {
         reject(new ApiError('Uploading image failed.'));
       }
     })());
@@ -105,21 +121,29 @@ export const actions: ActionTree<State, RootState> & Actions = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async [LocalActionTypes.SEND_CONTACT]({ commit }, formData: object): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await contactService.create(formData);
-      if (response.status === 201 && response.data) {
-        resolve(response.data);
-      } else {
-        reject(new ApiError('Creating contact failed.'));
+      try {
+        const response = await contactService.create(formData);
+        if (response.status === 201 && response.data) {
+          resolve(response.data);
+        } else {
+          reject(new ApiError('Creating contact failed.'));
+        }
+      } catch {
+        reject(new ApiError('Deleting staff failed.'));
       }
     })());
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async [LocalActionTypes.DELETE_IMAGE]({ commit }, id: number): Promise<Image> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await imageService.destroy(id);
-      if (response.status === 200) {
-        resolve(response.data);
-      } else {
+      try {
+        const response = await imageService.destroy(id);
+        if (response.status === 200) {
+          resolve(response.data);
+        } else {
+          reject(new ApiError('Uploading image failed.'));
+        }
+      } catch {
         reject(new ApiError('Uploading image failed.'));
       }
     })());

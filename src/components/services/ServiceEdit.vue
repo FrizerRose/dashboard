@@ -144,6 +144,12 @@
                 </label>
               </div>
             </div>
+            <p
+              v-if="requestSent && !status"
+              class="text-danger"
+            >
+              {{ errorMsg }}
+            </p>
           </div>
         </div>
       </div>
@@ -194,15 +200,23 @@ export default defineComponent({
     const formData = reactive(JSON.parse(JSON.stringify(props.service)));
     const requestSent = ref(false);
     const status = ref(false);
+    const errorMsg = ref('Promjena usluge nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.');
 
     async function save() {
-      try {
-        await store.dispatch(ActionTypes.UPDATE_SERVICE, formData);
-        requestSent.value = true;
-        status.value = true;
-      } catch {
+      if (formData.name && formData.price && formData.duration) {
+        try {
+          await store.dispatch(ActionTypes.UPDATE_SERVICE, formData);
+          requestSent.value = true;
+          status.value = true;
+        } catch {
+          requestSent.value = true;
+          status.value = false;
+          errorMsg.value = 'Promjena usluge nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.';
+        }
+      } else {
         requestSent.value = true;
         status.value = false;
+        errorMsg.value = 'Ime, cijena i trajanje moraju biti unešeni.';
       }
     }
 
@@ -232,6 +246,7 @@ export default defineComponent({
       save,
       formData,
       status,
+      errorMsg,
       requestSent,
       capitalize,
       allStaff,

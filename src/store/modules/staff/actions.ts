@@ -61,64 +61,84 @@ export const actions: ActionTree<State, RootState> & Actions = {
     customDates: {start: string; end: string};
   }): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await staffService.query(payload.id, payload.customDates);
+      try {
+        const response = await staffService.query(payload.id, payload.customDates);
 
-      if (response.status === 200 && response.data) {
-        const formattedAppointments = response.data.appointments.map((appointment: Appointment) => {
-          const newAppointment = { ...appointment };
-          // Removing ':00' from the time attribute
-          newAppointment.time = appointment.time.slice(0, -3);
-          // Add the Staff who is responsible for the appointment
-          newAppointment.staff = response.data;
+        if (response.status === 200 && response.data) {
+          const formattedAppointments = response.data.appointments.map((appointment: Appointment) => {
+            const newAppointment = { ...appointment };
+            // Removing ':00' from the time attribute
+            newAppointment.time = appointment.time.slice(0, -3);
+            // Add the Staff who is responsible for the appointment
+            newAppointment.staff = response.data;
 
-          return newAppointment;
-        });
+            return newAppointment;
+          });
 
-        commit(SharedMutationTypes.CHANGE_RESERVED_APPOINTMENTS, formattedAppointments);
-        resolve(true);
-      } else {
+          commit(SharedMutationTypes.CHANGE_RESERVED_APPOINTMENTS, formattedAppointments);
+          resolve(true);
+        } else {
+          reject(new ApiError('No staff by this ID.'));
+        }
+      } catch {
         reject(new ApiError('No staff by this ID.'));
       }
     })());
   },
   async [LocalActionTypes.FETCH_STAFF]({ commit }, companyID: number | string) {
-    const response = await staffService.getByCompanyID(companyID);
-    if (response.status === 200 && response.data) {
-      commit(LocalMutationTypes.CHANGE_STAFF, response.data as Staff[]);
-      commit(SharedMutationTypes.CHANGE_SELECTED_WORKER, response.data[0] as Staff);
-    } else {
+    try {
+      const response = await staffService.getByCompanyID(companyID);
+      if (response.status === 200 && response.data) {
+        commit(LocalMutationTypes.CHANGE_STAFF, response.data as Staff[]);
+        commit(SharedMutationTypes.CHANGE_SELECTED_WORKER, response.data[0] as Staff);
+      } else {
+        throw new ApiError('No staff with this company ID.');
+      }
+    } catch {
       throw new ApiError('No staff with this company ID.');
     }
   },
   async [LocalActionTypes.CREATE_STAFF]({ commit }, staff: Staff): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await staffService.create(staff);
-      if (response.status === 201 && response.data) {
-        commit(LocalMutationTypes.ADD_STAFF, response.data as Staff);
-        resolve(true);
-      } else {
+      try {
+        const response = await staffService.create(staff);
+        if (response.status === 201 && response.data) {
+          commit(LocalMutationTypes.ADD_STAFF, response.data as Staff);
+          resolve(true);
+        } else {
+          reject(new ApiError('Cereating staff failed.'));
+        }
+      } catch {
         reject(new ApiError('Cereating staff failed.'));
       }
     })());
   },
   async [LocalActionTypes.UPDATE_STAFF]({ commit }, staff: Staff): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await staffService.update(staff);
-      if (response.status === 200 && response.data) {
-        commit(LocalMutationTypes.UPDATE_STAFF_BY_ID, response.data as Staff);
-        resolve(true);
-      } else {
+      try {
+        const response = await staffService.update(staff);
+        if (response.status === 200 && response.data) {
+          commit(LocalMutationTypes.UPDATE_STAFF_BY_ID, response.data as Staff);
+          resolve(true);
+        } else {
+          reject(new ApiError('Updating staff failed.'));
+        }
+      } catch {
         reject(new ApiError('Updating staff failed.'));
       }
     })());
   },
   async [LocalActionTypes.DELETE_STAFF]({ commit }, staff: Staff): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
-      const response = await staffService.destroy(staff.id);
-      if (response.status === 200 && response.data) {
-        commit(LocalMutationTypes.REMOVE_STAFF_BY_ID, { id: staff.id, ...response.data } as Staff);
-        resolve(true);
-      } else {
+      try {
+        const response = await staffService.destroy(staff.id);
+        if (response.status === 200 && response.data) {
+          commit(LocalMutationTypes.REMOVE_STAFF_BY_ID, { id: staff.id, ...response.data } as Staff);
+          resolve(true);
+        } else {
+          reject(new ApiError('Deleting staff failed.'));
+        }
+      } catch {
         reject(new ApiError('Deleting staff failed.'));
       }
     })());

@@ -126,6 +126,12 @@
                 </div>
               </div>
             </div>
+            <p
+              v-if="requestSent && !status"
+              class="text-danger"
+            >
+              {{ errorMsg }}
+            </p>
           </div>
         </div>
       </div>
@@ -168,6 +174,7 @@ export default defineComponent({
     const allStaff = computed(() => store.state.staff.allStaff);
     const requestSent = ref(false);
     const status = ref(false);
+    const errorMsg = ref('Kreiranje usluge nije uspjelo. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.');
 
     function closeServiceCreateModal() {
       store.commit(MutationTypes.CHANGE_OPEN_SERVICE_CREATE_MODAL, false);
@@ -199,23 +206,31 @@ export default defineComponent({
     }
 
     async function createService() {
-      try {
-        await store.dispatch(ActionTypes.CREATE_SERVICE, newService);
-        requestSent.value = true;
-        status.value = true;
-        newService.name = '';
-        newService.price = 0;
-        newService.duration = 0;
-        closeServiceCreateModal();
-      } catch {
+      if (newService.name && newService.price && newService.duration) {
+        try {
+          await store.dispatch(ActionTypes.CREATE_SERVICE, newService);
+          requestSent.value = true;
+          status.value = true;
+          newService.name = '';
+          newService.price = 0;
+          newService.duration = 0;
+          closeServiceCreateModal();
+        } catch {
+          requestSent.value = true;
+          status.value = false;
+          errorMsg.value = 'Kreiranje usluge nije uspjelo. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.';
+        }
+      } else {
         requestSent.value = true;
         status.value = false;
+        errorMsg.value = 'Ime, cijena i trajanje moraju biti unešeni.';
       }
     }
 
     return {
       requestSent,
       status,
+      errorMsg,
       newService,
       createService,
       closeServiceCreateModal,

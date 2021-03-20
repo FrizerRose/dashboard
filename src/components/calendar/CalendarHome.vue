@@ -26,6 +26,8 @@ export default defineComponent({
 
     const reservedAppointments = computed(() => store.state.shared.reservedAppointments);
 
+    const isMobile = computed(() => store.state.shared.isMobile);
+
     const calendar = ref({} as Calendar);
 
     const formattedAppointments = computed(() => reservedAppointments.value.map((appointment) => {
@@ -68,6 +70,8 @@ export default defineComponent({
         calendar.value = new Calendar(calendarEl, {
           plugins: [listPlugin, bootstrapPlugin],
           initialView: 'listWeek',
+          selectable: !isMobile.value,
+          contentHeight: isMobile.value ? (window.innerHeight * 0.7) : 800,
           headerToolbar: false,
           nowIndicator: true,
           stickyHeaderDates: true,

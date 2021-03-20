@@ -41,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/korisnici',
     name: 'Customers',
     // lazy loaded route
-    component: () => import(/* webpackChunkName: "radnici" */ '../views/Customers.vue'),
+    component: () => import(/* webpackChunkName: "korisnici" */ '../views/Customers.vue'),
   },
   {
     path: '/postavke',

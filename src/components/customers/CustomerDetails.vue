@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="card">
         <div class="card-header">
           <strong>{{ customer.name }}</strong>
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
       <div
         v-if="customerAppointments"
         class="card"
@@ -32,6 +32,9 @@
             >
               <strong>{{ appointment.date }} - {{ appointment.time }} - {{ appointment.service.name }}</strong> <br>
             </li>
+            <p v-if="!customerAppointments.length">
+              Korisnik nema ugovorenih termina.
+            </p>
           </ul>
         </div>
       </div>

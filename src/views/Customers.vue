@@ -9,7 +9,6 @@
           v-if="customers"
           class="container-fluid p-0"
         >
-          <!-- TODO: move customer list to a separate component, adjust search -->
           <div class="postavke-nav">
             <ul
               class="postavke-nav__list"
@@ -18,20 +17,20 @@
               <li class="postavke-nav__list-item">
                 <div class="postavke-nav__link active">
                   <input
-                    id="oldCustomerName"
-                    v-model="oldCustomerName"
+                    id="customerName"
+                    v-model="customerName"
                     placeholder="Počnite upisivati ime klijenta"
                     type="text"
-                    name="oldCustomerName"
+                    name="customerName"
                     autocomplete="off"
                     class="form-control"
-                    @input="oldCustomerInputChange()"
+                    @input="customerSearchInputChange()"
                   >
                 </div>
               </li>
               <li class="postavke-nav__list-item">
                 <a
-                  v-for="customer in oldCustomerCandidates"
+                  v-for="customer in shownCustomers"
                   :key="customer.id"
                   class="postavke-nav__link active"
                   href="#tab-1"
@@ -88,18 +87,18 @@ export default defineComponent({
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const customers = computed(() => store.state.customer.customers);
     const selectedCustomer = ref({ ...customers.value[0] });
-    const oldCustomerName = ref('');
-    let oldCustomerCandidates = ref([] as Customer[]);
+    const customerName = ref('');
+    const shownCustomers = ref([] as Customer[]);
 
     if (customers.value.length) {
-      oldCustomerCandidates = JSON.parse(JSON.stringify(customers.value));
+      shownCustomers.value = JSON.parse(JSON.stringify(customers.value));
     }
 
     async function selectCustomer(customer: Customer) {
       try {
         await store.dispatch(ActionTypes.FETCH_APPOINTMENT_BY_CUSTOMER, customer.id);
       } catch {
-        // oldCustomerCandidates.value = [];
+        // TODO: err
       }
       selectedCustomer.value = customer;
     }
@@ -107,13 +106,12 @@ export default defineComponent({
     async function fetchCustomersByName() {
       try {
         const response = await store.dispatch(ActionTypes.FETCH_CUSTOMERS_BY_NAME, {
-          name: oldCustomerName.value,
+          name: customerName.value,
           company: selectedCompany.value?.id,
         });
-        console.log(response);
-        oldCustomerCandidates.value = response;
+        shownCustomers.value = response;
       } catch {
-        oldCustomerCandidates.value = [];
+        shownCustomers.value = JSON.parse(JSON.stringify(customers.value));
       }
     }
     const debounce = (func: Function, timeout = 300) => {
@@ -125,15 +123,23 @@ export default defineComponent({
         }, timeout);
       };
     };
-    const oldCustomerInputChange = debounce(() => fetchCustomersByName());
+    const handleSearch = debounce(() => fetchCustomersByName());
+
+    function customerSearchInputChange() {
+      if (customerName.value === '') {
+        shownCustomers.value = JSON.parse(JSON.stringify(customers.value));
+      } else {
+        handleSearch();
+      }
+    }
 
     return {
       selectedCustomer,
       selectCustomer,
       customers,
-      oldCustomerName,
-      oldCustomerInputChange,
-      oldCustomerCandidates,
+      customerName,
+      customerSearchInputChange,
+      shownCustomers,
     };
   },
 });
@@ -142,6 +148,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .postavke-content {
   background-color: var(--bs-light);
+
+  .tab-content {
+    background: none;
+    box-shadow: none;
+  }
 }
 
 .postavke-nav {

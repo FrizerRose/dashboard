@@ -36,7 +36,7 @@
               <span class="align-middle me-1">
                 <span class="fa fa-user" />
               </span>
-              Promjeni lozink
+              Promjeni lozinku
             </router-link>
 
             <div class="dropdown-divider" />

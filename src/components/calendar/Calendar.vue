@@ -425,7 +425,7 @@ export default defineComponent({
   @media (min-width: 1200px) {
   }
 }
-// .page-calendar-table {
+.page-calendar-table {
 //   @media (max-width: 768px) {
 //     position: relative;
 //     &:after {

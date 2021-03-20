@@ -1,5 +1,5 @@
 <template>
-  <router-view />
+  <router-view v-if="selectedCompany" />
 
   <InitialFlow v-if="!isTutorialFinished && selectedCompany !== null && !isOnAuthPages" />
 </template>

@@ -210,6 +210,12 @@
                 </div>
               </div>
             </div>
+            <p
+              v-if="requestSent && !status"
+              class="text-danger"
+            >
+              Rezervacija nije uspjela. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
+            </p>
           </div>
         </div>
       </div>

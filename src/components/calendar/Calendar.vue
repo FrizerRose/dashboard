@@ -228,7 +228,7 @@ export default defineComponent({
           schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
           businessHours: getFormattedBusinessHours(selectedWorker.value),
           events: formattedAppointments.value,
-          // selectable: true,
+          selectable: true,
           select(info) {
             store.commit(MutationTypes.CHANGE_SELECTED_DATETIME, {
               date: getDateStringFromDate(info.start),

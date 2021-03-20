@@ -110,7 +110,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
     return new Promise((resolve, reject) => (async () => {
       const response = await appointmentService.update(payload);
       if (response.status === 200) {
-        commit(SharedMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT, response.data);
+        commit(SharedMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT, response.data as Appointment);
         resolve(true);
       } else {
         reject(new ApiError('Could not update an appointment.'));

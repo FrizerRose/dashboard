@@ -19,7 +19,6 @@ import listPlugin from '@fullcalendar/list';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import hrLocale from '@fullcalendar/core/locales/hr';
 import { useStore } from '@/store';
-import { getFormattedBusinessHours } from '@/helpers/calendar';
 
 export default defineComponent({
   setup() {

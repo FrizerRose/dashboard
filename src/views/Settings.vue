@@ -6,7 +6,6 @@
     <template #body>
       <main class="content-X postavke-content">
         <div
-          v-if="selectedCompany"
           class="container-fluid p-0"
         >
           <div class="postavke-nav">
@@ -97,7 +96,6 @@
             </ul>
           </div>
           <div
-            v-if="selectedCompany"
             class="postavke-main"
           >
             <div class="tab">
@@ -147,8 +145,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
-import { useStore } from '@/store';
+import { defineComponent, ref } from 'vue';
 import Dashboard from '@/components/layout/Dashboard.vue';
 import SettingsCompanyDetails from '@/components/settings/SettingsCompanyDetails.vue';
 import SettingsNotifications from '@/components/settings/SettingsNotifications.vue';
@@ -167,12 +164,9 @@ export default defineComponent({
   },
 
   setup() {
-    const store = useStore();
-    const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const currentTab = ref('CompanyDetails');
 
     return {
-      selectedCompany,
       currentTab,
     };
   },

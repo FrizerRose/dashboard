@@ -192,6 +192,7 @@
       </button>
       <button
         v-if="!isInThePast"
+        :disabled="!rescheduledCustomer.name"
         :class="{
           btn: true,
           'btn-lg': true,
@@ -268,8 +269,11 @@ export default defineComponent({
           ...selectedAppointment.value,
           hasCustomerArrived: hasCustomerArrived.value,
         });
+
+        closeCalendarModal();
       } catch {
-        // TODO:
+        rescheduleRequestSent.value = true;
+        rescheduleStatus.value = true;
       }
     }
 
@@ -287,7 +291,13 @@ export default defineComponent({
       }
     }
 
-    async function createAppointment() {
+    async function reschedule() {
+      if (!rescheduledCustomer.value.name) {
+        throw new Error();
+      }
+
+      cancel(true);
+
       try {
         let customerObject = {};
         customerObject = {
@@ -299,33 +309,32 @@ export default defineComponent({
 
         const createdCustomer: Customer = await store.dispatch(ActionTypes.CREATE_CUSTOMER, customerObject as Customer);
 
-        let appointmentObject = {};
-        appointmentObject = {
-          date: formatDateString(rescheduledDateTime.value.date),
-          time: rescheduledDateTime.value.time,
-          company: selectedCompany.value?.id,
-          staff: rescheduledStaff.value.id,
-          service: rescheduledService.value.id,
-          customer: createdCustomer.id,
-          message: rescheduledNotice.value,
-        };
+        if (createdCustomer) {
+          let appointmentObject = {};
+          appointmentObject = {
+            date: formatDateString(rescheduledDateTime.value.date),
+            time: rescheduledDateTime.value.time,
+            company: selectedCompany.value?.id,
+            staff: rescheduledStaff.value.id,
+            service: rescheduledService.value.id,
+            customer: createdCustomer.id,
+            message: rescheduledNotice.value,
+          };
 
-        await store.dispatch(ActionTypes.CREATE_APPOINTMENT, appointmentObject);
-        store.commit(MutationTypes.CHANGE_SELECTED_SERVICE, rescheduledService.value);
+          await store.dispatch(ActionTypes.CREATE_APPOINTMENT, appointmentObject);
+          store.commit(MutationTypes.CHANGE_SELECTED_SERVICE, rescheduledService.value);
 
-        rescheduleRequestSent.value = true;
-        rescheduleStatus.value = true;
+          rescheduleRequestSent.value = true;
+          rescheduleStatus.value = true;
 
-        closeCalendarModal();
+          closeCalendarModal();
+        } else {
+          throw new Error();
+        }
       } catch {
         rescheduleRequestSent.value = true;
-        rescheduleStatus.value = true;
+        rescheduleStatus.value = false;
       }
-    }
-
-    function reschedule() {
-      cancel(true);
-      createAppointment();
     }
 
     return {

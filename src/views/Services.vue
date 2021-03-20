@@ -29,7 +29,10 @@
         </div>
 
         <div class="row">
-          <div class="col-xl-12">
+          <div
+            v-if="services"
+            class="col-xl-12"
+          >
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
@@ -87,6 +90,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div v-else>
+            Nema unešenih usluga.
           </div>
 
           <div

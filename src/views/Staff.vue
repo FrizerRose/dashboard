@@ -30,7 +30,10 @@
         </div>
 
         <div class="row">
-          <div class="col-xl-12">
+          <div
+            v-if="staff"
+            class="col-xl-12"
+          >
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
@@ -103,6 +106,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div>
+            Nema unešenih radnika.
           </div>
         </div>
 

@@ -48,27 +48,11 @@
               </li>
               <li
                 class="postavke-nav__list-item"
-                @click="currentTab = 'PersonalDetails'"
-              >
-                <a
-                  :class="{'postavke-nav__link' : true, 'active': currentTab === 'PersonalDetails'}"
-                  href="#tab-3"
-                  data-bs-toggle="tab"
-                  role="tab"
-                >
-                  <span class="postavke-nav__icon">
-                    <span class="fa fa-key" />
-                  </span>
-                  <span class="postavke-nav__label">Korisnički podaci</span>
-                </a>
-              </li>
-              <li
-                class="postavke-nav__list-item"
                 @click="currentTab = 'WorkingHours'"
               >
                 <a
                   :class="{'postavke-nav__link' : true, 'active': currentTab === 'WorkingHours'}"
-                  href="#tab-4"
+                  href="#tab-3"
                   data-bs-toggle="tab"
                   role="tab"
                 >
@@ -84,7 +68,7 @@
               >
                 <a
                   :class="{'postavke-nav__link' : true, 'active': currentTab === 'Themes'}"
-                  href="#tab-5"
+                  href="#tab-4"
                   data-bs-toggle="tab"
                   role="tab"
                 >
@@ -100,7 +84,7 @@
               >
                 <a
                   :class="{'postavke-nav__link' : true, 'active': currentTab === 'Notifications'}"
-                  href="#tab-6"
+                  href="#tab-5"
                   data-bs-toggle="tab"
                   role="tab"
                 >
@@ -137,24 +121,17 @@
                   class="tab-pane active"
                   role="tabpanel"
                 >
-                  <SettingsPersonalDetails v-if="currentTab === 'PersonalDetails'" />
+                  <SettingsWorkingHours v-if="currentTab === 'WorkingHours'" />
                 </div>
                 <div
                   id="tab-4"
                   class="tab-pane active"
                   role="tabpanel"
                 >
-                  <SettingsWorkingHours v-if="currentTab === 'WorkingHours'" />
-                </div>
-                <div
-                  id="tab-5"
-                  class="tab-pane active"
-                  role="tabpanel"
-                >
                   <SettingsThemes v-if="currentTab === 'Themes'" />
                 </div>
                 <div
-                  id="tab-6"
+                  id="tab-5"
                   class="tab-pane active"
                   role="tabpanel"
                 >
@@ -174,7 +151,6 @@ import { defineComponent, ref, computed } from 'vue';
 import { useStore } from '@/store';
 import Dashboard from '@/components/layout/Dashboard.vue';
 import SettingsCompanyDetails from '@/components/settings/SettingsCompanyDetails.vue';
-import SettingsPersonalDetails from '@/components/settings/SettingsPersonalDetails.vue';
 import SettingsNotifications from '@/components/settings/SettingsNotifications.vue';
 import SettingsThemes from '@/components/settings/SettingsThemes.vue';
 import SettingsWorkingHours from '@/components/settings/SettingsWorkingHours.vue';
@@ -184,7 +160,6 @@ export default defineComponent({
   components: {
     Dashboard,
     SettingsCompanyDetails,
-    SettingsPersonalDetails,
     SettingsNotifications,
     SettingsThemes,
     SettingsWorkingHours,

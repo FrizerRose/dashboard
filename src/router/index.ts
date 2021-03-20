@@ -44,6 +44,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "postavke" */ '../views/Settings.vue'),
   },
   {
+    path: '/promjeni-lozinku',
+    name: 'ChangePassword',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "postavke" */ '../views/ChangePassword.vue'),
+  },
+  {
     path: '/pomoc',
     name: 'Help',
     component: () => import(/* webpackChunkName: "cesta-pitanja" */ '../views/help/Help.vue'),

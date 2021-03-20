@@ -239,7 +239,7 @@
           >
             <strong>Promjenite domenu</strong>
             <br>
-            nakon promjene bit ćete prebačeni na novu stranicu gdje će te se trebati ponovo logirati
+            nakon promjene bit ćete prebačeni na novu stranicu gdje će te se trebati ponovno logirati
           </label>
           <div class="d-flex align-items-baseline">
             <input

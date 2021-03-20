@@ -10,10 +10,10 @@
             <div class="d-table-cell align-middle">
               <div class="text-center mt-4">
                 <h1 class="h2">
-                  Welcome back
+                  Dobrodošli
                 </h1>
                 <p class="lead">
-                  Sign in to your account to continue
+                  Prijavite se za nastavak
                 </p>
               </div>
 
@@ -53,21 +53,14 @@
                           class="form-control form-control-lg"
                           type="email"
                           name="validation-email"
-                          placeholder="Enter your email"
+                          placeholder="Unesite email"
                         >
-                        <small class="form-text d-block text-muted">Example block-level help text here.</small>
-                        <label
-                          v-if="hasError"
-                          class="error jquery-validation-error small form-text invalid-feedback"
-                          :style="{display: 'inline-block'}"
-                          for="validation-email"
-                        >This field is required.</label>
                       </div>
                       <div class="mb-3">
                         <label
                           class="form-label"
                           for="LOGIN-MODAL-PASSWORD"
-                        >Password</label>
+                        >Lozinka</label>
                         <input
                           id="LOGIN-MODAL-PASSWORD"
                           v-model="credentials.password"
@@ -75,28 +68,27 @@
                           class="form-control form-control-lg"
                           type="password"
                           name="validation-password"
-                          placeholder="Enter your password"
+                          placeholder="Unesite lozinku"
                         >
                         <small>
                           <a
                             href=""
                             @click.prevent="goToForgottenPassword()"
-                          >Forgot password?</a>
+                          >Zaboravljena lozinka?</a>
                         </small>
-                        <small class="form-text d-block text-muted">Example block-level help text here.</small>
                         <label
                           v-if="hasError"
                           class="error jquery-validation-error small form-text invalid-feedback"
                           :style="{display: 'inline-block'}"
                           for="validation-password"
-                        >This field is required.</label>
+                        >{{ errorMsg }}</label>
                       </div>
                       <div class="mt-3">
                         <button
                           type="submit"
                           class="btn btn-lg btn-primary"
                         >
-                          Sign in
+                          Prijavi se
                         </button>
                       </div>
                     </form>
@@ -124,9 +116,11 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
 
+    const selectedCompany = computed(() => store.state.shared.selectedCompany);
+
     const credentials = reactive({ email: '', password: '' });
     const hasError = ref(false);
-    const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const errorMsg = ref('Prijava nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.');
 
     async function login() {
       hasError.value = false;
@@ -136,6 +130,7 @@ export default defineComponent({
           await store.dispatch(ActionTypes.LOGIN, { ...credentials, company: selectedCompany.value?.id });
           router.push('/');
         } else {
+          errorMsg.value = 'Došlo je do greške. Molimo vas da pokušate ponovno.';
           throw new Error();
         }
       } catch {
@@ -152,6 +147,7 @@ export default defineComponent({
       login,
       goToForgottenPassword,
       hasError,
+      errorMsg,
     };
   },
 });

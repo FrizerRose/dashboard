@@ -32,24 +32,13 @@
           >
             <router-link
               class="dropdown-item"
-              to="/"
+              to="/promjeni-lozinku"
             >
               <span class="align-middle me-1">
                 <span class="fa fa-user" />
               </span>
-              Profil
+              Promjeni lozink
             </router-link>
-
-            <router-link
-              class="dropdown-item"
-              to="/"
-            >
-              <span class="align-middle me-1">
-                <span class="fa fa-chart-bar" />
-              </span>
-              Statistika
-            </router-link>
-            <div class="dropdown-divider" />
 
             <button
               class="dropdown-item"

@@ -19,10 +19,9 @@
             }"
             @click.prevent="toggleDropdown()"
           >
-            <span class="align-middle d-inline-block d-sm-none">
-              <span class="fa fa-cog" />
+            <span class="align-middle me-1 d-inline-block">
+              <span class="fa fa-user" />
             </span>
-            <span class="text-dark d-none d-sm-inline-block">Ime ulogirane osobe</span>
           </a>
           <div
             class="dropdown-menu dropdown-menu-end"
@@ -40,6 +39,7 @@
               Promjeni lozink
             </router-link>
 
+            <div class="dropdown-divider" />
             <button
               class="dropdown-item"
               @click="logout()"

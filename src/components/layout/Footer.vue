@@ -62,6 +62,7 @@
 <style lang="scss" scoped>
 .round-button-wrap {
   position: relative;
+  z-index: 1;
 }
 .round-button {
   position: fixed;

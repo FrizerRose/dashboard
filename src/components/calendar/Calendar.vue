@@ -11,35 +11,35 @@
     - Quick actions button - linkovi na dodavanje servica/ranika, etc. TODO:
   -->
   <div>
-    <div class="card">
-      <div class="card-body">
-        <header class="page-calendar-header">
-          <label
-            for="selectedWorker"
-            class="form-label w-100"
-          >
-            <strong>Odaberite radnika</strong>
-          </label>
-          <select
-            id="selectedWorker"
-            v-model="selectedWorker"
-            name="selectedWorker"
-            class="form-control form-control-lg mb-3"
-            @change="selectWorker()"
-          >
-            <option
-              v-for="worker in allStaff"
-              :key="worker.id"
-              :value="worker"
+    <div class="page-calendar-main">
+      <div class="card">
+        <div class="card-body">
+          <header class="page-calendar-header">
+            <label
+              for="selectedWorker"
+              class="form-label w-100"
             >
-              {{ worker.name }}
-            </option>
-          </select>
-        </header>
+              <strong>Odaberite radnika</strong>
+            </label>
+            <select
+              id="selectedWorker"
+              v-model="selectedWorker"
+              name="selectedWorker"
+              class="form-control form-control-lg mb-4"
+              @change="selectWorker()"
+            >
+              <option
+                v-for="worker in allStaff"
+                :key="worker.id"
+                :value="worker"
+              >
+                {{ worker.name }}
+              </option>
+            </select>
+          </header>
 
-        <div class="page-calendar-main">
           <div class="page-calendar-toolbar">
-            <div class="page-calendar-toolbar__item">
+            <div class="page-calendar-toolbar__item mb-2">
               <button
                 class="btn btn-lg btn-primary me-2"
                 @click="prevWeek()"
@@ -60,7 +60,7 @@
               </button>
             </div>
 
-            <div class="page-calendar-toolbar__item">
+            <div class="page-calendar-toolbar__item mb-2">
               <h3 class="h3 mb-0">
                 {{ headerTitle }}
               </h3>
@@ -81,22 +81,22 @@
               </button>
             </div>
           </div>
-
-          <div class="row">
-            <div id="fullcalendar" />
-          </div>
-        </div>
-
-        <!-- EDIT/CANCEL -->
-        <div v-if="isAppointmentModalOpen && isEventSelected">
-          <CalendarEditModal />
-        </div>
-
-        <!-- CREATE -->
-        <div v-if="isAppointmentModalOpen && !isEventSelected">
-          <CalendarCreateModal />
         </div>
       </div>
+
+      <div class="page-calendar-table">
+        <div id="fullcalendar" />
+      </div>
+    </div>
+
+    <!-- EDIT/CANCEL -->
+    <div v-if="isAppointmentModalOpen && isEventSelected">
+      <CalendarEditModal />
+    </div>
+
+    <!-- CREATE -->
+    <div v-if="isAppointmentModalOpen && !isEventSelected">
+      <CalendarCreateModal />
     </div>
   </div>
 </template>
@@ -413,7 +413,6 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 1rem;
   @media (max-width: 1199px) {
     flex-direction: column;
   }
@@ -422,9 +421,34 @@ export default defineComponent({
 }
 .page-calendar-toolbar__item {
   @media (max-width: 1199px) {
-    margin-bottom: 1rem;
   }
   @media (min-width: 1200px) {
+  }
+}
+.page-calendar-table {
+  @media (max-width: 768px) {
+    position: relative;
+    &:after {
+      content: "";
+      z-index: 1;
+      background-color: #3f80ea;
+      width: 3rem;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: .25;
+      background-image:
+        repeating-linear-gradient(45deg, #3f80ea 25%, transparent 25%, transparent 75%, #3f80ea 75%, #3f80ea),
+        repeating-linear-gradient(45deg, #3f80ea 25%, white 25%, white 75%, #3f80ea 75%, #3f80ea);
+      background-position: 0 0, 0.5rem 0.5rem;
+      background-size: 1rem 1rem;
+    }
+  }
+  // -1.5rem to cancel out padding on .content
+  @media (max-width: 991.98px) {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
   }
 }
 .fc .fc-timegrid-slot {

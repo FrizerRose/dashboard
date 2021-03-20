@@ -100,16 +100,6 @@
             <div class="faq-aside">
               <ul class="faq-aside__list nav">
                 <li
-                  v-for="(pair, index) in getFaqByCategory('')"
-                  :key="index"
-                  class="faq-aside__item mb-1"
-                >
-                  <a
-                    :href="'#pitanje-' + pair.id"
-                    class="nav-link"
-                  >{{ pair.question }}</a>
-                </li>
-                <li
                   v-for="(pair, index) in getFaqByCategory('Kalendar')"
                   :key="index"
                   class="faq-aside__item mb-1"
@@ -131,6 +121,16 @@
                 </li>
                 <li
                   v-for="(pair, index) in getFaqByCategory('Notifikacije')"
+                  :key="index"
+                  class="faq-aside__item mb-1"
+                >
+                  <a
+                    :href="'#pitanje-' + pair.id"
+                    class="nav-link"
+                  >{{ pair.question }}</a>
+                </li>
+                <li
+                  v-for="(pair, index) in getFaqByCategory('')"
                   :key="index"
                   class="faq-aside__item mb-1"
                 >

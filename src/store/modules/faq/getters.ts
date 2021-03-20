@@ -6,9 +6,9 @@ import Faq from '@/types/faq';
 import { State } from './state';
 
 export type Getters = {
-  getFaq(state: State): Faq[] | null;
+  getOrderedFaq(state: State): Faq[] | null;
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
-  getFaq: (state) => state.faq,
+  getOrderedFaq: (state) => (state.faq ? state.faq.sort((a, b) => a.order - b.order) : null),
 };

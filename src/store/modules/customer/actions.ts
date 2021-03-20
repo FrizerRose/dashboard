@@ -59,6 +59,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
       }
     })());
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async [LocalActionTypes.FETCH_CUSTOMERS_BY_NAME]({ commit }, payload: object): Promise<Customer[]> {
     return new Promise((resolve, reject) => (async () => {
       try {

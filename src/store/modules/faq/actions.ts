@@ -7,7 +7,7 @@ import { ApiError } from '@/types/customError';
 import Faq from '@/types/faq';
 import LocalActionTypes from './action-types';
 import LocalMutationTypes from './mutation-types';
-import SharedMutationTypes from '../shared/mutation-types';
+// import SharedMutationTypes from '../shared/mutation-types';
 import { Mutations } from './mutations';
 import { Mutations as SharedMutations } from '../shared/mutations';
 import { State } from './state';

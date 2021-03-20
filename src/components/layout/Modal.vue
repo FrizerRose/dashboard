@@ -42,8 +42,6 @@ export default defineComponent({
   setup(props) {
     const modalPropLayout = computed(() => props.layout);
 
-    console.log(props.layout);
-
     return {
       modalPropLayout,
     };

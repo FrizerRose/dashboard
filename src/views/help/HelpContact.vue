@@ -36,7 +36,7 @@
                 </label>
                 <textarea
                   id="id-contact-message"
-                  v-model="formData.about"
+                  v-model="formData.body"
                   class="form-control form-control-lg"
                   placeholder="Detaljno opišite o čemu se radi da što brže otkrijemo uzrok poteškoća i otklonimo problem"
                   cols="30"

@@ -76,6 +76,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
       }
     })());
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async [LocalActionTypes.RESET_PASSWORD]({ commit }, email: string): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
       try {

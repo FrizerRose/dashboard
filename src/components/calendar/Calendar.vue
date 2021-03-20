@@ -6,9 +6,9 @@
     - u kalendaru se nalaze slotovi za sva 24h. U jednom viewpointu na desktopu se vide - DONE
       8h sa scroll positionom na najranije vrijeme što imaju dodano u business hours.
     - inkrementi od 15min - DONE
-    - appointment boja slotove. Upcoming termini recimo zelena boja, past termini žuta boja. - TODO: past
+    - appointment boja slotove. Upcoming termini recimo zelena boja, past termini žuta boja. - DONE
     - Klik na prazan slot otvara modal sa Kreiranjem termina, klik na zauzet slot otvara modal sa Editiranjem termina. Kopirati setmore.
-    - Quick actions button - linkovi na dodavanje servica/ranika, etc. TODO:
+    - Quick actions button - linkovi na dodavanje servica/ranika, etc. - Post launch?
   -->
   <div>
     <div class="page-calendar-main">

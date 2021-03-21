@@ -4,20 +4,17 @@
       Promjena loznke
     </template>
     <template #body>
-      <main
-        class="content"
-      >
-        <div
-          class="container-fluid p-0"
-        >
+      <main class="content">
+        <div class="container-fluid p-0">
           <div class="row">
-            <div class="col-md-12 mb-4">
+            <div class="col-sm-0 col-lg-1 col-xl-2" />
+            <div class="col-sm-12 col-lg-10 col-xl-8">
               <div class="row">
-                <div class="col-12 col-md-6 mb-4">
-                  <div class="authentication-password-new">
+                <div class="col-12 col-sm-6 mb-4">
+                  <div class="authentication-password">
                     <label
                       for="id-change-password-old"
-                      class="form-label w-100"
+                      class="responsive-form-label w-100"
                     >
                       <strong>Stara lozinka</strong>
                       <br>
@@ -26,17 +23,17 @@
                     <input
                       id="id-change-password-old"
                       v-model="formData.oldPassowrd"
-                      class="form-control form-control-lg"
+                      class="form-control responsive-form-control"
                       type="password"
                     >
                   </div>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-sm-6 mb-4">
                   <div class="authentication-password-new">
                     <label
                       for="id-change-password-new-1"
-                      class="form-label w-100"
+                      class="responsive-form-label w-100"
                     >
                       <strong>Nova lozinka</strong>
                       <br>
@@ -45,12 +42,12 @@
                     <input
                       id="id-change-password-new-1"
                       v-model="formData.newPassword"
-                      class="form-control form-control-lg"
+                      class="form-control responsive-form-control"
                       type="password"
                     >
                     <label
                       for="id-change-password-new-2"
-                      class="form-label w-100"
+                      class="responsive-form-label w-100"
                     >
                       <br>
                       Ponovno upišite novu lozinku
@@ -58,41 +55,45 @@
                     <input
                       id="id-change-password-new-2"
                       v-model="formData.newPasswordRepeated"
-                      class="form-control form-control-lg"
+                      class="form-control responsive-form-control"
                       type="password"
                     >
+                  </div>
+
+                  <div class="authentication-password-errors">
                     <p
                       v-if="passwordMismatch"
-                      class="text-danger mt-4 mb-4"
+                      class="mb-0 text-danger mt-4"
                     >
                       Lozinke nisu jednake. Upišite ih ponovno.
                     </p>
+
+                    <p
+                      v-if="hasError"
+                      class="mb-0 text-danger mt-4"
+                    >
+                      {{ errorMsg }}
+                    </p>
+                  </div>
+
+                  <div class="authentication-interaktivno">
+                    <button
+                      :class="{
+                        'mt-4': true,
+                        btn: true,
+                        'responsive-btn': true,
+                        'btn-primary': !requestSent,
+                        'btn-success': requestSent && !hasError,
+                        'btn-danger': requestSent && hasError,
+                      }"
+                      @click="save()"
+                    >
+                      Spremi
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <p
-            v-if="hasError"
-            class="text-danger"
-          >
-            {{ errorMsg }}
-          </p>
-
-          <div class="authentication-interaktivno">
-            <button
-              :class="{
-                btn: true,
-                'btn-lg': true,
-                'btn-primary': !requestSent,
-                'btn-success': requestSent && !hasError,
-                'btn-danger': requestSent && hasError,
-              }"
-              @click="save()"
-            >
-              Spremi
-            </button>
           </div>
         </div>
       </main>

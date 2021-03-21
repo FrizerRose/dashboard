@@ -15,7 +15,7 @@
             <div class="col-xl-12">
               <button
                 id="staffCreateButton"
-                class="btn btn-lg btn-primary float-end mt-n1"
+                class="btn responsive-btn btn-primary float-end mt-n1"
                 aria-label="Dodaj radnika"
                 @click="openStaffCreateModal()"
               >
@@ -37,7 +37,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-striped">
+                  <table class="table responsive-font-size table-striped">
                     <thead>
                       <tr>
                         <th
@@ -85,7 +85,12 @@
                         <td> {{ worker.name }}</td>
                         <td style="text-align: center;">
                           <a
-                            :class="{'btn': true, 'btn-lg': true, 'btn-outline-secondary': true, 'active': selectedWorker === worker.id}"
+                            :class="{
+                              'btn': true,
+                              'responsive-btn': true,
+                              'btn-outline-secondary': true,
+                              'active': selectedWorker === worker.id
+                            }"
                             :href="'#tab-' + worker.id"
                             @click="openStaffEditModal(worker);"
                           >
@@ -94,7 +99,7 @@
                         </td>
                         <td style="text-align: center;">
                           <button
-                            class="btn btn-lg btn-danger"
+                            class="btn responsive-btn btn-danger"
                             @click="deleteWorker(worker)"
                           >
                             <span class="fa fa-trash" />

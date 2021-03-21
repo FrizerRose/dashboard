@@ -4,7 +4,7 @@
       <button
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,
@@ -17,7 +17,7 @@
 
     <div class="firma-logo-ime">
       <label
-        class="form-label w-100 mb-4"
+        class="responsive-form-label w-100 mb-4"
       >
         <strong>Logotip</strong>
         <br>
@@ -87,7 +87,7 @@
               >
               <label
                 for="id-file"
-                class="btn btn-lg btn-primary"
+                class="btn responsive-btn btn-primary"
               >
                 {{ inputFileText }}
               </label>
@@ -110,7 +110,7 @@
           <div class="mb-4">
             <label
               for="id-name"
-              class="form-label w-100"
+              class="responsive-form-label w-100"
             >
               <strong>Ime firme</strong>
               <br>
@@ -119,7 +119,7 @@
             <input
               v-model="formData.name"
               type="text"
-              class="form-control form-control-lg"
+              class="form-control responsive-form-control"
               placeholder="Ime firme"
               for="id-name"
             >
@@ -127,14 +127,14 @@
           <div class="mb-4">
             <label
               for="id-about-text"
-              class="form-label w-100"
+              class="responsive-form-label w-100"
             >
               <strong>O nama</strong>
             </label>
             <textarea
               id="id-about-text"
               v-model="formData.about"
-              class="form-control form-control-lg"
+              class="form-control responsive-form-control"
               placeholder="Ovdje možete upisati kratki tekst koje će biti prikazan na stranici"
               rows="3"
             />
@@ -151,7 +151,7 @@
             <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
               <label
                 for="id-street-address"
-                class="form-label w-100"
+                class="responsive-form-label w-100"
               >
                 <strong>Ulica</strong>
                 <br>
@@ -160,7 +160,7 @@
               <input
                 id="id-street-address"
                 v-model="formData.streetName"
-                class="form-control form-control-lg"
+                class="form-control responsive-form-control"
                 type="text"
                 placeholder="Ulica borova 55, 10000 Zargeb"
               >
@@ -168,7 +168,7 @@
             <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
               <label
                 for="id-city"
-                class="form-label w-100"
+                class="responsive-form-label w-100"
               >
                 <strong>Grad</strong>
                 <br>
@@ -177,7 +177,7 @@
               <input
                 id="id-city"
                 v-model="formData.city"
-                class="form-control form-control-lg"
+                class="form-control responsive-form-control"
                 type="text"
                 placeholder="Zagreb"
               >
@@ -193,7 +193,7 @@
             <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
               <label
                 for="id-phone"
-                class="form-label w-100"
+                class="responsive-form-label w-100"
               >
                 <strong>Telefon</strong>
                 <br>
@@ -202,14 +202,14 @@
               <input
                 id="id-phone"
                 v-model="formData.phoneNumber"
-                class="form-control form-control-lg"
+                class="form-control responsive-form-control"
                 type="tel"
                 placeholder="+385 (91) 000-11-22"
               >
             </div>
             <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
               <label
-                class="form-label"
+                class="responsive-form-label"
                 for="id-email"
               >
                 <strong>E-mail adresa</strong>
@@ -220,7 +220,7 @@
                 id="id-email"
                 v-model="formData.contactEmail"
                 type="email"
-                class="form-control form-control-lg"
+                class="form-control responsive-form-control"
                 placeholder="adresa@firma.hr"
               >
             </div>
@@ -235,7 +235,7 @@
         <div class="col-md-9 mb-4">
           <label
             for="id-subdomain"
-            class="form-label w-100"
+            class="responsive-form-label w-100"
           >
             <strong>Promjenite domenu</strong>
             <br>
@@ -245,7 +245,7 @@
             <input
               id="id-subdomain"
               v-model="formData.bookingPageSlug"
-              class="form-control form-control-lg"
+              class="form-control responsive-form-control"
               type="text"
               placeholder="placeholder text"
             >
@@ -258,7 +258,7 @@
         <div class="col-md-3 mb-4" />
         <div class="col-md-9 mb-4">
           <label
-            class="form-label"
+            class="responsive-form-label"
             for="id-website-url"
           >
             <strong>Web stranica URL</strong>
@@ -269,7 +269,7 @@
             id="id-website-url"
             v-model="formData.webstieLink"
             type="text"
-            class="form-control form-control-lg"
+            class="form-control responsive-form-control"
             placeholder="https://www.ime-firme.hr"
           >
         </div>
@@ -279,7 +279,7 @@
         <div class="col-md-3 mb-4" />
         <div class="col-md-9 mb-4">
           <label
-            class="form-label"
+            class="responsive-form-label"
             for="id-facebook-page-url"
           >
             <strong>Facebook URL</strong>
@@ -290,7 +290,7 @@
             id="id-facebook-page-url"
             v-model="formData.facebookLink"
             type="text"
-            class="form-control form-control-lg"
+            class="form-control responsive-form-control"
             placeholder="https://www.facebook.com/ime-firme"
           >
         </div>
@@ -300,7 +300,7 @@
         <div class="col-md-3 mb-4" />
         <div class="col-md-9 mb-4">
           <label
-            class="form-label"
+            class="responsive-form-label"
             for="id-instagram-page-url"
           >
             <strong>Instagram URL</strong>
@@ -311,7 +311,7 @@
             id="id-instagram-page-url"
             v-model="formData.instagramLink"
             type="text"
-            class="form-control form-control-lg"
+            class="form-control responsive-form-control"
             placeholder="https://www.instagram.com/ime-firme"
           >
         </div>
@@ -321,7 +321,7 @@
         <div class="col-md-3 mb-4" />
         <div class="col-md-9 mb-4">
           <label
-            class="form-label"
+            class="responsive-form-label"
             for="id-terms-and-conditions-page-url"
           >
             <strong>Pravila korištenja URL</strong>
@@ -332,7 +332,7 @@
             id="id-terms-and-conditions-page-url"
             v-model="formData.termsLink"
             type="text"
-            class="form-control form-control-lg"
+            class="form-control responsive-form-control"
             placeholder="https://www.ime-firme.hr/pravila-koristenja"
           >
         </div>
@@ -357,7 +357,7 @@
       <div class="col-md-3 mb-4" />
       <div class="col-md-9 mb-4">
         <label
-          class="form-label"
+          class="responsive-form-label"
           for="id-rules"
         >
           <strong>Pravila ponašanja</strong>
@@ -367,7 +367,7 @@
         <textarea
           id="id-rules"
           v-model="formData.preferences.rules"
-          class="form-control form-control-lg"
+          class="form-control responsive-form-control"
           rows="12"
         />
       </div>
@@ -391,7 +391,7 @@
       <div class="col-md-3 mb-4" />
       <div class="col-md-9 mb-4">
         <label
-          class="form-label"
+          class="responsive-form-label"
           for="id-rules-corona"
         >
           <strong>COVID-19 upozorenje</strong>
@@ -401,7 +401,7 @@
         <textarea
           id="id-rules-corona"
           v-model="formData.preferences.coronaRules"
-          class="form-control form-control-lg"
+          class="form-control responsive-form-control"
           rows="4"
         />
       </div>
@@ -418,7 +418,7 @@
       <button
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

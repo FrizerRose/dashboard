@@ -12,210 +12,219 @@
       />
     </template>
     <template #body>
-      <div class="container override-desktop-limit">
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <label
-              v-if="selectedWorker"
-              for="id-calendar-create-slot-staff"
-              class="form-label w-100"
-            >
-              <strong>Radnik</strong>
-            </label>
-            <select
-              v-if="services"
-              id="id-calendar-create-slot-staff"
-              class="form-control form-control-lg"
-              name="id-calendar-create-slot-staff"
-              disabled
-            >
-              <option>
-                {{ selectedWorker.name }}
-              </option>
-            </select>
-          </div>
-          <div class="col-md-6 mb-4">
-            <label
-              for="id-calendar-create-slot-service"
-              class="form-label w-100"
-            >
-              <strong>Usluga</strong>
-            </label>
-            <select
-              v-if="services"
-              id="id-calendar-create-slot-service"
-              v-model="creationService"
-              class="form-control form-control-lg"
-              name="id-calendar-create-slot-service"
-            >
-              <option
-                v-for="service in services"
-                :key="service.id"
-                :value="service"
-              >
-                {{ service.name }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12">
-            <ul
-              class="nav nav-tabs"
-              role="tablist"
-            >
-              <li class="nav-item">
-                <button
-                  :class="{
-                    'nav-link' : true,
-                    'selected' : !isCreateCustomer,
-                  }"
-                  role="tab"
-                  aria-selected="true"
-                  @click="changeIsCreateCustomer(false)"
-                >
-                  Postojeći klijent
-                </button>
-              </li>
-              <li class="nav-item">
-                <button
-                  :class="{
-                    'nav-link' : true,
-                    'selected' : isCreateCustomer,
-                  }"
-                  role="tab"
-                  aria-selected="false"
-                  @click="changeIsCreateCustomer(true)"
-                >
-                  Novi klijent
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div
-          v-if="isCreateCustomer"
-          class="novi-klijent mt-4"
-        >
-          <h5 class="modal-title h4 mb-3">
-            Dodavanje novog klijenta
-          </h5>
+      <div class="px-4 py-4 border-bottom">
+        <div class="container override-desktop-limit">
           <div class="row">
-            <div class="col-md-4 mb-4">
+            <div class="col-md-6 mb-4">
               <label
-                class="form-label"
-                for="id-calendar-create-customer-name"
+                v-if="selectedWorker"
+                for="id-calendar-create-slot-staff"
+                class="responsive-form-label w-100"
               >
-                <strong>Ime klijenta</strong>
+                <strong>Radnik</strong>
               </label>
-              <input
-                id="id-calendar-create-customer-name"
-                v-model="creationCustomer.name"
-                type="text"
-                class="form-control form-control-lg"
+              <select
+                v-if="services"
+                id="id-calendar-create-slot-staff"
+                class="form-control responsive-form-control"
+                name="id-calendar-create-slot-staff"
+                disabled
               >
+                <option>
+                  {{ selectedWorker.name }}
+                </option>
+              </select>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-6 mb-4">
               <label
-                class="form-label"
-                for="id-calendar-create-customer-email"
+                for="id-calendar-create-slot-service"
+                class="responsive-form-label w-100"
               >
-                <strong>E-mail klijenta</strong>
+                <strong>Usluga</strong>
               </label>
-              <input
-                id="id-calendar-create-customer-email"
-                v-model="creationCustomer.email"
-                type="text"
-                class="form-control form-control-lg"
+              <select
+                v-if="services"
+                id="id-calendar-create-slot-service"
+                v-model="creationService"
+                class="form-control responsive-form-control"
+                name="id-calendar-create-slot-service"
               >
-            </div>
-            <div class="col-md-4 mb-4">
-              <label
-                class="form-label"
-                for="id-calendar-create-customer-phone"
-              >
-                <strong>Mobitel klijenta</strong>
-              </label>
-              <input
-                id="id-calendar-create-customer-phone"
-                v-model="creationCustomer.phone"
-                type="text"
-                class="form-control form-control-lg"
-              >
-            </div>
-            <div class="col-md-12 mb-4">
-              <label
-                class="form-label"
-                for="id-calendar-create-customer-notice"
-              >
-                <strong>Napomena</strong>
-              </label>
-              <textarea
-                id="id-calendar-create-customer-notice"
-                v-model="creationNotice"
-                class="form-control form-control-lg"
-              />
+                <option
+                  v-for="service in services"
+                  :key="service.id"
+                  :value="service"
+                >
+                  {{ service.name }}
+                </option>
+              </select>
             </div>
           </div>
         </div>
-        <div
-          v-else
-          class="postojeci-klijent mt-4"
-        >
-          <h5 class="modal-title h4 mb-3">
-            Odabir postojećeg klijenta
-          </h5>
+      </div>
+
+      <div class="px-4 py-4">
+        <div class="container override-desktop-limit">
           <div class="row">
-            <div class="col-md-12 mb-4">
-              <label
-                class="form-label"
-                for="id-calendar-create-customer-name"
+            <div class="col-md-12">
+              <ul
+                class="nav nav-tabs mb-4 mt-2"
+                role="tablist"
               >
-                <strong>Ime klijenta</strong>
-              </label>
-              <input
-                id="oldCustomerName"
-                v-model="oldCustomerName"
-                placeholder="Počnite upisivati ime klijenta"
-                type="text"
-                name="oldCustomerName"
-                autocomplete="off"
-                class="form-control form-control-lg"
-                @input="oldCustomerInputChange()"
-              >
-              <div class="search-results__items">
-                <div v-if="!oldCustomerCandidates.length && oldCustomerName">
-                  Nema pronadjenih klijenata kojima ime počinje sa "{{ oldCustomerName }}"
-                </div>
-                <button
-                  v-for="candidate in oldCustomerCandidates"
-                  :key="candidate.id"
-                  class="btn search-results__match"
-                  :value="candidate"
-                  @click="selectOldCustomer(candidate)"
+                <li>
+                  <button
+                    :class="{
+                      'responsive-btn' : true,
+                      'btn-is-tab' : true,
+                      'selected' : !isCreateCustomer,
+                    }"
+                    role="tab"
+                    aria-selected="true"
+                    @click="changeIsCreateCustomer(false)"
+                  >
+                    Postojeći klijent
+                  </button>
+                </li>
+                <li>
+                  <button
+                    :class="{
+                      'responsive-btn' : true,
+                      'btn-is-tab' : true,
+                      'selected' : isCreateCustomer,
+                    }"
+                    role="tab"
+                    aria-selected="false"
+                    @click="changeIsCreateCustomer(true)"
+                  >
+                    Novi klijent
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div
+            v-if="isCreateCustomer"
+            class="novi-klijent"
+          >
+            <h5 class="modal-title h4 mb-4">
+              Dodavanje novog klijenta
+            </h5>
+            <div class="row">
+              <div class="col-md-4 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-create-customer-name"
                 >
-                  {{ candidate.name }}
-                </button>
-                <div v-if="oldCustomerCandidates.length === 10">
-                  Prikazano 10 klijenata kojima ime počinje sa "{{ oldCustomerName }}"
-                </div>
+                  <strong>Ime</strong>
+                </label>
+                <input
+                  id="id-calendar-create-customer-name"
+                  v-model="creationCustomer.name"
+                  type="text"
+                  class="form-control responsive-form-control"
+                >
               </div>
-              <div v-if="creationCustomer.name">
-                <div class="alert alert-success">
-                  <div class="alert-message">
-                    Odabrani klijent: <strong>{{ creationCustomer.name }}</strong>
+              <div class="col-md-4 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-create-customer-email"
+                >
+                  <strong>E-mail</strong>
+                </label>
+                <input
+                  id="id-calendar-create-customer-email"
+                  v-model="creationCustomer.email"
+                  type="text"
+                  class="form-control responsive-form-control"
+                >
+              </div>
+              <div class="col-md-4 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-create-customer-phone"
+                >
+                  <strong>Mobitel</strong>
+                </label>
+                <input
+                  id="id-calendar-create-customer-phone"
+                  v-model="creationCustomer.phone"
+                  type="text"
+                  class="form-control responsive-form-control"
+                >
+              </div>
+              <div class="col-md-12 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-create-customer-notice"
+                >
+                  <strong>Napomena</strong>
+                </label>
+                <textarea
+                  id="id-calendar-create-customer-notice"
+                  v-model="creationNotice"
+                  class="form-control responsive-form-control"
+                  rows="4"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            v-else
+            class="postojeci-klijent"
+          >
+            <h5 class="modal-title h4 mb-4">
+              Odabir postojećeg klijenta
+            </h5>
+            <div class="row">
+              <div class="col-md-12 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-create-customer-name"
+                >
+                  <strong>Ime klijenta</strong>
+                </label>
+                <input
+                  id="oldCustomerName"
+                  v-model="oldCustomerName"
+                  placeholder="Počnite upisivati ime klijenta"
+                  type="text"
+                  name="oldCustomerName"
+                  autocomplete="off"
+                  class="form-control responsive-form-control"
+                  @input="oldCustomerInputChange()"
+                >
+                <div class="search-results__items">
+                  <div v-if="!oldCustomerCandidates.length && oldCustomerName">
+                    Nema pronadjenih klijenata kojima ime počinje sa "{{ oldCustomerName }}"
+                  </div>
+                  <button
+                    v-for="candidate in oldCustomerCandidates"
+                    :key="candidate.id"
+                    class="btn search-results__match"
+                    :value="candidate"
+                    @click="selectOldCustomer(candidate)"
+                  >
+                    {{ candidate.name }}
+                  </button>
+                  <div v-if="oldCustomerCandidates.length === 10">
+                    Prikazano 10 klijenata kojima ime počinje sa "{{ oldCustomerName }}"
+                  </div>
+                </div>
+                <div v-if="creationCustomer.name">
+                  <div class="alert alert-success">
+                    <div class="alert-message">
+                      Odabrani klijent: <strong>{{ creationCustomer.name }}</strong>
+                    </div>
                   </div>
                 </div>
               </div>
+              <p
+                v-if="requestSent && !status"
+                class="text-danger"
+              >
+                Rezervacija nije uspjela. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
+              </p>
             </div>
-            <p
-              v-if="requestSent && !status"
-              class="text-danger"
-            >
-              Rezervacija nije uspjela. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
-            </p>
           </div>
         </div>
       </div>
@@ -225,7 +234,7 @@
         :disabled="!creationCustomer?.name"
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,
@@ -384,8 +393,11 @@ export default defineComponent({
 }
 
 // override tab styles
-.nav-tabs .nav-link {
-    border: none;
+.btn-is-tab {
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-top-left-radius: .5em;
+  border-top-right-radius: .5em;
   &:focus, &:hover {
     background-color: #84aef2;
     color: white;

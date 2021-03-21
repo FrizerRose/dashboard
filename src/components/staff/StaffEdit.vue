@@ -17,7 +17,7 @@
       <div class="container override-desktop-limit">
         <div class="radnik-podatci">
           <label
-            class="form-label w-100"
+            class="responsive-form-label w-100"
           >
             <strong>Slika radnika</strong>
             <br>
@@ -87,7 +87,7 @@
                   >
                   <label
                     for="id-file"
-                    class="btn btn-lg btn-primary"
+                    class="btn responsive-btn btn-primary"
                   >
                     {{ inputFileText }}
                   </label>
@@ -110,7 +110,7 @@
               <div class="mb-4">
                 <label
                   for="id-name"
-                  class="form-label w-100"
+                  class="responsive-form-label w-100"
                 >
                   <strong>Ime radnika</strong>
                   <br>
@@ -119,14 +119,14 @@
                 <input
                   v-model="formData.name"
                   type="text"
-                  class="form-control form-control-lg"
+                  class="form-control responsive-form-control"
                   placeholder="Ime firme"
                   for="id-name"
                 >
               </div>
               <div class="mb-4">
                 <label
-                  class="form-label"
+                  class="responsive-form-label"
                   for="id-email"
                 >
                   <strong>E-mail adresa</strong>
@@ -137,7 +137,7 @@
                   id="id-email"
                   v-model="formData.email"
                   type="email"
-                  class="form-control form-control-lg"
+                  class="form-control responsive-form-control"
                   placeholder="adresa@firma.hr"
                 >
               </div>
@@ -148,7 +148,7 @@
           <div class="row">
             <div class="col-md-3 mb-4" />
             <div class="col-md-9 mb-4 add-staff-section">
-              <label class="form-label w-100">
+              <label class="responsive-form-label w-100">
                 <strong>Radni dani</strong>
                 <br>
                 Označite na koje dane ste otvoreni
@@ -182,7 +182,7 @@
                       <div class="row mb-4 d-flex align-items-end">
                         <div class="col-4 col-md-4">
                           <label
-                            class="form-label w-100"
+                            class="responsive-form-label w-100"
                             for="id-monday-shift-start"
                           >
                             <strong>Od</strong>
@@ -190,7 +190,7 @@
                           <select
                             id="id-monday-shift-start"
                             v-model="shift.start"
-                            class="form-control form-control-lg mb-3"
+                            class="form-control responsive-form-control mb-3"
                             name="monday-shift-start"
                           >
                             <option
@@ -204,7 +204,7 @@
                         </div>
                         <div class="col-4 col-md-4">
                           <label
-                            class="form-label w-100"
+                            class="responsive-form-label w-100"
                             for="id-monday-shift-end"
                           >
                             <strong>Do</strong>
@@ -212,7 +212,7 @@
                           <select
                             id="id-monday-shift-end"
                             v-model="shift.end"
-                            class="form-control form-control-lg mb-3"
+                            class="form-control responsive-form-control mb-3"
                             name="monday-shift-end"
                           >
                             <option
@@ -229,7 +229,7 @@
                           class="col-2 col-md-2"
                         >
                           <button
-                            class="btn btn-lg btn-danger"
+                            class="btn responsive-btn btn-danger"
                             @click="removeShift(day.shifts, shiftIndex)"
                           >
                             Makni smjenu
@@ -240,7 +240,7 @@
                           class="col-2 col-md-2"
                         >
                           <button
-                            class="btn btn-lg btn-primary"
+                            class="btn responsive-btn btn-primary"
                             @click="addShift(day.shifts)"
                           >
                             Dodaj smjenu
@@ -256,7 +256,7 @@
                         <div class="col-12 col-md-12">
                           <button
                             v-if="dayName.toString() === 'monday'"
-                            class="btn btn-lg btn-primary"
+                            class="btn responsive-btn btn-primary"
                             @click="copyShiftsToOtherDays(day)"
                           >
                             Kopiraj u sve označene dane
@@ -275,7 +275,7 @@
           <div class="row">
             <div class="col-md-3 mb-4" />
             <div class="col-md-9 mb-4 add-staff-section">
-              <label class="form-label w-100">
+              <label class="responsive-form-label w-100">
                 <strong>Usluge i odgovornosti</strong>
                 <br>
                 Označite usluge koje ovaj radnik pruža
@@ -316,7 +316,7 @@
             <div class="col-md-9 mb-4 add-staff-section">
               <div class="row">
                 <div class="col-12">
-                  <label class="form-label w-100">
+                  <label class="responsive-form-label w-100">
                     <strong>Godišnji</strong>
                   </label>
                 </div>
@@ -328,32 +328,32 @@
                   >
                     <div class="col-12 col-md-3" />
                     <div class="col-12 col-md-3 mt-4">
-                      <label class="form-label w-100">
+                      <label class="responsive-form-label w-100">
                         <strong>Od</strong>
                       </label>
                       <input
                         id="date-start"
                         v-model="breakDate.start"
-                        class="form-control form-control-lg"
+                        class="form-control responsive-form-control"
                         type="date"
                         name="data-start"
                       >
                     </div>
                     <div class="col-12 col-md-3 mt-4">
-                      <label class="form-label w-100">
+                      <label class="responsive-form-label w-100">
                         <strong>Do</strong>
                       </label>
                       <input
                         id="date-end"
                         v-model="breakDate.end"
-                        class="form-control form-control-lg"
+                        class="form-control responsive-form-control"
                         type="date"
                         name="data-end"
                       >
                     </div>
                     <div class="col-12 col-md-3 mt-4">
                       <button
-                        class="btn btn-lg btn-danger"
+                        class="btn responsive-btn btn-danger"
                         @click="removeBreak(index)"
                       >
                         Ukloni razdoblje
@@ -367,7 +367,7 @@
                     <div class="col-md-3" />
                     <div class="col-md-9 mt-4">
                       <button
-                        class="btn btn-lg btn-primary"
+                        class="btn responsive-btn btn-primary"
                         @click="addBreak()"
                       >
                         Dodaj razdoblje
@@ -391,7 +391,7 @@
       <button
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

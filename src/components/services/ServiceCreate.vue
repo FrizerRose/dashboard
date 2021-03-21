@@ -12,102 +12,122 @@
       />
     </template>
     <template #body>
-      <div class="container override-desktop-limit">
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <label
-              class="form-label"
-              for="id-add-service-name"
-            >
-              <strong>Naziv usluge</strong>
-            </label>
-            <input
-              id="id-add-service-name"
-              v-model="newService.name"
-              type="text"
-              class="form-control form-control-lg"
-              placeholder="Ovdje upišite naziv usluge"
-            >
+      <div
+        v-if="requestSent && !status"
+        class="p-4 alert alert-danger"
+      >
+        <div class="container override-desktop-limit">
+          {{ errorMsg }}
+        </div>
+      </div>
+      <div class="p-4 border-bottom">
+        <div class="container override-desktop-limit">
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <label
+                class="responsive-form-label w-100"
+                for="id-add-service-name"
+              >
+                <strong>Naziv usluge</strong>
+              </label>
+              <input
+                id="id-add-service-name"
+                v-model="newService.name"
+                type="text"
+                class="form-control responsive-form-control"
+                placeholder="Ovdje upišite naziv usluge"
+              >
+            </div>
+            <div class="col-md-4 mb-4">
+              <label
+                class="responsive-form-label w-100"
+                for="id-add-service-price"
+              >
+                <strong>Cijena</strong>
+              </label>
+              <input
+                id="id-add-service-price"
+                v-model="newService.price"
+                type="number"
+                class="form-control responsive-form-control"
+              >
+            </div>
+            <div class="col-md-4 mb-4">
+              <label
+                class="responsive-form-label w-100"
+                for="id-add-service-duration"
+              >
+                <strong>Trajanje (u minutama)</strong>
+              </label>
+              <select
+                id="id-add-service-duration"
+                v-model="newService.duration"
+                class="form-control responsive-form-control"
+                name="add-service-duration"
+              >
+                <option value="15">
+                  15
+                </option>
+                <option value="30">
+                  30
+                </option>
+                <option value="45">
+                  45
+                </option>
+                <option value="60">
+                  60
+                </option>
+                <option value="75">
+                  75
+                </option>
+                <option value="90">
+                  90
+                </option>
+                <option value="105">
+                  105
+                </option>
+                <option value="120">
+                  120
+                </option>
+                <option value="135">
+                  135
+                </option>
+                <option value="150">
+                  150
+                </option>
+                <option value="165">
+                  165
+                </option>
+                <option value="180">
+                  180
+                </option>
+                <option value="195">
+                  195
+                </option>
+                <option value="210">
+                  210
+                </option>
+                <option value="225">
+                  225
+                </option>
+                <option value="240">
+                  240
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="col-md-4 mb-4">
-            <label
-              class="form-label"
-              for="id-add-service-price"
-            >
-              <strong>Cijena</strong>
-            </label>
-            <input
-              id="id-add-service-price"
-              v-model="newService.price"
-              type="number"
-              class="form-control form-control-lg"
-            >
-          </div>
-          <div class="col-md-4 mb-4">
-            <label
-              class="form-label"
-              for="id-add-service-duration"
-            >
-              <strong>Trajanje (u minutama)</strong>
-            </label>
-            <select
-              id="id-add-service-duration"
-              v-model="newService.duration"
-              class="form-control form-control-lg"
-              name="add-service-duration"
-            >
-              <option value="15">
-                15
-              </option>
-              <option value="30">
-                30
-              </option>
-              <option value="45">
-                45
-              </option>
-              <option value="60">
-                60
-              </option>
-              <option value="75">
-                75
-              </option>
-              <option value="90">
-                90
-              </option>
-              <option value="105">
-                105
-              </option>
-              <option value="120">
-                120
-              </option>
-              <option value="135">
-                135
-              </option>
-              <option value="150">
-                150
-              </option>
-              <option value="165">
-                165
-              </option>
-              <option value="180">
-                180
-              </option>
-              <option value="195">
-                195
-              </option>
-              <option value="210">
-                210
-              </option>
-              <option value="225">
-                225
-              </option>
-              <option value="240">
-                240
-              </option>
-            </select>
-          </div>
+        </div>
+      </div>
+
+      <div class="p-4 border-bottom">
+        <div class="container override-desktop-limit">
           <div class="usluga-izvrsitelj">
-            <div class="mb-4">
+            <div>
+              <label class="responsive-form-label">
+                <strong>Izvršitelji</strong>
+                <br>
+                Označite radnike koji obavljaju ovu uslugu
+              </label>
               <div
                 v-for="staff in allStaff"
                 :key="staff.id"
@@ -126,12 +146,6 @@
                 </div>
               </div>
             </div>
-            <p
-              v-if="requestSent && !status"
-              class="text-danger"
-            >
-              {{ errorMsg }}
-            </p>
           </div>
         </div>
       </div>
@@ -140,7 +154,7 @@
       <button
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

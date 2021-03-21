@@ -46,14 +46,14 @@
           <div class="col-md-6 mb-4">
             <label
               for="id-calendar-edit-slot-staff"
-              class="form-label w-100"
+              class="responsive-form-label w-100"
             >
               <strong>Radnik</strong>
             </label>
             <select
               id="id-calendar-edit-slot-staff"
               v-model="rescheduledStaff"
-              class="form-control form-control-lg mb-3"
+              class="form-control responsive-form-control mb-3"
               name="id-calendar-edit-slot-staff"
             >
               <option
@@ -68,14 +68,14 @@
           <div class="col-md-6 mb-4">
             <label
               for="id-calendar-edit-slot-service"
-              class="form-label w-100"
+              class="responsive-form-label w-100"
             >
               <strong>Usluga</strong>
             </label>
             <select
               id="id-calendar-edit-slot-service"
               v-model="rescheduledService"
-              class="form-control form-control-lg mb-3"
+              class="form-control responsive-form-control mb-3"
               name="id-calendar-edit-slot-service"
             >
               <option
@@ -90,13 +90,13 @@
         </div>
         <div class="row">
           <div class="col-md-6 mb-4">
-            <label class="form-label w-100">
+            <label class="responsive-form-label w-100">
               <strong>Dan</strong>
             </label>
             <input
               id="id-calendar-edit-slot-day"
               v-model="rescheduledDateTime.date"
-              class="form-control form-control-lg mb-3"
+              class="form-control responsive-form-control mb-3"
               type="date"
               name="id-calendar-edit-slot-day"
               :min="startLimitDatepicker"
@@ -104,13 +104,13 @@
             >
           </div>
           <div class="col-md-6 mb-4">
-            <label class="form-label w-100">
+            <label class="responsive-form-label w-100">
               <strong>Vrijeme</strong>
             </label>
             <select
               id="id-calendar-edit-slot-day-time"
               v-model="rescheduledDateTime.time"
-              class="form-control form-control-lg mb-3"
+              class="form-control responsive-form-control mb-3"
               name="id-calendar-edit-slot-day-time"
             >
               <option
@@ -126,7 +126,7 @@
         <div class="row">
           <div class="col-md-4 mb-4">
             <label
-              class="form-label"
+              class="responsive-form-label"
               for="id-calendar-edit-slot-customer-name"
             >
               <strong>Ime klijenta</strong>
@@ -135,12 +135,12 @@
               id="id-calendar-edit-slot-customer-name"
               v-model="rescheduledCustomer.name"
               type="text"
-              class="form-control form-control-lg mb-3"
+              class="form-control responsive-form-control mb-3"
             >
           </div>
           <div class="col-md-4 mb-4">
             <label
-              class="form-label"
+              class="responsive-form-label"
               for="id-calendar-edit-slot-customer-email"
             >
               <strong>E-mail klijenta</strong>
@@ -149,12 +149,12 @@
               id="id-calendar-edit-slot-customer-email"
               v-model="rescheduledCustomer.email"
               type="text"
-              class="form-control form-control-lg mb-3"
+              class="form-control responsive-form-control mb-3"
             >
           </div>
           <div class="col-md-4 mb-4">
             <label
-              class="form-label"
+              class="responsive-form-label"
               for="id-calendar-edit-slot-customer-phone"
             >
               <strong>Mobitel klijenta</strong>
@@ -163,12 +163,12 @@
               id="id-calendar-edit-slot-customer-phone"
               v-model="rescheduledCustomer.phone"
               type="text"
-              class="form-control form-control-lg mb-3"
+              class="form-control responsive-form-control mb-3"
             >
           </div>
           <div class="col-md-12 mb-4">
             <label
-              class="form-label"
+              class="responsive-form-label"
               for="id-calendar-edit-slot-customer-notice"
             >
               <strong>Napomena</strong>
@@ -185,7 +185,7 @@
     <template #footer>
       <button
         v-if="isInThePast"
-        class="btn btn-lg btn-primary"
+        class="btn responsive-btn btn-primary"
         @click="updateAppointment()"
       >
         Spremi
@@ -195,7 +195,7 @@
         :disabled="!rescheduledCustomer.name"
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !rescheduleRequestSent,
           'btn-success': rescheduleRequestSent && rescheduleStatus,
           'btn-danger': rescheduleRequestSent && !rescheduleStatus,
@@ -206,7 +206,7 @@
       </button>
       <button
         v-if="!isInThePast"
-        class="btn btn-lg btn-danger"
+        class="btn responsive-btn btn-danger"
         @click="cancel()"
       >
         Otkaži

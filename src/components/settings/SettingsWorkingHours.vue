@@ -3,7 +3,7 @@
     <div class="working-hours-aaaaaaaaaaaaa">
       <div class="row">
         <div class="col-md-12 mb-4">
-          <label class="form-label w-100">
+          <label class="responsive-form-label w-100">
             <strong>Radni dani</strong>
             <br>
             Označite na koje dane ste otvoreni
@@ -37,7 +37,7 @@
                   <div class="row mb-4 d-flex align-items-end">
                     <div class="col-4 col-md-4">
                       <label
-                        class="form-label w-100"
+                        class="responsive-form-label w-100"
                         for="id-monday-shift-start"
                       >
                         <strong>Od</strong>
@@ -45,7 +45,7 @@
                       <select
                         id="id-monday-shift-start"
                         v-model="shift.start"
-                        class="form-control form-control-lg mb-3"
+                        class="form-control responsive-form-control mb-3"
                         name="monday-shift-start"
                       >
                         <option
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-4 col-md-4">
                       <label
-                        class="form-label w-100"
+                        class="responsive-form-label w-100"
                         for="id-monday-shift-end"
                       >
                         <strong>Do</strong>
@@ -67,7 +67,7 @@
                       <select
                         id="id-monday-shift-end"
                         v-model="shift.end"
-                        class="form-control form-control-lg mb-3"
+                        class="form-control responsive-form-control mb-3"
                         name="monday-shift-end"
                       >
                         <option
@@ -84,7 +84,7 @@
                       class="col-2 col-md-2"
                     >
                       <button
-                        class="btn btn-lg btn-lg-danger"
+                        class="btn responsive-btn btn-danger"
                         @click="removeShift(day.shifts, shiftIndex)"
                       >
                         Makni smjenu
@@ -95,7 +95,7 @@
                       class="col-2 col-md-2"
                     >
                       <button
-                        class="btn btn-lg btn-primary"
+                        class="btn responsive-btn btn-primary"
                         @click="addShift(day.shifts)"
                       >
                         Dodaj smjenu
@@ -111,7 +111,7 @@
                     <div class="col-12 col-md-12">
                       <button
                         v-if="dayName.toString() === 'monday'"
-                        class="btn btn-lg btn-primary"
+                        class="btn responsive-btn btn-primary"
                         @click="copyShiftsToOtherDays(day)"
                       >
                         Kopiraj u sve označene dane
@@ -138,7 +138,7 @@
       <button
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

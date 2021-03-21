@@ -3,7 +3,7 @@
     <div class="narucivanje-najkasnije">
       <label
         for="id-lead-time"
-        class="form-label w-100"
+        class="responsive-form-label w-100"
       >
         <strong>Naručivanje najkasnije</strong>
         <br>
@@ -12,7 +12,7 @@
       <select
         id="id-lead-time"
         v-model="formData.preferences.leadTimeWindow"
-        class="form-control form-control-lg mb-3"
+        class="form-control responsive-form-control mb-3"
         name="id-lead-time"
       >
         <option
@@ -46,7 +46,7 @@
 
     <div class="narucivanje-u-buducnost">
       <label
-        class="form-label w-100"
+        class="responsive-form-label w-100"
         for="id-scheduling-window"
       >
         <strong>Naručivanje u budućnost</strong>
@@ -55,7 +55,7 @@
       <select
         id="id-scheduling-window"
         v-model="formData.preferences.schedulingWindow"
-        class="form-control form-control-lg mb-3"
+        class="form-control responsive-form-control mb-3"
         name="id-scheduling-window"
       >
         <option value="7">
@@ -78,7 +78,7 @@
 
     <div class="narucivanje-ponisti">
       <label
-        class="form-label w-100"
+        class="responsive-form-label w-100"
         for="id-cancel-time"
       >
         <strong>Poništavanje narudžbe</strong>
@@ -87,7 +87,7 @@
       <select
         id="id-cancel-time"
         v-model="formData.preferences.cancellationWindow"
-        class="form-control form-control-lg mb-3"
+        class="form-control responsive-form-control mb-3"
         name="id-cancel-time"
       >
         <option value="1">
@@ -166,7 +166,7 @@
       <button
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

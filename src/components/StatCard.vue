@@ -3,7 +3,7 @@
     <div class="card-body py-3">
       <div class="d-flex align-items-start">
         <div class="flex-grow-1">
-          <label class="form-label w-100">
+          <label class="responsive-form-label w-100">
             <strong>{{ title }}</strong>
           </label>
           <h1 class="mb-2">
@@ -89,5 +89,6 @@ export default defineComponent({
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 1.5rem;
 }
 </style>

@@ -13,7 +13,7 @@
             <div class="customers-search">
               <label
                 for="customerName"
-                class="form-label w-100"
+                class="responsive-form-label w-100"
               >
                 <strong>Tražilica</strong>
               </label>
@@ -24,7 +24,7 @@
                 type="text"
                 name="customerName"
                 autocomplete="off"
-                class="form-control form-control-lg mb-3"
+                class="form-control responsive-form-control mb-3"
                 @input="customerSearchInputChange()"
               >
             </div>

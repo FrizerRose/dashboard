@@ -3,7 +3,7 @@
     <div class="izgled-boja">
       <label
         id="id-theme-color"
-        class="form-label w-100"
+        class="responsive-form-label w-100"
       >
         <strong>Odabir boje elemenata</strong>
         <br>
@@ -12,7 +12,7 @@
       <select
         id="id-theme-color"
         v-model="formData.preferences.colorVariant"
-        class="form-control form-control-lg mb-3"
+        class="form-control responsive-form-control mb-3"
         name="id-theme-color"
       >
         <option value="default">
@@ -41,7 +41,7 @@
       <button
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

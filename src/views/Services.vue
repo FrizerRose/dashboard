@@ -8,35 +8,25 @@
         id="serviceContainer"
         class="content"
       >
-        <div
-          class="container-fluid p-0"
-        >
-          <div class="row mb-3">
-            <div class="col-xl-12">
-              <button
-                class="btn btn-lg btn-primary float-end mt-n1"
-                aria-label="Dodaj uslugu"
-                @click="openServiceCreateModal()"
-              >
-                <span class="fa fa-plus" /> Dodaj uslugu
-              </button>
-
-              <div v-if="isServicesCreateOpen">
-                <ServiceCreate />
-              </div>
-            </div>
+        <div class="container-fluid p-0">
+          <div class="text-end mb-3">
+            <button
+              class="btn responsive-btn btn-primary"
+              @click="openServiceCreateModal()"
+            >
+              <span class="fa fa-plus" />
+              <span class="responsive-btn__label ms-2">Dodaj uslugu</span>
+            </button>
           </div>
-        </div>
 
-        <div class="row">
-          <div
-            v-if="services"
-            class="col-xl-12"
-          >
+          <div v-if="isServicesCreateOpen">
+            <ServiceCreate />
+          </div>
+          <div v-if="services">
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-striped">
+                  <table class="table responsive-font-size table-striped">
                     <thead>
                       <tr>
                         <th
@@ -69,7 +59,12 @@
                         <td>{{ service.name }}</td>
                         <td style="text-align: center;">
                           <a
-                            :class="{'btn': true, 'btn-lg': true, 'btn-outline-secondary': true, 'active': selectedService === service.id}"
+                            :class="{
+                              'btn': true,
+                              'responsive-btn': true,
+                              'btn-outline-secondary': true,
+                              'active': selectedService === service.id
+                            }"
                             :href="'#tab-' + service.id"
                             @click="openServiceEditModal(service)"
                           >
@@ -78,7 +73,7 @@
                         </td>
                         <td style="text-align: center;">
                           <button
-                            class="btn btn-lg btn-danger"
+                            class="btn responsive-btn btn-danger"
                             @click="deleteService(service)"
                           >
                             <span class="fa fa-trash" />

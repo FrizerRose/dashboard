@@ -34,19 +34,12 @@
               <div class="qr-code-button-wrap">
                 <div class="row">
                   <div class="col-12">
-                    <button
+                    <router-link
+                      to="/qr-kod"
                       class="btn btn-lg btn-secondary w-100"
-                      @click="fetchQrCode()"
                     >
                       Prikaži QR Kod
-                    </button>
-                  </div>
-                  <div class="col-12">
-                    <img
-                      v-if="qrCode"
-                      :src="qrCode"
-                      alt="qr kod"
-                    >
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -88,12 +81,11 @@ export default defineComponent({
     const stats = ref();
 
     async function fetchQrCode() {
-      const bookingPageSlug = selectedCompany.value?.bookingPageSlug;
-      const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${bookingPageSlug}.frizerrose.info`);
-
-      if (response.status === 200) {
-        qrCode.value = response.url;
-      }
+      // const bookingPageSlug = selectedCompany.value?.bookingPageSlug;
+      // const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${bookingPageSlug}.frizerrose.info`);
+      // if (response.status === 200) {
+      //   qrCode.value = response.url;
+      // }
     }
 
     function fetchAppointmentsOnToday() {
@@ -111,12 +103,15 @@ export default defineComponent({
       }
     }
 
-    watch(() => selectedCompany.value, (newCompany) => {
-      if (newCompany?.id) {
-        fetchAppointmentsOnToday();
-        fetchStats();
-      }
-    });
+    watch(
+      () => selectedCompany.value,
+      (newCompany) => {
+        if (newCompany?.id) {
+          fetchAppointmentsOnToday();
+          fetchStats();
+        }
+      },
+    );
 
     fetchAppointmentsOnToday();
     fetchStats();

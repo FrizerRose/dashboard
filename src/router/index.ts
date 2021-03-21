@@ -73,6 +73,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "kontakt" */ '../views/help/HelpContact.vue'),
   },
   {
+    path: '/qr-kod',
+    name: 'QR Kod',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "kontakt" */ '../views/QRCodeView.vue'),
+  },
+  {
     path: '/404',
     name: '404',
     component: () => import(/* webpackChunkName: "404" */ '../views/404.vue'),

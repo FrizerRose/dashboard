@@ -6,7 +6,7 @@ export function getDayNumber(day: string): number {
 export function getDayTranslation(day: string): string {
   const translatedDays = ['Nedjelja', 'Ponedjeljak', 'Utorak', 'Srijeda', 'Četvrtak', 'Petak', 'Subota'];
 
-  return translatedDays[getDayNumber(day)];
+  return translatedDays[getDayNumber(day) - 1];
 }
 
 export function formatDateString(oldFormat: string): string {

@@ -36,7 +36,7 @@
                   <div class="col-12">
                     <router-link
                       to="/qr-kod"
-                      class="btn btn-lg btn-secondary w-100"
+                      class="btn responsive-btn btn-secondary w-100"
                     >
                       Prikaži QR Kod
                     </router-link>

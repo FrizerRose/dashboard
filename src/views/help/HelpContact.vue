@@ -12,39 +12,38 @@
               <div class="mb-4">
                 <label
                   for="id-contact-email"
-                  class="form-label w-100"
+                  class="responsive-form-label w-100"
                 >
                   <strong>E-mail</strong>
-                  <br>
-                  Ovdje upišite e-mail adresu na koju ćemo vam odgovoriti
                 </label>
                 <input
                   id="id-contact-email"
                   v-model="formData.email"
                   type="text"
-                  class="form-control form-control-lg"
+                  placeholder="Vaša e-mail adresa"
+                  class="form-control responsive-form-control"
                 >
               </div>
               <div class="mb-4">
                 <label
                   for="id-contact-message"
-                  class="form-label w-100"
+                  class="responsive-form-label w-100"
                 >
                   <strong>Poruka</strong>
                   <br>
-                  Ovdje opišite problem
+                  Detaljno opišite o čemu se radi da što brže otkrijemo uzrok poteškoća i otklonimo problem
                 </label>
                 <textarea
                   id="id-contact-message"
                   v-model="formData.body"
-                  class="form-control form-control-lg"
-                  placeholder="Detaljno opišite o čemu se radi da što brže otkrijemo uzrok poteškoća i otklonimo problem"
+                  class="form-control responsive-form-control"
+                  placeholder="Ovdje opišite problem"
                   cols="30"
                   rows="10"
                 />
               </div>
               <button
-                class="btn btn-lg btn-primary"
+                class="btn responsive-btn btn-primary"
                 @click="send()"
               >
                 Pošalji

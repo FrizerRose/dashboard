@@ -17,7 +17,7 @@
           <header class="page-calendar-header">
             <label
               for="selectedWorker"
-              class="form-label w-100"
+              class="responsive-form-label w-100"
             >
               <strong>Odaberite radnika</strong>
             </label>
@@ -25,7 +25,7 @@
               id="selectedWorker"
               v-model="selectedWorker"
               name="selectedWorker"
-              class="form-control form-control-lg mb-4"
+              class="form-control responsive-form-control mb-4"
               @change="selectWorker()"
             >
               <option
@@ -39,42 +39,43 @@
           </header>
 
           <div class="page-calendar-toolbar">
-            <div class="page-calendar-toolbar__item mb-2">
-              <button
-                class="btn btn-lg btn-primary me-2"
-                @click="prevWeek()"
-              >
-                <i class="fas fa-angle-left" />
-              </button>
-              <button
-                class="btn btn-lg btn-primary me-2"
-                @click="nextWeek()"
-              >
-                <i class="fas fa-angle-right" />
-              </button>
-              <button
-                class="btn btn-lg btn-primary"
-                @click="goToToday()"
-              >
-                Danas
-              </button>
+            <div class="page-calendar-time">
+              <div class="page-calendar-time__controls">
+                <button
+                  class="page-calendar-time__prev btn responsive-btn btn-primary me-2"
+                  @click="prevWeek()"
+                >
+                  <i class="fas fa-angle-left" />
+                </button>
+                <button
+                  class="btn responsive-btn btn-primary me-2"
+                  @click="goToToday()"
+                >
+                  Danas
+                </button>
+                <button
+                  class="page-calendar-time__next btn responsive-btn btn-primary me-2"
+                  @click="nextWeek()"
+                >
+                  <i class="fas fa-angle-right" />
+                </button>
+              </div>
+              <div class="page-calendar-time__text ms-2">
+                <h3 class="h3 mb-0">
+                  {{ headerTitle }}
+                </h3>
+              </div>
             </div>
 
-            <div class="page-calendar-toolbar__item mb-2">
-              <h3 class="h3 mb-0">
-                {{ headerTitle }}
-              </h3>
-            </div>
-
-            <div class="page-calendar-toolbar__item">
+            <div class="page-calendar-display">
               <button
-                class="btn btn-lg btn-primary me-2"
+                class="btn responsive-btn btn-primary ms-2"
                 @click="changeViewGrid()"
               >
                 Tjedan
               </button>
               <button
-                class="btn btn-lg btn-secondary"
+                class="btn responsive-btn btn-secondary ms-2"
                 @click="changeViewList()"
               >
                 Raspored
@@ -217,7 +218,7 @@ export default defineComponent({
           },
           // handleWindowResize: !isMobile.value,
           dayMinWidth: isMobile.value ? 120 : 0,
-          longPressDelay: 0,
+          longPressDelay: 250,
           nowIndicator: true,
           contentHeight: isMobile.value ? (window.innerHeight * 0.7) : 800,
           allDaySlot: false,
@@ -410,21 +411,46 @@ export default defineComponent({
 
 <style lang="scss">
 .page-calendar-toolbar {
+  @media (max-width: 575px) {
+  }
+  @media (min-width: 576px) {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  @media (max-width: 1199px) {
+  }
+  @media (min-width: 1200px) {
+  }
+}
+.page-calendar-time {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  @media (max-width: 1199px) {
-    flex-direction: column;
+  align-items: center;
+  @media (max-width: 575px) {
+    margin-bottom: 0.75rem;
   }
-  @media (min-width: 1200px) {
-  }
-}
-.page-calendar-toolbar__item {
   @media (max-width: 1199px) {
   }
   @media (min-width: 1200px) {
+    flex: 1;
+  }
+  &__controls {
+    flex-shrink: 0;
+  }
+  &__text {
+    @media (min-width: 1200px) {
+      flex: 1;
+    }
   }
 }
+.page-calendar-display {
+  display: flex;
+  justify-content: flex-end;
+  @media (min-width: 1200px) {
+    flex: 1;
+  }
+}
+
 .page-calendar-table {
   // -1.5rem to cancel out padding on .content
   @media (max-width: 991.98px) {

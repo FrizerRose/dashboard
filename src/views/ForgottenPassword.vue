@@ -20,7 +20,7 @@
                 </p>
                 <div class="text-center mt-3">
                   <button
-                    class="btn btn-lg btn-primary"
+                    class="btn responsive-btn btn-primary"
                     @click.prevent="goToLogin()"
                   >
                     Nazad na Login
@@ -36,14 +36,14 @@
                     <form>
                       <div class="mb-3">
                         <label
-                          class="form-label"
+                          class="responsive-form-label"
                           for="LOGIN-MODAL-EMAIL"
                         >Email koji koristite za prijavu</label>
                         <input
                           id="LOGIN-MODAL-EMAIL"
                           v-model="chosenEmail"
                           required=""
-                          class="form-control form-control-lg"
+                          class="form-control responsive-form-control"
                           type="email"
                           name="validation-email"
                           placeholder="abc@abc.com"
@@ -57,7 +57,7 @@
                       </div>
                       <div class="text-center mt-3">
                         <button
-                          class="btn btn-lg btn-primary"
+                          class="btn responsive-btn btn-primary"
                           @click.prevent="resetPassword()"
                         >
                           Resetetiraj lozinku
@@ -65,7 +65,7 @@
                       </div>
                       <div class="text-center mt-3">
                         <button
-                          class="btn btn-lg btn-secondary"
+                          class="btn responsive-btn btn-secondary"
                           @click.prevent="goToLogin()"
                         >
                           Nazad na Login

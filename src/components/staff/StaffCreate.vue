@@ -16,7 +16,7 @@
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12">
-              <label class="form-label w-100 mb-5 mt-2">
+              <label class="responsive-form-label w-100 mb-5 mt-2">
                 E-mail adresa se koristi kao identifikacija.
                 <br>
                 Ne možete koristiti istu e-mail adresu za više radnika, tj. svaki radnik treba koristiti jedinstvenu e-mail adresu.
@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-6 mb-4">
               <label
-                class="form-label"
+                class="responsive-form-label"
                 for="id-add-worker-name"
               >
                 <strong>Ime</strong>
@@ -33,12 +33,12 @@
                 id="id-add-worker-name"
                 v-model="newStaff.name"
                 type="text"
-                class="form-control form-control-lg"
+                class="form-control responsive-form-control"
               >
             </div>
             <div class="col-md-6 mb-4">
               <label
-                class="form-label"
+                class="responsive-form-label"
                 for="id-add-worker-email"
               >
                 <strong>E-mail</strong>
@@ -47,7 +47,7 @@
                 id="id-add-worker-email"
                 v-model="newStaff.email"
                 type="email"
-                class="form-control form-control-lg"
+                class="form-control responsive-form-control"
               >
             </div>
           </div>
@@ -58,7 +58,7 @@
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
-              <label class="form-label w-100 mb-5 mt-2">
+              <label class="responsive-form-label w-100 mb-5 mt-2">
                 <strong>Radni dani</strong>
                 <br>
                 Označite na koje dane ste otvoreni
@@ -97,7 +97,7 @@
                             <div class="row d-flex align-items-end">
                               <div class="col-6 col-md-2">
                                 <label
-                                  class="form-label w-100"
+                                  class="responsive-form-label w-100"
                                   for="id-monday-shift-start"
                                 >
                                   <strong>Od</strong>
@@ -105,7 +105,7 @@
                                 <select
                                   id="id-monday-shift-start"
                                   v-model="shift.start"
-                                  class="form-control form-control-lg"
+                                  class="form-control responsive-form-control"
                                   name="monday-shift-start"
                                 >
                                   <option
@@ -119,7 +119,7 @@
                               </div>
                               <div class="col-6 col-md-2">
                                 <label
-                                  class="form-label w-100"
+                                  class="responsive-form-label w-100"
                                   for="id-monday-shift-end"
                                 >
                                   <strong>Do</strong>
@@ -127,7 +127,7 @@
                                 <select
                                   id="id-monday-shift-end"
                                   v-model="shift.end"
-                                  class="form-control form-control-lg"
+                                  class="form-control responsive-form-control"
                                   name="monday-shift-end"
                                 >
                                   <option
@@ -144,7 +144,7 @@
                                   <div class="col-12 col-md-6">
                                     <div v-if="shiftIndex !== 0">
                                       <button
-                                        class="btn btn-lg btn-danger w-100 mt-4 section-reveal__item is-red"
+                                        class="btn responsive-btn btn-danger w-100 mt-4 section-reveal__item is-red"
                                         @click="removeShift(day.shifts, shiftIndex)"
                                       >
                                         Makni smjenu
@@ -154,7 +154,7 @@
                                   <div class="col-12 col-md-6">
                                     <div v-if="shiftIndex === day.shifts.length - 1">
                                       <button
-                                        class="btn btn-lg btn-primary w-100 mt-4"
+                                        class="btn responsive-btn btn-primary w-100 mt-4"
                                         @click="addShift(day.shifts)"
                                       >
                                         Dodaj smjenu
@@ -172,7 +172,7 @@
                         >
                           <button
                             v-if="dayName.toString() === 'monday'"
-                            class="btn btn-lg btn-secondary w-100 mt-4 section-reveal__item"
+                            class="btn responsive-btn btn-secondary w-100 mt-4 section-reveal__item"
                             @click="copyShiftsToOtherDays(day)"
                           >
                             Kopiraj u sve označene dane
@@ -192,7 +192,7 @@
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
-              <label class="form-label w-100 mb-5 mt-2">
+              <label class="responsive-form-label w-100 mb-5 mt-2">
                 <strong>Usluge i odgovornosti</strong>
                 <br>
                 Označite usluge koje ovaj radnik pruža
@@ -241,7 +241,7 @@
       <button
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

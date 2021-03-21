@@ -43,14 +43,14 @@
                     <form @submit.prevent="login()">
                       <div class="mb-3">
                         <label
-                          class="form-label"
+                          class="responsive-form-label"
                           for="LOGIN-MODAL-EMAIL"
                         >Email</label>
                         <input
                           id="LOGIN-MODAL-EMAIL"
                           v-model="credentials.email"
                           required=""
-                          class="form-control form-control-lg"
+                          class="form-control responsive-form-control"
                           type="email"
                           name="validation-email"
                           placeholder="Unesite email"
@@ -58,14 +58,14 @@
                       </div>
                       <div class="mb-3">
                         <label
-                          class="form-label"
+                          class="responsive-form-label"
                           for="LOGIN-MODAL-PASSWORD"
                         >Lozinka</label>
                         <input
                           id="LOGIN-MODAL-PASSWORD"
                           v-model="credentials.password"
                           required=""
-                          class="form-control form-control-lg"
+                          class="form-control responsive-form-control"
                           type="password"
                           name="validation-password"
                           placeholder="Unesite lozinku"
@@ -86,7 +86,7 @@
                       <div class="mt-3">
                         <button
                           type="submit"
-                          class="btn btn-lg btn-primary"
+                          class="btn responsive-btn btn-primary"
                         >
                           Prijavi se
                         </button>

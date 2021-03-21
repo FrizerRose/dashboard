@@ -38,7 +38,7 @@
 
           <div class="col-12 col-md-6">
             <div class="mb-4">
-              <label class="form-label w-100">
+              <label class="responsive-form-label w-100">
                 <strong>Vrijeme za podsjetnik - klijent</strong>
                 <br>
                 Odaberite koliko sati prije termina želite klijentu poslati podsjetnik.
@@ -47,7 +47,7 @@
                 <select
                   id="id-reminder-time"
                   v-model="formData.preferences.clientReminderTime"
-                  class="form-control form-control-lg mb-3"
+                  class="form-control responsive-form-control mb-3"
                   name="id-reminder-time"
                 >
                   <option value="1">
@@ -102,7 +102,7 @@
             </div>
 
             <div class="mb-4">
-              <label class="form-label w-100">
+              <label class="responsive-form-label w-100">
                 <strong>Vrijeme za podsjetnik - radnik</strong>
                 <br>
                 Odaberite koliko sati prije termina želite radniku poslati podsjetnik.
@@ -111,7 +111,7 @@
                 <select
                   id="id-reminder-time"
                   v-model="formData.preferences.staffReminderTime"
-                  class="form-control form-control-lg mb-3"
+                  class="form-control responsive-form-control mb-3"
                   name="id-reminder-time"
                 >
                   <option value="1">
@@ -180,7 +180,7 @@
       <button
         :class="{
           btn: true,
-          'btn-lg': true,
+          'responsive-btn': true,
           'btn-primary': !requestSent,
           'btn-success': requestSent && status,
           'btn-danger': requestSent && !status,

@@ -324,6 +324,15 @@ export default defineComponent({
       }
     }
 
+    // Close modal on Escape press
+    document.onkeydown = (evt) => {
+      // eslint-disable-next-line no-param-reassign
+      evt = evt || window.event;
+      if (evt.code === 'Escape') {
+        closeStaffCreateModal();
+      }
+    };
+
     function addShift(shifts: StartEnd[]) {
       shifts.push(({ start: '08:00', end: '16:00' }));
     }

@@ -276,6 +276,15 @@ export default defineComponent({
       document.body.classList.remove('modal-open');
     }
 
+    // Close modal on Escape press
+    document.onkeydown = (evt) => {
+      // eslint-disable-next-line no-param-reassign
+      evt = evt || window.event;
+      if (evt.code === 'Escape') {
+        closeCalendarModal();
+      }
+    };
+
     async function updateAppointment() {
       try {
         await store.dispatch(ActionTypes.UPDATE_APPOINTMENT, {

@@ -276,6 +276,15 @@ export default defineComponent({
       }
     }
 
+    // Close modal on Escape press
+    document.onkeydown = (evt) => {
+      // eslint-disable-next-line no-param-reassign
+      evt = evt || window.event;
+      if (evt.code === 'Escape') {
+        closeServiceEditModal();
+      }
+    };
+
     return {
       save,
       formData,

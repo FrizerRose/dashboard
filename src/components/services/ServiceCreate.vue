@@ -213,6 +213,16 @@ export default defineComponent({
         modal.classList.remove('show');
       }
     }
+
+    // Close modal on Escape press
+    document.onkeydown = (evt) => {
+      // eslint-disable-next-line no-param-reassign
+      evt = evt || window.event;
+      if (evt.code === 'Escape') {
+        closeServiceCreateModal();
+      }
+    };
+
     const newService = reactive({
       name: '',
       price: 0,

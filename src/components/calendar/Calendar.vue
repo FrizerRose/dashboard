@@ -175,6 +175,11 @@ export default defineComponent({
         if (startDate.getTime() < (new Date()).getTime()) {
           backgroundColor = 'lightgray';
           textColor = 'black';
+
+          if (!appointment.hasCustomerArrived) {
+            backgroundColor = '#801a13';
+            textColor = 'white';
+          }
         }
 
         return {

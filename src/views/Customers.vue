@@ -29,10 +29,11 @@
               >
             </div>
             <ul
+              v-if="hasFetchedCustomers"
               class="customers-nav__list"
             >
               <li
-                v-for="customer in shownCustomers"
+                v-for="customer in shownCustomers.slice(0,5)"
                 :key="customer.id"
                 class=" responsive-nav__list-item"
               >
@@ -47,7 +48,7 @@
           </div>
           <div class="customer-details responsive-main">
             <CustomerDetails
-              v-if="selectedCustomer"
+              v-if="selectedCustomer.name"
               :customer="selectedCustomer"
             />
           </div>
@@ -75,9 +76,10 @@ export default defineComponent({
     const store = useStore();
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const customers = computed(() => store.state.customer.customers);
-    const selectedCustomer = ref({ ...customers.value[0] });
+    const selectedCustomer = ref({} as Customer);
     const customerName = ref('');
     const shownCustomers = ref([] as Customer[]);
+    const hasFetchedCustomers = ref(false);
 
     if (customers.value.length) {
       shownCustomers.value = JSON.parse(JSON.stringify(customers.value));
@@ -94,6 +96,7 @@ export default defineComponent({
 
     async function fetchCustomersByName() {
       try {
+        hasFetchedCustomers.value = true;
         const response = await store.dispatch(ActionTypes.FETCH_CUSTOMERS_BY_NAME, {
           name: customerName.value,
           company: selectedCompany.value?.id,
@@ -129,6 +132,7 @@ export default defineComponent({
       customerName,
       customerSearchInputChange,
       shownCustomers,
+      hasFetchedCustomers,
     };
   },
 });

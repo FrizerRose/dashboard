@@ -2,13 +2,20 @@
   <div class="row">
     <div class="col-md-4">
       <div class="card">
-        <div class="card-header">
-          <strong>{{ customer.name }}</strong>
+        <div class="card-header pb-1">
+          <h3>
+            {{ customer.name }}
+          </h3>
         </div>
         <div class="card-body">
           <ul class="list-unstyled">
-            <li>Email: {{ customer.email }}</li>
-            <li>Mob.: {{ customer.phone }}</li>
+            <li><strong>Email:</strong> {{ customer.email ? customer.email : 'Nije unešen' }}</li>
+            <li><strong>Mob.:</strong> {{ customer.phone ? customer.phone : 'Nije unešen' }}</li>
+            <li><strong>Ukupna zarada od klijenta:</strong> {{ totalEarnings }}kn</li>
+            <li v-if="customerAppointments.length">
+              <strong>Prosječna vrijednost dolaska:</strong>
+              {{ Math.floor(totalEarnings / customerAppointments.length) }}kn
+            </li>
           </ul>
         </div>
       </div>
@@ -25,7 +32,7 @@
         </div>
         <div class="card-body h-100">
           <div
-            v-if="missedPercentage !== null"
+            v-if="attendedPercentage !== null"
             class="position-relative"
           >
             <div class="progress override-place-in-alert">
@@ -33,14 +40,14 @@
                 role="progressbar"
                 class="progress-bar"
                 :class="{
-                  'bg-success': missedPercentage < 15,
-                  'bg-warning': missedPercentage >= 15 && missedPercentage < 30,
-                  'bg-danger': missedPercentage >= 30
+                  'bg-success': attendedPercentage === 100,
+                  'bg-warning': attendedPercentage < 100 && attendedPercentage >= 80,
+                  'bg-danger': attendedPercentage < 80
                 }"
                 :style="{
-                  width: missedPercentage + '%'
+                  width: attendedPercentage + '%'
                 }"
-                :aria-valuenow="missedPercentage"
+                :aria-valuenow="attendedPercentage"
                 aria-valuemin="0"
                 aria-valuemax="100"
               />
@@ -48,16 +55,20 @@
             <div
               class="alert"
               :class="{
-                'alert-success': missedPercentage < 15,
-                'alert-warning': missedPercentage >= 15 && missedPercentage < 30,
-                'alert-danger': missedPercentage >= 30
+                'alert-success': attendedPercentage === 100,
+                'alert-warning': attendedPercentage < 100 && attendedPercentage >= 80,
+                'alert-danger': attendedPercentage < 80
               }"
             >
               <div class="px-3 py-4">
-                <span>A+++</span>
+                <span v-if="attendedPercentage === 100">A+</span>
+                <span v-if="attendedPercentage < 100 && attendedPercentage >= 90">A</span>
+                <span v-if="attendedPercentage < 90 && attendedPercentage >= 80">B</span>
+                <span v-if="attendedPercentage < 80 && attendedPercentage >= 70">C</span>
+                <span v-if="attendedPercentage < 70">D</span>
               </div>
               <div class="px-3 py-4">
-                Odabrani klijent je propustio {{ missedPercentage }}% termina.
+                Klijent se pojavio na {{ attendedPercentage }}% termina.
               </div>
             </div>
           </div>
@@ -71,10 +82,6 @@
             </li>
             <p v-if="!customerAppointments.length">
               Klijent nema ugovorenih termina.
-              <br>
-              ili
-              <br>
-              Klijent nije odabran. Pretražite klijente po imenu u tražilici.
             </p>
           </ul>
         </div>
@@ -98,28 +105,31 @@ export default defineComponent({
     const store = useStore();
     const customerAppointments = computed(() => store.state.shared.selectedCustomerAppointments);
 
-    const missedPercentage = computed(() => {
+    const attendedPercentage = computed(() => {
       const appointmentCount = customerAppointments.value.length;
       if (!appointmentCount) {
         return null;
       }
 
-      console.log('🚀 ~ file: CustomerDetails.vue ~ line 65 ~ missedPercentage ~ appointmentCount', appointmentCount);
-      const missedAppointmentCount: number = customerAppointments.value.reduce((total, appointment): number => {
-        if (!appointment.hasCustomerArrived) {
+      const attendedAppointmentCount: number = customerAppointments.value.reduce((total, appointment): number => {
+        if (appointment.hasCustomerArrived) {
           return total + 1;
         }
 
         return total;
       }, 0);
-      console.log('🚀 ~ f+', missedAppointmentCount);
 
-      return Math.floor((missedAppointmentCount / appointmentCount) * 100);
+      return Math.floor((attendedAppointmentCount / appointmentCount) * 100);
     });
+
+    const totalEarnings = computed(() => customerAppointments.value.reduce(
+      (total, appointment): number => total + appointment.service.price, 0,
+    ));
 
     return {
       customerAppointments,
-      missedPercentage,
+      attendedPercentage,
+      totalEarnings,
     };
   },
 });

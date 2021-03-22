@@ -283,6 +283,9 @@ export default defineComponent({
               if (appointmentData.customer.phone !== undefined) {
                 rescheduledCustomer.phone = appointmentData.customer.phone;
               }
+              if (appointmentData.customer.notes !== undefined) {
+                rescheduledCustomer.notes = appointmentData.customer.notes;
+              }
               selectedAppointment.customer = rescheduledCustomer;
 
               if (appointmentData.message !== undefined) {

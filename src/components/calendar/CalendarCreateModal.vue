@@ -157,10 +157,22 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-notice"
                 >
-                  <strong>Napomena</strong>
+                  <strong>Bilješke o klijentu</strong>
                 </label>
                 <textarea
                   id="id-calendar-create-customer-notice"
+                  v-model="creationCustomer.notes"
+                  class="form-control responsive-form-control"
+                  rows="4"
+                />
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-create-appointment-notice"
+                >
+                  <strong>Napomena o terminu</strong>
+                </label>
+                <textarea
+                  id="id-calendar-create-appointment-notice"
                   v-model="creationNotice"
                   class="form-control responsive-form-control"
                   rows="4"
@@ -292,6 +304,7 @@ export default defineComponent({
             name: creationCustomer.value.name,
             email: creationCustomer.value.email,
             phone: creationCustomer.value.phone,
+            notes: creationCustomer.value.notes,
             company: selectedCompany.value?.id,
           };
           const createdCustomer: Customer = await store.dispatch(ActionTypes.CREATE_CUSTOMER, customerObject as Customer);

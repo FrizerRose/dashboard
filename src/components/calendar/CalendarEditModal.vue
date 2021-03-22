@@ -171,7 +171,20 @@
               class="responsive-form-label"
               for="id-calendar-edit-slot-customer-notice"
             >
-              <strong>Napomena</strong>
+              <strong>Bilješke o klijentu</strong>
+            </label>
+            <textarea
+              id="id-calendar-edit-slot-customer-notice"
+              v-model="rescheduledCustomer.notes"
+              class="form-control"
+            />
+          </div>
+          <div class="col-md-12 mb-4">
+            <label
+              class="responsive-form-label"
+              for="id-calendar-edit-slot-customer-notice"
+            >
+              <strong>Napomena za termin</strong>
             </label>
             <textarea
               id="id-calendar-edit-slot-customer-notice"
@@ -304,6 +317,7 @@ export default defineComponent({
           name: rescheduledCustomer.value.name,
           email: rescheduledCustomer.value.email,
           phone: rescheduledCustomer.value.phone,
+          notes: rescheduledCustomer.value.notes,
           company: selectedCompany.value?.id,
         };
 

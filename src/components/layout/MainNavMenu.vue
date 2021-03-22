@@ -54,7 +54,6 @@
           :data-bs-toggle="node.nodes === undefined ? 'collapsed' : 'collapse'"
           :class="{
             btn : true,
-            'responsive-btn' : true,
             'sidebar-link' : true,
             collapsed : !submenuShow,
             show : submenuShow

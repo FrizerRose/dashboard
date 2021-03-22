@@ -136,7 +136,7 @@
                 type="checkbox"
                 class="form-check-input"
               >
-              <span class="form-check-label">Korisnici mogu birati radnika</span>
+              <span class="form-check-label">Klijenti mogu birati radnika</span>
             </label>
           </div>
         </div>
@@ -148,7 +148,7 @@
                 type="checkbox"
                 class="form-check-input"
               >
-              <span class="form-check-label">Korisnici mogu otkazati termin</span>
+              <span class="form-check-label">Klijenti mogu otkazati termin</span>
             </label>
           </div>
         </div>

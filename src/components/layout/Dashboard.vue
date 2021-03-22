@@ -42,7 +42,7 @@ export default defineComponent({
           { name: 'Kalendar', templateName: 'Calendar', slug: '/kalendar' },
           { name: 'Usluge', templateName: 'Services', slug: '/usluge' },
           { name: 'Radnici', templateName: 'Staff', slug: '/radnici' },
-          { name: 'Korisnici', templateName: 'Customers', slug: '/korisnici' },
+          { name: 'Klijenti', templateName: 'Customers', slug: '/klijenti' },
           { name: 'Postavke', templateName: 'Settings', slug: '/postavke' },
           {
             name: 'Pomoć',

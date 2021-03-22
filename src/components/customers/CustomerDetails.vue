@@ -24,6 +24,16 @@
           </h5>
         </div>
         <div class="card-body h-100">
+          <h4
+            v-if="missedPercentage !== null"
+            :class="{
+              'percentage-green': missedPercentage < 15,
+              'percentage-yellow': missedPercentage >= 15 && missedPercentage < 30,
+              'percentage-red': missedPercentage >= 30
+            }"
+          >
+            Korisnik je propustio {{ missedPercentage }}% termina.
+          </h4>
           <ul class="list-group list-group-flush">
             <li
               v-for="appointment in customerAppointments"
@@ -33,7 +43,7 @@
               <strong>{{ appointment.date }} - {{ appointment.time }} - {{ appointment.service.name }}</strong> <br>
             </li>
             <p v-if="!customerAppointments.length">
-              Korisnik nema ugovorenih termina.
+              Klijent nema ugovorenih termina.
             </p>
           </ul>
         </div>
@@ -57,9 +67,41 @@ export default defineComponent({
     const store = useStore();
     const customerAppointments = computed(() => store.state.shared.selectedCustomerAppointments);
 
+    const missedPercentage = computed(() => {
+      const appointmentCount = customerAppointments.value.length;
+      if (!appointmentCount) {
+        return null;
+      }
+
+      console.log('🚀 ~ file: CustomerDetails.vue ~ line 65 ~ missedPercentage ~ appointmentCount', appointmentCount);
+      const missedAppointmentCount: number = customerAppointments.value.reduce((total, appointment): number => {
+        if (!appointment.hasCustomerArrived) {
+          return total + 1;
+        }
+
+        return total;
+      }, 0);
+      console.log('🚀 ~ f+', missedAppointmentCount);
+
+      return Math.floor((missedAppointmentCount / appointmentCount) * 100);
+    });
+
     return {
       customerAppointments,
+      missedPercentage,
     };
   },
 });
 </script>
+
+<style lang="scss" scoped>
+  .percentage-green {
+    color: green;
+  }
+  .percentage-yellow {
+    color: orange;
+  }
+  .percentage-red {
+    color: red;
+  }
+</style>

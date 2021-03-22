@@ -11,7 +11,7 @@
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Korisnici će primati email za podsjetnik prije termina</span>
+                <span class="form-check-label">Klijenti će primati email za podsjetnik prije termina</span>
               </label>
             </div>
             <div class="mb-4">

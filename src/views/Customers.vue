@@ -1,7 +1,7 @@
 <template>
   <Dashboard>
     <template #header>
-      Korisnici
+      Klijenti
     </template>
     <template #body>
       <main class="content p-0 responsive-content">

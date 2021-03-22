@@ -5,6 +5,7 @@ type Customer = {
   name: string;
   email: string;
   phone: string;
+  notes: string;
   company: Company | unknown;
 }
 

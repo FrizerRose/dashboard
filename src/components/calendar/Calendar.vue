@@ -466,32 +466,4 @@ export default defineComponent({
     margin-right: -1.5rem;
   }
 }
-.fc .fc-timegrid-slot {
-  height: 2rem;
-}
-.fc th {
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.fc .fc-timegrid-axis-cushion {
-  max-width: none;
-  font-size: 0.75rem;
-}
-.fc-event-main {
-  line-height: 1.25;
-  font-size: 1rem;
-  // transition: font-size 0.3s cubic-bezier(0.4, 0, 0, 1);
-}
-// .fc-theme-bootstrap a:not([href]) {
-//   transition: transform 0.3s cubic-bezier(0.4, 0, 0, 1);
-
-//   &:hover {
-//     transform: scale(2);
-
-//     .fc-event-main {
-//       font-size: 0.5rem;
-//     }
-//   }
-// }
 </style>

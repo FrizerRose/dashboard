@@ -3,18 +3,6 @@
     <div class="card-body py-4">
       <div class="d-flex align-items-start">
         <div class="flex-grow-1">
-          <button
-            class="btn btn-primary"
-            @click="fetchPrev()"
-          >
-            Prev
-          </button>
-          <button
-            class="btn btn-primary"
-            @click="fetchNext()"
-          >
-            Next
-          </button>
           <div id="fullcalendar" />
         </div>
       </div>
@@ -85,10 +73,10 @@ export default defineComponent({
       if (calendarEl) {
         calendar.value = new Calendar(calendarEl, {
           plugins: [listPlugin, bootstrapPlugin],
-          initialView: 'listWeek',
+          initialView: 'listDay',
           selectable: !isMobile.value,
           contentHeight: isMobile.value ? (window.innerHeight * 0.7) : 800,
-          headerToolbar: false,
+          // headerToolbar: false,
           nowIndicator: true,
           stickyHeaderDates: true,
           locale: hrLocale,

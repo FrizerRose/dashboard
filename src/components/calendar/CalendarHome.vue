@@ -3,6 +3,18 @@
     <div class="card-body py-4">
       <div class="d-flex align-items-start">
         <div class="flex-grow-1">
+          <button
+            class="btn btn-primary"
+            @click="fetchPrev()"
+          >
+            Prev
+          </button>
+          <button
+            class="btn btn-primary"
+            @click="fetchNext()"
+          >
+            Next
+          </button>
           <div id="fullcalendar" />
         </div>
       </div>
@@ -19,14 +31,18 @@ import listPlugin from '@fullcalendar/list';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import hrLocale from '@fullcalendar/core/locales/hr';
 import { useStore } from '@/store';
+import ActionTypes from '@/store/action-types';
+import { getDateStringFromDate } from '@/helpers/time';
 
 export default defineComponent({
   setup() {
     const store = useStore();
 
+    const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const reservedAppointments = computed(() => store.state.shared.reservedAppointments);
-
     const isMobile = computed(() => store.state.shared.isMobile);
+
+    const selectedDate = ref(new Date());
 
     const calendar = ref({} as Calendar);
 
@@ -121,8 +137,30 @@ export default defineComponent({
       }
     });
 
+    function fetchNewAppointments() {
+      if (selectedCompany.value) {
+        store.dispatch(ActionTypes.FETCH_APPOINTMENTS_ON_DATE, {
+          companyID: selectedCompany.value.id,
+          dateString: getDateStringFromDate(selectedDate.value),
+        });
+      }
+    }
+
+    function fetchPrev() {
+      selectedDate.value.setDate(selectedDate.value.getDate() - 1);
+      fetchNewAppointments();
+    }
+
+    function fetchNext() {
+      selectedDate.value.setDate(selectedDate.value.getDate() + 1);
+      fetchNewAppointments();
+    }
+
     return {
-      formattedAppointments, reservedAppointments,
+      formattedAppointments,
+      reservedAppointments,
+      fetchPrev,
+      fetchNext,
     };
   },
 });

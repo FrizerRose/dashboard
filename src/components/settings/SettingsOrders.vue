@@ -81,9 +81,9 @@
         class="responsive-form-label w-100"
         for="id-cancel-time"
       >
-        <strong>Poništavanje narudžbe</strong>
+        <strong>Otkazivanje narudžbe</strong>
         <br>
-        Odaberite kada se najkasnije narudžba može poništiti</label>
+        Odaberite kada se najkasnije narudžba može otkazati</label>
       <select
         id="id-cancel-time"
         v-model="formData.preferences.cancellationWindow"

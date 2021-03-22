@@ -113,7 +113,7 @@
               for="id-name"
               class="responsive-form-label w-100"
             >
-              <strong>Ime firme</strong>
+              <strong>Ime poslovnog subjekta</strong>
               <br>
               Ovdje možete promijeniti ime koje će pisati na stranici
             </label>
@@ -121,7 +121,7 @@
               v-model="formData.name"
               type="text"
               class="form-control responsive-form-control"
-              placeholder="Ime firme"
+              placeholder="Ime poslovnog subjekta"
               for="id-name"
             >
           </div>
@@ -222,7 +222,7 @@
                 v-model="formData.contactEmail"
                 type="email"
                 class="form-control responsive-form-control"
-                placeholder="adresa@firma.hr"
+                placeholder="adresa@poslovni-subjekt.hr"
               >
             </div>
           </div>
@@ -271,7 +271,7 @@
             v-model="formData.webstieLink"
             type="text"
             class="form-control responsive-form-control"
-            placeholder="https://www.ime-firme.hr"
+            placeholder="https://www.ime-poslovnog-subjekta.hr"
           >
         </div>
       </div>
@@ -292,7 +292,7 @@
             v-model="formData.facebookLink"
             type="text"
             class="form-control responsive-form-control"
-            placeholder="https://www.facebook.com/ime-firme"
+            placeholder="https://www.facebook.com/ime-poslovnog-subjekta"
           >
         </div>
       </div>
@@ -306,14 +306,14 @@
           >
             <strong>Instagram URL</strong>
             <br>
-            Ako imate, ovdje zalijepite URL od vašeg Instagram profila vaše firme
+            Ako imate, ovdje zalijepite URL od vašeg Instagram profila vaše poslovnog subjekta
           </label>
           <input
             id="id-instagram-page-url"
             v-model="formData.instagramLink"
             type="text"
             class="form-control responsive-form-control"
-            placeholder="https://www.instagram.com/ime-firme"
+            placeholder="https://www.instagram.com/ime-poslovnog-subjekta"
           >
         </div>
       </div>
@@ -334,7 +334,7 @@
             v-model="formData.termsLink"
             type="text"
             class="form-control responsive-form-control"
-            placeholder="https://www.ime-firme.hr/pravila-koristenja"
+            placeholder="https://www.ime-poslovnog-subjekta.hr/pravila-koristenja"
           >
         </div>
       </div>

@@ -128,7 +128,7 @@
                       v-model="formData.name"
                       type="text"
                       class="form-control responsive-form-control"
-                      placeholder="Ime firme"
+                      placeholder="Ime subjekta"
                       for="id-name"
                     >
                   </div>
@@ -146,7 +146,7 @@
                       v-model="formData.email"
                       type="email"
                       class="form-control responsive-form-control"
-                      placeholder="adresa@firma.hr"
+                      placeholder="adresa@subjekt.hr"
                     >
                   </div>
                 </div>

@@ -26,7 +26,7 @@
                   <span class="responsive-nav__icon">
                     <span class="fa fa-building" />
                   </span>
-                  <span class="responsive-nav__label">Podatci o firmi</span>
+                  <span class="responsive-nav__label">Podatci o poslovnom subjektu</span>
                 </a>
               </li>
               <li

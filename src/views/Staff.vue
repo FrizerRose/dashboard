@@ -8,32 +8,22 @@
         id="staffContainer"
         class="content"
       >
-        <div
-          class="container-fluid p-0"
-        >
-          <div class="row mb-3">
-            <div class="col-xl-12">
-              <button
-                id="staffCreateButton"
-                class="btn responsive-btn btn-primary float-end mt-n1"
-                aria-label="Dodaj radnika"
-                @click="openStaffCreateModal()"
-              >
-                <span class="fa fa-plus" /> Dodaj radnika
-              </button>
-
-              <div v-if="isStaffCreateOpen">
-                <StaffCreate />
-              </div>
-            </div>
+        <div class="container-fluid p-0">
+          <div class="text-end mb-3">
+            <button
+              class="btn responsive-btn btn-primary"
+              @click="openStaffCreateModal()"
+            >
+              <span class="fa fa-plus" />
+              <span class="responsive-btn__label ms-2">Dodaj radnika</span>
+            </button>
           </div>
-        </div>
 
-        <div class="row">
-          <div
-            v-if="staff"
-            class="col-xl-12"
-          >
+          <div v-if="isStaffCreateOpen">
+            <StaffCreate />
+          </div>
+
+          <div v-if="staff">
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
@@ -73,14 +63,17 @@
                         :class="{'nav-item': true, 'active': selectedWorker === worker.id}"
                       >
                         <td>
-                          <img
-                            v-if="worker.image && worker.image.link"
-                            :src="worker.image.link"
-                            width="48"
-                            height="48"
-                            class="rounded-circle me-2"
-                            alt="slika"
+                          <div
+                            class="override-upload-image-square"
+                            style="width: 48px;"
                           >
+                            <img
+                              v-if="worker.image && worker.image.link"
+                              :src="worker.image.link"
+                              alt="slika"
+                              class="fit-cover"
+                            >
+                          </div>
                         </td>
                         <td> {{ worker.name }}</td>
                         <td style="text-align: center;">
@@ -112,22 +105,23 @@
               </div>
             </div>
           </div>
-          <div>
+
+          <div v-else>
             Nema unešenih radnika.
           </div>
-        </div>
 
-        <div
-          v-for="worker in staff"
-          :id="'tab-' + worker.id"
-          :key="worker.id"
-          :class="{'tab-pane': true, 'active': selectedWorker === worker.id}"
-          role="tabpanel"
-        >
-          <StaffEdit
-            v-if="isStaffEditOpen && selectedWorker === worker.id"
-            :worker="worker"
-          />
+          <div
+            v-for="worker in staff"
+            :id="'tab-' + worker.id"
+            :key="worker.id"
+            :class="{'tab-pane': true, 'active': selectedWorker === worker.id}"
+            role="tabpanel"
+          >
+            <StaffEdit
+              v-if="isStaffEditOpen && selectedWorker === worker.id"
+              :worker="worker"
+            />
+          </div>
         </div>
       </main>
     </template>

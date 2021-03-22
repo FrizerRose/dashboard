@@ -90,5 +90,6 @@ export default defineComponent({
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
+  line-height: 1;
 }
 </style>

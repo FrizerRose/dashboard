@@ -35,6 +35,7 @@
                       v-if="image?.link"
                       :src="image.link"
                       alt="logo"
+                      class="fit-cover"
                     >
                     <span
                       v-if="!image?.link"

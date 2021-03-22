@@ -36,3 +36,9 @@ html {
 .responsive-font-size {
     font-size: 1rem;
 }
+
+.fit-cover {
+	// use only on <img> when parent element is .override-upload-image-square
+	height: 100%;
+	object-fit: cover;
+}

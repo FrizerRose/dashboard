@@ -22,6 +22,7 @@
           <div v-if="isServicesCreateOpen">
             <ServiceCreate />
           </div>
+
           <div v-if="services">
             <div class="card">
               <div class="card-body">
@@ -86,6 +87,7 @@
               </div>
             </div>
           </div>
+
           <div v-else>
             Nema unešenih usluga.
           </div>

@@ -12,7 +12,16 @@
       />
     </template>
     <template #body>
-      <div class="radnik-identifikacija px-4 py-4 border-bottom">
+      <div
+        v-if="requestSent && !status"
+        class="p-4 alert alert-danger"
+      >
+        <div class="container override-desktop-limit">
+          {{ errorMsg }}
+        </div>
+      </div>
+
+      <div class="radnik-identifikacija p-4 border-bottom">
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12">
@@ -54,7 +63,7 @@
         </div>
       </div>
 
-      <div class="radnik-radni-dani px-4 py-4 border-bottom">
+      <div class="radnik-radni-dani p-4 border-bottom">
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
@@ -188,7 +197,7 @@
         </div>
       </div>
 
-      <div class="radnik-djelatnosti px-4 py-4">
+      <div class="radnik-djelatnosti p-4 border-bottom">
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
@@ -227,12 +236,6 @@
                 </div>
               </div>
             </div>
-            <p
-              v-if="requestSent && !status"
-              class="text-danger"
-            >
-              {{ errorMsg }}
-            </p>
           </div>
         </div>
       </div>
@@ -385,59 +388,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-
-.section-reveal {
-  position: relative;
-  z-index: 0;
-}
-
-.section-reveal__item {
-  position: static;
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--bs-secondary);
-    z-index: -1;
-    margin: -0.25rem;
-    opacity: 0;
-    transform: scale(0.92);
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0, 1), transform 0.1s cubic-bezier(0.4, 0, 0, 1);
-  }
-
-  &:hover {
-    &:before {
-      opacity: .1;
-      transform: none;
-    }
-  }
-
-  &.is-red {
-    &:before {
-      background-color: var(--bs-danger);
-    }
-    &:hover {
-      &:before {
-        opacity: .2;
-        transform: none;
-      }
-    }
-  }
-}
-
-.striped-row {
-  border: 0 solid;
-  border-bottom-width: 1px;
-  border-color: #dee6ed;
-
-  &:nth-child(odd) {
-    background-color: #f4f7f9;
-  }
-}
-</style>

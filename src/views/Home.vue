@@ -31,18 +31,6 @@
                 :percentage="Math.floor((stats.nextWeekAppointmentRevenue / stats.lastWeekAppointmentRevenue) * 100)"
                 :is-revenue="true"
               />
-              <div class="qr-code-button-wrap">
-                <div class="row">
-                  <div class="col-12">
-                    <router-link
-                      to="/qr-kod"
-                      class="btn responsive-btn btn-secondary w-100"
-                    >
-                      Prikaži QR Kod
-                    </router-link>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

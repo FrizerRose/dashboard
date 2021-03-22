@@ -24,16 +24,43 @@
           </h5>
         </div>
         <div class="card-body h-100">
-          <h4
+          <div
             v-if="missedPercentage !== null"
-            :class="{
-              'percentage-green': missedPercentage < 15,
-              'percentage-yellow': missedPercentage >= 15 && missedPercentage < 30,
-              'percentage-red': missedPercentage >= 30
-            }"
+            class="position-relative"
           >
-            Korisnik je propustio {{ missedPercentage }}% termina.
-          </h4>
+            <div class="progress override-place-in-alert">
+              <div
+                role="progressbar"
+                class="progress-bar"
+                :class="{
+                  'bg-success': missedPercentage < 15,
+                  'bg-warning': missedPercentage >= 15 && missedPercentage < 30,
+                  'bg-danger': missedPercentage >= 30
+                }"
+                :style="{
+                  width: missedPercentage + '%'
+                }"
+                :aria-valuenow="missedPercentage"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              />
+            </div>
+            <div
+              class="alert"
+              :class="{
+                'alert-success': missedPercentage < 15,
+                'alert-warning': missedPercentage >= 15 && missedPercentage < 30,
+                'alert-danger': missedPercentage >= 30
+              }"
+            >
+              <div class="px-3 py-4">
+                <span>A+++</span>
+              </div>
+              <div class="px-3 py-4">
+                Odabrani klijent je propustio {{ missedPercentage }}% termina.
+              </div>
+            </div>
+          </div>
           <ul class="list-group list-group-flush">
             <li
               v-for="appointment in customerAppointments"
@@ -44,6 +71,10 @@
             </li>
             <p v-if="!customerAppointments.length">
               Klijent nema ugovorenih termina.
+              <br>
+              ili
+              <br>
+              Klijent nije odabran. Pretražite klijente po imenu u tražilici.
             </p>
           </ul>
         </div>
@@ -93,15 +124,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-  .percentage-green {
-    color: green;
-  }
-  .percentage-yellow {
-    color: orange;
-  }
-  .percentage-red {
-    color: red;
-  }
-</style>

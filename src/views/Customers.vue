@@ -138,6 +138,10 @@ export default defineComponent({
 .customer-details {
   margin-top: 2rem;
   padding: 0 1.5rem 1.5rem;
+  @media (min-width: 1200px) {
+    position: sticky;
+    top: 3rem;
+  }
 }
 .customers-nav {
   position: relative;

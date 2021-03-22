@@ -144,6 +144,21 @@
                 <br>
                 Označite radnike koji obavljaju ovu uslugu
               </label>
+              <div class="striped-row p-1">
+                <div class="row">
+                  <div class="col-6 col-sm-8">
+                    <label class="form-check m-0">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        :checked="formData.staff.length === allStaff.length"
+                        @change="toggleAllStaff()"
+                      >
+                      <span class="form-check-label lead">Sve</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
               <div
                 v-for="staff in allStaff"
                 :key="staff.id"
@@ -243,6 +258,15 @@ export default defineComponent({
       }
     }
 
+    function toggleAllStaff() {
+      const alreadySelected = formData.staff.length === allStaff.value.length;
+      if (alreadySelected) {
+        formData.staff = [];
+      } else {
+        formData.staff = JSON.parse(JSON.stringify(allStaff.value));
+      }
+    }
+
     function closeServiceEditModal() {
       store.commit(MutationTypes.CHANGE_OPEN_SERVICE_EDIT_MODAL, false);
       document.body.classList.remove('modal-open');
@@ -261,6 +285,7 @@ export default defineComponent({
       allStaff,
       isAssigned,
       toggleStaff,
+      toggleAllStaff,
       closeServiceEditModal,
     };
   },

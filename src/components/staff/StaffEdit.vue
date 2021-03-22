@@ -299,6 +299,22 @@
                 <br>
                 Označite usluge koje ovaj radnik pruža
               </label>
+
+              <div class="striped-row p-1">
+                <div class="row">
+                  <div class="col-6 col-sm-8">
+                    <label class="form-check m-0">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        :checked="formData.services.length === allServices.length"
+                        @change="toggleAllServices()"
+                      >
+                      <span class="form-check-label lead">Sve</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
               <div
                 v-for="service in allServices"
                 :key="service.id"
@@ -518,6 +534,15 @@ export default defineComponent({
       }
     }
 
+    function toggleAllServices() {
+      const alreadySelected = formData.services.length === allServices.value.length;
+      if (alreadySelected) {
+        formData.services = [];
+      } else {
+        formData.services = JSON.parse(JSON.stringify(allServices.value));
+      }
+    }
+
     async function upload(event: { target: EventTarget & { files: FileList } }) {
       try {
         const imageData = new FormData();
@@ -640,6 +665,7 @@ export default defineComponent({
       removeBreak,
       closeStaffEditModal,
       timeOptions,
+      toggleAllServices,
     };
   },
 });

@@ -206,6 +206,21 @@
                 <br>
                 Označite usluge koje ovaj radnik pruža
               </label>
+              <div class="striped-row p-1">
+                <div class="row">
+                  <div class="col-6 col-sm-8">
+                    <label class="form-check m-0">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        :checked="newStaff.services.length === allServices.length"
+                        @change="toggleAllServices()"
+                      >
+                      <span class="form-check-label lead">Sve</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
               <div
                 v-for="service in allServices"
                 :key="service.id"
@@ -347,6 +362,15 @@ export default defineComponent({
       }
     }
 
+    function toggleAllServices() {
+      const alreadySelected = newStaff.services.length === allServices.value.length;
+      if (alreadySelected) {
+        newStaff.services = [];
+      } else {
+        newStaff.services = JSON.parse(JSON.stringify(allServices.value));
+      }
+    }
+
     async function createStaff() {
       if (newStaff.email && newStaff.email) {
         try {
@@ -377,6 +401,7 @@ export default defineComponent({
       closeStaffCreateModal,
       isAssigned,
       toggleService,
+      toggleAllServices,
       addShift,
       removeShift,
       toggleDayActive,

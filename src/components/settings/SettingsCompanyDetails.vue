@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="firma-interaktivno mb-4">
+    <div class="firma-interaktivno mb-4 text-end">
       <button
         :class="{
           btn: true,
@@ -15,19 +15,27 @@
       </button>
     </div>
 
-    <div class="firma-logo-ime">
-      <label
-        class="responsive-form-label w-100 mb-4"
-      >
-        <strong>Logotip</strong>
-        <br>
-        Ovdje možete promijeniti logotip koji će biti prikazan na stranici
-      </label>
+    <div
+      v-if="requestSent && !status"
+      class="p-4 mt-4 alert alert-danger"
+    >
+      <div class="container override-desktop-limit">
+        {{ errorMsg }}
+      </div>
+    </div>
 
-      <div class="row">
-        <div class="col-md-3 mb-4">
-          <div class="row d-flex align-items-center">
-            <div class="col-6 col-md-12">
+    <div class="firma-logo">
+      <div class="mt-4 border-top border-bottom">
+        <div class="my-4">
+          <div class="row">
+            <div class="col-6 col-md-4 col-xl-3">
+              <label class="responsive-form-label w-100 mb-5 mt-2">
+                <strong>Logotip</strong>
+                <br>
+                Podržavamo formate: JPG, PNG
+              </label>
+            </div>
+            <div class="col-6 col-md-8 col-xl-9">
               <div class="override-upload-image-wrap">
                 <div class="override-upload-image">
                   <div class="override-upload-image-square">
@@ -76,146 +84,141 @@
                   </span>
                 </button>
               </div>
-            </div>
-            <div class="col-6 col-md-12 mt-4">
-              <input
-                id="id-file"
-                class="override-input-file"
-                type="file"
-                name="id-file"
-                accept="image/svg, image/png, image/jpeg"
-                @change="upload"
-              >
-              <label
-                for="id-file"
-                class="btn responsive-btn btn-primary"
-              >
-                {{ inputFileText }}
-              </label>
+              <div class="text-center fallback-file-input-option">
+                <input
+                  id="id-file"
+                  class="override-input-file"
+                  type="file"
+                  name="id-file"
+                  accept="image/svg, image/png, image/jpeg"
+                  @change="upload"
+                >
+                <label
+                  for="id-file"
+                  class="btn responsive-btn btn-primary mt-4 mb-4"
+                >
+                  {{ inputFileText }}
+                </label>
+              </div>
+
               <div
                 v-if="imageUploadSent && imageUploadStatus"
-                class="mt-2"
+                class="p-3 alert alert-success"
               >
-                Logo uspješno promjenjen!
+                Logo uspješno promijenjen!
               </div>
+
               <div
                 v-if="(imageUploadSent && !imageUploadStatus) || imageRemoveHasError"
-                class="mt-2"
+                class="p-3 alert alert-danger"
               >
                 Došlo je do greške, molimo probajte kasnije!
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-9">
-          <div class="mb-4">
-            <label
-              for="id-name"
-              class="responsive-form-label w-100"
-            >
-              <strong>Ime poslovnog subjekta</strong>
-              <br>
-              Ovdje možete promijeniti ime koje će pisati na stranici
-            </label>
-            <input
-              v-model="formData.name"
-              type="text"
-              class="form-control responsive-form-control"
-              placeholder="Ime poslovnog subjekta"
-              for="id-name"
-            >
-          </div>
-          <div class="mb-4">
-            <label
-              for="id-about-text"
-              class="responsive-form-label w-100"
-            >
-              <strong>O nama</strong>
-            </label>
-            <textarea
-              id="id-about-text"
-              v-model="formData.about"
-              class="form-control responsive-form-control"
-              placeholder="Ovdje možete upisati kratki tekst koje će biti prikazan na stranici"
-              rows="3"
-            />
+      </div>
+    </div>
+
+    <div class="firma-ime">
+      <div class="border-bottom">
+        <div class="my-4">
+          <div class="row">
+            <div class="col-12 col-sm-6 mb-4 d-flex flex-column justify-content-between">
+              <label
+                for="id-name"
+                class="responsive-form-label w-100"
+              >
+                <strong>Ime poslovnog subjekta</strong>
+              </label>
+              <input
+                v-model="formData.name"
+                type="text"
+                class="form-control responsive-form-control"
+                placeholder="Ime poslovnog subjekta"
+                for="id-name"
+              >
+            </div>
+            <div class="col-12 col-sm-6 mb-4 d-flex flex-column justify-content-between">
+              <label
+                for="id-about-text"
+                class="responsive-form-label w-100"
+              >
+                <strong>O nama</strong>
+              </label>
+              <textarea
+                id="id-about-text"
+                v-model="formData.about"
+                class="form-control responsive-form-control"
+                placeholder="Ovdje možete upisati kratki tekst koje će biti prikazan na stranici"
+                rows="3"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="firma-adresa">
-      <div class="row">
-        <div class="col-md-3 mb-4" />
-        <div class="col-md-9">
+      <div class="border-bottom">
+        <div class="my-4">
           <div class="row">
-            <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
+            <div class="col-12 col-sm-6 mb-4 d-flex flex-column justify-content-between">
               <label
                 for="id-street-address"
                 class="responsive-form-label w-100"
               >
-                <strong>Ulica</strong>
-                <br>
-                Ovdje možete promijeniti ulicu i kućni broj koji će biti prikazani na stranici u sklopu adrese
+                <strong>Ulica i kućni broj</strong>
               </label>
               <input
                 id="id-street-address"
                 v-model="formData.streetName"
                 class="form-control responsive-form-control"
                 type="text"
-                placeholder="Ulica borova 55, 10000 Zargeb"
+                placeholder="npr. Ulica Vladimira Nazora 27"
               >
             </div>
-            <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
+            <div class="col-12 col-sm-6 mb-4 d-flex flex-column justify-content-between">
               <label
                 for="id-city"
                 class="responsive-form-label w-100"
               >
                 <strong>Grad</strong>
-                <br>
-                Ovdje možete promijeniti grad koja će biti prikazana na stranici u sklopu adrese
               </label>
               <input
                 id="id-city"
                 v-model="formData.city"
                 class="form-control responsive-form-control"
                 type="text"
-                placeholder="Zagreb"
+                placeholder="Grad"
               >
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-3 mb-4" />
-        <div class="col-md-9">
+        <div class="my-4">
           <div class="row">
-            <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
+            <div class="col-12 col-sm-6 mb-4 d-flex flex-column justify-content-between">
               <label
                 for="id-phone"
                 class="responsive-form-label w-100"
               >
                 <strong>Telefon</strong>
-                <br>
-                Ovdje možete promijeniti broj telefona koji će biti prikazana na stranici
               </label>
               <input
                 id="id-phone"
                 v-model="formData.phoneNumber"
                 class="form-control responsive-form-control"
                 type="tel"
-                placeholder="+385 (91) 000-11-22"
+                placeholder="npr. +385 (91) 234-56-78"
               >
             </div>
-            <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
+            <div class="col-12 col-sm-6 mb-4 d-flex flex-column justify-content-between">
               <label
                 class="responsive-form-label"
                 for="id-email"
               >
                 <strong>E-mail adresa</strong>
-                <br>
-                Ovdje možete promijeniti e-mail adresu koji će biti prikazana na stranici
               </label>
               <input
                 id="id-email"
@@ -230,192 +233,214 @@
       </div>
     </div>
 
-    <div class="firma-na-webu">
-      <div class="row">
-        <div class="col-md-3 mb-4" />
-        <div class="col-md-9 mb-4">
-          <label
-            for="id-subdomain"
-            class="responsive-form-label w-100"
-          >
-            <strong>Promjenite domenu</strong>
-            <br>
-            nakon promjene bit ćete prebačeni na novu stranicu gdje će te se trebati ponovno logirati
-          </label>
-          <div class="d-flex align-items-baseline">
-            <input
-              id="id-subdomain"
-              v-model="formData.bookingPageSlug"
-              class="form-control responsive-form-control"
-              type="text"
-              placeholder="placeholder text"
-            >
-            <span class="ms-2">.frizerrose.info</span>
+    <div class="firma-web">
+      <div class="border-bottom">
+        <div class="mt-4 mb-6">
+          <div class="row flex-row-reverse align-items-end">
+            <div class="col-12 col-md-8 col-xl-6">
+              <label
+                for="id-subdomain"
+                class="responsive-form-label w-100"
+              >
+                <strong>Poddomena</strong> - obavezno polje
+              </label>
+              <div class="d-flex align-items-baseline">
+                <input
+                  id="id-subdomain"
+                  v-model="formData.bookingPageSlug"
+                  class="form-control responsive-form-control text-end"
+                  type="text"
+                  placeholder="Željeno ime"
+                >
+                <span class="ms-2">.frizerrose.info</span>
+              </div>
+            </div>
+            <div class="col-12 col-md-4 col-xl-6">
+              <label class="responsive-form-label w-100 mb-0 mt-2">
+                Nakon što promjenite poddomenu trebat ćete se ponovo ulogirati
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 mb-5">
+          <div class="mb-4">
+            <div class="row flex-row-reverse align-items-end">
+              <div class="col-12 col-md-8 col-xl-6">
+                <label
+                  for="id-website-url"
+                  class="responsive-form-label w-100"
+                >
+                  <strong>Web stranica URL</strong>
+                </label>
+                <div class="d-flex align-items-baseline">
+                  <input
+                    id="id-website-url"
+                    v-model="formData.webstieLink"
+                    type="text"
+                    class="form-control responsive-form-control"
+                    placeholder="https://www.ime-poslovnog-subjekta.hr"
+                  >
+                </div>
+              </div>
+              <div class="col-12 col-md-4 col-xl-6">
+                <label class="responsive-form-label w-100 mb-0 mt-2">
+                  URL od web stranice vašeg poslovnog subjekta
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="my-4">
+            <div class="row flex-row-reverse align-items-end">
+              <div class="col-12 col-md-8 col-xl-6">
+                <label
+                  class="responsive-form-label"
+                  for="id-facebook-page-url"
+                >
+                  <strong>Facebook URL</strong>
+                </label>
+                <input
+                  id="id-facebook-page-url"
+                  v-model="formData.facebookLink"
+                  type="text"
+                  class="form-control responsive-form-control"
+                  placeholder="https://www.facebook.com/ime-poslovnog-subjekta"
+                >
+              </div>
+              <div class="col-12 col-md-4 col-xl-6">
+                <label class="responsive-form-label w-100 mb-0 mt-2">
+                  URL od vaše Facebook stranice vašeg poslovnog subjekta
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4">
+            <div class="row flex-row-reverse align-items-end">
+              <div class="col-12 col-md-8 col-xl-6">
+                <label
+                  class="responsive-form-label"
+                  for="id-instagram-page-url"
+                >
+                  <strong>Instagram URL</strong>
+                </label>
+                <input
+                  id="id-instagram-page-url"
+                  v-model="formData.instagramLink"
+                  type="text"
+                  class="form-control responsive-form-control"
+                  placeholder="https://www.instagram.com/ime-poslovnog-subjekta"
+                >
+              </div>
+              <div class="col-12 col-md-4 col-xl-6">
+                <label class="responsive-form-label w-100 mb-0 mt-2">
+                  URL od Instagram profila vašeg poslovnog subjekta
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-3 mb-4" />
-        <div class="col-md-9 mb-4">
-          <label
-            class="responsive-form-label"
-            for="id-website-url"
-          >
-            <strong>Web stranica URL</strong>
-            <br>
-            Ako imate, ovdje zalijepite URL od vaše web stranice
-          </label>
-          <input
-            id="id-website-url"
-            v-model="formData.webstieLink"
-            type="text"
-            class="form-control responsive-form-control"
-            placeholder="https://www.ime-poslovnog-subjekta.hr"
-          >
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3 mb-4" />
-        <div class="col-md-9 mb-4">
-          <label
-            class="responsive-form-label"
-            for="id-facebook-page-url"
-          >
-            <strong>Facebook URL</strong>
-            <br>
-            Ako imate, ovdje zalijepite URL od vaše Facebook stranice
-          </label>
-          <input
-            id="id-facebook-page-url"
-            v-model="formData.facebookLink"
-            type="text"
-            class="form-control responsive-form-control"
-            placeholder="https://www.facebook.com/ime-poslovnog-subjekta"
-          >
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3 mb-4" />
-        <div class="col-md-9 mb-4">
-          <label
-            class="responsive-form-label"
-            for="id-instagram-page-url"
-          >
-            <strong>Instagram URL</strong>
-            <br>
-            Ako imate, ovdje zalijepite URL od vašeg Instagram profila vaše poslovnog subjekta
-          </label>
-          <input
-            id="id-instagram-page-url"
-            v-model="formData.instagramLink"
-            type="text"
-            class="form-control responsive-form-control"
-            placeholder="https://www.instagram.com/ime-poslovnog-subjekta"
-          >
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3 mb-4" />
-        <div class="col-md-9 mb-4">
-          <label
-            class="responsive-form-label"
-            for="id-terms-and-conditions-page-url"
-          >
-            <strong>Pravila korištenja URL</strong>
-            <br>
-            Ovdje zalijepite URL od stranice na kojoj pišu pravila korištenja. Ovo polje je obavezno
-          </label>
-          <input
-            id="id-terms-and-conditions-page-url"
-            v-model="formData.termsLink"
-            type="text"
-            class="form-control responsive-form-control"
-            placeholder="https://www.ime-poslovnog-subjekta.hr/pravila-koristenja"
-          >
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3 mb-4" />
-        <div class="col-md-9 mb-4">
-          <label class="form-check m-0">
-            <input
-              v-model="formData.preferences.showRules"
-              type="checkbox"
-              class="form-check-input"
-            >
-            <span class="form-check-label">Prikaži pravila na stranici.</span>
-          </label>
+      <div class="border-bottom">
+        <div class="mt-4 mb-5">
+          <div class="row flex-row-reverse">
+            <div class="col-12 col-md-8 col-xl-6">
+              <label>
+                <strong>Pravila korištenja URL</strong>
+              </label>
+              <input
+                id="id-terms-and-conditions-page-url"
+                v-model="formData.termsLink"
+                type="text"
+                class="form-control responsive-form-control"
+                placeholder="https://www.ime-poslovnog-subjekta.hr/link-na-pravila-koristenja"
+              >
+            </div>
+            <div class="col-12 col-md-4 col-xl-6">
+              <label class="responsive-form-label w-100 mb-0 mt-2">
+                <br>
+                Ovdje zalijepite URL na pravila korištenja.
+                Možete ih postaviti na vašoj web stranici, Google Docs ili u obliku Facebook objave
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-3 mb-4" />
-      <div class="col-md-9 mb-4">
-        <label
-          class="responsive-form-label"
-          for="id-rules"
-        >
-          <strong>Pravila ponašanja</strong>
-          <br>
-          Ovdje možete upisati kratki tekst s pravilima ponašanja koji će biti prikazan na stranici
-        </label>
-        <textarea
-          id="id-rules"
-          v-model="formData.preferences.rules"
-          class="form-control responsive-form-control"
-          rows="12"
-        />
+    <div class="firma-conduct">
+      <div class="border-bottom">
+        <div class="mt-4 mb-6">
+          <div class="row align-items-end">
+            <div class="col-12 col-md-4 col-xl-6 mb-3">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.preferences.showRules"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label">Prikaži pravila na stranici.</span>
+              </label>
+            </div>
+
+            <div class="col-12 col-md-8 col-xl-6 mb-3">
+              <label
+                class="responsive-form-label m-0"
+                for="id-rules"
+              >
+                <strong>Pravila ponašanja</strong>
+                <br>
+                Ovdje možete upisati kratki tekst s pravilima ponašanja koji će biti prikazan na stranici
+              </label>
+            </div>
+          </div>
+          <textarea
+            id="id-rules"
+            v-model="formData.preferences.rules"
+            class="form-control responsive-form-control"
+            rows="12"
+          />
+        </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-3 mb-4" />
-      <div class="col-md-9 mb-4">
-        <label class="form-check m-0">
-          <input
-            v-model="formData.preferences.showCoronaRules"
-            type="checkbox"
-            class="form-check-input"
-          >
-          <span class="form-check-label">Prikaži COVID-19 upozorenje na stranici.</span>
-        </label>
+    <div class="firma-warnings">
+      <div class="border-bottom">
+        <div class="mt-4 mb-6">
+          <div class="row align-items-end">
+            <div class="col-12 col-md-4 col-xl-6 mb-3">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.preferences.showCoronaRules"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label">Prikaži COVID-19 upozorenje na stranici.</span>
+              </label>
+            </div>
+
+            <div class="col-12 col-md-8 col-xl-6 mb-3">
+              <label
+                class="responsive-form-label"
+                for="id-rules-corona"
+              >
+                <strong>COVID-19 upozorenje</strong>
+                <br>
+                Ovdje možete podsjetiti klijente na preporuke za korištenje maski za lice
+              </label>
+            </div>
+          </div>
+          <textarea
+            id="id-rules-corona"
+            v-model="formData.preferences.coronaRules"
+            class="form-control responsive-form-control"
+            rows="4"
+          />
+        </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-3 mb-4" />
-      <div class="col-md-9 mb-4">
-        <label
-          class="responsive-form-label"
-          for="id-rules-corona"
-        >
-          <strong>COVID-19 upozorenje</strong>
-          <br>
-          Ovdje možete podsjetiti klijente na preporuke za korištenje maski za lice
-        </label>
-        <textarea
-          id="id-rules-corona"
-          v-model="formData.preferences.coronaRules"
-          class="form-control responsive-form-control"
-          rows="4"
-        />
-      </div>
-    </div>
-
-    <p
-      v-if="requestSent && !status"
-      class="text-danger"
-    >
-      {{ errorMsg }}
-    </p>
-
-    <div class="firma-interaktivno">
+    <div class="firma-interaktivno mt-4 text-end">
       <button
         :class="{
           btn: true,

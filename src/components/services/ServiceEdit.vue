@@ -135,7 +135,7 @@
         </div>
       </div>
 
-      <div class="p-4 border-bottom">
+      <div class="p-4">
         <div class="container override-desktop-limit">
           <div class="usluga-izvrsitelj">
             <div>
@@ -162,18 +162,20 @@
               <div
                 v-for="staff in allStaff"
                 :key="staff.id"
-                class="row"
+                class="striped-row p-1"
               >
-                <div class="col-12">
-                  <label class="form-check m-0">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      :checked="isAssigned(staff)"
-                      @change="toggleStaff(staff)"
-                    >
-                    <span class="form-check-label lead">{{ staff.name }}</span>
-                  </label>
+                <div class="row">
+                  <div class="col-12">
+                    <label class="form-check m-0">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        :checked="isAssigned(staff)"
+                        @change="toggleStaff(staff)"
+                      >
+                      <span class="form-check-label lead">{{ staff.name }}</span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>

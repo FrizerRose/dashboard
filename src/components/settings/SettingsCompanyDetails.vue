@@ -24,8 +24,22 @@
       </div>
     </div>
 
-    <div class="firma-logo">
+    <div class="firma-info">
       <div class="mt-4 border-top border-bottom">
+        <div class="my-4 h4">
+          <div class="container override-desktop-limit">
+            Podatci koje unesete u ova polja će biti prikazani na stranici Vašeg poslovnog subjekta <a
+              href="https://tresnja.dolazim.com/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >https://tresnja.dolazim.com/</a> kako bi Vas klijenti mogli kontaktirati
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="firma-logo">
+      <div class="border-bottom">
         <div class="my-4">
           <div class="row">
             <div class="col-6 col-md-4 col-xl-3">
@@ -257,7 +271,7 @@
             </div>
             <div class="col-12 col-md-4 col-xl-6">
               <label class="responsive-form-label w-100 mb-0 mt-2">
-                Nakon što promjenite poddomenu trebat ćete se ponovo ulogirati
+                Nakon što promijenite poddomenu trebat ćete se ponovo ulogirati
               </label>
             </div>
           </div>
@@ -421,7 +435,7 @@
 
             <div class="col-12 col-md-8 col-xl-6 mb-3">
               <label
-                class="responsive-form-label"
+                class="responsive-form-label mb-0"
                 for="id-rules-corona"
               >
                 <strong>COVID-19 upozorenje</strong>
@@ -474,7 +488,7 @@ export default defineComponent({
     const formData = reactive(JSON.parse(JSON.stringify(selectedCompany.value)));
     const requestSent = ref(false);
     const status = ref(false);
-    const errorMsg = ref('Spremanje nije uspjelo. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.');
+    const errorMsg = ref('Spremanje nije uspjelo. Ako ste sigurni da su unešeni podatci ispravni, javite se korisničkoj podršci.');
     const imageUploadSent = ref(false);
     const imageUploadStatus = ref(false);
     const imageRemoveHasError = ref(false);
@@ -495,7 +509,7 @@ export default defineComponent({
         } catch {
           requestSent.value = true;
           status.value = false;
-          errorMsg.value = 'Spremanje nije uspjelo. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.';
+          errorMsg.value = 'Spremanje nije uspjelo. Ako ste sigurni da su unešeni podatci ispravni, javite se korisničkoj podršci.';
         }
       } else {
         requestSent.value = true;

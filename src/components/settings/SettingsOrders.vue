@@ -212,7 +212,7 @@
             </div>
           </div>
         </div>
-        <div class="mt-4 mb-6">
+        <div class="my-4">
           <div class="row flex-row-reverse">
             <div class="col-12 col-sm-6">
               <label class="form-check m-0">

@@ -5,9 +5,7 @@
     </template>
     <template #body>
       <main class="content p-0 responsive-content">
-        <div
-          class="container-fluid p-0"
-        >
+        <div class="container-fluid p-0">
           <div class="responsive-nav">
             <ul
               class="responsive-nav__list"
@@ -95,9 +93,7 @@
               </li>
             </ul>
           </div>
-          <div
-            class="responsive-main"
-          >
+          <div class="responsive-main">
             <div class="tab">
               <div class="tab-content">
                 <div

@@ -42,14 +42,14 @@
       <div class="border-bottom">
         <div class="my-4">
           <div class="row">
-            <div class="col-6 col-md-4 col-xl-3">
+            <div class="col-6 col-sm-6">
               <label class="responsive-form-label w-100 mb-5 mt-2">
                 <strong>Logotip</strong>
                 <br>
                 Podržavamo formate: JPG, PNG
               </label>
             </div>
-            <div class="col-6 col-md-8 col-xl-9">
+            <div class="col-6 col-sm-6">
               <div class="override-upload-image-wrap">
                 <div class="override-upload-image">
                   <div class="override-upload-image-square">

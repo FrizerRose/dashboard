@@ -1,47 +1,83 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-md-12 mb-4">
-        <div class="row">
-          <div class="col-12 col-md-6">
-            <div class="mb-4">
+    <div class="notifikacije-interaktivno mb-4 text-end">
+      <button
+        :class="{
+          btn: true,
+          'responsive-btn': true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
+      >
+        Spremi
+      </button>
+    </div>
+
+    <div
+      v-if="requestSent && !status"
+      class="p-4 mt-4 alert alert-danger"
+    >
+      <div class="container override-desktop-limit">
+        Spremanje nije uspjelo. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
+      </div>
+    </div>
+
+    <div class="notifikacije-yes-no">
+      <div class="mt-4 border-top border-bottom">
+        <div class="my-4">
+          <div class="row flex-row-reverse">
+            <div class="col-12 col-sm-12">
               <label class="form-check m-0">
                 <input
                   v-model="formData.preferences.clientReminderEmail"
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Klijenti će primati email za podsjetnik prije termina</span>
+                <span class="form-check-label">Klijentu šaljemo e-mail podsjetnik na zakazani termin</span>
               </label>
             </div>
-            <div class="mb-4">
+          </div>
+        </div>
+        <div class="my-4">
+          <div class="row flex-row-reverse">
+            <div class="col-12 col-sm-12">
               <label class="form-check m-0">
                 <input
                   v-model="formData.preferences.staffReminderEmail"
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Radnici će primati email kada se rezervira novi termin</span>
+                <span class="form-check-label">Radniku šaljemo e-mail kad se novi termin rezervirao uz njegovo ime</span>
               </label>
             </div>
-            <div class="mb-4">
+          </div>
+        </div>
+        <div class="my-4">
+          <div class="row flex-row-reverse">
+            <div class="col-12 col-sm-12">
               <label class="form-check m-0">
                 <input
                   v-model="formData.preferences.staffCancellationNotice"
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Radnici će primati email kada se otkaže termin</span>
+                <span class="form-check-label">Radniku šaljemo e-mail kad se ranije zakazani termin vezan uz njegovo ime poništi</span>
               </label>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
 
-          <div class="col-12 col-md-6">
-            <div class="mb-4">
+    <div class="notifikacije-select">
+      <div class="border-bottom">
+        <div class="mt-4 mb-6">
+          <div class="row flex-row-reverse align-items-end">
+            <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
               <label class="responsive-form-label w-100">
-                <strong>Vrijeme za podsjetnik - klijent</strong>
-                <br>
-                Odaberite koliko sati prije termina želite klijentu poslati podsjetnik.
+                <strong>Klijent</strong>
               </label>
               <div class="d-flex align-items-baseline">
                 <select
@@ -100,12 +136,21 @@
                 >sati</span>
               </div>
             </div>
-
-            <div class="mb-4">
-              <label class="responsive-form-label w-100">
-                <strong>Vrijeme za podsjetnik - radnik</strong>
+            <div class="col-12 col-sm-6">
+              <label class="responsive-form-label w-100 mb-0 mt-2">
+                Odaberite koliko sati prije termina želite klijentu poslati podsjetnik.
                 <br>
-                Odaberite koliko sati prije termina želite radniku poslati podsjetnik.
+                1-10 sati
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 mb-6">
+          <div class="row flex-row-reverse align-items-end">
+            <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
+              <label class="responsive-form-label w-100">
+                <strong>Radnik</strong>
               </label>
               <div class="d-flex align-items-baseline">
                 <select
@@ -164,19 +209,19 @@
                 >sati</span>
               </div>
             </div>
+            <div class="col-12 col-sm-6">
+              <label class="responsive-form-label w-100 mb-0 mt-2">
+                Odaberite koliko sati prije termina želite radniku poslati podsjetnik.
+                <br>
+                1-10 sati
+              </label>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <p
-      v-if="requestSent && !status"
-      class="text-danger"
-    >
-      Spremanje nije uspjelo. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
-    </p>
-
-    <div class="notifikacije-interaktivno">
+    <div class="notifikacije-interaktivno mt-4 text-end">
       <button
         :class="{
           btn: true,

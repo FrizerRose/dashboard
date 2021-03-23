@@ -1,117 +1,156 @@
 <template>
   <div>
-    <div class="working-hours-aaaaaaaaaaaaa">
-      <div class="row">
-        <div class="col-md-12 mb-4">
-          <label class="responsive-form-label w-100">
-            <strong>Radni dani</strong>
-            <br>
-            Označite na koje dane ste otvoreni
-          </label>
+    <div class="working-hours-interaktivno mb-4 text-end">
+      <button
+        :class="{
+          btn: true,
+          'responsive-btn': true,
+          'btn-primary': !requestSent,
+          'btn-success': requestSent && status,
+          'btn-danger': requestSent && !status,
+        }"
+        @click="save()"
+      >
+        Spremi
+      </button>
+    </div>
+
+    <div
+      v-if="requestSent && !status"
+      class="p-4 mt-4 alert alert-danger"
+    >
+      <div class="container override-desktop-limit">
+        Spremanje nije uspjelo. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
+      </div>
+    </div>
+
+    <div class="working-hours-info">
+      <div class="mt-4 border-top border-bottom">
+        <div class="my-4 h4">
+          <div class="container override-desktop-limit">
+            Ovdje trebate podesiti radno vrijeme tokom kojeg je vaš poslovni subjekt otvoren za rad s klijentima.
+            <br><br>Svaki dan u tjednu se može posebno podesiti.
+            <br><br>Radnici mogu individualno podesiti svoje vrijeme, ali to se nalazi na stranici "Radnici".
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="working-hours-day-list">
+      <div class="container px-0 x-override-desktop-limit">
+        <div class="mt-4 mb-6">
           <div
             v-for="(day, dayName) in formData.hours"
             :key="dayName"
-            class="row"
+            class="striped-row p-1"
           >
-            <div class="col-12 col-md-3">
-              <label class="form-check m-0">
-                <input
-                  v-model="day.active"
-                  type="checkbox"
-                  class="form-check-input"
-                  @change="toggleDayActive(day)"
-                >
-                <span class="form-check-label lead">{{ getDayTranslation(dayName.toString()) }}</span>
-              </label>
+            <div class="row">
+              <div class="col-12">
+                <label class="form-check m-0">
+                  <input
+                    v-model="day.active"
+                    type="checkbox"
+                    class="form-check-input"
+                    @change="toggleDayActive(day)"
+                  >
+                  <span class="form-check-label lead">{{ getDayTranslation(dayName.toString()) }}</span>
+                </label>
+              </div>
             </div>
-            <div
-              v-if="day.active"
-              class="col-12 col-md-9"
-            >
+            <div class="row">
               <div
-                v-for="(shift, shiftIndex) in day.shifts"
-                :key="shiftIndex"
-                class="row"
+                v-if="day.active"
+                class="col-12 mt-4 mb-4 section-reveal"
               >
-                <div class="col-12">
-                  <div class="row mb-4 d-flex align-items-end">
-                    <div class="col-4 col-md-4">
-                      <label
-                        class="responsive-form-label w-100"
-                        for="id-monday-shift-start"
+                <div
+                  v-for="(shift, shiftIndex) in day.shifts"
+                  :key="shiftIndex"
+                >
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div
+                        class="section-reveal"
+                        :class="{ 'mt-4' : shiftIndex !== 0 }"
                       >
-                        <strong>Od</strong>
-                      </label>
-                      <select
-                        id="id-monday-shift-start"
-                        v-model="shift.start"
-                        class="form-control responsive-form-control mb-3"
-                        name="monday-shift-start"
-                      >
-                        <option
-                          v-for="time in timeOptions"
-                          :key="time"
-                          :value="time"
-                        >
-                          {{ time }}
-                        </option>
-                      </select>
-                    </div>
-                    <div class="col-4 col-md-4">
-                      <label
-                        class="responsive-form-label w-100"
-                        for="id-monday-shift-end"
-                      >
-                        <strong>Do</strong>
-                      </label>
-                      <select
-                        id="id-monday-shift-end"
-                        v-model="shift.end"
-                        class="form-control responsive-form-control mb-3"
-                        name="monday-shift-end"
-                      >
-                        <option
-                          v-for="time in timeOptions"
-                          :key="time"
-                          :value="time"
-                        >
-                          {{ time }}
-                        </option>
-                      </select>
-                    </div>
-                    <div
-                      v-if="shiftIndex !== 0"
-                      class="col-2 col-md-2"
-                    >
-                      <button
-                        class="btn responsive-btn btn-danger"
-                        @click="removeShift(day.shifts, shiftIndex)"
-                      >
-                        Makni smjenu
-                      </button>
+                        <div class="row d-flex align-items-end">
+                          <div class="col-6 col-md-2">
+                            <label
+                              class="responsive-form-label w-100"
+                              for="id-monday-shift-start"
+                            >
+                              <strong>Od</strong>
+                            </label>
+                            <select
+                              id="id-monday-shift-start"
+                              v-model="shift.start"
+                              class="form-control responsive-form-control"
+                              name="monday-shift-start"
+                            >
+                              <option
+                                v-for="time in timeOptions"
+                                :key="time"
+                                :value="time"
+                              >
+                                {{ time }}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-6 col-md-2">
+                            <label
+                              class="responsive-form-label w-100"
+                              for="id-monday-shift-end"
+                            >
+                              <strong>Do</strong>
+                            </label>
+                            <select
+                              id="id-monday-shift-end"
+                              v-model="shift.end"
+                              class="form-control responsive-form-control"
+                              name="monday-shift-end"
+                            >
+                              <option
+                                v-for="time in timeOptions"
+                                :key="time"
+                                :value="time"
+                              >
+                                {{ time }}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-12 col-md-8">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                                <div v-if="shiftIndex !== 0">
+                                  <button
+                                    class="btn responsive-btn btn-danger w-100 mt-4 section-reveal__item is-red"
+                                    @click="removeShift(day.shifts, shiftIndex)"
+                                  >
+                                    Makni smjenu
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <div v-if="shiftIndex === day.shifts.length - 1">
+                                  <button
+                                    class="btn responsive-btn btn-primary w-100 mt-4"
+                                    @click="addShift(day.shifts)"
+                                  >
+                                    Dodaj smjenu
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div
                       v-if="shiftIndex === day.shifts.length - 1"
-                      class="col-2 col-md-2"
+                      class="col-12"
                     >
                       <button
-                        class="btn responsive-btn btn-primary"
-                        @click="addShift(day.shifts)"
-                      >
-                        Dodaj smjenu
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  v-if="shiftIndex === day.shifts.length - 1"
-                  class="col-12"
-                >
-                  <div class="row mb-4 d-flex align-items-end">
-                    <div class="col-12 col-md-12">
-                      <button
                         v-if="dayName.toString() === 'monday'"
-                        class="btn responsive-btn btn-primary"
+                        class="btn responsive-btn btn-secondary w-100 mt-4 section-reveal__item"
                         @click="copyShiftsToOtherDays(day)"
                       >
                         Kopiraj u sve označene dane
@@ -121,20 +160,12 @@
                 </div>
               </div>
             </div>
-            <hr v-if="day.shifts.length">
           </div>
         </div>
       </div>
     </div>
 
-    <p
-      v-if="requestSent && !status"
-      class="text-danger"
-    >
-      Spremanje nije uspjelo. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
-    </p>
-
-    <div class="working-hours-interaktivno">
+    <div class="working-hours-interaktivno mt-4 text-end">
       <button
         :class="{
           btn: true,

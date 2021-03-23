@@ -50,6 +50,18 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "postavke" */ '../views/Settings.vue'),
   },
   {
+    path: '/uvjeti',
+    name: 'Terms',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "postavke" */ '../views/TermsAndConditions.vue'),
+  },
+  {
+    path: '/privatnost',
+    name: 'Privacy',
+    // lazy loaded route
+    component: () => import(/* webpackChunkName: "postavke" */ '../views/PrivacyPolicy.vue'),
+  },
+  {
     path: '/promjeni-lozinku',
     name: 'ChangePassword',
     // lazy loaded route

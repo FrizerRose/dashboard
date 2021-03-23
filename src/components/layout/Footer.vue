@@ -22,26 +22,20 @@
               <li class="list-inline-item">
                 <a
                   class="text-muted"
-                  href="#"
-                >Support</a>
+                  href="/pomoc"
+                >Pomoć</a>
               </li>
               <li class="list-inline-item">
                 <a
                   class="text-muted"
-                  href="#"
-                >Help Center</a>
+                  href="/privatnost"
+                >Izjava o privatnosti</a>
               </li>
               <li class="list-inline-item">
                 <a
                   class="text-muted"
-                  href="#"
-                >Privacy</a>
-              </li>
-              <li class="list-inline-item">
-                <a
-                  class="text-muted"
-                  href="#"
-                >Terms of Service</a>
+                  href="/uvjeti"
+                >Uvjeti korištenja</a>
               </li>
             </ul>
           </div>

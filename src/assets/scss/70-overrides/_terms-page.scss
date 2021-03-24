@@ -1,0 +1,20 @@
+
+.override-terms-limit {
+	@media (min-width: 479px) {
+		max-width: 50%;
+	}
+	@media (min-width: 1200px) {
+		max-width: 35%;
+	}
+}
+
+.page-terms {
+	h1 {
+		font-size: 2rem;
+		margin-bottom: 1.5rem;
+	}
+	p {
+		font-size: 1rem;
+		line-height: 1.6;
+	}
+}

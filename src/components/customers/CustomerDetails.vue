@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-4">
+    <div :class="editCustomerMode ? 'col-md-8' : 'col-md-4'">
       <div class="card">
         <div class="card-header pb-1">
           <h3>
@@ -8,7 +8,14 @@
           </h3>
         </div>
         <div class="card-body">
-          <ul class="list-unstyled">
+          <CustomerEdit
+            v-if="editCustomerMode"
+            :customer-for-edit="customer"
+          />
+          <ul
+            v-else
+            class="list-unstyled"
+          >
             <li><strong>Email:</strong> {{ customer.email ? customer.email : 'Nije unešen' }}</li>
             <li><strong>Mob.:</strong> {{ customer.phone ? customer.phone : 'Nije unešen' }}</li>
             <li><strong>Ukupna zarada od klijenta:</strong> {{ totalEarnings }}kn</li>
@@ -16,11 +23,23 @@
               <strong>Prosječna vrijednost dolaska:</strong>
               {{ Math.floor(totalEarnings / customerAppointments.length) }}kn
             </li>
+            <li>
+              <strong>Bilješka:</strong>
+              {{ customer.notes ? customer.notes : 'Nema bilješke' }}
+            </li>
           </ul>
+          <button
+            class="btn responsive-btn "
+            :class="editCustomerMode ? 'btn-secondary' : 'btn-primary'"
+            @click="editCustomerMode = !editCustomerMode"
+          >
+            <span v-if="!editCustomerMode">Uredi</span>
+            <span v-else>Odbaci</span>
+          </button>
         </div>
       </div>
     </div>
-    <div class="col-md-8">
+    <div :class="editCustomerMode ? 'col-md-4' : 'col-md-8'">
       <div
         v-if="customerAppointments"
         class="card"
@@ -42,10 +61,10 @@
                 :class="{
                   'bg-success': attendedPercentage === 100,
                   'bg-warning': attendedPercentage < 100 && attendedPercentage >= 80,
-                  'bg-danger': attendedPercentage < 80
+                  'bg-danger': attendedPercentage < 80,
                 }"
                 :style="{
-                  width: attendedPercentage + '%'
+                  width: attendedPercentage + '%',
                 }"
                 :aria-valuenow="attendedPercentage"
                 aria-valuemin="0"
@@ -57,7 +76,7 @@
               :class="{
                 'alert-success': attendedPercentage === 100,
                 'alert-warning': attendedPercentage < 100 && attendedPercentage >= 80,
-                'alert-danger': attendedPercentage < 80
+                'alert-danger': attendedPercentage < 80,
               }"
             >
               <div class="px-3 py-4">
@@ -91,19 +110,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import {
+  defineComponent, computed, ref, reactive,
+} from 'vue';
 import { useStore } from '@/store';
+import ActionTypes from '@/store/action-types';
+import CustomerEdit from '@/components/customers/CustomerEdit.vue';
 
 export default defineComponent({
+  components: {
+    CustomerEdit,
+  },
   props: {
     customer: {
       type: Object,
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const store = useStore();
     const customerAppointments = computed(() => store.state.shared.selectedCustomerAppointments);
+    const editCustomerMode = ref(false);
+    const formData = reactive(JSON.parse(JSON.stringify(props.customer)));
 
     const attendedPercentage = computed(() => {
       const appointmentCount = customerAppointments.value.length;
@@ -122,14 +150,20 @@ export default defineComponent({
       return Math.floor((attendedAppointmentCount / appointmentCount) * 100);
     });
 
-    const totalEarnings = computed(() => customerAppointments.value.reduce(
-      (total, appointment): number => total + appointment.service.price, 0,
-    ));
+    // eslint-disable-next-line max-len
+    const totalEarnings = computed(() => customerAppointments.value.reduce((total, appointment): number => total + appointment.service.price, 0));
+
+    async function save() {
+      await store.dispatch(ActionTypes.UPDATE_CUSTOMER, formData);
+    }
 
     return {
       customerAppointments,
       attendedPercentage,
       totalEarnings,
+      editCustomerMode,
+      formData,
+      save,
     };
   },
 });

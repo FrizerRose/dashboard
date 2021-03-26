@@ -31,6 +31,7 @@ export interface Actions {
     { commit }: AugmentedActionContext & AugmentedSharedActionContext,
     payload: object,
   ): Promise<Customer[]>;
+  [LocalActionTypes.UPDATE_CUSTOMER]({ commit }: AugmentedActionContext, customer: Customer): Promise<unknown>;
 }
 
 // API access.
@@ -76,5 +77,19 @@ export const actions: ActionTree<State, RootState> & Actions = {
     } else {
       throw new ApiError('No services with this company ID.');
     }
+  },
+  async [LocalActionTypes.UPDATE_CUSTOMER]({ commit }, customer: Customer): Promise<unknown> {
+    return new Promise((resolve, reject) => (async () => {
+      try {
+        const response = await customerService.update(customer);
+        if (response.status === 200 && response.data) {
+          resolve(true);
+        } else {
+          reject(new ApiError('Updating customer failed.'));
+        }
+      } catch {
+        reject(new ApiError('Updating customer failed.'));
+      }
+    })());
   },
 };

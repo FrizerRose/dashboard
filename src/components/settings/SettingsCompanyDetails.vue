@@ -290,7 +290,7 @@
                 <div class="d-flex align-items-baseline">
                   <input
                     id="id-website-url"
-                    v-model="formData.webstieLink"
+                    v-model="formData.preferences.webstieLink"
                     type="text"
                     class="form-control responsive-form-control"
                     placeholder="https://www.ime-poslovnog-subjekta.hr"
@@ -315,7 +315,7 @@
                 </label>
                 <input
                   id="id-facebook-page-url"
-                  v-model="formData.facebookLink"
+                  v-model="formData.preferences.facebookLink"
                   type="text"
                   class="form-control responsive-form-control"
                   placeholder="https://www.facebook.com/ime-poslovnog-subjekta"
@@ -339,7 +339,7 @@
                 </label>
                 <input
                   id="id-instagram-page-url"
-                  v-model="formData.instagramLink"
+                  v-model="formData.preferences.instagramLink"
                   type="text"
                   class="form-control responsive-form-control"
                   placeholder="https://www.instagram.com/ime-poslovnog-subjekta"
@@ -364,7 +364,7 @@
               </label>
               <input
                 id="id-terms-and-conditions-page-url"
-                v-model="formData.termsLink"
+                v-model="formData.preferences.termsLink"
                 type="text"
                 class="form-control responsive-form-control"
                 placeholder="https://www.ime-poslovnog-subjekta.hr/link-na-pravila-koristenja"

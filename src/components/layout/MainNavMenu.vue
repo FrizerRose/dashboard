@@ -21,7 +21,7 @@
             d="M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0H0v24h12zm0-6a6 6 0 100-12 6 6 0 000 12z"
           />
         </svg>
-        <span class="align-middle ms-2">Dolazim.hr</span>
+        <span class="align-middle">Dolazim.hr</span>
       </router-link>
     </div>
     <ul

@@ -290,7 +290,7 @@
                 <div class="d-flex align-items-baseline">
                   <input
                     id="id-website-url"
-                    v-model="formData.preferences.webstieLink"
+                    v-model="formData.preferences.websiteLink"
                     type="text"
                     class="form-control responsive-form-control"
                     placeholder="https://www.ime-poslovnog-subjekta.hr"

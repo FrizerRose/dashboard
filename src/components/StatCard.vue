@@ -1,11 +1,13 @@
 <template>
   <div class="card flex-fill">
+    <div class="card-header pb-0 help-header">
+      <h5 class="card-title">
+        {{ title }}
+      </h5>
+    </div>
     <div class="card-body py-3">
       <div class="d-flex align-items-start">
         <div class="flex-grow-1">
-          <label class="responsive-form-label w-100">
-            <span class="responsive-form-label__bolder">{{ title }}</span>
-          </label>
           <h1 class="mb-2">
             {{ figure }} <span v-if="isRevenue">kn</span>
           </h1>

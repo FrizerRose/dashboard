@@ -12,177 +12,193 @@
       />
     </template>
     <template #body>
-      <div
-        v-if="isInThePast"
-        class="container"
-      >
-        <div class="row">
-          <div class="col-12">
-            <label class="form-check mt-4 mb-6">
-              <input
-                v-model="hasCustomerArrived"
-                type="checkbox"
-                class="form-check-input"
-              >
-              <span class="form-check-label lead">Klijent se pojavila/pojavio u dogovoreno vrijeme.</span>
-            </label>
+      <div v-if="isInThePast">
+        <div class="container override-desktop-limit">
+          <div class="row">
+            <div class="col-12">
+              <label class="form-check mt-4 mb-6">
+                <input
+                  v-model="hasCustomerArrived"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label lead">Klijent se pojavila/pojavio u dogovoreno vrijeme.</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
 
-      <div
-        v-else
-        class="container override-desktop-limit"
-      >
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <label
-              for="id-calendar-edit-slot-staff"
-              class="responsive-form-label w-100"
-            >
-              <span class="responsive-form-label__bolder">Radnik</span>
-            </label>
-            <select
-              id="id-calendar-edit-slot-staff"
-              v-model="rescheduledStaff"
-              class="form-control responsive-form-control mb-3"
-              name="id-calendar-edit-slot-staff"
-            >
-              <option
-                v-for="staff in allStaff"
-                :key="staff.id"
-                :value="staff"
-              >
-                {{ staff.name }}
-              </option>
-            </select>
-          </div>
-          <div class="col-md-6 mb-4">
-            <label
-              for="id-calendar-edit-slot-service"
-              class="responsive-form-label w-100"
-            >
-              <span class="responsive-form-label__bolder">Usluga</span>
-            </label>
-            <select
-              id="id-calendar-edit-slot-service"
-              v-model="rescheduledService"
-              class="form-control responsive-form-control mb-3"
-              name="id-calendar-edit-slot-service"
-            >
-              <option
-                v-for="service in rescheduledStaffServices"
-                :key="service.id"
-                :value="service"
-              >
-                {{ service.name }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <label class="responsive-form-label w-100">
-              <span class="responsive-form-label__bolder">Dan</span>
-            </label>
-            <input
-              id="id-calendar-edit-slot-day"
-              v-model="rescheduledDateTime.date"
-              class="form-control responsive-form-control mb-3"
-              type="date"
-              name="id-calendar-edit-slot-day"
-              :min="startLimitDatepicker"
-              :max="endLimitDatepicker"
-            >
-          </div>
-          <div class="col-md-6 mb-4">
-            <label class="responsive-form-label w-100">
-              <span class="responsive-form-label__bolder">Vrijeme</span>
-            </label>
-            <select
-              id="id-calendar-edit-slot-day-time"
-              v-model="rescheduledDateTime.time"
-              class="form-control responsive-form-control mb-3"
-              name="id-calendar-edit-slot-day-time"
-            >
-              <option
-                v-for="time in timeOptions"
-                :key="time"
-                :value="time"
-              >
-                {{ time }}
-              </option>
-            </select>
+      <div v-else>
+        <div class="px-4 py-4 border-bottom">
+          <div class="container override-desktop-limit">
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <label
+                  for="id-calendar-edit-slot-staff"
+                  class="responsive-form-label w-100"
+                >
+                  <span class="responsive-form-label__bolder">Radnik</span>
+                </label>
+                <select
+                  id="id-calendar-edit-slot-staff"
+                  v-model="rescheduledStaff"
+                  class="form-control responsive-form-control mb-3"
+                  name="id-calendar-edit-slot-staff"
+                >
+                  <option
+                    v-for="staff in allStaff"
+                    :key="staff.id"
+                    :value="staff"
+                  >
+                    {{ staff.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-4">
+                <label
+                  for="id-calendar-edit-slot-service"
+                  class="responsive-form-label w-100"
+                >
+                  <span class="responsive-form-label__bolder">Usluga</span>
+                </label>
+                <select
+                  id="id-calendar-edit-slot-service"
+                  v-model="rescheduledService"
+                  class="form-control responsive-form-control mb-3"
+                  name="id-calendar-edit-slot-service"
+                >
+                  <option
+                    v-for="service in rescheduledStaffServices"
+                    :key="service.id"
+                    :value="service"
+                  >
+                    {{ service.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <label
-              class="responsive-form-label"
-              for="id-calendar-edit-slot-customer-name"
-            >
-              <span class="responsive-form-label__bolder">Ime klijenta</span>
-            </label>
-            <input
-              id="id-calendar-edit-slot-customer-name"
-              v-model="rescheduledCustomer.name"
-              type="text"
-              class="form-control responsive-form-control mb-3"
-            >
+        <div class="px-4 py-4 border-bottom">
+          <div class="container override-desktop-limit">
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <label class="responsive-form-label w-100">
+                  <span class="responsive-form-label__bolder">Dan</span>
+                </label>
+                <input
+                  id="id-calendar-edit-slot-day"
+                  v-model="rescheduledDateTime.date"
+                  class="form-control responsive-form-control mb-3"
+                  type="date"
+                  name="id-calendar-edit-slot-day"
+                  :min="startLimitDatepicker"
+                  :max="endLimitDatepicker"
+                >
+              </div>
+              <div class="col-md-6 mb-4">
+                <label class="responsive-form-label w-100">
+                  <span class="responsive-form-label__bolder">Vrijeme</span>
+                </label>
+                <select
+                  id="id-calendar-edit-slot-day-time"
+                  v-model="rescheduledDateTime.time"
+                  class="form-control responsive-form-control mb-3"
+                  name="id-calendar-edit-slot-day-time"
+                >
+                  <option
+                    v-for="time in timeOptions"
+                    :key="time"
+                    :value="time"
+                  >
+                    {{ time }}
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div class="col-md-4 mb-4">
-            <label
-              class="responsive-form-label"
-              for="id-calendar-edit-slot-customer-email"
-            >
-              <span class="responsive-form-label__bolder">E-mail klijenta</span>
-            </label>
-            <input
-              id="id-calendar-edit-slot-customer-email"
-              v-model="rescheduledCustomer.email"
-              type="text"
-              class="form-control responsive-form-control mb-3"
-            >
+        </div>
+        <div class="px-4 py-4 border-bottom">
+          <div class="container override-desktop-limit">
+            <div class="row">
+              <div class="col-md-4 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-edit-slot-customer-name"
+                >
+                  <span class="responsive-form-label__bolder">Ime klijenta</span>
+                </label>
+                <input
+                  id="id-calendar-edit-slot-customer-name"
+                  v-model="rescheduledCustomer.name"
+                  type="text"
+                  class="form-control responsive-form-control mb-3"
+                >
+              </div>
+              <div class="col-md-4 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-edit-slot-customer-email"
+                >
+                  <span class="responsive-form-label__bolder">E-mail klijenta</span>
+                </label>
+                <input
+                  id="id-calendar-edit-slot-customer-email"
+                  v-model="rescheduledCustomer.email"
+                  type="text"
+                  class="form-control responsive-form-control mb-3"
+                >
+              </div>
+              <div class="col-md-4 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-edit-slot-customer-phone"
+                >
+                  <span class="responsive-form-label__bolder">Mobitel klijenta</span>
+                </label>
+                <input
+                  id="id-calendar-edit-slot-customer-phone"
+                  v-model="rescheduledCustomer.phone"
+                  type="text"
+                  class="form-control responsive-form-control mb-3"
+                >
+              </div>
+            </div>
           </div>
-          <div class="col-md-4 mb-4">
-            <label
-              class="responsive-form-label"
-              for="id-calendar-edit-slot-customer-phone"
-            >
-              <span class="responsive-form-label__bolder">Mobitel klijenta</span>
-            </label>
-            <input
-              id="id-calendar-edit-slot-customer-phone"
-              v-model="rescheduledCustomer.phone"
-              type="text"
-              class="form-control responsive-form-control mb-3"
-            >
-          </div>
-          <div class="col-md-12 mb-4">
-            <label
-              class="responsive-form-label"
-              for="id-calendar-edit-slot-note"
-            >
-              <span class="responsive-form-label__bolder">Bilješke o klijentu</span>
-            </label>
-            <textarea
-              id="id-calendar-edit-slot-note"
-              v-model="rescheduledCustomer.notes"
-              class="form-control"
-            />
-          </div>
-          <div class="col-md-12 mb-4">
-            <label
-              class="responsive-form-label"
-              for="id-calendar-edit-slot-customer-notice"
-            >
-              <span class="responsive-form-label__bolder">Napomena za termin</span>
-            </label>
-            <textarea
-              id="id-calendar-edit-slot-customer-notice"
-              v-model="rescheduledNotice"
-              class="form-control"
-            />
+        </div>
+        <div class="px-4 py-4 border-bottom">
+          <div class="container override-desktop-limit">
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-edit-slot-note"
+                >
+                  <span class="responsive-form-label__bolder">Bilješke o klijentu</span>
+                </label>
+                <textarea
+                  id="id-calendar-edit-slot-note"
+                  v-model="rescheduledCustomer.notes"
+                  class="form-control"
+                  rows="4"
+                />
+              </div>
+              <div class="col-md-6 mb-4">
+                <label
+                  class="responsive-form-label"
+                  for="id-calendar-edit-slot-customer-notice"
+                >
+                  <span class="responsive-form-label__bolder">Napomena za termin</span>
+                </label>
+                <textarea
+                  id="id-calendar-edit-slot-customer-notice"
+                  v-model="rescheduledNotice"
+                  class="form-control"
+                  rows="4"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

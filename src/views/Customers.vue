@@ -48,7 +48,6 @@
           </div>
           <div class="customer-details responsive-main">
             <CustomerDetails
-              v-if="selectedCustomer.name"
               :customer="selectedCustomer"
             />
           </div>

@@ -2,13 +2,21 @@
   <div class="row">
     <div class="col-md-4">
       <div class="card">
-        <div class="card-header pb-1">
+        <div
+          v-if="customer.name"
+          class="card-header pb-1"
+        >
           <h3>
             {{ customer.name }}
           </h3>
         </div>
-        <div class="card-body">
-          <ul class="list-unstyled">
+        <div
+          class="card-body"
+        >
+          <ul
+            v-if="customer.name"
+            class="list-unstyled"
+          >
             <li><strong>Email:</strong> {{ customer.email ? customer.email : 'Nije unešen' }}</li>
             <li><strong>Mob.:</strong> {{ customer.phone ? customer.phone : 'Nije unešen' }}</li>
             <li><strong>Ukupna zarada od klijenta:</strong> {{ totalEarnings }}kn</li>
@@ -25,14 +33,17 @@
         v-if="customerAppointments"
         class="card"
       >
-        <div class="card-header">
+        <div
+          v-if="customer.name"
+          class="card-header"
+        >
           <h5 class="card-title mb-0">
             Termini
           </h5>
         </div>
         <div class="card-body h-100">
           <div
-            v-if="attendedPercentage !== null"
+            v-if="customer.name && attendedPercentage !== null"
             class="position-relative"
           >
             <div class="progress override-place-in-alert">
@@ -80,7 +91,7 @@
             >
               <strong>{{ appointment.date }} - {{ appointment.time }} - {{ appointment.service.name }}</strong> <br>
             </li>
-            <p v-if="!customerAppointments.length">
+            <p v-if="customer.name && !customerAppointments.length">
               Klijent nema ugovorenih termina.
             </p>
           </ul>

@@ -64,16 +64,6 @@
           :submenu-show="submenuShow"
         />
       </li>
-      <li class="sidebar-item">
-        <span class="sidebar-link">
-          <router-link
-            to="/qr-kod"
-            class="btn responsive-btn btn-secondary w-100"
-          >
-            Prikaži QR Kod
-          </router-link>
-        </span>
-      </li>
     </ul>
   </nav>
 </template>

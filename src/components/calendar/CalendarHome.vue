@@ -3,6 +3,42 @@
     <div class="card-body py-4">
       <div class="d-flex align-items-start">
         <div class="flex-grow-1">
+          <div
+            id="fullcalendar-custom"
+            class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"
+          >
+            <div class="fc-header-toolbar fc-toolbar ">
+              <div class="fc-toolbar-chunk">
+                <h2 class="fc-toolbar-title">
+                  {{ selectedDate }} 28. ožujka 2021.
+                </h2>
+              </div>
+              <div class="fc-toolbar-chunk" />
+              <div class="fc-toolbar-chunk">
+                <button
+                  disabled=""
+                  class="fc-today-button btn btn-primary"
+                  type="button"
+                >
+                  Danas
+                </button>
+                <div class="btn-group">
+                  <button
+                    class="fc-prev-button btn btn-primary"
+                    @click="fetchPrev()"
+                  >
+                    <span class="fa fa-chevron-left" />
+                  </button>
+                  <button
+                    class="fc-next-button btn btn-primary"
+                    @click="fetchNext()"
+                  >
+                    <span class="fa fa-chevron-right" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div id="fullcalendar" />
         </div>
       </div>
@@ -76,7 +112,7 @@ export default defineComponent({
           initialView: 'listDay',
           selectable: !isMobile.value,
           contentHeight: isMobile.value ? (window.innerHeight * 0.7) : 800,
-          // headerToolbar: false,
+          headerToolbar: false,
           nowIndicator: true,
           stickyHeaderDates: true,
           locale: hrLocale,

@@ -207,7 +207,7 @@
                 >
                 <div class="search-results__items">
                   <div v-if="!oldCustomerCandidates.length && oldCustomerName">
-                    Nema pronadjenih klijenata kojima ime počinje sa "{{ oldCustomerName }}"
+                    Nema pronađenih klijenata kojima ime počinje sa "{{ oldCustomerName }}"
                   </div>
                   <button
                     v-for="candidate in oldCustomerCandidates"
@@ -234,7 +234,7 @@
                 v-if="requestSent && !status"
                 class="text-danger"
               >
-                Rezervacija nije uspjela. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
+                Rezervacija nije uspjela. Pokušajte ponovno. Ako ste sigurni da su uneseni podaci ispravni, javite se korisničkoj podršci.
               </p>
             </div>
           </div>

@@ -1,6 +1,11 @@
-$bg-1: #202225;
-$bg-2: #2f3136;
-$bg-3: #36393f;
+$bg-1: #212526;
+$bg-2: lighten($bg-1, 5%);
+$bg-3: lighten($bg-2, 5%);
+$bg-4: lighten($bg-3, 5%);
+
+:root {
+	--bs-font-sans-serif: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
 
 html {
 	scroll-behavior: smooth;
@@ -36,7 +41,7 @@ body {
 
 	&:hover {
 		text-decoration: none;
-		color: lighten($bg-3, 20%);
+		color: $bg-4;
 	}
 
 	svg {

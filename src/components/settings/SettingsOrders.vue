@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="narucivanje-interaktivno mb-4 text-end">
+    <div
+      v-if="hidden"
+      class="narucivanje-interaktivno mb-4 text-end"
+    >
       <button
         :class="{
           btn: true,
@@ -33,7 +36,7 @@
                 for="id-lead-time"
                 class="responsive-form-label w-100"
               >
-                <strong>Naručivanje najkasnije</strong>
+                <span class="responsive-form-label__bolder">Naručivanje najkasnije</span>
               </label>
               <select
                 id="id-lead-time"
@@ -90,7 +93,7 @@
                 class="responsive-form-label w-100"
                 for="id-scheduling-window"
               >
-                <strong>Naručivanje u budućnost</strong>
+                <span class="responsive-form-label__bolder">Naručivanje u budućnost</span>
               </label>
               <select
                 id="id-scheduling-window"
@@ -136,7 +139,7 @@
                 class="responsive-form-label w-100"
                 for="id-cancel-time"
               >
-                <strong>Otkazivanje narudžbe</strong>
+                <span class="responsive-form-label__bolder">Otkazivanje narudžbe</span>
               </label>
               <select
                 id="id-cancel-time"

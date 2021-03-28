@@ -25,8 +25,8 @@
         <div class="container override-desktop-limit">
           <div class="radnik-podatci">
             <div>
-              <label class="responsive-form-label w-100">
-                <strong>Slika radnika</strong>
+              <label class="responsive-form-label w-100 mb-5 mt-2">
+                <span class="responsive-form-label__bolder">Slika radnika</span>
                 <br>
                 Podržavamo formate: JPG, PNG
               </label>
@@ -34,82 +34,86 @@
                 <div class="col-md-3 mb-4">
                   <div class="row d-flex align-items-center">
                     <div class="col-6 col-md-12">
-                      <div class="override-upload-image-wrap">
-                        <div class="override-upload-image">
-                          <div class="override-upload-image-square">
-                            <img
-                              v-if="image?.link"
-                              :src="image.link"
-                              alt="logo"
-                              class="fit-cover"
-                            >
-                            <span
-                              v-if="!image?.link"
-                              class="override-upload-image-layer override-upload-image-missing"
-                            >
-                              <span class="override-upload-image-layer override-upload-image-missing-placeholder">
-                                <span class="fa fa-user is-user" />
-                              <!-- <i class="align-middle" data-feather="user"></i> -->
+                      <div class="text-center">
+                        <div class="override-upload-image-wrap">
+                          <div class="override-upload-image">
+                            <div class="override-upload-image-square">
+                              <img
+                                v-if="image?.link"
+                                :src="image.link"
+                                alt="logo"
+                                class="fit-cover"
+                              >
+                              <span
+                                v-if="!image?.link"
+                                class="override-upload-image-layer override-upload-image-missing"
+                              >
+                                <span class="override-upload-image-layer override-upload-image-missing-placeholder">
+                                  <span class="fa fa-user is-user" />
+                                <!-- <i class="align-middle" data-feather="user"></i> -->
+                                </span>
                               </span>
+                            </div>
+                            <span class="override-upload-image-layer override-upload-image-input-wrap">
+                              <input
+                                id="id-file-over-img"
+                                class="override-input-file"
+                                type="file"
+                                name="id-file-over-img"
+                                accept="image/svg, image/png, image/jpeg"
+                                @change="upload"
+                              >
+                              <label
+                                for="id-file-over-img"
+                                class="override-upload-image-layer override-upload-image-input-wrap-label"
+                              >
+                                <span class="override-upload-image-layer override-upload-image-input-wrap-label-icon">
+                                  <span class="fa fa-camera" />
+                                </span>
+                              </label>
                             </span>
                           </div>
-                          <span class="override-upload-image-layer override-upload-image-input-wrap">
-                            <input
-                              id="id-file-over-img"
-                              class="override-input-file"
-                              type="file"
-                              name="id-file-over-img"
-                              accept="image/svg, image/png, image/jpeg"
-                              @change="upload"
-                            >
-                            <label
-                              for="id-file-over-img"
-                              class="override-upload-image-layer override-upload-image-input-wrap-label"
-                            >
-                              <span class="override-upload-image-layer override-upload-image-input-wrap-label-icon">
-                                <span class="fa fa-camera" />
-                              </span>
-                            </label>
-                          </span>
-                        </div>
-                        <button
-                          v-if="image?.link"
-                          class="override-upload-image-remove override-upload-image-square"
+                          <button
+                            v-if="image?.link"
+                            class="override-upload-image-remove override-upload-image-square"
 
-                          @click="removeImage()"
-                        >
-                          <span class="override-upload-image-layer override-upload-image-remove-center">
-                            <span class="fa fa-trash" />
-                          </span>
-                        </button>
+                            @click="removeImage()"
+                          >
+                            <span class="override-upload-image-layer override-upload-image-remove-center">
+                              <span class="fa fa-trash" />
+                            </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <div class="col-6 col-md-12 mt-4">
-                      <input
-                        id="id-file"
-                        class="override-input-file"
-                        type="file"
-                        name="id-file"
-                        accept="image/svg, image/png, image/jpeg"
-                        @change="upload"
-                      >
-                      <label
-                        for="id-file"
-                        class="btn responsive-btn btn-primary"
-                      >
-                        {{ inputFileText }}
-                      </label>
-                      <div
-                        v-if="imageUploadSent && imageUploadStatus"
-                        class="mt-2"
-                      >
-                        Slika uspješno promjenjena!
-                      </div>
-                      <div
-                        v-if="(imageUploadSent && !imageUploadStatus) || imageRemoveHasError"
-                        class="mt-2"
-                      >
-                        Došlo je do greške, molimo probajte kasnije!
+                      <div class="text-center fallback-file-input-option">
+                        <input
+                          id="id-file"
+                          class="override-input-file"
+                          type="file"
+                          name="id-file"
+                          accept="image/svg, image/png, image/jpeg"
+                          @change="upload"
+                        >
+                        <label
+                          for="id-file"
+                          class="btn responsive-btn btn-primary"
+                        >
+                          {{ inputFileText }}
+                        </label>
+                        <div
+                          v-if="imageUploadSent && imageUploadStatus"
+                          class="mt-2"
+                        >
+                          Slika uspješno promjenjena!
+                        </div>
+                        <div
+                          v-if="(imageUploadSent && !imageUploadStatus) || imageRemoveHasError"
+                          class="mt-2"
+                        >
+                          Došlo je do greške, molimo probajte kasnije!
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -120,7 +124,7 @@
                       for="id-name"
                       class="responsive-form-label w-100"
                     >
-                      <strong>Ime radnika</strong>
+                      <span class="responsive-form-label__bolder">Ime radnika</span>
                       <br>
                       Ovdje možete promijeniti ime koje će pisati na stranici
                     </label>
@@ -137,7 +141,7 @@
                       class="responsive-form-label"
                       for="id-email"
                     >
-                      <strong>E-mail adresa</strong>
+                      <span class="responsive-form-label__bolder">E-mail adresa</span>
                       <br>
                       Ovdje možete promijeniti e-mail adresu koja će se koristiti za kontaktiranje radnika
                     </label>
@@ -161,9 +165,9 @@
           <div class="row">
             <div class="col-md-12 mb-4">
               <label class="responsive-form-label w-100 mb-5 mt-2">
-                <strong>Radni dani</strong>
+                <span class="responsive-form-label__bolder">Radni dani</span>
                 <br>
-                Označite na koje dane ste otvoreni
+                Označite radne dane ovog radnika
               </label>
               <div
                 v-for="(day, dayName) in formData.hours"
@@ -172,7 +176,10 @@
               >
                 <div class="row">
                   <div class="col-12 col-md-2">
-                    <label class="form-check m-0">
+                    <label
+                      class="form-check m-0"
+                      :class="{ 'mb-2' : day.active }"
+                    >
                       <input
                         v-model="day.active"
                         type="checkbox"
@@ -186,81 +193,83 @@
                     v-if="day.active"
                     class="col-12 col-md-10 mb-4 section-reveal"
                   >
-                    <div
-                      v-for="(shift, shiftIndex) in day.shifts"
-                      :key="shiftIndex"
-                    >
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div
-                            class="section-reveal"
-                            :class="{ 'mt-4' : shiftIndex !== 0 }"
-                          >
-                            <div class="row d-flex align-items-end">
-                              <div class="col-6 col-md-2">
-                                <label
-                                  class="responsive-form-label w-100"
-                                  for="id-monday-shift-start"
-                                >
-                                  <strong>Od</strong>
-                                </label>
-                                <select
-                                  id="id-monday-shift-start"
-                                  v-model="shift.start"
-                                  class="form-control responsive-form-control"
-                                  name="monday-shift-start"
-                                >
-                                  <option
-                                    v-for="time in timeOptions"
-                                    :key="time"
-                                    :value="time"
+                    <div class="section-reveal">
+                      <div
+                        v-for="(shift, shiftIndex) in day.shifts"
+                        :key="shiftIndex"
+                      >
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div
+                              class="section-reveal"
+                              :class="{ 'mt-4' : shiftIndex !== 0 }"
+                            >
+                              <div class="row d-flex align-items-end">
+                                <div class="col-6 col-md-2">
+                                  <label
+                                    class="responsive-form-label w-100"
+                                    for="id-monday-shift-start"
                                   >
-                                    {{ time }}
-                                  </option>
-                                </select>
-                              </div>
-                              <div class="col-6 col-md-2">
-                                <label
-                                  class="responsive-form-label w-100"
-                                  for="id-monday-shift-end"
-                                >
-                                  <strong>Do</strong>
-                                </label>
-                                <select
-                                  id="id-monday-shift-end"
-                                  v-model="shift.end"
-                                  class="form-control responsive-form-control"
-                                  name="monday-shift-end"
-                                >
-                                  <option
-                                    v-for="time in timeOptions"
-                                    :key="time"
-                                    :value="time"
+                                    <span class="responsive-form-label__bolder">Od</span>
+                                  </label>
+                                  <select
+                                    id="id-monday-shift-start"
+                                    v-model="shift.start"
+                                    class="form-control responsive-form-control"
+                                    name="monday-shift-start"
                                   >
-                                    {{ time }}
-                                  </option>
-                                </select>
-                              </div>
-                              <div class="col-12 col-md-8">
-                                <div class="row">
-                                  <div class="col-12 col-md-6">
-                                    <div v-if="shiftIndex !== 0">
-                                      <button
-                                        class="btn responsive-btn btn-danger w-100 mt-4 section-reveal__item is-red"
-                                        @click="removeShift(day.shifts, shiftIndex)"
-                                      >
-                                        Ukloni smjenu
-                                      </button>
+                                    <option
+                                      v-for="time in timeOptions"
+                                      :key="time"
+                                      :value="time"
+                                    >
+                                      {{ time }}
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="col-6 col-md-2">
+                                  <label
+                                    class="responsive-form-label w-100"
+                                    for="id-monday-shift-end"
+                                  >
+                                    <span class="responsive-form-label__bolder">Do</span>
+                                  </label>
+                                  <select
+                                    id="id-monday-shift-end"
+                                    v-model="shift.end"
+                                    class="form-control responsive-form-control"
+                                    name="monday-shift-end"
+                                  >
+                                    <option
+                                      v-for="time in timeOptions"
+                                      :key="time"
+                                      :value="time"
+                                    >
+                                      {{ time }}
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="col-12 col-md-8">
+                                  <div class="row">
+                                    <div class="col-12 col-md-6">
+                                      <div v-if="shiftIndex !== 0">
+                                        <button
+                                          class="btn responsive-btn btn-danger w-100 mt-4 section-reveal__item is-red"
+                                          @click="removeShift(day.shifts, shiftIndex)"
+                                        >
+                                          Ukloni smjenu
+                                        </button>
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div class="col-12 col-md-6">
-                                    <div v-if="shiftIndex === day.shifts.length - 1">
-                                      <button
-                                        class="btn responsive-btn btn-primary w-100 mt-4"
-                                        @click="addShift(day.shifts)"
-                                      >
-                                        Dodaj smjenu
-                                      </button>
+                                    <div class="col-12 col-md-6">
+                                      <div v-if="shiftIndex === day.shifts.length - 1">
+                                        <button
+                                          class="btn responsive-btn btn-primary w-100 mt-4"
+                                          @click="addShift(day.shifts)"
+                                        >
+                                          Dodaj smjenu
+                                        </button>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -268,17 +277,20 @@
                             </div>
                           </div>
                         </div>
-                        <div
-                          v-if="shiftIndex === day.shifts.length - 1"
-                          class="col-12"
-                        >
-                          <button
-                            v-if="dayName.toString() === 'monday'"
-                            class="btn responsive-btn btn-secondary w-100 mt-4 section-reveal__item"
-                            @click="copyShiftsToOtherDays(day)"
+                        <div class="row">
+                          <div class="col-md-8" />
+                          <div
+                            v-if="shiftIndex === day.shifts.length - 1"
+                            class="col-md-4"
                           >
-                            Kopiraj u sve označene dane
-                          </button>
+                            <button
+                              v-if="dayName.toString() === 'monday'"
+                              class="btn responsive-btn btn-secondary w-100 mt-4 section-reveal__item"
+                              @click="copyShiftsToOtherDays(day)"
+                            >
+                              Kopiraj u označene dane
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -295,7 +307,7 @@
           <div class="row">
             <div class="col-md-12 mb-4">
               <label class="responsive-form-label w-100 mb-5 mt-2">
-                <strong>Usluge i odgovornosti</strong>
+                <span class="responsive-form-label__bolder">Usluge i odgovornosti</span>
                 <br>
                 Označite usluge koje ovaj radnik pruža
               </label>
@@ -335,10 +347,10 @@
                   <div class="col-6 col-sm-4">
                     <div class="row">
                       <div class="col-6 col-sm-6">
-                        <strong>{{ service.price }}</strong> kn
+                        <span class="responsive-form-label__bolder">{{ service.price }}</span> kn
                       </div>
                       <div class="col-6 col-sm-6">
-                        <strong>{{ service.duration }}</strong> min
+                        <span class="responsive-form-label__bolder">{{ service.duration }}</span> min
                       </div>
                     </div>
                   </div>
@@ -354,7 +366,7 @@
           <div class="row">
             <div class="col-md-12 mb-4">
               <label class="responsive-form-label w-100 mb-5 mt-2">
-                <strong>Godišnji odmor</strong>
+                <span class="responsive-form-label__bolder">Godišnji odmor</span>
                 <br>
                 Ovdje možete dodati razdoblje kad ste na godišnjem. Za vrijeme godišnjih odmora nećete biti dostupni za odabir na stranici.
               </label>
@@ -386,7 +398,7 @@
                       <div class="row d-flex align-items-end">
                         <div class="col-12 col-sm-6 col-md-4">
                           <label class="responsive-form-label w-100">
-                            <strong>Od</strong>
+                            <span class="responsive-form-label__bolder">Od</span>
                           </label>
                           <input
                             id="date-start"
@@ -398,7 +410,7 @@
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
                           <label class="responsive-form-label w-100">
-                            <strong>Do</strong>
+                            <span class="responsive-form-label__bolder">Do</span>
                           </label>
                           <input
                             id="date-end"

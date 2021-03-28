@@ -28,7 +28,7 @@
                 class="responsive-form-label w-100"
                 for="id-add-service-name"
               >
-                <strong>Naziv usluge</strong>
+                <span class="responsive-form-label__bolder">Naziv usluge</span>
               </label>
               <input
                 id="id-add-service-name"
@@ -43,7 +43,7 @@
                 class="responsive-form-label w-100"
                 for="id-add-service-price"
               >
-                <strong>Cijena</strong>
+                <span class="responsive-form-label__bolder">Cijena</span>
               </label>
               <input
                 id="id-add-service-price"
@@ -57,7 +57,7 @@
                 class="responsive-form-label w-100"
                 for="id-add-service-duration"
               >
-                <strong>Trajanje (u minutama)</strong>
+                <span class="responsive-form-label__bolder">Trajanje (u minutama)</span>
               </label>
               <select
                 id="id-add-service-duration"
@@ -124,7 +124,7 @@
           <div class="usluga-izvrsitelj">
             <div>
               <label class="responsive-form-label">
-                <strong>Izvršitelji</strong>
+                <span class="responsive-form-label__bolder">Izvršitelji</span>
                 <br>
                 Označite radnike koji obavljaju ovu uslugu
               </label>

@@ -21,7 +21,7 @@
                 for="id-calendar-create-slot-staff"
                 class="responsive-form-label w-100"
               >
-                <strong>Radnik</strong>
+                <span class="responsive-form-label__bolder">Radnik</span>
               </label>
               <select
                 v-if="services"
@@ -40,7 +40,7 @@
                 for="id-calendar-create-slot-service"
                 class="responsive-form-label w-100"
               >
-                <strong>Usluga</strong>
+                <span class="responsive-form-label__bolder">Usluga</span>
               </label>
               <select
                 v-if="services"
@@ -115,7 +115,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-name"
                 >
-                  <strong>Ime</strong>
+                  <span class="responsive-form-label__bolder">Ime</span>
                 </label>
                 <input
                   id="id-calendar-create-customer-name"
@@ -129,7 +129,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-email"
                 >
-                  <strong>E-mail</strong>
+                  <span class="responsive-form-label__bolder">E-mail</span>
                 </label>
                 <input
                   id="id-calendar-create-customer-email"
@@ -143,7 +143,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-phone"
                 >
-                  <strong>Mobitel</strong>
+                  <span class="responsive-form-label__bolder">Mobitel</span>
                 </label>
                 <input
                   id="id-calendar-create-customer-phone"
@@ -157,7 +157,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-notice"
                 >
-                  <strong>Bilješke o klijentu</strong>
+                  <span class="responsive-form-label__bolder">Bilješke o klijentu</span>
                 </label>
                 <textarea
                   id="id-calendar-create-customer-notice"
@@ -169,7 +169,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-appointment-notice"
                 >
-                  <strong>Napomena o terminu</strong>
+                  <span class="responsive-form-label__bolder">Napomena o terminu</span>
                 </label>
                 <textarea
                   id="id-calendar-create-appointment-notice"
@@ -193,7 +193,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-name"
                 >
-                  <strong>Ime klijenta</strong>
+                  <span class="responsive-form-label__bolder">Ime klijenta</span>
                 </label>
                 <input
                   id="oldCustomerName"
@@ -225,7 +225,7 @@
                 <div v-if="creationCustomer.name">
                   <div class="alert alert-success">
                     <div class="alert-message">
-                      Odabrani klijent: <strong>{{ creationCustomer.name }}</strong>
+                      Odabrani klijent: <span class="responsive-form-label__bolder">{{ creationCustomer.name }}</span>
                     </div>
                   </div>
                 </div>

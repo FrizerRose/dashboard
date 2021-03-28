@@ -10,15 +10,15 @@
             <div class="fc-header-toolbar fc-toolbar ">
               <div class="fc-toolbar-chunk">
                 <h2 class="fc-toolbar-title">
-                  {{ selectedDate }} 28. ožujka 2021.
+                  {{ headerTitle }}
                 </h2>
               </div>
               <div class="fc-toolbar-chunk" />
               <div class="fc-toolbar-chunk">
                 <button
-                  disabled=""
                   class="fc-today-button btn btn-primary"
                   type="button"
+                  @click="fetchToday()"
                 >
                   Danas
                 </button>
@@ -65,6 +65,7 @@ export default defineComponent({
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const reservedAppointments = computed(() => store.state.shared.reservedAppointments);
     const isMobile = computed(() => store.state.shared.isMobile);
+    const headerTitle = ref('');
 
     const selectedDate = ref(new Date());
 
@@ -124,6 +125,8 @@ export default defineComponent({
           themeSystem: 'bootstrap',
         });
 
+        headerTitle.value = calendar.value.view.title;
+
         // Updates calendar events
         watch(
           () => formattedAppointments.value,
@@ -171,12 +174,23 @@ export default defineComponent({
     }
 
     function fetchPrev() {
+      calendar.value.prev();
+      headerTitle.value = calendar.value.view.title;
       selectedDate.value.setDate(selectedDate.value.getDate() - 1);
       fetchNewAppointments();
     }
 
     function fetchNext() {
+      calendar.value.next();
+      headerTitle.value = calendar.value.view.title;
       selectedDate.value.setDate(selectedDate.value.getDate() + 1);
+      fetchNewAppointments();
+    }
+
+    function fetchToday() {
+      calendar.value.today();
+      headerTitle.value = calendar.value.view.title;
+      selectedDate.value.setDate(new Date().getDate());
       fetchNewAppointments();
     }
 
@@ -185,6 +199,9 @@ export default defineComponent({
       reservedAppointments,
       fetchPrev,
       fetchNext,
+      fetchToday,
+      selectedDate,
+      headerTitle,
     };
   },
 });

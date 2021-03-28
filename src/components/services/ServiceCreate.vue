@@ -23,9 +23,9 @@
       <div class="p-4 border-bottom">
         <div class="container override-desktop-limit">
           <div class="row">
-            <div class="col-md-6 mb-4">
+            <div class="col-md-4 mb-4">
               <label
-                class="responsive-form-label w-100"
+                class="responsive-form-label w-100 mt-2"
                 for="id-add-service-name"
               >
                 <span class="responsive-form-label__bolder">Naziv usluge</span>
@@ -40,7 +40,7 @@
             </div>
             <div class="col-md-4 mb-4">
               <label
-                class="responsive-form-label w-100"
+                class="responsive-form-label w-100 mt-2"
                 for="id-add-service-price"
               >
                 <span class="responsive-form-label__bolder">Cijena</span>
@@ -54,7 +54,7 @@
             </div>
             <div class="col-md-4 mb-4">
               <label
-                class="responsive-form-label w-100"
+                class="responsive-form-label w-100 mt-2"
                 for="id-add-service-duration"
               >
                 <span class="responsive-form-label__bolder">Trajanje (u minutama)</span>
@@ -123,7 +123,7 @@
         <div class="container override-desktop-limit">
           <div class="usluga-izvrsitelj">
             <div>
-              <label class="responsive-form-label">
+              <label class="responsive-form-label w-100 mb-5 mt-2">
                 <span class="responsive-form-label__bolder">Izvršitelji</span>
                 <br>
                 Označite radnike koji obavljaju ovu uslugu
@@ -138,7 +138,7 @@
                         :checked="newService.staff.length === allStaff.length"
                         @change="toggleAllStaff()"
                       >
-                      <span class="form-check-label lead">Sve</span>
+                      <span class="form-check-label lead">Označi sve</span>
                     </label>
                   </div>
                 </div>

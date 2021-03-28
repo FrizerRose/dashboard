@@ -47,12 +47,12 @@
           >
             <router-link
               class="dropdown-item"
-              to="/promjeni-lozinku"
+              to="/promijeni-lozinku"
             >
               <span class="align-middle me-1">
                 <span class="fa fa-user" />
               </span>
-              Promjeni lozinku
+              Promijeni lozinku
             </router-link>
 
             <div class="dropdown-divider" />

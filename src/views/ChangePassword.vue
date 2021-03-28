@@ -76,7 +76,7 @@
                     </p>
                   </div>
 
-                  <div class="authentication-interaktivno">
+                  <div class="authentication-interaktivno text-end">
                     <button
                       :class="{
                         'mt-4': true,

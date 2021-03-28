@@ -46,7 +46,7 @@
                           scope="col"
                           style="width:10%; text-align: center;"
                         >
-                          Promjeni
+                          Promijeni
                         </th>
                         <th
                           scope="col"
@@ -92,7 +92,7 @@
                         </td>
                         <td style="text-align: center;">
                           <button
-                            class="btn responsive-btn btn-danger"
+                            class="btn responsive-btn btn-outline-danger"
                             @click="deleteWorker(worker)"
                           >
                             <span class="fa fa-trash" />

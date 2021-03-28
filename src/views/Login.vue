@@ -8,86 +8,87 @@
         <div class="row h-100">
           <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
             <div class="d-table-cell align-middle">
-              <div class="text-center mt-4">
-                <h1 class="h2">
-                  Dobrodošli
-                </h1>
-                <p class="lead">
-                  Prijavite se za nastavak
-                </p>
-              </div>
+              <h1 class="h2">
+                Dobrodošli
+              </h1>
+              <p class="lead">
+                Prijavite se za nastavak
+              </p>
 
               <div class="card">
                 <div class="card-body">
-                  <div class="m-sm-4">
-                    <div class="login-brand mb-4 text-center">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0H0v24h12zm0-6a6 6 0 100-12 6 6 0 000 12z"
-                        />
-                      </svg>
-                    </div>
-                    <form @submit.prevent="login()">
-                      <div class="mb-3">
-                        <label
-                          class="responsive-form-label"
-                          for="LOGIN-MODAL-EMAIL"
-                        >Email</label>
-                        <input
-                          id="LOGIN-MODAL-EMAIL"
-                          v-model="credentials.email"
-                          required=""
-                          class="form-control responsive-form-control"
-                          type="email"
-                          name="validation-email"
-                          placeholder="Unesite email"
-                        >
-                      </div>
-                      <div class="mb-3">
-                        <label
-                          class="responsive-form-label"
-                          for="LOGIN-MODAL-PASSWORD"
-                        >Lozinka</label>
-                        <input
-                          id="LOGIN-MODAL-PASSWORD"
-                          v-model="credentials.password"
-                          required=""
-                          class="form-control responsive-form-control"
-                          type="password"
-                          name="validation-password"
-                          placeholder="Unesite lozinku"
-                        >
-                        <small>
-                          <a
-                            href=""
-                            @click.prevent="goToForgottenPassword()"
-                          >Zaboravljena lozinka?</a>
-                        </small>
-                        <label
-                          v-if="hasError"
-                          class="error jquery-validation-error small form-text invalid-feedback"
-                          :style="{display: 'inline-block'}"
-                          for="validation-password"
-                        >{{ errorMsg }}</label>
-                      </div>
-                      <div class="mt-3">
-                        <button
-                          type="submit"
-                          class="btn responsive-btn btn-primary"
-                        >
-                          Prijavi se
-                        </button>
-                      </div>
-                    </form>
+                  <div class="login-brand mb-4 text-center">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0H0v24h12zm0-6a6 6 0 100-12 6 6 0 000 12z"
+                      />
+                    </svg>
                   </div>
+                  <form @submit.prevent="login()">
+                    <div class="mb-4">
+                      <label
+                        class="responsive-form-label"
+                        for="LOGIN-MODAL-EMAIL"
+                      >
+                        <span class="responsive-form-label__bolder">E-mail</span>
+                      </label>
+                      <input
+                        id="LOGIN-MODAL-EMAIL"
+                        v-model="credentials.email"
+                        required=""
+                        class="form-control responsive-form-control"
+                        type="email"
+                        name="validation-email"
+                        placeholder="Upišite e-mail adresu"
+                      >
+                    </div>
+                    <div class="mb-4">
+                      <label
+                        class="responsive-form-label"
+                        for="LOGIN-MODAL-PASSWORD"
+                      >
+                        <span class="responsive-form-label__bolder">Lozinka</span>
+                      </label>
+                      <input
+                        id="LOGIN-MODAL-PASSWORD"
+                        v-model="credentials.password"
+                        required=""
+                        class="form-control responsive-form-control"
+                        type="password"
+                        name="validation-password"
+                        placeholder="Upišite lozinku"
+                      >
+                      <p
+                        v-if="hasError"
+                        class="mb-0 text-danger mt-4"
+                      >
+                        {{ errorMsg }}
+                      </p>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4">
+                      <a
+                        href=""
+                        class="btn responsive-btn"
+                        @click.prevent="goToForgottenPassword()"
+                      >
+                        Zaboravljena lozinka?
+                      </a>
+                      <button
+                        type="submit"
+                        class="btn responsive-btn btn-primary"
+                      >
+                        Prijavi se
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>

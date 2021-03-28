@@ -165,6 +165,8 @@
                   class="form-control responsive-form-control"
                   rows="4"
                 />
+              </div>
+              <div class="col-md-12 mb-4">
                 <label
                   class="responsive-form-label"
                   for="id-calendar-create-appointment-notice"

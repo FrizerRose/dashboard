@@ -17,7 +17,7 @@
             v-if="customer.name"
             class="list-unstyled"
           >
-            <li><strong>Email:</strong> {{ customer.email ? customer.email : 'Nije unešen' }}</li>
+            <li><strong>E-mail:</strong> {{ customer.email ? customer.email : 'Nije unešen' }}</li>
             <li><strong>Mob.:</strong> {{ customer.phone ? customer.phone : 'Nije unešen' }}</li>
             <li><strong>Ukupna zarada od klijenta:</strong> {{ totalEarnings }}kn</li>
             <li v-if="customerAppointments.length">

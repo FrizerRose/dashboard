@@ -26,7 +26,7 @@
             <div class="mb-4">
               <label
                 for="id-edit-service-name"
-                class="responsive-form-label w-100"
+                class="responsive-form-label w-100 mt-2"
               >
                 <span class="responsive-form-label__bolder">Naziv usluge</span>
                 <br>
@@ -45,7 +45,7 @@
             <div class="mb-4">
               <label
                 for="id-edit-service-price"
-                class="responsive-form-label w-100"
+                class="responsive-form-label w-100 mt-2"
               >
                 <span class="responsive-form-label__bolder">Cijena usluge</span>
                 <br>
@@ -66,7 +66,7 @@
             <div class="mb-4">
               <label
                 for="id-edit-service-duration"
-                class="responsive-form-label w-100"
+                class="responsive-form-label w-100 mt-2"
               >
                 <span class="responsive-form-label__bolder">Trajanje Usluge</span>
                 <br>
@@ -139,7 +139,7 @@
         <div class="container override-desktop-limit">
           <div class="usluga-izvrsitelj">
             <div>
-              <label class="responsive-form-label">
+              <label class="responsive-form-label w-100 mb-5 mt-2">
                 <span class="responsive-form-label__bolder">Izvršitelji</span>
                 <br>
                 Označite radnike koji obavljaju ovu uslugu
@@ -154,7 +154,7 @@
                         :checked="formData.staff.length === allStaff.length"
                         @change="toggleAllStaff()"
                       >
-                      <span class="form-check-label lead">Sve</span>
+                      <span class="form-check-label lead">Označi sve</span>
                     </label>
                   </div>
                 </div>

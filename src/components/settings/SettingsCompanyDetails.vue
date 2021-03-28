@@ -516,7 +516,7 @@ export default defineComponent({
       } else {
         requestSent.value = true;
         status.value = false;
-        errorMsg.value = 'Ime, email i domena moraju biti unešeni.';
+        errorMsg.value = 'Ime, e-mail i poddomena moraju biti upisani.';
       }
     }
 

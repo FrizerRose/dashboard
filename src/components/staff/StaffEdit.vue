@@ -322,7 +322,7 @@
                         :checked="formData.services.length === allServices.length"
                         @change="toggleAllServices()"
                       >
-                      <span class="form-check-label lead">Sve</span>
+                      <span class="form-check-label lead">Označi sve</span>
                     </label>
                   </div>
                 </div>
@@ -372,7 +372,7 @@
               </label>
 
               <div v-if="!breakDates.length">
-                <div class="text-primary">
+                <div class="p-4 alert alert-info">
                   Nema unesenih razdoblja za godišnji
                 </div>
                 <div class="row">

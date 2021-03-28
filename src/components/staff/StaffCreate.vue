@@ -224,7 +224,7 @@
                         :checked="newStaff.services.length === allServices.length"
                         @change="toggleAllServices()"
                       >
-                      <span class="form-check-label lead">Sve</span>
+                      <span class="form-check-label lead">Označi sve</span>
                     </label>
                   </div>
                 </div>
@@ -400,12 +400,12 @@ export default defineComponent({
         } catch {
           requestSent.value = true;
           status.value = false;
-          errorMsg.value = 'Promjena radnika nije uspjela. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.';
+          errorMsg.value = 'Promjena radnika nije uspjela. Ako ste sigurni da su uneseni podaci ispravni, javite se korisničkoj podršci.';
         }
       } else {
         requestSent.value = true;
         status.value = false;
-        errorMsg.value = 'Ime i email moraju biti unešeni.';
+        errorMsg.value = 'Ime i e-mail moraju biti upisani.';
       }
     }
 

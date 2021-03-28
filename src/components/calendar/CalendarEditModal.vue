@@ -14,25 +14,17 @@
     <template #body>
       <div
         v-if="isInThePast"
-        class="alert alert-success mb-0"
-      >
-        <div class="alert-message py-5">
-          <p><strong>{{ rescheduledCustomer.name }}</strong> se pojavio u dogovoreno vrijeme.</p>
-        </div>
-      </div>
-      <div
-        v-if="isInThePast"
         class="container"
       >
         <div class="row">
           <div class="col-12">
-            <label class="form-check m-0">
+            <label class="form-check mt-4 mb-6">
               <input
                 v-model="hasCustomerArrived"
                 type="checkbox"
                 class="form-check-input"
               >
-              <span class="form-check-label lead">Klijent se pojavio u dogovoreno vrijeme.</span>
+              <span class="form-check-label lead">Klijent se pojavila/pojavio u dogovoreno vrijeme.</span>
             </label>
           </div>
         </div>

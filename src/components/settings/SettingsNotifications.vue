@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="notifikacije-interaktivno mb-4 text-end">
+    <div
+      v-if="hidden"
+      class="notifikacije-interaktivno mb-4 text-end"
+    >
       <button
         :class="{
           btn: true,
@@ -77,11 +80,11 @@
           <div class="row flex-row-reverse align-items-end">
             <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
               <label class="responsive-form-label w-100">
-                <strong>Klijent</strong>
+                <span class="responsive-form-label__bolder">Klijent</span>
               </label>
               <div class="d-flex align-items-baseline">
                 <select
-                  id="id-reminder-time"
+                  id="id-client-reminder-time"
                   v-model="formData.preferences.clientReminderTime"
                   class="form-control responsive-form-control mb-3"
                   name="id-reminder-time"
@@ -150,11 +153,11 @@
           <div class="row flex-row-reverse align-items-end">
             <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
               <label class="responsive-form-label w-100">
-                <strong>Radnik</strong>
+                <span class="responsive-form-label__bolder">Radnik</span>
               </label>
               <div class="d-flex align-items-baseline">
                 <select
-                  id="id-reminder-time"
+                  id="id-staff-reminder-time"
                   v-model="formData.preferences.staffReminderTime"
                   class="form-control responsive-form-control mb-3"
                   name="id-reminder-time"

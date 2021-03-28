@@ -19,7 +19,7 @@
               for="selectedWorker"
               class="responsive-form-label w-100"
             >
-              <strong>Odaberite radnika</strong>
+              <span class="responsive-form-label__bolder">Odaberite radnika</span>
             </label>
             <select
               id="selectedWorker"

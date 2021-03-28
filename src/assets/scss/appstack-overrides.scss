@@ -12,7 +12,7 @@ html {
 }
 
 body {
-	font-size: 16px;
+	font-size: inherit; // bitno je da inherita od <html> zbog responzivnosti veličine teksta
 }
 
 .navbar {

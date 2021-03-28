@@ -31,6 +31,14 @@ html {
 .responsive-form-label {
     font-size: 1rem;
     margin-bottom: .5em;
+	&__bolder {
+		font-weight: 700;
+		text-transform: uppercase;
+		@media (min-width: 1200px) {
+			font-size: 0.875em;
+			letter-spacing: -1px;
+		}
+	}
 }
 
 .responsive-font-size {

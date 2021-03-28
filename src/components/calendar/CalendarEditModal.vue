@@ -48,7 +48,7 @@
               for="id-calendar-edit-slot-staff"
               class="responsive-form-label w-100"
             >
-              <strong>Radnik</strong>
+              <span class="responsive-form-label__bolder">Radnik</span>
             </label>
             <select
               id="id-calendar-edit-slot-staff"
@@ -70,7 +70,7 @@
               for="id-calendar-edit-slot-service"
               class="responsive-form-label w-100"
             >
-              <strong>Usluga</strong>
+              <span class="responsive-form-label__bolder">Usluga</span>
             </label>
             <select
               id="id-calendar-edit-slot-service"
@@ -91,7 +91,7 @@
         <div class="row">
           <div class="col-md-6 mb-4">
             <label class="responsive-form-label w-100">
-              <strong>Dan</strong>
+              <span class="responsive-form-label__bolder">Dan</span>
             </label>
             <input
               id="id-calendar-edit-slot-day"
@@ -105,7 +105,7 @@
           </div>
           <div class="col-md-6 mb-4">
             <label class="responsive-form-label w-100">
-              <strong>Vrijeme</strong>
+              <span class="responsive-form-label__bolder">Vrijeme</span>
             </label>
             <select
               id="id-calendar-edit-slot-day-time"
@@ -129,7 +129,7 @@
               class="responsive-form-label"
               for="id-calendar-edit-slot-customer-name"
             >
-              <strong>Ime klijenta</strong>
+              <span class="responsive-form-label__bolder">Ime klijenta</span>
             </label>
             <input
               id="id-calendar-edit-slot-customer-name"
@@ -143,7 +143,7 @@
               class="responsive-form-label"
               for="id-calendar-edit-slot-customer-email"
             >
-              <strong>E-mail klijenta</strong>
+              <span class="responsive-form-label__bolder">E-mail klijenta</span>
             </label>
             <input
               id="id-calendar-edit-slot-customer-email"
@@ -157,7 +157,7 @@
               class="responsive-form-label"
               for="id-calendar-edit-slot-customer-phone"
             >
-              <strong>Mobitel klijenta</strong>
+              <span class="responsive-form-label__bolder">Mobitel klijenta</span>
             </label>
             <input
               id="id-calendar-edit-slot-customer-phone"
@@ -169,12 +169,12 @@
           <div class="col-md-12 mb-4">
             <label
               class="responsive-form-label"
-              for="id-calendar-edit-slot-customer-notice"
+              for="id-calendar-edit-slot-note"
             >
-              <strong>Bilješke o klijentu</strong>
+              <span class="responsive-form-label__bolder">Bilješke o klijentu</span>
             </label>
             <textarea
-              id="id-calendar-edit-slot-customer-notice"
+              id="id-calendar-edit-slot-note"
               v-model="rescheduledCustomer.notes"
               class="form-control"
             />
@@ -184,7 +184,7 @@
               class="responsive-form-label"
               for="id-calendar-edit-slot-customer-notice"
             >
-              <strong>Napomena za termin</strong>
+              <span class="responsive-form-label__bolder">Napomena za termin</span>
             </label>
             <textarea
               id="id-calendar-edit-slot-customer-notice"

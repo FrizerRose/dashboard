@@ -15,7 +15,7 @@
                 for="customerName"
                 class="responsive-form-label w-100"
               >
-                <strong>Tražilica</strong>
+                <span class="responsive-form-label__bolder">Tražilica</span>
               </label>
               <input
                 id="customerName"

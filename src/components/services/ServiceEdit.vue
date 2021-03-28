@@ -28,7 +28,7 @@
                 for="id-edit-service-name"
                 class="responsive-form-label w-100"
               >
-                <strong>Naziv usluge</strong>
+                <span class="responsive-form-label__bolder">Naziv usluge</span>
                 <br>
                 Ovdje možete promijeniti naziv usluge
               </label>
@@ -47,7 +47,7 @@
                 for="id-edit-service-price"
                 class="responsive-form-label w-100"
               >
-                <strong>Cijena usluge</strong>
+                <span class="responsive-form-label__bolder">Cijena usluge</span>
                 <br>
                 Ovdje možete promijeniti cijenu usluge (kn)
               </label>
@@ -68,7 +68,7 @@
                 for="id-edit-service-duration"
                 class="responsive-form-label w-100"
               >
-                <strong>Trajanje Usluge</strong>
+                <span class="responsive-form-label__bolder">Trajanje Usluge</span>
                 <br>
                 Ovdje možete promijeniti trajanje usluge (min)
               </label>
@@ -140,7 +140,7 @@
           <div class="usluga-izvrsitelj">
             <div>
               <label class="responsive-form-label">
-                <strong>Izvršitelji</strong>
+                <span class="responsive-form-label__bolder">Izvršitelji</span>
                 <br>
                 Označite radnike koji obavljaju ovu uslugu
               </label>

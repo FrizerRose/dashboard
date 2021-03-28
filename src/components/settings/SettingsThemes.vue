@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="izgled-interaktivno mb-4 text-end">
+    <div
+      v-if="hidden"
+      class="izgled-interaktivno mb-4 text-end"
+    >
       <button
         :class="{
           btn: true,
@@ -58,10 +61,10 @@
           <div class="row flex-row-reverse align-items-end">
             <div class="col-12 col-md-8 col-xl-6">
               <label
-                id="id-theme-color"
+                for="id-theme-color"
                 class="responsive-form-label w-100"
               >
-                <strong>Odabir boje elemenata</strong>
+                <span class="responsive-form-label__bolder">Odabir boje elemenata</span>
               </label>
               <select
                 id="id-theme-color"

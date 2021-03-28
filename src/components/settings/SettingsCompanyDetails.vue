@@ -29,10 +29,10 @@
         <div class="my-4 h4">
           <div class="container override-desktop-limit">
             Podatci koje unesete u ova polja će biti prikazani na stranici Vašeg poslovnog subjekta <a
-              href="https://tresnja.dolazim.com/"
+              href="{-- https://tresnja.dolazim.hr/ --}"
               rel="noopener noreferrer"
               target="_blank"
-            >https://tresnja.dolazim.com/</a> kako bi Vas klijenti mogli kontaktirati
+            >{-- https://tresnja.dolazim.hr/ --}</a> kako bi Vas klijenti mogli kontaktirati
           </div>
         </div>
       </div>
@@ -44,59 +44,61 @@
           <div class="row">
             <div class="col-6 col-sm-6">
               <label class="responsive-form-label w-100 mb-5 mt-2">
-                <strong>Logotip</strong>
+                <span class="responsive-form-label__bolder">Logotip</span>
                 <br>
                 Podržavamo formate: JPG, PNG
               </label>
             </div>
             <div class="col-6 col-sm-6">
-              <div class="override-upload-image-wrap">
-                <div class="override-upload-image">
-                  <div class="override-upload-image-square">
-                    <img
-                      v-if="image?.link"
-                      :src="image.link"
-                      alt="logo"
-                      class="fit-cover"
-                    >
-                    <span
-                      v-if="!image?.link"
-                      class="override-upload-image-layer override-upload-image-missing"
-                    >
-                      <span class="override-upload-image-layer override-upload-image-missing-placeholder">
-                        <span class="fa fa-image" />
-                        <!-- <i class="align-middle" data-feather="user"></i> -->
+              <div class="text-center">
+                <div class="override-upload-image-wrap">
+                  <div class="override-upload-image">
+                    <div class="override-upload-image-square">
+                      <img
+                        v-if="image?.link"
+                        :src="image.link"
+                        alt="logo"
+                        class="fit-cover"
+                      >
+                      <span
+                        v-if="!image?.link"
+                        class="override-upload-image-layer override-upload-image-missing"
+                      >
+                        <span class="override-upload-image-layer override-upload-image-missing-placeholder">
+                          <span class="fa fa-image" />
+                          <!-- <i class="align-middle" data-feather="user"></i> -->
+                        </span>
                       </span>
+                    </div>
+                    <span class="override-upload-image-layer override-upload-image-input-wrap">
+                      <input
+                        id="id-file-over-img"
+                        class="override-input-file"
+                        type="file"
+                        name="id-file-over-img"
+                        accept="image/svg, image/png, image/jpeg"
+                        @change="upload"
+                      >
+                      <label
+                        for="id-file-over-img"
+                        class="override-upload-image-layer override-upload-image-input-wrap-label"
+                      >
+                        <span class="override-upload-image-layer override-upload-image-input-wrap-label-icon">
+                          <span class="fa fa-camera" />
+                        </span>
+                      </label>
                     </span>
                   </div>
-                  <span class="override-upload-image-layer override-upload-image-input-wrap">
-                    <input
-                      id="id-file-over-img"
-                      class="override-input-file"
-                      type="file"
-                      name="id-file-over-img"
-                      accept="image/svg, image/png, image/jpeg"
-                      @change="upload"
-                    >
-                    <label
-                      for="id-file-over-img"
-                      class="override-upload-image-layer override-upload-image-input-wrap-label"
-                    >
-                      <span class="override-upload-image-layer override-upload-image-input-wrap-label-icon">
-                        <span class="fa fa-camera" />
-                      </span>
-                    </label>
-                  </span>
+                  <button
+                    v-if="image?.link"
+                    class="override-upload-image-remove override-upload-image-square"
+                    @click="removeImage()"
+                  >
+                    <span class="override-upload-image-layer override-upload-image-remove-center">
+                      <span class="fa fa-trash" />
+                    </span>
+                  </button>
                 </div>
-                <button
-                  v-if="image?.link"
-                  class="override-upload-image-remove override-upload-image-square"
-                  @click="removeImage()"
-                >
-                  <span class="override-upload-image-layer override-upload-image-remove-center">
-                    <span class="fa fa-trash" />
-                  </span>
-                </button>
               </div>
               <div class="text-center fallback-file-input-option">
                 <input
@@ -143,7 +145,7 @@
                 for="id-name"
                 class="responsive-form-label w-100"
               >
-                <strong>Ime poslovnog subjekta</strong>
+                <span class="responsive-form-label__bolder">Ime poslovnog subjekta</span>
               </label>
               <input
                 v-model="formData.name"
@@ -158,7 +160,7 @@
                 for="id-about-text"
                 class="responsive-form-label w-100"
               >
-                <strong>O nama</strong>
+                <span class="responsive-form-label__bolder">O nama</span>
               </label>
               <textarea
                 id="id-about-text"
@@ -182,7 +184,7 @@
                 for="id-street-address"
                 class="responsive-form-label w-100"
               >
-                <strong>Ulica i kućni broj</strong>
+                <span class="responsive-form-label__bolder">Ulica i kućni broj</span>
               </label>
               <input
                 id="id-street-address"
@@ -197,7 +199,7 @@
                 for="id-city"
                 class="responsive-form-label w-100"
               >
-                <strong>Grad</strong>
+                <span class="responsive-form-label__bolder">Grad</span>
               </label>
               <input
                 id="id-city"
@@ -217,7 +219,7 @@
                 for="id-phone"
                 class="responsive-form-label w-100"
               >
-                <strong>Telefon</strong>
+                <span class="responsive-form-label__bolder">Telefon</span>
               </label>
               <input
                 id="id-phone"
@@ -232,7 +234,7 @@
                 class="responsive-form-label"
                 for="id-email"
               >
-                <strong>E-mail adresa</strong>
+                <span class="responsive-form-label__bolder">E-mail adresa</span>
               </label>
               <input
                 id="id-email"
@@ -250,13 +252,13 @@
     <div class="firma-web">
       <div class="border-bottom">
         <div class="mt-4 mb-6">
-          <div class="row flex-row-reverse align-items-end">
+          <div class="row flex-row-reverse">
             <div class="col-12 col-md-8 col-xl-6">
               <label
                 for="id-subdomain"
                 class="responsive-form-label w-100"
               >
-                <strong>Poddomena</strong> - obavezno polje
+                <span class="responsive-form-label__bolder">Poddomena</span> - obavezno polje
               </label>
               <div class="d-flex align-items-baseline">
                 <input
@@ -279,13 +281,13 @@
 
         <div class="mt-4 mb-5">
           <div class="mb-4">
-            <div class="row flex-row-reverse align-items-end">
+            <div class="row flex-row-reverse">
               <div class="col-12 col-md-8 col-xl-6">
                 <label
                   for="id-website-url"
                   class="responsive-form-label w-100"
                 >
-                  <strong>Web stranica URL</strong>
+                  <span class="responsive-form-label__bolder">Web stranica URL</span>
                 </label>
                 <div class="d-flex align-items-baseline">
                   <input
@@ -305,13 +307,13 @@
             </div>
           </div>
           <div class="my-4">
-            <div class="row flex-row-reverse align-items-end">
+            <div class="row flex-row-reverse">
               <div class="col-12 col-md-8 col-xl-6">
                 <label
                   class="responsive-form-label"
                   for="id-facebook-page-url"
                 >
-                  <strong>Facebook URL</strong>
+                  <span class="responsive-form-label__bolder">Facebook URL</span>
                 </label>
                 <input
                   id="id-facebook-page-url"
@@ -329,13 +331,13 @@
             </div>
           </div>
           <div class="mt-4">
-            <div class="row flex-row-reverse align-items-end">
+            <div class="row flex-row-reverse">
               <div class="col-12 col-md-8 col-xl-6">
                 <label
                   class="responsive-form-label"
                   for="id-instagram-page-url"
                 >
-                  <strong>Instagram URL</strong>
+                  <span class="responsive-form-label__bolder">Instagram URL</span>
                 </label>
                 <input
                   id="id-instagram-page-url"
@@ -360,7 +362,7 @@
           <div class="row flex-row-reverse">
             <div class="col-12 col-md-8 col-xl-6">
               <label>
-                <strong>Pravila korištenja URL</strong>
+                <span class="responsive-form-label__bolder">Pravila korištenja URL</span>
               </label>
               <input
                 id="id-terms-and-conditions-page-url"
@@ -402,7 +404,7 @@
                 class="responsive-form-label m-0"
                 for="id-rules"
               >
-                <strong>Pravila ponašanja</strong>
+                <span class="responsive-form-label__bolder">Pravila ponašanja</span>
                 <br>
                 Ovdje možete upisati kratki tekst s pravilima ponašanja koji će biti prikazan na stranici
               </label>
@@ -438,7 +440,7 @@
                 class="responsive-form-label mb-0"
                 for="id-rules-corona"
               >
-                <strong>COVID-19 upozorenje</strong>
+                <span class="responsive-form-label__bolder">COVID-19 upozorenje</span>
                 <br>
                 Ovdje možete podsjetiti klijente na preporuke za korištenje maski za lice
               </label>

@@ -191,7 +191,7 @@
                   </div>
                   <div
                     v-if="day.active"
-                    class="col-12 col-md-10 mb-4 section-reveal"
+                    class="col-12 col-md-10 mb-4"
                   >
                     <div class="section-reveal">
                       <div
@@ -361,7 +361,7 @@
         </div>
       </div>
 
-      <div class="radnik-godisnji p-4 border-bottom">
+      <div class="radnik-godisnji p-4">
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
@@ -375,14 +375,16 @@
                 <div class="p-4 alert alert-info">
                   Nema unesenih razdoblja za godišnji
                 </div>
-                <div class="row">
-                  <div class="col-12 col-md-3">
-                    <button
-                      class="btn responsive-btn btn-primary w-100 mt-4"
-                      @click="addBreak()"
-                    >
-                      Dodaj razdoblje
-                    </button>
+                <div class="mt-4">
+                  <div class="row">
+                    <div class="col-12 col-md-3">
+                      <button
+                        class="btn responsive-btn btn-primary w-100"
+                        @click="addBreak()"
+                      >
+                        Dodaj razdoblje
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -396,7 +398,7 @@
                   <div class="col-12 col-md-9 mb-4">
                     <div class="section-reveal">
                       <div class="row d-flex align-items-end">
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-6 col-md-4">
                           <label class="responsive-form-label w-100">
                             <span class="responsive-form-label__bolder">Od</span>
                           </label>
@@ -408,7 +410,7 @@
                             name="data-start"
                           >
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-6 col-md-4">
                           <label class="responsive-form-label w-100">
                             <span class="responsive-form-label__bolder">Do</span>
                           </label>
@@ -431,10 +433,10 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-12 col-md-3 mb-4">
+                  <div class="col-12 col-md-3">
                     <div v-if="index === breakDates.length - 1">
                       <button
-                        class="btn responsive-btn btn-primary w-100 mt-4"
+                        class="btn responsive-btn btn-primary w-100 mb-4"
                         @click="addBreak()"
                       >
                         Dodaj razdoblje

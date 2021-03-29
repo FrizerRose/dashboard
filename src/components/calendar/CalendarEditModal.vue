@@ -13,17 +13,19 @@
     </template>
     <template #body>
       <div v-if="isInThePast">
-        <div class="container override-desktop-limit">
-          <div class="row">
-            <div class="col-12">
-              <label class="form-check mt-4 mb-6">
-                <input
-                  v-model="hasCustomerArrived"
-                  type="checkbox"
-                  class="form-check-input"
-                >
-                <span class="form-check-label lead">Klijent se pojavila/pojavio u dogovoreno vrijeme.</span>
-              </label>
+        <div class="px-4 py-4 border-bottom">
+          <div class="container override-desktop-limit">
+            <div class="row">
+              <div class="col-12">
+                <label class="form-check mt-4 mb-6">
+                  <input
+                    v-model="hasCustomerArrived"
+                    type="checkbox"
+                    class="form-check-input"
+                  >
+                  <span class="form-check-label lead">Klijent se pojavila/pojavio u dogovoreno vrijeme.</span>
+                </label>
+              </div>
             </div>
           </div>
         </div>

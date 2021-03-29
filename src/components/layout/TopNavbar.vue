@@ -27,7 +27,7 @@
             </router-link>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-flex align-items-center">
           <a
             class="nav-link dropdown-toggle"
             :class="{

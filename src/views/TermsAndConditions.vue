@@ -42,7 +42,7 @@
           <p>
             Poduzimamo sve kako bismo što više smanjili smetnje prouzročene tehničkim pogreškama. Moguće je da se neki
             podatci ili informacije na ovim internetskim stranicama sadrže greške. U takvim slučajevima ne možemo zajamčiti
-            da naša usluga neće biti prekinuta ili otežana na bilo koji drugi način. Uredništvo postala ne prihvaća odgovornost
+            da naša usluga neće biti prekinuta ili otežana na bilo koji drugi način. Uredništvo portala ne prihvaća odgovornost
             u slučaju otežanog prijenosa podataka uslijed različitih internetskih mreža ili neusklađenosti zbog korisnikova
             mrežnog preglednika. Ako nam se ukaže na pogreške, pokušat ćemo ih što prije ispraviti.
           </p>

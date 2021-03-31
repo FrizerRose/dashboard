@@ -16,7 +16,7 @@
             :customer-for-edit="customer"
           />
           <ul
-            v-else
+            v-else-if="customer.name"
             class="list-unstyled"
           >
             <li><strong>Email:</strong> {{ customer.email ? customer.email : 'Nije unešen' }}</li>

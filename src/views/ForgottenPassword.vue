@@ -9,70 +9,70 @@
           <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
             <div class="d-table-cell align-middle">
               <div
-                v-if="resetDone"
-                class="text-center mt-4"
-              >
-                <h1 class="h2">
-                  Provjerite e-mail
-                </h1>
-                <p class="lead">
-                  Lozinka je resetirana. U poruci koju ćete primiti na e-mail adresu se nalazi vaša nova lozinka.
-                </p>
-                <div class="text-center mt-3">
-                  <button
-                    class="btn responsive-btn btn-primary"
-                    @click.prevent="goToLogin()"
-                  >
-                    Nazad na Login
-                  </button>
-                </div>
-              </div>
-              <div
-                v-if="!resetDone"
+                v-if="resetDoneX"
                 class="card"
               >
                 <div class="card-body">
-                  <div class="m-sm-4">
-                    <form>
-                      <div class="mb-3">
-                        <label
-                          class="responsive-form-label"
-                          for="LOGIN-MODAL-EMAIL"
-                        >Email koji koristite za prijavu</label>
-                        <input
-                          id="LOGIN-MODAL-EMAIL"
-                          v-model="chosenEmail"
-                          required=""
-                          class="form-control responsive-form-control"
-                          type="email"
-                          name="validation-email"
-                          placeholder="abc@abc.com"
-                        >
-                        <label
-                          v-if="hasError && errorMsg"
-                          class="error jquery-validation-error small form-text invalid-feedback"
-                          :style="{display: 'inline-block'}"
-                          for="validation-email"
-                        >{{ errorMsg }}</label>
-                      </div>
-                      <div class="text-center mt-3">
-                        <button
-                          class="btn responsive-btn btn-primary"
-                          @click.prevent="resetPassword()"
-                        >
-                          Resetetiraj lozinku
-                        </button>
-                      </div>
-                      <div class="text-center mt-3">
-                        <button
-                          class="btn responsive-btn btn-secondary"
-                          @click.prevent="goToLogin()"
-                        >
-                          Nazad na Login
-                        </button>
-                      </div>
-                    </form>
+                  <h1>
+                    Provjerite e-mail
+                  </h1>
+                  <p class="lead">
+                    Lozinka je resetirana. U poruci koju ćete primiti na e-mail adresu se nalazi vaša nova lozinka.
+                  </p>
+                  <div class="mt-4 text-end">
+                    <button
+                      class="btn responsive-btn btn-primary"
+                      @click="goToLogin()"
+                    >
+                      Nazad na login
+                    </button>
                   </div>
+                </div>
+              </div>
+              <div
+                v-if="!resetDoneX"
+                class="card"
+              >
+                <div class="card-body">
+                  <form>
+                    <div class="mb-4">
+                      <label
+                        class="responsive-form-label w-100"
+                        for="LOGIN-MODAL-EMAIL"
+                      >
+                        <span class="responsive-form-label__bolder">E-mail koji koristite za prijavu</span>
+                      </label>
+                      <input
+                        id="LOGIN-MODAL-EMAIL"
+                        v-model="chosenEmail"
+                        required=""
+                        class="form-control responsive-form-control"
+                        type="email"
+                        name="validation-email"
+                        placeholder="Vaša e-mail adresa"
+                      >
+                      <p
+                        v-if="hasError && errorMsg"
+                        class="mb-0 text-danger mt-4"
+                      >
+                        {{ errorMsg }}
+                      </p>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4">
+                      <button
+                        class="btn responsive-btn btn-secondary"
+                        @click.prevent="goToLogin()"
+                      >
+                        Nazad na login
+                      </button>
+                      <button
+                        class="btn responsive-btn btn-primary"
+                        @click.prevent="resetPassword()"
+                      >
+                        Resetiraj lozinku
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -106,7 +106,7 @@ export default defineComponent({
     async function resetPassword() {
       if (!chosenEmail.value) {
         hasError.value = true;
-        errorMsg.value = 'Potreno je unesti email.';
+        errorMsg.value = 'Potreno je upisati e-mail adresu';
         return;
       }
 
@@ -118,7 +118,7 @@ export default defineComponent({
       } catch {
         hasError.value = true;
         errorMsg.value = `Resetiranje lozinke nije uspjelo.
-        Ako ste sigurni da je unešena email adresa ispravna, javite se na korisnički podršku.`;
+        Ako ste sigurni da je upisana e-mail adresa ispravna, javite se na korisnički podršku.`;
       }
     }
 

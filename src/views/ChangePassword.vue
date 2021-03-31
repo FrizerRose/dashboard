@@ -16,7 +16,7 @@
                       for="id-change-password-old"
                       class="responsive-form-label w-100"
                     >
-                      <strong>Stara lozinka</strong>
+                      <span class="responsive-form-label__bolder">Stara lozinka</span>
                       <br>
                       Upišite trenutnu lozinku
                     </label>
@@ -35,7 +35,7 @@
                       for="id-change-password-new-1"
                       class="responsive-form-label w-100"
                     >
-                      <strong>Nova lozinka</strong>
+                      <span class="responsive-form-label__bolder">Nova lozinka</span>
                       <br>
                       Upišite novu lozinku
                     </label>
@@ -76,7 +76,7 @@
                     </p>
                   </div>
 
-                  <div class="authentication-interaktivno">
+                  <div class="authentication-interaktivno text-end">
                     <button
                       :class="{
                         'mt-4': true,

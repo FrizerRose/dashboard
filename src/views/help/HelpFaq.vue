@@ -20,6 +20,11 @@
                 <div
                   class="card mb-0"
                 >
+                  <div class="card-header pb-0 help-header">
+                    <h5 class="card-title">
+                      Kalendar
+                    </h5>
+                  </div>
                   <div class="card-body py-0">
                     <h3 class="mt-3 mb-4">
                       {{ pair.question }}
@@ -37,6 +42,11 @@
                 <div
                   class="card mb-0"
                 >
+                  <div class="card-header pb-0 help-header">
+                    <h5 class="card-title">
+                      Termini
+                    </h5>
+                  </div>
                   <div class="card-body py-0">
                     <h3 class="mt-3 mb-4">
                       {{ pair.question }}
@@ -54,6 +64,11 @@
                 <div
                   class="card mb-0"
                 >
+                  <div class="card-header pb-0 help-header">
+                    <h5 class="card-title">
+                      Notifikacije
+                    </h5>
+                  </div>
                   <div class="card-body py-0">
                     <h3 class="mt-3 mb-4">
                       {{ pair.question }}
@@ -71,6 +86,11 @@
                 <div
                   class="card mb-0"
                 >
+                  <div class="card-header pb-0 help-header">
+                    <h5 class="card-title">
+                      Općenito
+                    </h5>
+                  </div>
                   <div class="card-body py-0">
                     <h3 class="mt-3 mb-4">
                       {{ pair.question }}

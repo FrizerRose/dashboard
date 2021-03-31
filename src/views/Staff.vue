@@ -46,7 +46,7 @@
                           scope="col"
                           style="width:10%; text-align: center;"
                         >
-                          Promjeni
+                          Promijeni
                         </th>
                         <th
                           scope="col"
@@ -92,7 +92,7 @@
                         </td>
                         <td style="text-align: center;">
                           <button
-                            class="btn responsive-btn btn-danger"
+                            class="btn responsive-btn btn-outline-danger"
                             @click="deleteWorker(worker)"
                           >
                             <span class="fa fa-trash" />
@@ -151,7 +151,7 @@ export default defineComponent({
     const staff = computed(() => store.state.staff.allStaff);
     const isStaffCreateOpen = computed(() => store.state.shared.isStaffCreateOpen);
     const isStaffEditOpen = computed(() => store.state.shared.isStaffEditOpen);
-    const selectedWorker = ref(staff.value[0]?.id);
+    const selectedWorker = ref(-1);
 
     function deleteWorker(worker: Staff) {
       // eslint-disable-next-line no-alert

@@ -47,7 +47,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Company</th>
-                <th>Email</th>
+                <th>E-mail</th>
                 <th>Status</th>
               </tr>
             </thead>

@@ -20,17 +20,36 @@ html {
 	padding: 0.5em 0.75em;
 	font-size: 1rem;
 	line-height: 1.25;
+	&.btn-outline-secondary {
+		border-color: transparent;
+	}
+	&.btn-outline-danger {
+		border-color: transparent;
+	}
 }
 
 .responsive-form-control {
     padding: .5em 0.75em;
     font-size: 1.125rem;
     border-radius: .5em;
+
+	&::placeholder {
+		color: silver;
+		font-style: italic;
+	}
 }
 
 .responsive-form-label {
     font-size: 1rem;
     margin-bottom: .5em;
+	&__bolder {
+		font-weight: 700;
+		text-transform: uppercase;
+		@media (min-width: 1200px) {
+			font-size: 0.875em;
+			letter-spacing: -1px;
+		}
+	}
 }
 
 .responsive-font-size {

@@ -14,7 +14,7 @@
                   for="id-contact-email"
                   class="responsive-form-label w-100"
                 >
-                  <strong>E-mail</strong>
+                  <span class="responsive-form-label__bolder">E-mail</span>
                 </label>
                 <input
                   id="id-contact-email"
@@ -29,7 +29,7 @@
                   for="id-contact-message"
                   class="responsive-form-label w-100"
                 >
-                  <strong>Poruka</strong>
+                  <span class="responsive-form-label__bolder">Poruka</span>
                   <br>
                   Detaljno opišite o čemu se radi da što brže otkrijemo uzrok poteškoća i otklonimo problem
                 </label>
@@ -42,12 +42,14 @@
                   rows="10"
                 />
               </div>
-              <button
-                class="btn responsive-btn btn-primary"
-                @click="send()"
-              >
-                Pošalji
-              </button>
+              <div class="text-end">
+                <button
+                  class="btn responsive-btn btn-primary"
+                  @click="send()"
+                >
+                  Pošalji
+                </button>
+              </div>
             </div>
           </div>
         </div>

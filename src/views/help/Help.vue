@@ -16,12 +16,14 @@
                 </div>
                 <div class="card-body">
                   <p>Ponovo pokrenite tutorial da vas provede kroz stranicu.</p>
-                  <button
-                    class="btn responsive-btn btn-primary mt-4"
-                    @click="restartTutorial()"
-                  >
-                    Pokreni tutorial
-                  </button>
+                  <div class="text-end">
+                    <button
+                      class="btn responsive-btn btn-primary mt-4"
+                      @click="restartTutorial()"
+                    >
+                      Pokreni tutorial
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -34,12 +36,14 @@
                 </div>
                 <div class="card-body">
                   <p>Pronađite odgovore na najčešće postavljena pitanja.</p>
-                  <router-link
-                    to="/cesta-pitanja"
-                    class="btn responsive-btn btn-primary mt-4"
-                  >
-                    Prikaži
-                  </router-link>
+                  <div class="text-end">
+                    <router-link
+                      to="/cesta-pitanja"
+                      class="btn responsive-btn btn-primary mt-4"
+                    >
+                      Prikaži
+                    </router-link>
+                  </div>
                 </div>
               </div>
               <div class="card">
@@ -50,12 +54,14 @@
                 </div>
                 <div class="card-body">
                   <p>Za ostala pitanja javite nam se direktno.</p>
-                  <router-link
-                    to="/kontakt"
-                    class="btn responsive-btn btn-primary mt-4"
-                  >
-                    Otvori
-                  </router-link>
+                  <div class="text-end">
+                    <router-link
+                      to="/kontakt"
+                      class="btn responsive-btn btn-primary mt-4"
+                    >
+                      Otvori
+                    </router-link>
+                  </div>
                 </div>
               </div>
             </div>

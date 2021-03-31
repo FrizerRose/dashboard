@@ -15,7 +15,7 @@
                 for="customerName"
                 class="responsive-form-label w-100"
               >
-                <strong>Tražilica</strong>
+                <span class="responsive-form-label__bolder">Tražilica</span>
               </label>
               <input
                 id="customerName"
@@ -48,7 +48,6 @@
           </div>
           <div class="customer-details responsive-main">
             <CustomerDetails
-              v-if="selectedCustomer.name"
               :customer="selectedCustomer"
             />
           </div>

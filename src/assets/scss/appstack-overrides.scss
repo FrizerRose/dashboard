@@ -1,9 +1,18 @@
+$bg-1: #212526;
+$bg-2: lighten($bg-1, 5%);
+$bg-3: lighten($bg-2, 5%);
+$bg-4: lighten($bg-3, 5%);
+
+:root {
+	--bs-font-sans-serif: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
 html {
 	scroll-behavior: smooth;
 }
 
 body {
-	font-size: 16px;
+	font-size: inherit; // bitno je da inherita od <html> zbog responzivnosti veličine teksta
 }
 
 .navbar {
@@ -17,14 +26,33 @@ body {
 		// max-width: 100%;
 	}
 }
-.sidebar-brand {
+.sidebar, .sidebar-content {
+	background-color: $bg-1;
+}
+.sidebar-logo {
+    font-size: 1.125rem;
+    padding: 1.15rem 1.5rem;
+    display: block;
+	font-weight: 400;
+	line-height: 1;
 	text-align: left;
+	color: $bg-3;
+	transition: color 0.3s cubic-bezier(0.4, 0, 0, 1);
+
+	&:hover {
+		text-decoration: none;
+		color: $bg-4;
+	}
+
 	svg {
-		margin-right: 0;
+		fill: currentColor;
+		height: 24px;
+		width: 24px;
+		margin-right: 0.625em;
 	}
 }
 .login-brand svg {
-	fill: #4a88eb;
+	fill: #16addd;
 	height: 64px;
 	width: 64px;
 }

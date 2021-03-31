@@ -26,9 +26,9 @@
             <div class="mb-4">
               <label
                 for="id-edit-service-name"
-                class="responsive-form-label w-100"
+                class="responsive-form-label w-100 mt-2"
               >
-                <strong>Naziv usluge</strong>
+                <span class="responsive-form-label__bolder">Naziv usluge</span>
                 <br>
                 Ovdje možete promijeniti naziv usluge
               </label>
@@ -45,9 +45,9 @@
             <div class="mb-4">
               <label
                 for="id-edit-service-price"
-                class="responsive-form-label w-100"
+                class="responsive-form-label w-100 mt-2"
               >
-                <strong>Cijena usluge</strong>
+                <span class="responsive-form-label__bolder">Cijena usluge</span>
                 <br>
                 Ovdje možete promijeniti cijenu usluge (kn)
               </label>
@@ -66,9 +66,9 @@
             <div class="mb-4">
               <label
                 for="id-edit-service-duration"
-                class="responsive-form-label w-100"
+                class="responsive-form-label w-100 mt-2"
               >
-                <strong>Trajanje Usluge</strong>
+                <span class="responsive-form-label__bolder">Trajanje Usluge</span>
                 <br>
                 Ovdje možete promijeniti trajanje usluge (min)
               </label>
@@ -139,8 +139,8 @@
         <div class="container override-desktop-limit">
           <div class="usluga-izvrsitelj">
             <div>
-              <label class="responsive-form-label">
-                <strong>Izvršitelji</strong>
+              <label class="responsive-form-label w-100 mb-5 mt-2">
+                <span class="responsive-form-label__bolder">Izvršitelji</span>
                 <br>
                 Označite radnike koji obavljaju ovu uslugu
               </label>
@@ -154,7 +154,7 @@
                         :checked="formData.staff.length === allStaff.length"
                         @change="toggleAllStaff()"
                       >
-                      <span class="form-check-label lead">Sve</span>
+                      <span class="form-check-label lead">Označi sve</span>
                     </label>
                   </div>
                 </div>

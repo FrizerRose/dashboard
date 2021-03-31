@@ -2,7 +2,10 @@
   <div class="row">
     <div :class="editCustomerMode ? 'col-md-8' : 'col-md-4'">
       <div class="card">
-        <div class="card-header pb-1">
+        <div
+          v-if="customer.name"
+          class="card-header pb-1"
+        >
           <h3>
             {{ customer.name }}
           </h3>
@@ -44,14 +47,17 @@
         v-if="customerAppointments"
         class="card"
       >
-        <div class="card-header">
+        <div
+          v-if="customer.name"
+          class="card-header"
+        >
           <h5 class="card-title mb-0">
             Termini
           </h5>
         </div>
         <div class="card-body h-100">
           <div
-            v-if="attendedPercentage !== null"
+            v-if="customer.name && attendedPercentage !== null"
             class="position-relative"
           >
             <div class="progress override-place-in-alert">
@@ -99,7 +105,7 @@
             >
               <strong>{{ appointment.date }} - {{ appointment.time }} - {{ appointment.service.name }}</strong> <br>
             </li>
-            <p v-if="!customerAppointments.length">
+            <p v-if="customer.name && !customerAppointments.length">
               Klijent nema ugovorenih termina.
             </p>
           </ul>

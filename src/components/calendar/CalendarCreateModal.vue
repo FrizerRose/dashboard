@@ -21,7 +21,7 @@
                 for="id-calendar-create-slot-staff"
                 class="responsive-form-label w-100"
               >
-                <strong>Radnik</strong>
+                <span class="responsive-form-label__bolder">Radnik</span>
               </label>
               <select
                 v-if="services"
@@ -40,7 +40,7 @@
                 for="id-calendar-create-slot-service"
                 class="responsive-form-label w-100"
               >
-                <strong>Usluga</strong>
+                <span class="responsive-form-label__bolder">Usluga</span>
               </label>
               <select
                 v-if="services"
@@ -64,48 +64,48 @@
 
       <div class="px-4 py-4">
         <div class="container override-desktop-limit">
-          <div class="row">
-            <div class="col-md-12">
-              <ul
-                class="nav nav-tabs mb-4 mt-2"
-                role="tablist"
-              >
-                <li>
-                  <button
-                    :class="{
-                      'responsive-btn' : true,
-                      'btn-is-tab' : true,
-                      'selected' : !isCreateCustomer,
-                    }"
-                    role="tab"
-                    aria-selected="true"
-                    @click="changeIsCreateCustomer(false)"
-                  >
-                    Postojeći klijent
-                  </button>
-                </li>
-                <li>
-                  <button
-                    :class="{
-                      'responsive-btn' : true,
-                      'btn-is-tab' : true,
-                      'selected' : isCreateCustomer,
-                    }"
-                    role="tab"
-                    aria-selected="false"
-                    @click="changeIsCreateCustomer(true)"
-                  >
-                    Novi klijent
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div
-            v-if="isCreateCustomer"
-            class="novi-klijent"
+          <ul
+            class="nav nav-tabs mt-2"
+            role="tablist"
           >
+            <li>
+              <button
+                :class="{
+                  'responsive-btn' : true,
+                  'btn-is-tab' : true,
+                  'selected' : !isCreateCustomer,
+                }"
+                role="tab"
+                aria-selected="true"
+                @click="changeIsCreateCustomer(false)"
+              >
+                Postojeći klijent
+              </button>
+            </li>
+            <li>
+              <button
+                :class="{
+                  'responsive-btn' : true,
+                  'btn-is-tab' : true,
+                  'selected' : isCreateCustomer,
+                }"
+                role="tab"
+                aria-selected="false"
+                @click="changeIsCreateCustomer(true)"
+              >
+                Novi klijent
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        v-if="isCreateCustomer"
+        class="novi-klijent"
+      >
+        <div class="px-4 py-4 border-bottom">
+          <div class="container override-desktop-limit">
             <h5 class="modal-title h4 mb-4">
               Dodavanje novog klijenta
             </h5>
@@ -115,7 +115,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-name"
                 >
-                  <strong>Ime</strong>
+                  <span class="responsive-form-label__bolder">Ime</span>
                 </label>
                 <input
                   id="id-calendar-create-customer-name"
@@ -129,7 +129,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-email"
                 >
-                  <strong>E-mail</strong>
+                  <span class="responsive-form-label__bolder">E-mail</span>
                 </label>
                 <input
                   id="id-calendar-create-customer-email"
@@ -143,7 +143,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-phone"
                 >
-                  <strong>Mobitel</strong>
+                  <span class="responsive-form-label__bolder">Mobitel</span>
                 </label>
                 <input
                   id="id-calendar-create-customer-phone"
@@ -152,12 +152,19 @@
                   class="form-control responsive-form-control"
                 >
               </div>
-              <div class="col-md-12 mb-4">
+            </div>
+          </div>
+        </div>
+
+        <div class="px-4 py-4 border-bottom">
+          <div class="container override-desktop-limit">
+            <div class="row">
+              <div class="col-md-6 mb-4">
                 <label
                   class="responsive-form-label"
                   for="id-calendar-create-customer-notice"
                 >
-                  <strong>Bilješke o klijentu</strong>
+                  <span class="responsive-form-label__bolder">Bilješke o klijentu</span>
                 </label>
                 <textarea
                   id="id-calendar-create-customer-notice"
@@ -165,11 +172,13 @@
                   class="form-control responsive-form-control"
                   rows="4"
                 />
+              </div>
+              <div class="col-md-6 mb-4">
                 <label
                   class="responsive-form-label"
                   for="id-calendar-create-appointment-notice"
                 >
-                  <strong>Napomena o terminu</strong>
+                  <span class="responsive-form-label__bolder">Napomena o terminu</span>
                 </label>
                 <textarea
                   id="id-calendar-create-appointment-notice"
@@ -180,10 +189,15 @@
               </div>
             </div>
           </div>
-          <div
-            v-else
-            class="postojeci-klijent"
-          >
+        </div>
+      </div>
+
+      <div
+        v-else
+        class="postojeci-klijent"
+      >
+        <div class="px-4 py-4 border-bottom">
+          <div class="container override-desktop-limit">
             <h5 class="modal-title h4 mb-4">
               Odabir postojećeg klijenta
             </h5>
@@ -193,7 +207,7 @@
                   class="responsive-form-label"
                   for="id-calendar-create-customer-name"
                 >
-                  <strong>Ime klijenta</strong>
+                  <span class="responsive-form-label__bolder">Ime klijenta</span>
                 </label>
                 <input
                   id="oldCustomerName"
@@ -205,27 +219,47 @@
                   class="form-control responsive-form-control"
                   @input="oldCustomerInputChange()"
                 >
-                <div class="search-results__items">
-                  <div v-if="!oldCustomerCandidates.length && oldCustomerName">
-                    Nema pronadjenih klijenata kojima ime počinje sa "{{ oldCustomerName }}"
-                  </div>
-                  <button
-                    v-for="candidate in oldCustomerCandidates"
-                    :key="candidate.id"
-                    class="btn search-results__match"
-                    :value="candidate"
-                    @click="selectOldCustomer(candidate)"
-                  >
-                    {{ candidate.name }}
-                  </button>
-                  <div v-if="oldCustomerCandidates.length === 10">
-                    Prikazano 10 klijenata kojima ime počinje sa "{{ oldCustomerName }}"
+
+                <div v-if="!oldCustomerCandidates.length && oldCustomerName">
+                  <div class="search-results__items">
+                    <div class="alert alert-warning">
+                      <div class="alert-message">
+                        Nema pronađenih klijenata kojima ime počinje sa "{{ oldCustomerName }}"
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                <div v-if="oldCustomerCandidates.length">
+                  <div class="search-results__items">
+                    <button
+                      v-for="candidate in oldCustomerCandidates"
+                      :key="candidate.id"
+                      class="btn search-results__match"
+                      :value="candidate"
+                      @click="selectOldCustomer(candidate)"
+                    >
+                      {{ candidate.name }}
+                    </button>
+                  </div>
+                </div>
+
+                <div v-if="oldCustomerCandidates.length === 10">
+                  <div class="search-results__items">
+                    <div class="alert alert-info">
+                      <div class="alert-message">
+                        Prikazano 10 klijenata kojima ime počinje sa "{{ oldCustomerName }}"
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div v-if="creationCustomer.name">
-                  <div class="alert alert-success">
-                    <div class="alert-message">
-                      Odabrani klijent: <strong>{{ creationCustomer.name }}</strong>
+                  <div class="search-results__items">
+                    <div class="alert alert-success">
+                      <div class="alert-message">
+                        Odabrani klijent: <span class="responsive-form-label__bolder">{{ creationCustomer.name }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -234,7 +268,7 @@
                 v-if="requestSent && !status"
                 class="text-danger"
               >
-                Rezervacija nije uspjela. Pokušajte ponovno. Ako ste sigurni da su unešeni podaci ispravni, javite se korisničkoj podršci.
+                Rezervacija nije uspjela. Pokušajte ponovno. Ako ste sigurni da su uneseni podaci ispravni, javite se korisničkoj podršci.
               </p>
             </div>
           </div>
@@ -410,7 +444,10 @@ export default defineComponent({
 .search-results__match {
   display: block;
   background-color: var(--bs-light);
-  border: 2px solid white;
+  border: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0.25em;
   color: black;
 }
 

@@ -6,27 +6,22 @@
     <div class="sidebar-content">
       <router-link
         to="/"
-        class="sidebar-brand"
+        class="sidebar-logo"
       >
         <svg
-          width="256"
-          height="256"
-          viewBox="0 0 256 256"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M167.111 128c0 23.564-19.102 42.667-42.667 42.667-23.564 0-42.666-19.103-42.666-42.667s19.102-42.667
-            42.666-42.667c23.565 0 42.667 19.103 42.667 42.667z"
-          />
-          <path
             fill-rule="evenodd"
             clip-rule="evenodd"
-            d="M256 128c0 70.692-57.308 128-128 128H0V0h128c70.692 0 128 57.307 128 128zm-128 85.333c47.128 0
-            85.333-38.205 85.333-85.333S175.128 42.667 128 42.667H42.667v170.666H128z"
+            d="M12 24c6.627 0 12-5.373 12-12S18.627 0 12 0H0v24h12zm0-6a6 6 0 100-12 6 6 0 000 12z"
           />
         </svg>
-        <span class="align-middle me-3"> Dolazim.hr</span>
+        <span class="align-middle">Dolazim.hr</span>
       </router-link>
     </div>
     <ul
@@ -68,16 +63,6 @@
           :node="node"
           :submenu-show="submenuShow"
         />
-      </li>
-      <li class="sidebar-item">
-        <span class="sidebar-link">
-          <router-link
-            to="/qr-kod"
-            class="btn responsive-btn btn-secondary w-100"
-          >
-            Prikaži QR Kod
-          </router-link>
-        </span>
       </li>
     </ul>
   </nav>

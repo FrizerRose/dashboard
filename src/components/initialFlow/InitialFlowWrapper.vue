@@ -57,7 +57,7 @@ export default defineComponent({
       },
       {
         id: 'radnici-menu',
-        text: 'Na lijevoj stranic ekrana nalazi se menu. Pod Radnici možete dodati nove ili promjeniti postojeće radnike.',
+        text: 'Na lijevoj strani ekrana nalazi se izbornik. Pod "Radnici" možete dodati nove ili promijeniti postojeće radnike.',
         attachTo: {
           element: '#menu-Radnici',
           on: 'right-end',
@@ -92,7 +92,7 @@ export default defineComponent({
       },
       {
         id: 'usluge-menu',
-        text: 'Klikom na Usluge možete dodati nove ili promjeniti postojeće usluge.',
+        text: 'Klikom na "Usluge" možete dodati nove ili promijeniti postojeće usluge.',
         attachTo: {
           element: '#menu-Usluge',
           on: 'right-end',

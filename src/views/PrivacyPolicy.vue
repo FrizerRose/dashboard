@@ -53,11 +53,11 @@
             </ul>
           </p>
 
-          <p>
+          <!-- <p>
             <router-link to="/kontakt">
               placeholder link
             </router-link>
-          </p>
+          </p> -->
         </div>
       </main>
     </template>

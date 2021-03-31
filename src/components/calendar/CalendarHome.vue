@@ -3,6 +3,42 @@
     <div class="card-body py-4">
       <div class="d-flex align-items-start">
         <div class="flex-grow-1">
+          <div
+            id="fullcalendar-custom"
+            class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"
+          >
+            <div class="fc-header-toolbar fc-toolbar ">
+              <div class="fc-toolbar-chunk">
+                <h2 class="fc-toolbar-title">
+                  {{ headerTitle }}
+                </h2>
+              </div>
+              <div class="fc-toolbar-chunk" />
+              <div class="fc-toolbar-chunk">
+                <button
+                  class="fc-today-button btn btn-primary"
+                  type="button"
+                  @click="fetchToday()"
+                >
+                  Danas
+                </button>
+                <div class="btn-group">
+                  <button
+                    class="fc-prev-button btn btn-primary"
+                    @click="fetchPrev()"
+                  >
+                    <span class="fa fa-chevron-left" />
+                  </button>
+                  <button
+                    class="fc-next-button btn btn-primary"
+                    @click="fetchNext()"
+                  >
+                    <span class="fa fa-chevron-right" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div id="fullcalendar" />
         </div>
       </div>
@@ -29,6 +65,7 @@ export default defineComponent({
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const reservedAppointments = computed(() => store.state.shared.reservedAppointments);
     const isMobile = computed(() => store.state.shared.isMobile);
+    const headerTitle = ref('');
 
     const selectedDate = ref(new Date());
 
@@ -76,7 +113,7 @@ export default defineComponent({
           initialView: 'listDay',
           selectable: !isMobile.value,
           contentHeight: isMobile.value ? (window.innerHeight * 0.7) : 800,
-          // headerToolbar: false,
+          headerToolbar: false,
           nowIndicator: true,
           stickyHeaderDates: true,
           locale: hrLocale,
@@ -87,6 +124,8 @@ export default defineComponent({
           // height: 'auto',
           themeSystem: 'bootstrap',
         });
+
+        headerTitle.value = calendar.value.view.title;
 
         // Updates calendar events
         watch(
@@ -135,12 +174,23 @@ export default defineComponent({
     }
 
     function fetchPrev() {
+      calendar.value.prev();
+      headerTitle.value = calendar.value.view.title;
       selectedDate.value.setDate(selectedDate.value.getDate() - 1);
       fetchNewAppointments();
     }
 
     function fetchNext() {
+      calendar.value.next();
+      headerTitle.value = calendar.value.view.title;
       selectedDate.value.setDate(selectedDate.value.getDate() + 1);
+      fetchNewAppointments();
+    }
+
+    function fetchToday() {
+      calendar.value.today();
+      headerTitle.value = calendar.value.view.title;
+      selectedDate.value.setDate(new Date().getDate());
       fetchNewAppointments();
     }
 
@@ -149,6 +199,9 @@ export default defineComponent({
       reservedAppointments,
       fetchPrev,
       fetchNext,
+      fetchToday,
+      selectedDate,
+      headerTitle,
     };
   },
 });

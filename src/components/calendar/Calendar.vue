@@ -154,6 +154,13 @@ export default defineComponent({
     }
 
     const formattedAppointments = computed(() => reservedAppointments.value.map((appointment) => {
+      let date: string;
+      if (appointment.date.charAt(appointment.date.length - 2) === '-') {
+        date = `${appointment.date.substring(0, 8)}0${appointment.date.substring(8)}`;
+      } else {
+        date = appointment.date;
+      }
+
       let time: string;
       if (appointment.time.charAt(1) === ':') {
         time = `0${appointment.time}`;
@@ -161,7 +168,7 @@ export default defineComponent({
         time = appointment.time;
       }
 
-      let timeString = `${appointment.date}T${time}`;
+      let timeString = `${date}T${time}`;
       if (timeString.slice(-2) === ':0') {
         timeString += '0';
       }
@@ -389,13 +396,13 @@ export default defineComponent({
       calendar.value.changeView('listWeek');
     }
 
-    const today = new Date(); // get current date
-    const firstDayOfWeek = today.getDate() - today.getDay() + 1; // First day is the day of the month - the day of the week
-    const lastDayOfWeek = firstDayOfWeek + 6; // last day is the first day + 6
+    const today = new Date();
+    const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+    const lastDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 6));
 
     fetchSelectedWorkerAppointments({
-      start: getDateStringFromDate(new Date(today.setDate(firstDayOfWeek))),
-      end: getDateStringFromDate(new Date(today.setDate(lastDayOfWeek))),
+      start: getDateStringFromDate(firstDayOfWeek),
+      end: getDateStringFromDate(lastDayOfWeek),
     });
 
     return {

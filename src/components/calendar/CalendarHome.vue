@@ -18,6 +18,7 @@
                 <button
                   class="fc-today-button btn btn-primary"
                   type="button"
+                  :disabled="today.getTime() === selectedDate.getTime()"
                   @click="fetchToday()"
                 >
                   Danas
@@ -68,6 +69,7 @@ export default defineComponent({
     const headerTitle = ref('');
 
     const selectedDate = ref(new Date());
+    const today = new Date();
 
     const calendar = ref({} as Calendar);
 
@@ -201,6 +203,7 @@ export default defineComponent({
       fetchNext,
       fetchToday,
       selectedDate,
+      today,
       headerTitle,
     };
   },

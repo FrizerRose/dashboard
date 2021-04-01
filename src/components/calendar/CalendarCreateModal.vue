@@ -220,7 +220,7 @@
                   @input="oldCustomerInputChange()"
                 >
 
-                <div v-if="!oldCustomerCandidates.length && oldCustomerName">
+                <div v-if="!oldCustomerCandidates.length && oldCustomerName && !creationCustomer.name">
                   <div class="search-results__items">
                     <div class="alert alert-warning">
                       <div class="alert-message">

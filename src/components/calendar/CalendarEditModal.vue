@@ -248,6 +248,7 @@ import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
 import Customer from '@/types/customer';
 import { getTimeOptions, formatDateString, getDateStringFromDate } from '@/helpers/time';
+import Service from '@/types/service';
 
 export default defineComponent({
   components: {
@@ -260,7 +261,6 @@ export default defineComponent({
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const selectedAppointment = computed(() => store.state.shared.selectedAppointment);
 
-    const rescheduledService = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.service)));
     const rescheduledStaff = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.staff)));
     const rescheduledDateTime = ref(JSON.parse(JSON.stringify({
       date: selectedAppointment.value?.date,
@@ -268,7 +268,10 @@ export default defineComponent({
     })));
     const rescheduledNotice = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.message)));
     const rescheduledCustomer = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.customer || {} as Customer)));
-    const rescheduledStaffServices = computed(() => rescheduledStaff.value.services);
+    const rescheduledStaffServices = computed(() => rescheduledStaff.value.services as Service[]);
+    const rescheduledService = ref(JSON.parse(JSON.stringify(
+      rescheduledStaffServices.value.find((service) => selectedAppointment.value?.service.id === service.id),
+    )) as Service);
     const hasCustomerArrived = ref(JSON.parse(JSON.stringify(selectedAppointment.value?.hasCustomerArrived)));
     const rescheduleStatus = ref(false);
     const rescheduleRequestSent = ref(false);
@@ -328,7 +331,7 @@ export default defineComponent({
         throw new Error();
       }
 
-      cancel(true);
+      // cancel(true);
 
       try {
         let customerObject = {};
@@ -345,6 +348,7 @@ export default defineComponent({
         if (createdCustomer) {
           let appointmentObject = {};
           appointmentObject = {
+            id: selectedAppointment.value?.id,
             date: formatDateString(rescheduledDateTime.value.date),
             time: rescheduledDateTime.value.time,
             company: selectedCompany.value?.id,
@@ -352,9 +356,10 @@ export default defineComponent({
             service: rescheduledService.value.id,
             customer: createdCustomer.id,
             message: rescheduledNotice.value,
+            hasCustomerArrived: selectedAppointment.value?.hasCustomerArrived,
           };
 
-          await store.dispatch(ActionTypes.CREATE_APPOINTMENT, appointmentObject);
+          await store.dispatch(ActionTypes.UPDATE_APPOINTMENT, appointmentObject);
           store.commit(MutationTypes.CHANGE_SELECTED_SERVICE, rescheduledService.value);
 
           rescheduleRequestSent.value = true;

@@ -32,6 +32,7 @@
             </li>
           </ul>
           <button
+            v-if="customer.name"
             class="btn responsive-btn "
             :class="editCustomerMode ? 'btn-secondary' : 'btn-primary'"
             @click="editCustomerMode = !editCustomerMode"

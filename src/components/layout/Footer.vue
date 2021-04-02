@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer class="footer">
+    <footer class="footer hide-button-on-mobile">
       <div class="container-fluid">
         <div class="row text-muted align-items-center">
           <div class="col-md-9">
@@ -56,6 +56,10 @@
 </template>
 
 <style lang="scss" scoped>
+.hide-button-on-mobile {
+  z-index: -1;
+  position: relative;
+}
 .round-button-wrap {
   position: relative;
   z-index: 1;

@@ -8,7 +8,7 @@
         <div class="container-fluid p-0">
           <div class="row">
             <div class="col-12 col-md-6 col-xxl-8">
-              <div class="card alert-primary">
+              <div class="hide-on-mobile card alert-primary">
                 <div class="card-header pb-0 alert-primary">
                   <h5 class="card-title">
                     Tutorial
@@ -16,10 +16,7 @@
                 </div>
                 <div class="card-body">
                   <p>Ponovo pokrenite tutorial da vas provede kroz stranicu.</p>
-                  <div
-                    style="display: none;"
-                    class="text-end"
-                  >
+                  <div class="text-end">
                     <button
                       class="btn responsive-btn btn-primary mt-4"
                       @click="restartTutorial()"
@@ -29,8 +26,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-12 col-md-6 col-xxl-4">
               <div class="card">
                 <div class="card-header pb-0 help-header">
                   <h5 class="card-title">
@@ -49,6 +44,8 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="col-12 col-md-6 col-xxl-4">
               <div class="card">
                 <div class="card-header pb-0 help-header">
                   <h5 class="card-title">
@@ -102,3 +99,11 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.hide-on-mobile {
+  @media (max-width: 991px) {
+    display: none;
+  }
+}
+</style>

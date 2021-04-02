@@ -29,10 +29,10 @@
         <div class="my-4 h4">
           <div class="container override-desktop-limit">
             Podatci koje unesete u ova polja će biti prikazani na stranici Vašeg poslovnog subjekta <a
-              href="{-- https://tresnja.dolazim.hr/ --}"
+              :href="'https://' + formData.bookingPageSlug + '.dolazim.hr'"
               rel="noopener noreferrer"
               target="_blank"
-            >{-- https://tresnja.dolazim.hr/ --}</a> kako bi Vas klijenti mogli kontaktirati
+            >https://{{ formData.bookingPageSlug }}.dolazim.hr</a> kako bi Vas klijenti mogli kontaktirati
           </div>
         </div>
       </div>

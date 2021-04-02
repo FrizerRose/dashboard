@@ -16,7 +16,10 @@
                 </div>
                 <div class="card-body">
                   <p>Ponovo pokrenite tutorial da vas provede kroz stranicu.</p>
-                  <div class="text-end">
+                  <div
+                    style="display: none;"
+                    class="text-end"
+                  >
                     <button
                       class="btn responsive-btn btn-primary mt-4"
                       @click="restartTutorial()"

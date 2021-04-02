@@ -273,7 +273,7 @@
             </div>
             <div class="col-12 col-md-4 col-xl-6">
               <label class="responsive-form-label w-100 mb-0 mt-2">
-                Nakon što promijenite poddomenu trebat ćete se ponovo ulogirati
+                Nakon što promijenite poddomenu trebat ćete se ponovo ulogirati. Poddomena mora biti jedinstvena.
               </label>
             </div>
           </div>

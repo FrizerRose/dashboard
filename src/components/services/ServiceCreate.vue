@@ -115,6 +115,30 @@
                 </option>
               </select>
             </div>
+            <div class="col-md-4 mb-4">
+              <label
+                class="responsive-form-label w-100 mt-2"
+                for="id-add-service-duration"
+              >
+                <span class="responsive-form-label__bolder">Prikazano za</span>
+              </label>
+              <select
+                id="id-add-service-duration"
+                v-model="newService.sex"
+                class="form-control responsive-form-control"
+                name="add-service-duration"
+              >
+                <option value="female">
+                  Za žene
+                </option>
+                <option value="male">
+                  Za muškarce
+                </option>
+                <option value="both">
+                  Svejedno
+                </option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -228,6 +252,7 @@ export default defineComponent({
     const newService = reactive({
       name: '',
       price: 0,
+      sex: 'both',
       duration: 30,
       company: selectedCompany.value?.id,
       staff: [] as Staff[],
@@ -263,6 +288,7 @@ export default defineComponent({
           status.value = true;
           newService.name = '';
           newService.price = 0;
+          newService.sex = 'both';
           newService.duration = 0;
           closeServiceCreateModal();
         } catch {

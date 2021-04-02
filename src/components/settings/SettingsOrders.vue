@@ -214,6 +214,26 @@
             </div>
           </div>
         </div>
+        <div class="mt-4 mb-6">
+          <div class="row flex-row-reverse">
+            <div class="col-12 col-sm-6">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.preferences.hasSexPick"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label">Klijenti mogu birati da li žele usluge za muškarce, žene, ili im je svejedno.</span>
+              </label>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label class="responsive-form-label w-100 mb-0 mt-2">
+                Označite ako želite da u procesu naručivanja klijenti mogu odabrati da li žele usluge za muškarce, žene, ili im je svejedno.
+                Ako ne označite, prikazati će im se sve usluge.
+              </label>
+            </div>
+          </div>
+        </div>
         <div class="my-4">
           <div class="row flex-row-reverse">
             <div class="col-12 col-sm-6">

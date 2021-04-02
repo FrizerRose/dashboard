@@ -62,75 +62,105 @@
               </div>
             </div>
           </div>
-          <div class="usluga-trajanje">
+          <div class="usluga-sex">
             <div class="mb-4">
               <label
                 for="id-edit-service-duration"
                 class="responsive-form-label w-100 mt-2"
               >
-                <span class="responsive-form-label__bolder">Trajanje Usluge</span>
+                <span class="responsive-form-label__bolder">Prikazano za</span>
                 <br>
-                Ovdje možete promijeniti trajanje usluge (min)
+                Ovdje možete promijeniti da li se usluga prikazuje za žene, muškarce, ili je svejedno
               </label>
               <div class="d-flex align-items-baseline">
                 <select
                   id="id-edit-service-duration"
-                  v-model="formData.duration"
+                  v-model="formData.sex"
                   class="form-control responsive-form-control"
                   name="edit-service-duration"
                 >
-                  <option value="15">
-                    15
+                  <option value="both">
+                    Svejedno
                   </option>
-                  <option value="30">
-                    30
+                  <option value="female">
+                    Za žene
                   </option>
-                  <option value="45">
-                    45
-                  </option>
-                  <option value="60">
-                    60
-                  </option>
-                  <option value="75">
-                    75
-                  </option>
-                  <option value="90">
-                    90
-                  </option>
-                  <option value="105">
-                    105
-                  </option>
-                  <option value="120">
-                    120
-                  </option>
-                  <option value="135">
-                    135
-                  </option>
-                  <option value="150">
-                    150
-                  </option>
-                  <option value="165">
-                    165
-                  </option>
-                  <option value="180">
-                    180
-                  </option>
-                  <option value="195">
-                    195
-                  </option>
-                  <option value="210">
-                    210
-                  </option>
-                  <option value="225">
-                    225
-                  </option>
-                  <option value="240">
-                    240
+                  <option value="male">
+                    Za muškarce
                   </option>
                 </select>
-                <span class="ms-2">min</span>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="usluga-trajanje">
+        <div class="mb-4">
+          <label
+            for="id-edit-service-duration"
+            class="responsive-form-label w-100 mt-2"
+          >
+            <span class="responsive-form-label__bolder">Trajanje Usluge</span>
+            <br>
+            Ovdje možete promijeniti trajanje usluge (min)
+          </label>
+          <div class="d-flex align-items-baseline">
+            <select
+              id="id-edit-service-duration"
+              v-model="formData.duration"
+              class="form-control responsive-form-control"
+              name="edit-service-duration"
+            >
+              <option value="15">
+                15
+              </option>
+              <option value="30">
+                30
+              </option>
+              <option value="45">
+                45
+              </option>
+              <option value="60">
+                60
+              </option>
+              <option value="75">
+                75
+              </option>
+              <option value="90">
+                90
+              </option>
+              <option value="105">
+                105
+              </option>
+              <option value="120">
+                120
+              </option>
+              <option value="135">
+                135
+              </option>
+              <option value="150">
+                150
+              </option>
+              <option value="165">
+                165
+              </option>
+              <option value="180">
+                180
+              </option>
+              <option value="195">
+                195
+              </option>
+              <option value="210">
+                210
+              </option>
+              <option value="225">
+                225
+              </option>
+              <option value="240">
+                240
+              </option>
+            </select>
+            <span class="ms-2">min</span>
           </div>
         </div>
       </div>

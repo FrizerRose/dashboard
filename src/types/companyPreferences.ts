@@ -7,6 +7,7 @@ type CompanyPreferences = {
   instagramLink: string;
   websiteLink: string;
   termsLink: string;
+  hasSexPick: boolean;
   hasStaffPick: boolean;
   colorVariant: string;
   hasPattern: boolean;

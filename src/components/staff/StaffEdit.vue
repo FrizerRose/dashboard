@@ -98,7 +98,7 @@
                         >
                         <label
                           for="id-file"
-                          class="btn responsive-btn btn-primary"
+                          class="btn responsive-btn btn-input-label-wrap btn-primary"
                         >
                           {{ inputFileText }}
                         </label>

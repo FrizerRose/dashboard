@@ -111,7 +111,7 @@
                 >
                 <label
                   for="id-file"
-                  class="btn responsive-btn btn-primary mt-4 mb-4"
+                  class="btn responsive-btn btn-input-label-wrap btn-primary mt-4 mb-4"
                 >
                   {{ inputFileText }}
                 </label>

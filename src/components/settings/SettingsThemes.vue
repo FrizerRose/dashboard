@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="hidden"
+    <!-- <div
       class="izgled-interaktivno mb-4 text-end"
     >
       <button
@@ -16,7 +15,7 @@
       >
         Spremi
       </button>
-    </div>
+    </div> -->
 
     <div
       v-if="requestSent && !status"
@@ -28,17 +27,17 @@
     </div>
 
     <div class="izgled-dark-mode">
-      <div class="mt-4 border-top border-bottom">
+      <div class="mt-4 border-top">
         <div class="my-4">
           <div class="row flex-row-reverse">
             <div class="col-12 col-sm-6">
               <label class="form-check m-0">
                 <input
-                  v-model="formData.preferences.darkMode"
+                  v-model="formData.preferences.hasDarkMode"
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">HARDKODIRANO Koristi dark mode</span>
+                <span class="form-check-label">Koristi dark mode</span>
               </label>
             </div>
 
@@ -48,6 +47,34 @@
                 for="id-rules"
               >
                 Označite "Dark mode" ako želite da pozadina stranice bude crna. Ostavite neoznačeno za svjetlu pozadinu.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="izgled-pattern">
+      <div class="mt-4 border-top border-bottom">
+        <div class="my-4">
+          <div class="row flex-row-reverse">
+            <div class="col-12 col-sm-6">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.preferences.hasPattern"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label">Koristi zigzag uzorak</span>
+              </label>
+            </div>
+
+            <div class="col-12 col-sm-6">
+              <label
+                class="responsive-form-label w-100 mb-0 mt-2"
+                for="id-rules"
+              >
+                Označite "zigzag" uzorak ako ga želite u pozadini stranice. Ostavite neoznačeno za praznu pozadinu.
               </label>
             </div>
           </div>

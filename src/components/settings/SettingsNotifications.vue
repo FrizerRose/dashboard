@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="hidden"
+    <!-- <div
       class="notifikacije-interaktivno mb-4 text-end"
     >
       <button
@@ -16,7 +15,7 @@
       >
         Spremi
       </button>
-    </div>
+    </div> -->
 
     <div
       v-if="requestSent && !status"

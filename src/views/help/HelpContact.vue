@@ -44,7 +44,13 @@
               </div>
               <div class="text-end">
                 <button
-                  class="btn responsive-btn btn-primary"
+                  :class="{
+                    btn: true,
+                    'responsive-btn': true,
+                    'btn-primary': !requestSent,
+                    'btn-success': requestSent && status,
+                    'btn-danger': requestSent && !status,
+                  }"
                   @click="send()"
                 >
                   Pošalji
@@ -76,23 +82,31 @@ export default defineComponent({
       email: '', body: '', name: '', company: 0,
     });
 
+    const status = ref(false);
+    const requestSent = ref(false);
+
     async function send() {
       try {
         if (selectedCompany.value) {
           formData.value.company = selectedCompany.value.id;
           formData.value.name = selectedCompany.value.name;
           await store.dispatch(ActionTypes.SEND_CONTACT, formData.value);
+          requestSent.value = true;
+          status.value = true;
         } else {
           throw new Error('Company did not load.');
         }
       } catch {
-        console.log('Failed sending contact.');
+        requestSent.value = true;
+        status.value = false;
       }
     }
 
     return {
       formData,
       send,
+      requestSent,
+      status,
     };
   },
 });

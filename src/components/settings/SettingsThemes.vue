@@ -83,7 +83,7 @@
     </div>
 
     <div class="izgled-pattern">
-      <div class="mt-4 border-top border-bottom">
+      <div class="mt-4 border-bottom">
         <div class="my-4">
           <div class="row flex-row-reverse">
             <div class="col-12 col-sm-6">

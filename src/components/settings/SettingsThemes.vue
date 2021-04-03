@@ -82,6 +82,35 @@
       </div>
     </div>
 
+    <div class="izgled-pattern">
+      <div class="mt-4 border-top border-bottom">
+        <div class="my-4">
+          <div class="row flex-row-reverse">
+            <div class="col-12 col-sm-6">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.preferences.hasBorders"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label">Prikaži obrub oko elemenata</span>
+              </label>
+            </div>
+
+            <div class="col-12 col-sm-6">
+              <label
+                class="responsive-form-label w-100 mb-0 mt-2"
+                for="id-rules"
+              >
+                Odabirom obruba prikazat će se tanka crta oko glavnih elemenata.
+                Njena svrha je da uokviriti elemente kako bi se istaknuli od pozadine.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="izgled-boja">
       <div class="border-bottom">
         <div class="mt-4 mb-5">

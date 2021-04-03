@@ -12,6 +12,7 @@ type CompanyPreferences = {
   colorVariant: string;
   hasPattern: boolean;
   hasDarkTheme: boolean;
+  hasBorders: boolean;
   canCancel: boolean;
   clientReminderEmail: boolean;
   staffReminderEmail: boolean;

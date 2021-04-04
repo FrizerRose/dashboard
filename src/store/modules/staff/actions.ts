@@ -124,7 +124,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
       try {
         const randomPassword = Math.random().toString(36).substr(2, 8) + Date.now();
         const response = await authService.create({
-          name: staff.name, email: staff.email, isAdminAccount: false, password: randomPassword,
+          name: staff.name, email: staff.email, isAdminAccount: false, password: randomPassword, company: staff.company,
         });
         if (response.status === 201 && response.data?.user) {
           resolve(response.data.user);

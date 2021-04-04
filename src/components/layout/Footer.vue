@@ -57,8 +57,10 @@
 
 <style lang="scss" scoped>
 .hide-button-on-mobile {
-  z-index: -1;
-  position: relative;
+  @media (max-width: 576px) {
+    z-index: -1;
+    position: relative;
+  }
 }
 .round-button-wrap {
   position: relative;
@@ -67,7 +69,7 @@
 }
 .round-button {
   display: block;
-  border: 2px solid rgba(0,0,0,0.05);
+  border: 2px solid rgba(0, 0, 0, 0.05);
   border-radius: 9999px;
   width: 3rem;
   overflow: hidden;
@@ -129,15 +131,15 @@
     display: block;
     padding-bottom: 100%; /* [1] */
     width: 100%;
-    content: "";
+    content: '';
   }
 }
 
 .o-ratio_content,
-  .o-ratio > img,
-  .o-ratio > iframe,
-  .o-ratio > embed,
-  .o-ratio > object {
+.o-ratio > img,
+.o-ratio > iframe,
+.o-ratio > embed,
+.o-ratio > object {
   position: absolute;
   top: 0;
   bottom: 0;

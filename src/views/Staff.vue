@@ -11,6 +11,7 @@
         <div class="container-fluid p-0">
           <div class="text-end mb-3">
             <button
+              id="staffCreateButton"
               class="btn responsive-btn btn-primary"
               @click="openStaffCreateModal()"
             >
@@ -43,6 +44,7 @@
                           Ime
                         </th>
                         <th
+                          id="staffTableEdit"
                           scope="col"
                           style="width:10%; text-align: center;"
                         >
@@ -60,7 +62,7 @@
                       <tr
                         v-for="(worker, index) in staff"
                         :key="index"
-                        :class="{'nav-item': true, 'active': selectedWorker === worker.id}"
+                        :class="{ 'nav-item': true, active: selectedWorker === worker.id }"
                       >
                         <td>
                           <div
@@ -75,17 +77,17 @@
                             >
                           </div>
                         </td>
-                        <td> {{ worker.name }}</td>
+                        <td>{{ worker.name }}</td>
                         <td style="text-align: center;">
                           <a
                             :class="{
-                              'btn': true,
+                              btn: true,
                               'responsive-btn': true,
                               'btn-outline-secondary': true,
-                              'active': selectedWorker === worker.id
+                              active: selectedWorker === worker.id,
                             }"
                             :href="'#tab-' + worker.id"
-                            @click="openStaffEditModal(worker);"
+                            @click="openStaffEditModal(worker)"
                           >
                             <span class="fa fa-pen" />
                           </a>
@@ -114,7 +116,7 @@
             v-for="worker in staff"
             :id="'tab-' + worker.id"
             :key="worker.id"
-            :class="{'tab-pane': true, 'active': selectedWorker === worker.id}"
+            :class="{ 'tab-pane': true, active: selectedWorker === worker.id }"
             role="tabpanel"
           >
             <StaffEdit
@@ -129,9 +131,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed, defineComponent, ref,
-} from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { useStore } from '@/store';
 import Dashboard from '@/components/layout/Dashboard.vue';
 import StaffEdit from '@/components/staff/StaffEdit.vue';

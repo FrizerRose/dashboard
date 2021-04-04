@@ -11,6 +11,7 @@
         <div class="container-fluid p-0">
           <div class="text-end mb-3">
             <button
+              id="serviceAddButton"
               class="btn responsive-btn btn-primary"
               @click="openServiceCreateModal()"
             >
@@ -37,6 +38,7 @@
                           Ime
                         </th>
                         <th
+                          id="serviceTableEdit"
                           scope="col"
                           style="width:10%; text-align: center;"
                         >

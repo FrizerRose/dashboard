@@ -2,11 +2,9 @@
   <div />
 </template>
 
-<script lang='ts'>
-import {
-  computed,
-  defineComponent,
-} from 'vue';
+<script lang="ts">
+import { computed, defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
@@ -15,6 +13,7 @@ import Shepherd from 'shepherd.js';
 export default defineComponent({
   setup(): void {
     const store = useStore();
+    const router = useRouter();
 
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
 
@@ -39,14 +38,84 @@ export default defineComponent({
       }
     }
 
+    // function redirectTo(route: string) {
+    //   router.push(route);
+    //   // tour.next;
+    // }
+
     tour.addSteps([
       {
-        id: 'example-step',
-        text: 'Dobrodošli u Frizerrose! Krenimo u turu proizvoda.',
-        classes: 'example-step-extra-class',
+        id: 'first-step',
+        text: 'Dobrodošli na Dolazim.hr! Krenimo u kratku turu našeg proizvoda kako bi vas upoznali sa svim značajkama.',
         buttons: [
           {
-            text: 'Sljedeći',
+            text: 'Sljedeći korak',
+            action: tour.next,
+          },
+          {
+            text: 'Završi tutorial',
+            action: finishTutorial,
+          },
+        ],
+      },
+      {
+        id: 'kalendar-menu',
+        text: 'Ovdje se nalazi Kalendar. U Kalendaru možete vidjeti sve svoje termine, dodati nove ili urediti postojeće. ',
+        attachTo: {
+          element: '#menu-Kalendar',
+          on: 'right-end',
+        },
+        buttons: [
+          {
+            text: 'Krenimo na kalendar',
+            action: () => {
+              router.push('kalendar');
+              tour.next();
+            },
+          },
+          {
+            text: 'Završi tutorial',
+            action: finishTutorial,
+          },
+        ],
+      },
+      {
+        id: 'kalendar-step-1',
+        text:
+          'Klikom na jedan od dostupnih termina, ili jednostavno vremena u danu otvara se izbornik za dodavanje ili uređivanje termina. ',
+        attachTo: {
+          element: '#fullcalendar',
+          on: 'top',
+        },
+        beforeShowPromise() {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+            }, 300);
+          });
+        },
+
+        buttons: [
+          {
+            text: 'Sljedeći korak',
+            action: tour.next,
+          },
+          {
+            text: 'Završi tutorial',
+            action: finishTutorial,
+          },
+        ],
+      },
+      {
+        id: 'kalendar-step-2',
+        text: 'Ovdje se nalazi izbornik za odabir djelatnika. Za svakog unesenog djelatnika možete vidjeti njegov plan rada.',
+        attachTo: {
+          element: '#selectedWorker',
+          on: 'top',
+        },
+        buttons: [
+          {
+            text: 'Sljedeći korak',
             action: tour.next,
           },
           {
@@ -57,13 +126,19 @@ export default defineComponent({
       },
       {
         id: 'radnici-menu',
-        text: 'Na lijevoj strani ekrana nalazi se izbornik. Pod "Radnici" možete dodati nove ili promijeniti postojeće radnike.',
+        text: 'Pod "Radnici" možete dodati nove ili promijeniti postojeće radnike.',
         attachTo: {
           element: '#menu-Radnici',
           on: 'right-end',
         },
-        classes: 'example-step-extra-class',
         buttons: [
+          {
+            text: 'Krenimo na radnike',
+            action: () => {
+              router.push('radnici');
+              tour.next();
+            },
+          },
           {
             text: 'Završi tutorial',
             action: finishTutorial,
@@ -72,15 +147,40 @@ export default defineComponent({
       },
       {
         id: 'radnici-add',
-        text: 'Pokušajte dodati novog radnika. Kada ste spremni, nastavite na sljedeći korak.',
+        text: 'Ovdje možete dodati novog radnika, kada ste spremni, nastavite s dodavanjem.',
         attachTo: {
-          element: '#staffContainer',
+          element: '#staffCreateButton',
           on: 'left-end',
         },
-        classes: 'example-step-extra-class',
+        beforeShowPromise() {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+            }, 300);
+          });
+        },
         buttons: [
           {
-            text: 'Sljedeći',
+            text: 'Sljedeći korak',
+            action: tour.next,
+          },
+          {
+            text: 'Završi tutorial',
+            action: finishTutorial,
+          },
+        ],
+        modalOverlayOpeningPadding: 70,
+      },
+      {
+        id: 'radnici-edit',
+        text: 'Ovdje možete urediti ili obrisati postojećeg radnika.',
+        attachTo: {
+          element: '#staffTableEdit',
+          on: 'left-end',
+        },
+        buttons: [
+          {
+            text: 'Sljedeći korak',
             action: tour.next,
           },
           {
@@ -92,13 +192,19 @@ export default defineComponent({
       },
       {
         id: 'usluge-menu',
-        text: 'Klikom na "Usluge" možete dodati nove ili promijeniti postojeće usluge.',
+        text: 'Ovdje možete vidjeti svoje usluge, dodati nove ili urediti postojeće.',
         attachTo: {
           element: '#menu-Usluge',
           on: 'right-end',
         },
-        classes: 'example-step-extra-class',
         buttons: [
+          {
+            text: 'Krenimo na usluge',
+            action: () => {
+              router.push('usluge');
+              tour.next();
+            },
+          },
           {
             text: 'Završi tutorial',
             action: finishTutorial,
@@ -107,15 +213,87 @@ export default defineComponent({
       },
       {
         id: 'usluge-add',
-        text: 'Pokušajte dodati novu usluge. Kada ste spremni, nastavite na sljedeći korak.',
+        text: 'Pokušajte dodati novu uslugu. Kada ste spremni, nastavite na Sljedeći korak.',
         attachTo: {
-          element: '#serviceContainer',
+          element: '#serviceAddButton',
           on: 'left-end',
         },
-        classes: 'example-step-extra-class',
+        beforeShowPromise() {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+            }, 300);
+          });
+        },
         buttons: [
           {
-            text: 'Sljedeći',
+            text: 'Sljedeći korak',
+            action: tour.next,
+          },
+          {
+            text: 'Završi tutorial',
+            action: finishTutorial,
+          },
+        ],
+        modalOverlayOpeningPadding: 70,
+      },
+      {
+        id: 'usluge-edit',
+        text: 'Ovdje možete urediti ili obrisati postojeće usluge.',
+        attachTo: {
+          element: '#serviceTableEdit',
+          on: 'left-end',
+        },
+        buttons: [
+          {
+            text: 'Sljedeći korak',
+            action: tour.next,
+          },
+          {
+            text: 'Završi tutorial',
+            action: finishTutorial,
+          },
+        ],
+        modalOverlayOpeningPadding: 70,
+      },
+      {
+        id: 'postavke-menu',
+        text: 'Ovdje možete vidjeti svoj profil i urediti postavke.',
+        attachTo: {
+          element: '#menu-Postavke',
+          on: 'top',
+        },
+        buttons: [
+          {
+            text: 'Krenimo na postavke',
+            action: () => {
+              router.push('postavke');
+              tour.next();
+            },
+          },
+          {
+            text: 'Završi tutorial',
+            action: finishTutorial,
+          },
+        ],
+      },
+      {
+        id: 'postavke-edit',
+        text: 'U postavkama možete promijeniti postojeće opcije, ili podesiti Dolazim.hr kako bi odgovarao vašim poslovnim potrebama.',
+        attachTo: {
+          element: '#settingsContainer',
+          on: 'left-end',
+        },
+        beforeShowPromise() {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+            }, 300);
+          });
+        },
+        buttons: [
+          {
+            text: 'Sljedeći korak',
             action: tour.next,
           },
           {
@@ -127,9 +305,8 @@ export default defineComponent({
       },
       {
         id: 'outro',
-        text: `Završili ste Frizerrose tutorial!
-        Možete saznati više klikom na Pomoć u meniju ili nastaviti istraživati po stranici. Sretno!`,
-        classes: 'example-step-extra-class',
+        text: `Završili ste Dolazim.hr tutorial!
+        Više možete saznati klikom na Pomoć u meniju ili nastaviti istraživati po stranici. Sretno!`,
         buttons: [
           {
             text: 'Završi tutorial',

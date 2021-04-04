@@ -213,20 +213,20 @@ export default defineComponent({
 <style lang="scss" scoped>
   .faq-main-wrap {
     @media (max-width: 767px) {
+      flex-direction: column-reverse;
+      max-height: 100vh;
     }
     @media (min-width: 768px) {
-      display: flex;
       flex-direction: row-reverse;
+    display: flex;
     }
   }
   .faq-main {
     @media (max-width: 767px) {
-      height: 60vh;
-      overflow-y: auto;
-      // margin-top: 4.25rem;
-      padding: 1.5rem 1.5rem 60vh;
-      position: relative;
-      width: 100%;
+      padding: 0 5rem;
+      overflow: hidden auto;
+      max-height: 70vh;
+      padding-bottom: 70vh;
     }
     @media (min-width: 768px) {
       padding: 1.5rem;
@@ -240,15 +240,12 @@ export default defineComponent({
 
   .faq-aside {
     @media (max-width: 767px) {
-      position: fixed;
-      left: auto;
-      top: 60vh;
-      background: white;
-      width: 100%;
-      height: 40vh;
-      overflow-y: auto;
-      padding-top: 1rem;
-      padding-bottom: 3rem;
+      overflow: hidden auto;
+      max-height: 30vh;
+      background-color: white;
+      border-top: 2px solid var(--bs-light);
+      border-bottom: 2px solid var(--bs-light);
+      padding: 1rem 1.5rem;
     }
     @media (min-width: 768px) {
       position: sticky;

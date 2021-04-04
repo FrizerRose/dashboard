@@ -346,7 +346,7 @@ export class AuthService {
   }
 
   create(params: object) {
-    return this.apiService.post(this.resource, params);
+    return this.apiService.post(`${this.resource}/register`, params);
   }
 
   login(params: object) {

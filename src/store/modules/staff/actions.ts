@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '@/store';
 import { ActionContext, ActionTree } from 'vuex';
-import { StaffService } from '@/api';
+import { StaffService, AuthService } from '@/api';
 import { ApiError } from '@/types/customError';
 import Appointment from '@/types/appointment';
 import Staff from '@/types/staff';
@@ -41,6 +41,10 @@ export interface Actions {
     { commit }: AugmentedActionContext,
     staff: Staff
   ): Promise<unknown>;
+  [LocalActionTypes.CREATE_STAFF_USER](
+    { commit }: AugmentedActionContext,
+    staff: Staff
+  ): Promise<{id: number}>;
   [LocalActionTypes.UPDATE_STAFF](
     { commit }: AugmentedActionContext,
     staff: Staff
@@ -53,6 +57,7 @@ export interface Actions {
 
 // API access.
 const staffService = new StaffService();
+const authService = new AuthService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
@@ -106,10 +111,28 @@ export const actions: ActionTree<State, RootState> & Actions = {
           commit(LocalMutationTypes.ADD_STAFF, response.data as Staff);
           resolve(true);
         } else {
-          reject(new ApiError('Cereating staff failed.'));
+          reject(new ApiError('Creating staff failed.'));
         }
       } catch {
-        reject(new ApiError('Cereating staff failed.'));
+        reject(new ApiError('Creating staff failed.'));
+      }
+    })());
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async [LocalActionTypes.CREATE_STAFF_USER]({ commit }, staff: Staff): Promise<{id: number}> {
+    return new Promise((resolve, reject) => (async () => {
+      try {
+        const randomPassword = Math.random().toString(36).substr(2, 8) + Date.now();
+        const response = await authService.create({
+          name: staff.name, email: staff.email, isAdminAccount: false, password: randomPassword,
+        });
+        if (response.status === 201 && response.data?.user) {
+          resolve(response.data.user);
+        } else {
+          reject(new ApiError('Creating user failed.'));
+        }
+      } catch {
+        reject(new ApiError('Creating user failed.'));
       }
     })());
   },

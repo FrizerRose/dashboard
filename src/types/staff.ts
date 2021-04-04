@@ -12,6 +12,7 @@ type Staff = {
   breaks: Break[];
   services: Service[];
   image: Image;
+  user?: {id: number; name: string; email: string; isAdminAccount: boolean};
 }
 
 export default Staff;

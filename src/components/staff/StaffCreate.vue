@@ -26,7 +26,7 @@
           <div class="row">
             <div class="col-md-12">
               <label class="responsive-form-label w-100 mb-5 mt-2">
-                E-mail adresa se koristi kao identifikacija.
+                Radnik će na e-mail adresu primiti podatke za pristup adminskom sučelju, te će na njega primate notifikacije o terminima.
                 <br>
                 Ne možete koristiti istu e-mail adresu za više radnika, tj. svaki radnik treba koristiti jedinstvenu e-mail adresu.
               </label>
@@ -205,7 +205,10 @@
         </div>
       </div>
 
-      <div class="radnik-djelatnosti p-4 border-bottom">
+      <div
+        v-if="allServices.length"
+        class="radnik-djelatnosti p-4 border-bottom"
+      >
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
@@ -389,9 +392,10 @@ export default defineComponent({
     }
 
     async function createStaff() {
-      if (newStaff.email && newStaff.email) {
+      if (newStaff.name && newStaff.email) {
         try {
-          await store.dispatch(ActionTypes.CREATE_STAFF, newStaff as Staff);
+          const user = await store.dispatch(ActionTypes.CREATE_STAFF_USER, newStaff as Staff);
+          await store.dispatch(ActionTypes.CREATE_STAFF, { ...newStaff, user: { id: user.id } } as Staff);
           requestSent.value = true;
           status.value = true;
           newStaff.name = '';

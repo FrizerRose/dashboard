@@ -356,30 +356,40 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="firma-terms">
       <div class="border-bottom">
-        <div class="mt-4 mb-5">
-          <div class="row flex-row-reverse">
-            <div class="col-12 col-md-8 col-xl-6">
-              <label>
-                <span class="responsive-form-label__bolder">Pravila korištenja URL</span>
+        <div class="mt-4 mb-6">
+          <div class="row align-items-end">
+            <div class="col-12 col-md-4 col-xl-6 mb-3">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.preferences.showTerms"
+                  type="checkbox"
+                  class="form-check-input"
+                >
+                <span class="form-check-label">Prikaži uvjete poslovanja na stranici {{ formData.bookingPageSlug }}.dolazim.hr/uvjeti</span>
               </label>
-              <input
-                id="id-terms-and-conditions-page-url"
-                v-model="formData.preferences.termsLink"
-                type="text"
-                class="form-control responsive-form-control"
-                placeholder="https://www.ime-poslovnog-subjekta.hr/link-na-pravila-koristenja"
-              >
             </div>
-            <div class="col-12 col-md-4 col-xl-6">
-              <label class="responsive-form-label w-100 mb-0 mt-2">
+
+            <div class="col-12 col-md-8 col-xl-6 mb-3">
+              <label
+                class="responsive-form-label m-0"
+                for="id-rules"
+              >
+                <span class="responsive-form-label__bolder">Uvjeti poslovanja</span>
                 <br>
-                Ovdje zalijepite URL na pravila korištenja.
-                Možete ih postaviti na vašoj web stranici, Google Docs ili u obliku Facebook objave
+                Ovdje možete upisati uvjete poslovanja koja će biti prikazan na stranici
               </label>
             </div>
           </div>
+          <textarea
+            id="id-rules"
+            v-model="formData.preferences.termsText"
+            class="form-control responsive-form-control"
+            rows="12"
+          />
         </div>
       </div>
     </div>

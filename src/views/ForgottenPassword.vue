@@ -24,7 +24,7 @@
                       class="btn responsive-btn btn-primary"
                       @click="goToLogin()"
                     >
-                      Nazad na login
+                      Nazad na prijavu
                     </button>
                   </div>
                 </div>
@@ -60,10 +60,10 @@
                     </div>
                     <div class="d-flex justify-content-between mt-4">
                       <button
-                        class="btn responsive-btn btn-secondary"
+                        class="btn responsive-btn"
                         @click.prevent="goToLogin()"
                       >
-                        Nazad na login
+                        Nazad na prijavu
                       </button>
                       <button
                         class="btn responsive-btn btn-primary"

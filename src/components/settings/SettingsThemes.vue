@@ -26,8 +26,49 @@
       </div>
     </div>
 
+    <div class="izgled-boja">
+      <div class="mt-4 border-top border-bottom">
+        <div class="mt-4 mb-5">
+          <div class="row flex-row-reverse align-items-end">
+            <div class="col-12 col-md-8 col-xl-6">
+              <label
+                for="id-theme-color"
+                class="responsive-form-label w-100"
+              >
+                <span class="responsive-form-label__bolder">Odabir boje elemenata</span>
+              </label>
+              <select
+                id="id-theme-color"
+                v-model="formData.preferences.colorVariant"
+                class="form-control responsive-form-control"
+                name="id-theme-color"
+              >
+                <option value="default">
+                  Crno-bijelo
+                </option>
+                <option value="orchid">
+                  Orchid
+                </option>
+                <option value="coral">
+                  Coral
+                </option>
+                <option value="goldenrod">
+                  Goldenrod
+                </option>
+              </select>
+            </div>
+            <div class="col-12 col-md-4 col-xl-6">
+              <label class="responsive-form-label w-100 mb-0 mt-2">
+                Odaberite akcentnu boju za neke od elemenata na stranici
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="izgled-dark-mode">
-      <div class="mt-4 border-top">
+      <div class="mt-4 border-bottom">
         <div class="my-4">
           <div class="row flex-row-reverse">
             <div class="col-12 col-sm-6">
@@ -55,7 +96,7 @@
     </div>
 
     <div class="izgled-pattern">
-      <div class="mt-4 border-top border-bottom">
+      <div class="mt-4 border-bottom">
         <div class="my-4">
           <div class="row flex-row-reverse">
             <div class="col-12 col-sm-6">
@@ -104,47 +145,6 @@
               >
                 Odabirom obruba prikazat će se tanka crta oko glavnih elemenata.
                 Njena svrha je da uokviriti elemente kako bi se istaknuli od pozadine.
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="izgled-boja">
-      <div class="border-bottom">
-        <div class="mt-4 mb-5">
-          <div class="row flex-row-reverse align-items-end">
-            <div class="col-12 col-md-8 col-xl-6">
-              <label
-                for="id-theme-color"
-                class="responsive-form-label w-100"
-              >
-                <span class="responsive-form-label__bolder">Odabir boje elemenata</span>
-              </label>
-              <select
-                id="id-theme-color"
-                v-model="formData.preferences.colorVariant"
-                class="form-control responsive-form-control"
-                name="id-theme-color"
-              >
-                <option value="default">
-                  Crno-bijelo
-                </option>
-                <option value="orchid">
-                  Orchid
-                </option>
-                <option value="coral">
-                  Coral
-                </option>
-                <option value="goldenrod">
-                  Goldenrod
-                </option>
-              </select>
-            </div>
-            <div class="col-12 col-md-4 col-xl-6">
-              <label class="responsive-form-label w-100 mb-0 mt-2">
-                Odaberite akcentnu boju za neke od elemenata na stranici
               </label>
             </div>
           </div>

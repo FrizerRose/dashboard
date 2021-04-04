@@ -30,6 +30,8 @@ html {
 		width: 100%;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		max-width: 160px;
+		margin: auto;
 	}
 }
 

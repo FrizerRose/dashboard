@@ -20,7 +20,7 @@
                 <div
                   class="card mb-0"
                 >
-                  <div class="card-header pb-0 help-header">
+                  <div class="card-header pb-0 help-header text-end">
                     <h5 class="card-title">
                       Kalendar
                     </h5>
@@ -42,7 +42,7 @@
                 <div
                   class="card mb-0"
                 >
-                  <div class="card-header pb-0 help-header">
+                  <div class="card-header pb-0 help-header text-end">
                     <h5 class="card-title">
                       Termini
                     </h5>
@@ -64,7 +64,7 @@
                 <div
                   class="card mb-0"
                 >
-                  <div class="card-header pb-0 help-header">
+                  <div class="card-header pb-0 help-header text-end">
                     <h5 class="card-title">
                       Notifikacije
                     </h5>
@@ -86,7 +86,7 @@
                 <div
                   class="card mb-0"
                 >
-                  <div class="card-header pb-0 help-header">
+                  <div class="card-header pb-0 help-header text-end">
                     <h5 class="card-title">
                       Općenito
                     </h5>

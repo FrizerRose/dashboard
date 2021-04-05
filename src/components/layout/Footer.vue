@@ -42,10 +42,10 @@
           <div class="col-md-3 mt-4">
             <div class="text-end">
               <p class="mb-0">
-                &copy; 2020 - <a
+                &copy; 2021 - <a
                   href="index.html"
                   class="text-muted"
-                >Frizerrose</a>
+                >Dolazim.hr</a>
               </p>
             </div>
           </div>

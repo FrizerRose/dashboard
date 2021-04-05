@@ -16,9 +16,10 @@ export default defineComponent({
     const router = useRouter();
 
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const user = computed(() => store.getters.getUser);
 
     const tour = new Shepherd.Tour({
-      useModalOverlay: true,
+      useModalOverlay: false,
       defaultStepOptions: {
         classes: 'shadow-md bg-purple-dark',
         // scrollTo: true,
@@ -42,6 +43,8 @@ export default defineComponent({
     //   router.push(route);
     //   // tour.next;
     // }
+
+    console.log('aaaa', user.value?.isAdminAccount);
 
     tour.addSteps([
       {
@@ -85,7 +88,7 @@ export default defineComponent({
           'Klikom na jedan od dostupnih termina, ili jednostavno vremena u danu otvara se izbornik za dodavanje ili uređivanje termina. ',
         attachTo: {
           element: '#fullcalendar',
-          on: 'top',
+          on: 'left',
         },
         beforeShowPromise() {
           return new Promise((resolve) => {
@@ -259,6 +262,12 @@ export default defineComponent({
       {
         id: 'postavke-menu',
         text: 'Ovdje možete vidjeti svoj profil i urediti postavke.',
+        showOn: () => {
+          if (user.value?.isAdminAccount) {
+            return true;
+          }
+          return false;
+        },
         attachTo: {
           element: '#menu-Postavke',
           on: 'top',
@@ -280,6 +289,12 @@ export default defineComponent({
       {
         id: 'postavke-edit',
         text: 'U postavkama možete promijeniti postojeće opcije, ili podesiti Dolazim.hr kako bi odgovarao vašim poslovnim potrebama.',
+        showOn: () => {
+          if (user.value?.isAdminAccount) {
+            return true;
+          }
+          return false;
+        },
         attachTo: {
           element: '#settingsContainer',
           on: 'left-end',

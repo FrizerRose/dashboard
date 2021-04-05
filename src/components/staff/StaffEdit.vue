@@ -396,7 +396,8 @@
               <label class="responsive-form-label w-100 mb-5 mt-2">
                 <span class="responsive-form-label__bolder">Godišnji odmor</span>
                 <br>
-                Ovdje možete dodati razdoblje kad ste na godišnjem. Za vrijeme godišnjih odmora nećete biti dostupni za odabir na stranici.
+                Ovdje možete dodati razdoblje kad ste na godišnjem ili bolovanju.
+                Za vrijeme godišnjih odmora nećete biti dostupni za odabir na stranici.
               </label>
 
               <div v-if="!breakDates.length">
@@ -505,7 +506,7 @@ import MutationTypes from '@/store/mutation-types';
 import { Day, StartEnd } from '@/types/workingHours';
 import Service from '@/types/service';
 import Modal from '@/components/layout/Modal.vue';
-import { getTimeOptions, getDayTranslation } from '@/helpers/time';
+import { getTimeOptions, formatDateString, getDayTranslation } from '@/helpers/time';
 
 export default defineComponent({
   components: {
@@ -618,19 +619,6 @@ export default defineComponent({
     let breakDates: { start: string; end: string }[] = reactive([]);
     if (formData.breaks.length) {
       breakDates = reactive(formData.breaks);
-    }
-
-    function formatDateString(oldFormat: string): string {
-      const date = new Date(oldFormat);
-      const dd = String(date.getDate());
-      let mm = String(date.getMonth() + 1); // January is 0!
-      const yyyy = date.getFullYear();
-
-      if (mm.length < 2) {
-        mm = `0${mm}`;
-      }
-
-      return `${yyyy}-${mm}-${dd}`;
     }
 
     function addBreak() {

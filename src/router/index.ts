@@ -130,6 +130,9 @@ router.beforeEach((to, from, next) => {
   const hasToken = localStorage.getItem('accessToken');
   const expiration = localStorage.getItem('expiration');
   const isTokenExpired = typeof expiration !== 'string' || Date.now() > parseInt(expiration, 10);
+  const user = localStorage.getItem('user');
+  const parsedUser = typeof user === 'string' ? JSON.parse(user) : null;
+  const isAdmin = parsedUser && parsedUser.isAdminAccount;
 
   // Trying to access a restricted page + not logged in
   // Redirect to login page
@@ -137,7 +140,7 @@ router.beforeEach((to, from, next) => {
     next('/prijava');
   } else if (authDisallowed && hasToken) {
     next('/');
-  } else if (accessDisallowed) {
+  } else if (accessDisallowed && !isAdmin) {
     next('/');
   } else {
     next();

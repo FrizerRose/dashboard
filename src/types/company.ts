@@ -1,4 +1,5 @@
 import CompanyPreferences from './companyPreferences';
+import DayOff from './dayOff';
 import Image from './image';
 import Service from './service';
 import Staff from './staff';
@@ -18,6 +19,7 @@ type Company = {
   preferences: CompanyPreferences;
   hours: WorkingHours;
   image: Image;
+  daysOff: DayOff[];
 }
 
 export default Company;

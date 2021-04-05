@@ -69,6 +69,18 @@
                 <option value="8">
                   8 sati ranije
                 </option>
+                <option value="12">
+                  12 sati ranije
+                </option>
+                <option value="24">
+                  24 sati ranije
+                </option>
+                <option value="48">
+                  48 sati ranije
+                </option>
+                <option value="72">
+                  72 sati ranije
+                </option>
               </select>
             </div>
             <div class="col-12 col-sm-6">

@@ -43,7 +43,7 @@
             <div class="text-end">
               <p class="mb-0">
                 &copy; 2021 - <a
-                  href="index.html"
+                  href="/"
                   class="text-muted"
                 >Dolazim.hr</a>
               </p>

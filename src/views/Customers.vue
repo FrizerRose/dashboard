@@ -124,6 +124,8 @@ export default defineComponent({
       }
     }
 
+    fetchCustomersByName();
+
     return {
       selectedCustomer,
       selectCustomer,

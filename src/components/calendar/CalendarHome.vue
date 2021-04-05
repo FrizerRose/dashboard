@@ -63,8 +63,16 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
+    const user = computed(() => store.getters.getUser);
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const reservedAppointments = computed(() => store.state.shared.reservedAppointments);
+    const shownReservedAppointments = computed(() => reservedAppointments.value.filter((appointment) => {
+      if (user.value?.isAdminAccount || !user.value) {
+        return true;
+      }
+
+      return appointment.staff.user?.id === user.value.id;
+    }));
     const isMobile = computed(() => store.state.shared.isMobile);
     const headerTitle = ref('');
 
@@ -73,7 +81,7 @@ export default defineComponent({
 
     const calendar = ref({} as Calendar);
 
-    const formattedAppointments = computed(() => reservedAppointments.value.map((appointment) => {
+    const formattedAppointments = computed(() => shownReservedAppointments.value.map((appointment) => {
       let time: string;
       if (appointment.time.charAt(1) === ':') {
         time = `0${appointment.time}`;
@@ -107,6 +115,14 @@ export default defineComponent({
       };
     }));
 
+    function setTitle(dateString: string) {
+      if (user.value?.isAdminAccount || !user.value) {
+        headerTitle.value = `Svi termini za ${dateString}`;
+      } else {
+        headerTitle.value = `${user.value?.name} - termini za ${dateString}`;
+      }
+    }
+
     onMounted(() => {
       const calendarEl = document.getElementById('fullcalendar');
       if (calendarEl) {
@@ -127,7 +143,7 @@ export default defineComponent({
           themeSystem: 'bootstrap',
         });
 
-        headerTitle.value = calendar.value.view.title;
+        setTitle(calendar.value.view.title);
 
         // Updates calendar events
         watch(
@@ -177,28 +193,27 @@ export default defineComponent({
 
     function fetchPrev() {
       calendar.value.prev();
-      headerTitle.value = calendar.value.view.title;
+      setTitle(calendar.value.view.title);
       selectedDate.value.setDate(selectedDate.value.getDate() - 1);
       fetchNewAppointments();
     }
 
     function fetchNext() {
       calendar.value.next();
-      headerTitle.value = calendar.value.view.title;
+      setTitle(calendar.value.view.title);
       selectedDate.value.setDate(selectedDate.value.getDate() + 1);
       fetchNewAppointments();
     }
 
     function fetchToday() {
       calendar.value.today();
-      headerTitle.value = calendar.value.view.title;
+      setTitle(calendar.value.view.title);
       selectedDate.value.setDate(new Date().getDate());
       fetchNewAppointments();
     }
 
     return {
       formattedAppointments,
-      reservedAppointments,
       fetchPrev,
       fetchNext,
       fetchToday,

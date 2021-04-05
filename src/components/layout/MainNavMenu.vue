@@ -30,7 +30,7 @@
       class="sidebar-nav"
     >
       <li
-        v-for="node in nodes"
+        v-for="node in availableNodes"
         :id="'menu-' + node.name"
         :key="node.name"
         class="sidebar-item"
@@ -85,7 +85,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const store = useStore();
     const route = useRoute();
     const tour = computed(() => store.state.shared.tour);
@@ -112,10 +112,14 @@ export default defineComponent({
       submenuShow.value = true;
     }
 
+    const user = computed(() => store.getters.getUser);
+    const availableNodes = props.nodes.filter((node) => (user.value?.isAdminAccount ? true : !node.hideForStaff));
+
     return {
       tourNextStep,
       submenuToggle,
       submenuShow,
+      availableNodes,
     };
   },
 });

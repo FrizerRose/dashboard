@@ -39,9 +39,15 @@
                         </th>
                         <th
                           scope="col"
-                          style="width:50%"
+                          style="width:35%"
                         >
                           Ime
+                        </th>
+                        <th
+                          scope="col"
+                          style="width:15%"
+                        >
+                          Javno prikazan
                         </th>
                         <th
                           id="staffTableEdit"
@@ -78,6 +84,20 @@
                           </div>
                         </td>
                         <td>{{ worker.name }}</td>
+                        <td
+                          v-if="worker.isPublic"
+                          style="text-align: center;"
+                          class="text-success fw-bolder"
+                        >
+                          Da
+                        </td>
+                        <td
+                          v-else
+                          style="text-align: center;"
+                          class="text-danger fw-bolder"
+                        >
+                          Ne
+                        </td>
                         <td style="text-align: center;">
                           <a
                             :class="{
@@ -154,8 +174,12 @@ export default defineComponent({
     const selectedWorker = ref(-1);
 
     function deleteWorker(worker: Staff) {
-      // eslint-disable-next-line no-alert
-      if (window.confirm('Jeste li sigurni da želite obrisati ovog radnika? Svi povezani termini također će biti izbrisani.')) {
+      if (worker.user?.isAdminAccount) {
+        // eslint-disable-next-line no-alert
+        window.alert(`Nije moguće obrisati radnika koji je povezan sa adminskim računom.
+         Ako ne želite da se prikazuje na stranici, odaberite da nije Javno Prikazan.`);
+        // eslint-disable-next-line no-alert
+      } else if (window.confirm('Jeste li sigurni da želite obrisati ovog radnika? Svi povezani termini također će biti izbrisani.')) {
         store.dispatch(ActionTypes.DELETE_STAFF, worker);
       }
     }

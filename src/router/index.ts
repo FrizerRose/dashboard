@@ -121,9 +121,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const publicPages = ['/prijava', '/zaboravljena-lozinka', '/404'];
   const authPages = ['/prijava', '/zaboravljena-lozinka'];
+  const adminPages = ['/postavke'];
 
   const authRequired = !publicPages.includes(to.path);
   const authDisallowed = authPages.includes(to.path);
+  const accessDisallowed = adminPages.includes(to.path);
 
   const hasToken = localStorage.getItem('accessToken');
   const expiration = localStorage.getItem('expiration');
@@ -134,6 +136,8 @@ router.beforeEach((to, from, next) => {
   if (authRequired && !hasToken && isTokenExpired) {
     next('/prijava');
   } else if (authDisallowed && hasToken) {
+    next('/');
+  } else if (accessDisallowed) {
     next('/');
   } else {
     next();

@@ -125,6 +125,7 @@ import Customer from '@/types/customer';
 import Service from '@/types/service';
 import { getDateStringFromDate } from '@/helpers/time';
 import Appointment from '@/types/appointment';
+import Staff from '@/types/staff';
 
 export default defineComponent({
   components: {
@@ -136,8 +137,18 @@ export default defineComponent({
 
     const allStaff = computed(() => store.state.staff.allStaff);
     const allServices = computed(() => store.state.service.services);
-    const selectedWorker = ref(JSON.parse(JSON.stringify(allStaff.value[0])));
     const reservedAppointments = computed(() => store.state.shared.reservedAppointments);
+
+    const selectedWorker = ref({} as Staff);
+    const user = computed(() => store.getters.getUser);
+
+    // Set logged in user as selectedWorker
+    const staffForLoggedInUser = allStaff.value.find((worker) => worker.user?.id === user.value?.id);
+    if (staffForLoggedInUser) {
+      selectedWorker.value = staffForLoggedInUser;
+    } else {
+      selectedWorker.value = JSON.parse(JSON.stringify(allStaff.value[0]));
+    }
 
     const isEventSelected = ref(false);
     const isAppointmentModalOpen = computed(() => store.state.shared.isCalendarModalOpen);

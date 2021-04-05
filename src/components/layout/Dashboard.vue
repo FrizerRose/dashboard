@@ -43,7 +43,9 @@ export default defineComponent({
           { name: 'Usluge', templateName: 'Services', slug: '/usluge' },
           { name: 'Radnici', templateName: 'Staff', slug: '/radnici' },
           { name: 'Klijenti', templateName: 'Customers', slug: '/klijenti' },
-          { name: 'Postavke', templateName: 'Settings', slug: '/postavke' },
+          {
+            name: 'Postavke', templateName: 'Settings', slug: '/postavke', hideForStaff: true,
+          },
           {
             name: 'Pomoć',
             templateName: 'Help',

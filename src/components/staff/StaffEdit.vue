@@ -160,6 +160,34 @@
         </div>
       </div>
 
+      <div class="radnik-javno-prikazan">
+        <div class="mt-4 border-bottom">
+          <div class="my-4">
+            <div class="row flex-row-reverse">
+              <div class="col-12 col-sm-6">
+                <label class="form-check m-0">
+                  <input
+                    v-model="formData.isPublic"
+                    type="checkbox"
+                    class="form-check-input"
+                  >
+                  <span class="form-check-label">Javno prikazan</span>
+                </label>
+              </div>
+
+              <div class="col-12 col-sm-6">
+                <label
+                  class="responsive-form-label w-100 mb-0 mt-2"
+                  for="id-rules"
+                >
+                  Označite da je radnik javno prikazan ako želite da bude dostupan za rezervaciju termina.
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="radnik-radni-dani p-4 border-bottom">
         <div class="container px-0 override-desktop-limit">
           <div class="row">

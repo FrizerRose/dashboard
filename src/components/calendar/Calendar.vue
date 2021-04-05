@@ -190,7 +190,7 @@ export default defineComponent({
 
         let backgroundColor = '#3788d8';
         let textColor = 'white';
-        if (startDate.getTime() < (new Date()).getTime()) {
+        if (startDate.getTime() < new Date().getTime()) {
           backgroundColor = 'lightgray';
           textColor = 'black';
 
@@ -236,14 +236,13 @@ export default defineComponent({
           //   right: 'timeGridWeek,listWeek',
           // },
           views: {
-            timeGridWeek: {
-            },
+            timeGridWeek: {},
           },
           // handleWindowResize: !isMobile.value,
           dayMinWidth: isMobile.value ? 120 : 0,
           longPressDelay: 250,
           nowIndicator: true,
-          contentHeight: isMobile.value ? (window.innerHeight * 0.7) : 800,
+          contentHeight: isMobile.value ? window.innerHeight * 0.7 : 800,
           allDaySlot: false,
           stickyHeaderDates: true,
           locale: hrLocale,
@@ -360,7 +359,7 @@ export default defineComponent({
       }
     });
 
-    function fetchSelectedWorkerAppointments(customDates: {start: string; end: string}) {
+    function fetchSelectedWorkerAppointments(customDates: { start: string; end: string }) {
       if (selectedWorker.value) {
         store.dispatch(ActionTypes.FETCH_STAFF_BY_ID, {
           id: selectedWorker.value.id,
@@ -483,5 +482,15 @@ export default defineComponent({
     margin-left: -1.5rem;
     margin-right: -1.5rem;
   }
+}
+
+//fullcalendar css override
+th.fc-day-today {
+  background: #3f80ea;
+  color: #fff;
+}
+
+.fc .fc-timegrid-col.fc-day-today {
+  background: none !important;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <router-view v-if="selectedCompany" />
 
-  <InitialFlow v-if="!isTutorialFinished && selectedCompany !== null && !isOnAuthPages" />
+  <InitialFlow v-if="!isMobile && !isTutorialFinished && selectedCompany !== null && !isOnAuthPages" />
 </template>
 
 <script lang="ts">
@@ -21,6 +21,7 @@ export default defineComponent({
     const route = useRoute();
 
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const isMobile = computed(() => store.state.shared.isMobile);
     const isTutorialFinished = computed(() => store.getters.isTutorialFinished);
     const authPages = ['/prijava', '/zaboravljena-lozinka'];
     const isOnAuthPages = computed(() => authPages.includes(route.path));
@@ -64,6 +65,7 @@ export default defineComponent({
       selectedCompany,
       isTutorialFinished,
       isOnAuthPages,
+      isMobile,
     };
   },
 });

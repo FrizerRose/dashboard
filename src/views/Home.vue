@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import {
-  computed, defineComponent, ref, watch,
+  computed, defineComponent, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
 import Dashboard from '@/components/layout/Dashboard.vue';
@@ -97,15 +97,15 @@ export default defineComponent({
       }
     }
 
-    watch(
-      () => selectedCompany.value,
-      (newCompany) => {
-        if (newCompany?.id) {
-          fetchAppointmentsOnToday();
-          fetchStats();
-        }
-      },
-    );
+    // watch(
+    //   () => selectedCompany.value,
+    //   (newCompany) => {
+    //     if (newCompany?.id) {
+    //       fetchAppointmentsOnToday();
+    //       fetchStats();
+    //     }
+    //   },
+    // );
 
     fetchAppointmentsOnToday();
     fetchStats();

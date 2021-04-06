@@ -93,7 +93,7 @@ export default defineComponent({
         beforeShowPromise() {
           return new Promise((resolve) => {
             setTimeout(() => {
-              resolve();
+              resolve(true);
             }, 300);
           });
         },
@@ -158,7 +158,7 @@ export default defineComponent({
         beforeShowPromise() {
           return new Promise((resolve) => {
             setTimeout(() => {
-              resolve();
+              resolve(true);
             }, 300);
           });
         },
@@ -224,7 +224,7 @@ export default defineComponent({
         beforeShowPromise() {
           return new Promise((resolve) => {
             setTimeout(() => {
-              resolve();
+              resolve(true);
             }, 300);
           });
         },
@@ -302,7 +302,7 @@ export default defineComponent({
         beforeShowPromise() {
           return new Promise((resolve) => {
             setTimeout(() => {
-              resolve();
+              resolve(true);
             }, 300);
           });
         },

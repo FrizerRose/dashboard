@@ -39,12 +39,18 @@ export default defineComponent({
       tree: {
         nodes: [
           { name: 'Naslovnica', templateName: 'Home', slug: '/' },
-          { name: 'Kalendar', templateName: 'Calendar', slug: '/kalendar' },
-          { name: 'Usluge', templateName: 'Services', slug: '/usluge' },
-          { name: 'Radnici', templateName: 'Staff', slug: '/radnici' },
+          {
+            name: 'Kalendar', templateName: 'Calendar', slug: '/kalendar', tourStep: 'kalendar-step-1',
+          },
+          {
+            name: 'Usluge', templateName: 'Services', slug: '/usluge', tourStep: 'usluge-add',
+          },
+          {
+            name: 'Radnici', templateName: 'Staff', slug: '/radnici', tourStep: 'radnici-add',
+          },
           { name: 'Klijenti', templateName: 'Customers', slug: '/klijenti' },
           {
-            name: 'Postavke', templateName: 'Settings', slug: '/postavke', hideForStaff: true,
+            name: 'Postavke', templateName: 'Settings', slug: '/postavke', hideForStaff: true, tourStep: 'postavke-edit',
           },
           {
             name: 'Pomoć',

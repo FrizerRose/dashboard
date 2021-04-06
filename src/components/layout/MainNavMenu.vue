@@ -36,7 +36,7 @@
         class="sidebar-item"
         :class="{ active : node.templateName === $route.name }"
         :style="{position: 'relative'}"
-        @click="tourNextStep()"
+        @click="tourNextStep(node.tourStep)"
       >
         <router-link
           :to="node.slug"
@@ -96,13 +96,15 @@ export default defineComponent({
       submenuShow.value = !submenuShow.value;
     }
 
-    function tourNextStep() {
-      const tourReference = tour.value;
-      setTimeout((() => {
-        if (tourReference) {
-          tourReference.next();
-        }
-      }), 200);
+    function tourNextStep(tourStep) {
+      if (tourStep) {
+        const tourReference = tour.value;
+        setTimeout((() => {
+          if (tourReference) {
+            tourReference.show(tourStep);
+          }
+        }), 200);
+      }
     }
 
     const submenuPages = ['/cesta-pitanja', '/kontakt'];

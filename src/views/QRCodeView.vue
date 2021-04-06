@@ -102,7 +102,7 @@ export default defineComponent({
 
     async function fetchQrCode() {
       const bookingPageSlug = selectedCompany.value?.bookingPageSlug;
-      const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${bookingPageSlug}.frizerrose.info`);
+      const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${bookingPageSlug}.dolazim.hr`);
       if (response.status === 200) {
         qrCode.value = response.url;
       }

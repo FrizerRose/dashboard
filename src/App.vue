@@ -11,6 +11,7 @@ import MutationTypes from '@/store/mutation-types';
 import { useStore } from '@/store';
 import { useRoute } from 'vue-router';
 import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
+import * as punycode from 'punycode';
 
 export default defineComponent({
   components: {
@@ -46,6 +47,9 @@ export default defineComponent({
     if (process.env.NODE_ENV === 'production') {
       const urlFragments = window.location.hostname.split('.');
       [companyID] = urlFragments;
+      if (companyID.slice(0, 4) === 'xn--') {
+        companyID = punycode.decode(companyID.slice(4));
+      }
     } else if (process.env.VUE_APP_COMPANY_ID) {
       companyID = parseInt(process.env.VUE_APP_COMPANY_ID, 10);
     }

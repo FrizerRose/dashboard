@@ -268,7 +268,7 @@
                   type="text"
                   placeholder="Željeno ime"
                 >
-                <span class="ms-2">.frizerrose.info</span>
+                <span class="ms-2">.dolazim.hr</span>
               </div>
             </div>
             <div class="col-12 col-md-4 col-xl-6">
@@ -513,7 +513,7 @@ export default defineComponent({
           await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
 
           if (process.env.NODE_ENV !== 'production' && hasBookingPageSlugChanged) {
-            window.location.href = `https://${formData.bookingPageSlug}.admin.frizerrose.info`;
+            window.location.href = `https://${formData.bookingPageSlug}.admin.dolazim.hr`;
           }
 
           requestSent.value = true;

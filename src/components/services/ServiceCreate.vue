@@ -147,7 +147,8 @@
         <div class="container override-desktop-limit">
           <div class="usluga-izvrsitelj">
             <div>
-              <label class="responsive-form-label w-100 mb-5 mt-2">
+              <!-- <label class="responsive-form-label w-100 mb-5 mt-2"> -->
+              <label class="responsive-form-label w-100 mb-3 mt-0">
                 <span class="responsive-form-label__bolder">Izvršitelji</span>
                 <br>
                 Označite radnike koji obavljaju ovu uslugu
@@ -162,7 +163,7 @@
                         :checked="newService.staff.length === allStaff.length"
                         @change="toggleAllStaff()"
                       >
-                      <span class="form-check-label lead">Označi sve</span>
+                      <span class="form-check-label |-lead">Označi sve</span>
                     </label>
                   </div>
                 </div>
@@ -181,7 +182,7 @@
                         :checked="isAssigned(staff)"
                         @change="toggleStaff(staff)"
                       >
-                      <span class="form-check-label lead">{{ staff.name }}</span>
+                      <span class="form-check-label |-lead">{{ staff.name }}</span>
                     </label>
                   </div>
                 </div>

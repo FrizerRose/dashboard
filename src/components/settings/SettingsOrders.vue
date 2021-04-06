@@ -216,7 +216,7 @@
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Klijenti mogu birati radnika</span>
+                <span class="form-check-label responsive-form-label__bolder">Klijenti mogu birati radnika</span>
               </label>
             </div>
             <div class="col-12 col-sm-6">
@@ -235,13 +235,15 @@
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Klijenti mogu birati da li žele usluge za muškarce, žene, ili im je svejedno.</span>
+                <span class="form-check-label responsive-form-label__bolder">
+                  Klijenti mogu birati da li žele usluge za muškarce, žene, ili im je svejedno.
+                </span>
               </label>
             </div>
             <div class="col-12 col-sm-6">
               <label class="responsive-form-label w-100 mb-0 mt-2">
-                Označite ako želite da u procesu naručivanja klijenti mogu odabrati da li žele usluge za muškarce, žene, ili im je svejedno.
-                Ako ne označite, prikazati će im se sve usluge.
+                Označite ako želite da u procesu naručivanja klijenti mogu odabrati da li žele usluge za muškarce, žene,
+                ili im je svejedno. Ako ne označite, prikazati će im se sve usluge.
               </label>
             </div>
           </div>
@@ -255,7 +257,7 @@
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Klijenti mogu otkazati termin</span>
+                <span class="form-check-label responsive-form-label__bolder">Klijenti mogu otkazati termin</span>
               </label>
             </div>
             <div class="col-12 col-sm-6">

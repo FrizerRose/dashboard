@@ -56,7 +56,7 @@
                     class="form-check-input"
                     @change="toggleDayActive(day)"
                   >
-                  <span class="form-check-label lead">{{ getDayTranslation(dayName.toString()) }}</span>
+                  <span class="form-check-label |-lead responsive-form-label__bolder">{{ getDayTranslation(dayName.toString()) }}</span>
                 </label>
               </div>
             </div>
@@ -175,87 +175,90 @@
       </div>
     </div>
 
-    <div class="postavke-neradni-dani p-4">
+    <div class="postavke-neradni-dani |-p-4">
       <div class="container px-0 override-desktop-limit">
-        <div class="row">
-          <div class="col-md-12 mb-4">
-            <label class="responsive-form-label w-100 mb-5 mt-2">
-              <span class="responsive-form-label__bolder">Neradni dani</span>
-              <br>
-              Ovdje možete dodati razdoblje kad poslovni subjekt ne prima nove rezervacije.
-              Stranica će za odabrane datume ispisati da nema dostupnih termina.
-            </label>
+        <div class="border-top">
+          <div class="row">
+            <div class="col-md-12 mt-4">
+              <!-- <label class="responsive-form-label w-100 mb-5 mt-2"> -->
+              <label class="responsive-form-label w-100 mb-3 mt-0">
+                <span class="responsive-form-label__bolder">Neradni dani</span>
+                <br>
+                Ovdje možete dodati razdoblje kad poslovni subjekt ne prima nove rezervacije.
+                Stranica će za odabrane datume ispisati da nema dostupnih termina.
+              </label>
 
-            <div v-if="!dayOffPairs.length">
-              <div class="p-4 alert alert-info">
-                Nema unesenih razdoblja
-              </div>
-              <div class="mt-4">
-                <div class="row">
-                  <div class="col-12 col-md-3">
-                    <button
-                      class="btn responsive-btn btn-primary w-100"
-                      @click="addDayOffPair()"
-                    >
-                      Dodaj razdoblje
-                    </button>
-                  </div>
+              <div v-if="!dayOffPairs.length">
+                <div class="p-4 alert alert-info">
+                  Nema unesenih razdoblja
                 </div>
-              </div>
-            </div>
-
-            <div
-              v-for="(breakDate, index) in dayOffPairs"
-              :key="index"
-              class="striped-row p-1"
-            >
-              <div class="row d-flex align-items-end">
-                <div class="col-12 col-md-9 mb-4">
-                  <div class="section-reveal">
-                    <div class="row d-flex align-items-end">
-                      <div class="col-6 col-md-4">
-                        <label class="responsive-form-label w-100">
-                          <span class="responsive-form-label__bolder">Od</span>
-                        </label>
-                        <input
-                          id="date-start"
-                          v-model="breakDate.start"
-                          class="form-control responsive-form-control"
-                          type="date"
-                          name="data-start"
-                        >
-                      </div>
-                      <div class="col-6 col-md-4">
-                        <label class="responsive-form-label w-100">
-                          <span class="responsive-form-label__bolder">Do</span>
-                        </label>
-                        <input
-                          id="date-end"
-                          v-model="breakDate.end"
-                          class="form-control responsive-form-control"
-                          type="date"
-                          name="data-end"
-                        >
-                      </div>
-                      <div class="col-12 col-md-4">
-                        <button
-                          class="btn responsive-btn btn-danger w-100 mt-4 section-reveal__item is-red"
-                          @click="removeDayOffPair(index)"
-                        >
-                          Ukloni razdoblje
-                        </button>
-                      </div>
+                <div class="mt-4">
+                  <div class="row">
+                    <div class="col-12 col-md-3">
+                      <button
+                        class="btn responsive-btn btn-primary w-100"
+                        @click="addDayOffPair()"
+                      >
+                        Dodaj razdoblje
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-3">
-                  <div v-if="index === dayOffPairs.length - 1">
-                    <button
-                      class="btn responsive-btn btn-primary w-100 mb-4"
-                      @click="addDayOffPair()"
-                    >
-                      Dodaj razdoblje
-                    </button>
+              </div>
+
+              <div
+                v-for="(breakDate, index) in dayOffPairs"
+                :key="index"
+                class="striped-row p-1"
+              >
+                <div class="row d-flex align-items-end">
+                  <div class="col-12 col-md-9 mb-4">
+                    <div class="section-reveal">
+                      <div class="row d-flex align-items-end">
+                        <div class="col-6 col-md-4">
+                          <label class="responsive-form-label w-100">
+                            <span class="responsive-form-label__bolder">Od</span>
+                          </label>
+                          <input
+                            id="date-start"
+                            v-model="breakDate.start"
+                            class="form-control responsive-form-control"
+                            type="date"
+                            name="data-start"
+                          >
+                        </div>
+                        <div class="col-6 col-md-4">
+                          <label class="responsive-form-label w-100">
+                            <span class="responsive-form-label__bolder">Do</span>
+                          </label>
+                          <input
+                            id="date-end"
+                            v-model="breakDate.end"
+                            class="form-control responsive-form-control"
+                            type="date"
+                            name="data-end"
+                          >
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <button
+                            class="btn responsive-btn btn-danger w-100 mt-4 section-reveal__item is-red"
+                            @click="removeDayOffPair(index)"
+                          >
+                            Ukloni razdoblje
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div v-if="index === dayOffPairs.length - 1">
+                      <button
+                        class="btn responsive-btn btn-primary w-100 mb-4"
+                        @click="addDayOffPair()"
+                      >
+                        Dodaj razdoblje
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

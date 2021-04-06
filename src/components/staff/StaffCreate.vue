@@ -26,6 +26,7 @@
           <div class="row">
             <div class="col-md-12">
               <label class="responsive-form-label w-100 mb-5 mt-2">
+                <!-- <label class="responsive-form-label w-100 mb-3 mt-0"> -->
                 Radnik će na e-mail adresu primiti podatke za pristup adminskom sučelju, te će na njega primate notifikacije o terminima.
                 <br>
                 Ne možete koristiti istu e-mail adresu za više radnika, tj. svaki radnik treba koristiti jedinstvenu e-mail adresu.
@@ -63,29 +64,30 @@
         </div>
       </div>
 
-      <div class="radnik-javno-prikazan">
-        <div class="mt-4 border-bottom">
-          <div class="my-4">
-            <div class="row flex-row-reverse">
-              <div class="col-12 col-sm-6">
-                <label class="form-check m-0">
-                  <input
-                    v-model="newStaff.isPublic"
-                    type="checkbox"
-                    class="form-check-input"
-                  >
-                  <span class="form-check-label">Javno prikazan</span>
-                </label>
-              </div>
-
-              <div class="col-12 col-sm-6">
-                <label
-                  class="responsive-form-label w-100 mb-0 mt-2"
-                  for="id-rules"
+      <div class="radnik-javno-prikazan p-4 border-bottom">
+        <div class="container px-0 override-desktop-limit">
+          <div class="row flex-row-reverse">
+            <div class="col-12 col-sm-6">
+              <label class="form-check m-0">
+                <input
+                  v-model="newStaff.isPublic"
+                  type="checkbox"
+                  class="form-check-input"
                 >
-                  Označite da je radnik javno prikazan ako želite da bude dostupan za rezervaciju termina.
-                </label>
-              </div>
+                <span class="form-check-label responsive-form-label__bolder">
+                  <span v-if="newStaff.isPublic">Uključeno</span>
+                  <span v-if="!newStaff.isPublic">Isključeno</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="col-12 col-sm-6">
+              <label
+                class="responsive-form-label w-100 mb-0 mt-2"
+                for="id-rules"
+              >
+                Označite da je radnik javno prikazan ako želite da bude dostupan za rezervaciju termina.
+              </label>
             </div>
           </div>
         </div>
@@ -96,6 +98,7 @@
           <div class="row">
             <div class="col-md-12 mb-4">
               <label class="responsive-form-label w-100 mb-5 mt-2">
+                <!-- <label class="responsive-form-label w-100 mb-3 mt-0"> -->
                 <span class="responsive-form-label__bolder">Radni dani</span>
                 <br>
                 Označite radne dane ovog radnika
@@ -117,7 +120,7 @@
                         class="form-check-input"
                         @change="toggleDayActive(day)"
                       >
-                      <span class="form-check-label lead">{{ getDayTranslation(dayName.toString()) }}</span>
+                      <span class="form-check-label |-lead">{{ getDayTranslation(dayName.toString()) }}</span>
                     </label>
                   </div>
                   <div
@@ -240,7 +243,8 @@
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
-              <label class="responsive-form-label w-100 mb-5 mt-2">
+              <!-- <label class="responsive-form-label w-100 mb-5 mt-2"> -->
+              <label class="responsive-form-label w-100 mb-3 mt-0">
                 <span class="responsive-form-label__bolder">Usluge i odgovornosti</span>
                 <br>
                 Označite usluge koje ovaj radnik pruža
@@ -255,7 +259,7 @@
                         :checked="newStaff.services.length === allServices.length"
                         @change="toggleAllServices()"
                       >
-                      <span class="form-check-label lead">Označi sve</span>
+                      <span class="form-check-label |-lead">Označi sve</span>
                     </label>
                   </div>
                 </div>
@@ -274,7 +278,7 @@
                         :checked="isAssigned(service)"
                         @change="toggleService(service)"
                       >
-                      <span class="form-check-label lead">{{ service.name }}</span>
+                      <span class="form-check-label |-lead">{{ service.name }}</span>
                     </label>
                   </div>
                   <div class="col-6 col-sm-4">

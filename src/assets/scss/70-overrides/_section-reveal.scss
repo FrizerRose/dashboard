@@ -44,8 +44,11 @@
 
 .striped-row {
   border: 0 solid;
-  border-bottom-width: 1px;
   border-color: #dee6ed;
+  
+  &:not(:last-of-type) {
+    border-bottom-width: 1px;
+  }
 
   &:nth-child(odd) {
     background-color: #f4f7f9;

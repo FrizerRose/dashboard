@@ -26,6 +26,7 @@
           <div class="radnik-podatci">
             <div>
               <label class="responsive-form-label w-100 mb-5 mt-2">
+                <!-- <label class="responsive-form-label w-100 mb-3 mt-0"> -->
                 <span class="responsive-form-label__bolder">Slika radnika</span>
                 <br>
                 Podržavamo formate: JPG, PNG
@@ -102,18 +103,6 @@
                         >
                           {{ inputFileText }}
                         </label>
-                        <div
-                          v-if="imageUploadSent && imageUploadStatus"
-                          class="mt-2"
-                        >
-                          Slika uspješno promjenjena!
-                        </div>
-                        <div
-                          v-if="(imageUploadSent && !imageUploadStatus) || imageRemoveHasError"
-                          class="mt-2"
-                        >
-                          Došlo je do greške, molimo probajte kasnije!
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -156,33 +145,52 @@
                 </div>
               </div>
             </div>
+
+            <div
+              v-if="imageUploadSent && imageUploadStatus"
+              class="p-4 alert alert-success"
+            >
+              <div class="container override-desktop-limit">
+                Slika uspješno promjenjena!
+              </div>
+            </div>
+
+            <div
+              v-if="(imageUploadSent && !imageUploadStatus) || imageRemoveHasError"
+              class="p-4 alert alert-danger"
+            >
+              <div class="container override-desktop-limit">
+                Došlo je do greške, molimo probajte kasnije!
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="radnik-javno-prikazan">
-        <div class="mt-4 border-bottom">
-          <div class="my-4">
-            <div class="row flex-row-reverse">
-              <div class="col-12 col-sm-6">
-                <label class="form-check m-0">
-                  <input
-                    v-model="formData.isPublic"
-                    type="checkbox"
-                    class="form-check-input"
-                  >
-                  <span class="form-check-label">Javno prikazan</span>
-                </label>
-              </div>
-
-              <div class="col-12 col-sm-6">
-                <label
-                  class="responsive-form-label w-100 mb-0 mt-2"
-                  for="id-rules"
+      <div class="radnik-javno-prikazan p-4 border-bottom">
+        <div class="container px-0 override-desktop-limit">
+          <div class="row flex-row-reverse">
+            <div class="col-12 col-sm-6">
+              <label class="form-check m-0">
+                <input
+                  v-model="formData.isPublic"
+                  type="checkbox"
+                  class="form-check-input"
                 >
-                  Označite da je radnik javno prikazan ako želite da bude dostupan za rezervaciju termina.
-                </label>
-              </div>
+                <span class="form-check-label responsive-form-label__bolder">
+                  <span v-if="formData.isPublic">Uključeno</span>
+                  <span v-if="!formData.isPublic">Isključeno</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="col-12 col-sm-6">
+              <label
+                class="responsive-form-label w-100 mb-0 mt-2"
+                for="id-rules"
+              >
+                Označite da je radnik javno prikazan ako želite da bude dostupan za rezervaciju termina.
+              </label>
             </div>
           </div>
         </div>
@@ -193,6 +201,7 @@
           <div class="row">
             <div class="col-md-12 mb-4">
               <label class="responsive-form-label w-100 mb-5 mt-2">
+                <!-- <label class="responsive-form-label w-100 mb-3 mt-0"> -->
                 <span class="responsive-form-label__bolder">Radni dani</span>
                 <br>
                 Označite radne dane ovog radnika
@@ -214,7 +223,7 @@
                         class="form-check-input"
                         @change="toggleDayActive(day)"
                       >
-                      <span class="form-check-label lead">{{ getDayTranslation(dayName.toString()) }}</span>
+                      <span class="form-check-label |-lead">{{ getDayTranslation(dayName.toString()) }}</span>
                     </label>
                   </div>
                   <div
@@ -334,7 +343,8 @@
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
-              <label class="responsive-form-label w-100 mb-5 mt-2">
+              <!-- <label class="responsive-form-label w-100 mb-5 mt-2"> -->
+              <label class="responsive-form-label w-100 mb-3 mt-0">
                 <span class="responsive-form-label__bolder">Usluge i odgovornosti</span>
                 <br>
                 Označite usluge koje ovaj radnik pruža
@@ -350,7 +360,7 @@
                         :checked="formData.services.length === allServices.length"
                         @change="toggleAllServices()"
                       >
-                      <span class="form-check-label lead">Označi sve</span>
+                      <span class="form-check-label |-lead">Označi sve</span>
                     </label>
                   </div>
                 </div>
@@ -369,7 +379,7 @@
                         :checked="isAssigned(service)"
                         @change="toggleService(service)"
                       >
-                      <span class="form-check-label lead">{{ service.name }}</span>
+                      <span class="form-check-label |-lead">{{ service.name }}</span>
                     </label>
                   </div>
                   <div class="col-6 col-sm-4">
@@ -393,7 +403,8 @@
         <div class="container px-0 override-desktop-limit">
           <div class="row">
             <div class="col-md-12 mb-4">
-              <label class="responsive-form-label w-100 mb-5 mt-2">
+              <!-- <label class="responsive-form-label w-100 mb-5 mt-2"> -->
+              <label class="responsive-form-label w-100 mb-3 mt-0">
                 <span class="responsive-form-label__bolder">Godišnji odmor</span>
                 <br>
                 Ovdje možete dodati razdoblje kad ste na godišnjem ili bolovanju.

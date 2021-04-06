@@ -100,7 +100,7 @@ export default defineComponent({
       if (tourStep) {
         const tourReference = tour.value;
         setTimeout((() => {
-          if (tourReference) {
+          if (tourReference && tourReference.isActive()) {
             tourReference.show(tourStep);
           }
         }), 200);

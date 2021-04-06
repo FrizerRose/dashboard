@@ -1,0 +1,40 @@
+
+.table-row-expandable {
+	.toggle-expand {
+		position: absolute;
+		right: 0.5rem;
+		top: 0.5rem;
+		display: none;
+	}
+	@media (max-width: 479px) {
+		.is-expanded, .always-expanded {
+			display: block;
+		}
+		.always-expanded {
+			> span {
+				width: 50%;
+				display: inline-block;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}		
+		.toggle-expand {
+			display: block;
+		}
+		.hide-on-mobile {
+			display: none;
+		}
+		.align-right-on-mobile {
+			text-align: right;
+		}
+	}
+	@media (min-width: 480px) {
+		.hide-on-desktop {
+			display: none;
+		}
+		.align-center-on-desktop {
+			text-align: center;
+		}
+	}
+}

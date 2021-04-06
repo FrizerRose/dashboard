@@ -28,37 +28,40 @@
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table responsive-font-size table-striped">
+                  <table class="table responsive-font-size table-striped table-row-expandable">
                     <thead>
                       <tr>
                         <th
                           scope="col"
-                          style="width:30%"
+                          class="hide-on-mobile"
                         >
                           Slika
                         </th>
                         <th
                           scope="col"
-                          style="width:35%"
+                          class="hide-on-mobile"
                         >
                           Ime
                         </th>
                         <th
                           scope="col"
-                          style="width:15%"
+                          style="text-align: center;"
+                          class="hide-on-mobile"
                         >
                           Javno prikazan
                         </th>
                         <th
                           id="staffTableEdit"
                           scope="col"
-                          style="width:10%; text-align: center;"
+                          style="text-align: center;"
+                          class="hide-on-mobile"
                         >
                           Promijeni
                         </th>
                         <th
                           scope="col"
-                          style="width:10%; text-align: center;"
+                          style="text-align: center;"
+                          class="hide-on-mobile"
                         >
                           Izbriši
                         </th>
@@ -68,9 +71,9 @@
                       <tr
                         v-for="(worker, index) in staff"
                         :key="index"
-                        :class="{ 'nav-item': true, active: selectedWorker === worker.id }"
+                        :class="{ 'nav-item': true, 'is-expanded': isExpanded, active: selectedWorker === worker.id }"
                       >
-                        <td>
+                        <td class="always-expanded position-relative">
                           <div
                             class="override-upload-image-square"
                             style="width: 48px;"
@@ -82,43 +85,65 @@
                               class="fit-cover"
                             >
                           </div>
+                          <div class="toggle-expand hide-on-mobile">
+                            <button
+                              class="btn btn-primary"
+                              @click="toggleExpand()"
+                            >
+                              prikaži više
+                            </button>
+                          </div>
                         </td>
-                        <td>{{ worker.name }}</td>
-                        <td
-                          v-if="worker.isPublic"
-                          style="text-align: center;"
-                          class="text-success fw-bolder"
-                        >
-                          Da
+                        <td class="always-expanded position-relative">
+                          <span class="hide-on-desktop">Ime</span>
+                          <span class="align-right-on-mobile">
+                            {{ worker.name }}
+                          </span>
                         </td>
-                        <td
-                          v-else
-                          style="text-align: center;"
-                          class="text-danger fw-bolder"
-                        >
-                          Ne
-                        </td>
-                        <td style="text-align: center;">
-                          <a
-                            :class="{
-                              btn: true,
-                              'responsive-btn': true,
-                              'btn-outline-secondary': true,
-                              active: selectedWorker === worker.id,
-                            }"
-                            :href="'#tab-' + worker.id"
-                            @click="openStaffEditModal(worker)"
+                        <td class="always-expanded align-center-on-desktop">
+                          <span class="hide-on-desktop">Javno prikazan</span>
+                          <span
+                            v-if="worker.isPublic"
+                            class="text-success fw-bolder align-right-on-mobile"
                           >
-                            <span class="fa fa-pen" />
-                          </a>
-                        </td>
-                        <td style="text-align: center;">
-                          <button
-                            class="btn responsive-btn btn-outline-danger"
-                            @click="deleteWorker(worker)"
+                            <span>Da</span>
+                          </span>
+                          <span
+                            v-else
+                            class="text-danger fw-bolder align-right-on-mobile"
                           >
-                            <span class="fa fa-trash" />
-                          </button>
+                            <span>Ne</span>
+                          </span>
+                        </td>
+                        <td class="always-expanded align-center-on-desktop">
+                          <span class="hide-on-desktop">Promijeni</span>
+                          <span class="align-right-on-mobile">
+                            <a
+                              :class="{
+                                btn: true,
+                                'responsive-btn': true,
+                                'btn-outline-secondary': true,
+                                'align-right-on-mobile': true,
+                                'align-center-on-desktop': true,
+                                active: selectedWorker === worker.id,
+                              }"
+                              :href="'#tab-' + worker.id"
+                              @click="openStaffEditModal(worker)"
+                            >
+                              <span class="fa fa-pen" />
+                            </a>
+                          </span>
+                        </td>
+                        <td class="always-expanded align-center-on-desktop">
+                          <span class="hide-on-desktop">Izbriši</span>
+                          <span class="align-right-on-mobile align-center-on-desktop">
+                            <button
+                              class="btn responsive-btn btn-outline-danger"
+                              @click="deleteWorker(worker)"
+                            >
+                              <span class="fa fa-trash" />
+                            </button>
+                          </span>
                         </td>
                       </tr>
                     </tbody>
@@ -172,6 +197,7 @@ export default defineComponent({
     const isStaffCreateOpen = computed(() => store.state.shared.isStaffCreateOpen);
     const isStaffEditOpen = computed(() => store.state.shared.isStaffEditOpen);
     const selectedWorker = ref(-1);
+    const isExpanded = ref(false);
 
     function deleteWorker(worker: Staff) {
       console.log('🚀 ~ file: Staff.vue ~ line 178 ~ deleteWorker ~ worker', worker);
@@ -196,6 +222,10 @@ export default defineComponent({
       document.body.classList.add('modal-open');
     }
 
+    function toggleExpand() {
+      isExpanded.value = !isExpanded.value;
+    }
+
     return {
       staff,
       selectedWorker,
@@ -204,6 +234,8 @@ export default defineComponent({
       isStaffEditOpen,
       openStaffCreateModal,
       openStaffEditModal,
+      toggleExpand,
+      isExpanded,
     };
   },
 });

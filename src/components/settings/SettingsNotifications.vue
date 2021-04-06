@@ -30,42 +30,78 @@
       <div class="mt-4 border-top border-bottom">
         <div class="my-4">
           <div class="row flex-row-reverse">
-            <div class="col-12 col-sm-12">
-              <label class="form-check m-0">
+            <div class="col-12 col-sm-6">
+              <label class="form-check m-0 mt-2">
                 <input
                   v-model="formData.preferences.clientReminderEmail"
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Klijentu šaljemo e-mail podsjetnik na zakazani termin</span>
+                <span class="form-check-label responsive-form-label__bolder">
+                  <span v-if="formData.preferences.clientReminderEmail">Uključeno</span>
+                  <span v-if="!formData.preferences.clientReminderEmail">Isključeno</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="col-12 col-sm-6">
+              <label
+                class="responsive-form-label w-100 mb-0 mt-2"
+                for="id-rules"
+              >
+                Klijentu šaljemo e-mail podsjetnik na zakazani termin
               </label>
             </div>
           </div>
         </div>
         <div class="my-4">
           <div class="row flex-row-reverse">
-            <div class="col-12 col-sm-12">
-              <label class="form-check m-0">
+            <div class="col-12 col-sm-6">
+              <label class="form-check m-0 mt-2">
                 <input
                   v-model="formData.preferences.staffReminderEmail"
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Radniku šaljemo e-mail kad se novi termin rezervirao uz njegovo ime</span>
+                <span class="form-check-label responsive-form-label__bolder">
+                  <span v-if="formData.preferences.staffReminderEmail">Uključeno</span>
+                  <span v-if="!formData.preferences.staffReminderEmail">Isključeno</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="col-12 col-sm-6">
+              <label
+                class="responsive-form-label w-100 mb-0 mt-2"
+                for="id-rules"
+              >
+                Radniku šaljemo e-mail kad se novi termin rezervirao uz njegovo ime
               </label>
             </div>
           </div>
         </div>
         <div class="my-4">
           <div class="row flex-row-reverse">
-            <div class="col-12 col-sm-12">
-              <label class="form-check m-0">
+            <div class="col-12 col-sm-6">
+              <label class="form-check m-0 mt-2">
                 <input
                   v-model="formData.preferences.staffCancellationNotice"
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Radniku šaljemo e-mail kad se ranije zakazani termin vezan uz njegovo ime poništi</span>
+                <span class="form-check-label responsive-form-label__bolder">
+                  <span v-if="formData.preferences.staffCancellationNotice">Uključeno</span>
+                  <span v-if="!formData.preferences.staffCancellationNotice">Isključeno</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="col-12 col-sm-6">
+              <label
+                class="responsive-form-label w-100 mb-0 mt-2"
+                for="id-rules"
+              >
+                Radniku šaljemo e-mail kad se ranije zakazani termin vezan uz njegovo ime poništi
               </label>
             </div>
           </div>
@@ -75,7 +111,8 @@
 
     <div class="notifikacije-select">
       <div class="border-bottom">
-        <div class="mt-4 mb-6">
+        <!-- <div class="mt-4 mb-6"> -->
+        <div class="mt-4 mb-5">
           <div class="row flex-row-reverse align-items-end">
             <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
               <label class="responsive-form-label w-100">
@@ -148,7 +185,8 @@
           </div>
         </div>
 
-        <div class="mt-4 mb-6">
+        <!-- <div class="mt-4 mb-6"> -->
+        <div class="mt-4 mb-5">
           <div class="row flex-row-reverse align-items-end">
             <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
               <label class="responsive-form-label w-100">

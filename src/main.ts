@@ -1,6 +1,5 @@
 // import '@/assets/scss/main.scss';
 import '@/assets/scss/appstack-overrides.scss';
-import '@/assets/scss/shepherd.scss';
 // import * as Sentry from '@sentry/vue';
 // import { Integrations } from '@sentry/tracing';
 import { createApp } from 'vue';

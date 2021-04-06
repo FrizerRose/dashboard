@@ -19,6 +19,9 @@
             }"
             @click.prevent="toggleDropdown()"
           >
+            <span class="align-middle me-2 d-inline-block">
+              <span class="text-dark">Ime prezime</span>
+            </span>
             <span class="align-middle me-1 d-inline-block">
               <span class="fa fa-user" />
             </span>
@@ -76,7 +79,6 @@ export default defineComponent({
     }
 
     function toggleDropdown() {
-      console.log(dropdownShowing);
       dropdownShowing.value = !dropdownShowing.value;
     }
 

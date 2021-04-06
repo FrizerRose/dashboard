@@ -43,7 +43,8 @@
         <div class="my-4">
           <div class="row">
             <div class="col-6 col-sm-6">
-              <label class="responsive-form-label w-100 mb-5 mt-2">
+              <!-- <label class="responsive-form-label w-100 mb-5 mt-2"> -->
+              <label class="responsive-form-label w-100 mb-3 mt-0">
                 <span class="responsive-form-label__bolder">Logotip</span>
                 <br>
                 Podržavamo formate: JPG, PNG
@@ -140,7 +141,7 @@
       <div class="border-bottom">
         <div class="my-4">
           <div class="row">
-            <div class="col-12 col-sm-6 mb-4 d-flex flex-column justify-content-between">
+            <div class="col-12 col-sm-6 mb-4 d-flex flex-column |-justify-content-between">
               <label
                 for="id-name"
                 class="responsive-form-label w-100"
@@ -155,7 +156,7 @@
                 for="id-name"
               >
             </div>
-            <div class="col-12 col-sm-6 mb-4 d-flex flex-column justify-content-between">
+            <div class="col-12 col-sm-6 mb-4 d-flex flex-column |-justify-content-between">
               <label
                 for="id-about-text"
                 class="responsive-form-label w-100"
@@ -369,7 +370,13 @@
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Prikaži uvjete poslovanja na stranici {{ formData.bookingPageSlug }}.dolazim.hr/uvjeti</span>
+                <span class="form-check-label">
+                  Prikaži uvjete poslovanja na stranici <a
+                    :href="'https://' + formData.bookingPageSlug + '.dolazim.hr/uvjeti'"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >{{ formData.bookingPageSlug }}.dolazim.hr/uvjeti
+                  </a></span>
               </label>
             </div>
 

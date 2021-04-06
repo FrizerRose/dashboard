@@ -30,7 +30,7 @@
       <div class="mt-4 border-top border-bottom">
         <div class="mt-4 mb-5">
           <div class="row flex-row-reverse align-items-end">
-            <div class="col-12 col-md-8 col-xl-6">
+            <div class="col-12 col-md-6 col-xl-6">
               <label
                 for="id-theme-color"
                 class="responsive-form-label w-100"
@@ -57,7 +57,7 @@
                 </option>
               </select>
             </div>
-            <div class="col-12 col-md-4 col-xl-6">
+            <div class="col-12 col-md-6 col-xl-6">
               <label class="responsive-form-label w-100 mb-0 mt-2">
                 Odaberite akcentnu boju za neke od elemenata na stranici
               </label>
@@ -78,7 +78,7 @@
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Koristi dark mode</span>
+                <span class="form-check-label responsive-form-label__bolder">Koristi dark mode</span>
               </label>
             </div>
 
@@ -106,7 +106,7 @@
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Koristi zigzag uzorak</span>
+                <span class="form-check-label responsive-form-label__bolder">Koristi zigzag uzorak</span>
               </label>
             </div>
 
@@ -134,7 +134,7 @@
                   type="checkbox"
                   class="form-check-input"
                 >
-                <span class="form-check-label">Prikaži obrub oko elemenata</span>
+                <span class="form-check-label responsive-form-label__bolder">Prikaži obrub oko elemenata</span>
               </label>
             </div>
 

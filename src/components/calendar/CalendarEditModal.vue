@@ -23,7 +23,9 @@
                     type="checkbox"
                     class="form-check-input"
                   >
-                  <span class="form-check-label lead">Klijent se pojavila/pojavio u dogovoreno vrijeme.</span>
+                  <span class="form-check-label |-lead responsive-form-label__bolder">
+                    Klijent se pojavila/pojavio u dogovoreno vrijeme.
+                  </span>
                 </label>
               </div>
             </div>
@@ -182,7 +184,7 @@
                 <textarea
                   id="id-calendar-edit-slot-note"
                   v-model="rescheduledCustomer.notes"
-                  class="form-control"
+                  class="form-control responsive-form-control"
                   rows="4"
                 />
               </div>
@@ -196,7 +198,7 @@
                 <textarea
                   id="id-calendar-edit-slot-customer-notice"
                   v-model="rescheduledNotice"
-                  class="form-control"
+                  class="form-control responsive-form-control"
                   rows="4"
                 />
               </div>

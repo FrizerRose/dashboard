@@ -28,25 +28,27 @@
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table responsive-font-size table-striped">
+                  <table class="table responsive-font-size table-striped table-row-expandable">
                     <thead>
                       <tr>
                         <th
                           scope="col"
-                          style="width:80%"
+                          class="hide-on-mobile"
                         >
-                          Ime
+                          Usluga
                         </th>
                         <th
                           id="serviceTableEdit"
                           scope="col"
-                          style="width:10%; text-align: center;"
+                          style="text-align: center;"
+                          class="hide-on-mobile"
                         >
                           Promijeni
                         </th>
                         <th
                           scope="col"
-                          style="width:10%; text-align: center;"
+                          style="text-align: center;"
+                          class="hide-on-mobile"
                         >
                           Izbriši
                         </th>
@@ -56,31 +58,50 @@
                       <tr
                         v-for="(service, index) in services"
                         :key="index"
-                        :class="{'nav-item': true, 'active': selectedService === service.id}"
+                        :class="{'nav-item': true, 'is-expanded': isExpanded, 'active': selectedService === service.id}"
                         @click="selectedService = service.id"
                       >
-                        <td>{{ service.name }}</td>
-                        <td style="text-align: center;">
-                          <a
-                            :class="{
-                              'btn': true,
-                              'responsive-btn': true,
-                              'btn-outline-secondary': true,
-                              'active': selectedService === service.id
-                            }"
-                            :href="'#tab-' + service.id"
-                            @click="openServiceEditModal(service)"
-                          >
-                            <span class="fa fa-pen" />
-                          </a>
+                        <td class="always-expanded position-relative w-80-on-desktop">
+                          <span class="hide-on-desktop">Usluga</span>
+                          <span class="align-right-on-mobile">
+                            {{ service.name }}
+                          </span>
+                          <div class="toggle-expand hide-on-mobile">
+                            <button
+                              class="btn btn-primary"
+                              @click="toggleExpand()"
+                            >
+                              prikaži više
+                            </button>
+                          </div>
                         </td>
-                        <td style="text-align: center;">
-                          <button
-                            class="btn responsive-btn btn-outline-danger"
-                            @click="deleteService(service)"
-                          >
-                            <span class="fa fa-trash" />
-                          </button>
+                        <td class="always-expanded align-center-on-desktop">
+                          <span class="hide-on-desktop">Promijeni</span>
+                          <span class="align-right-on-mobile">
+                            <a
+                              :class="{
+                                'btn': true,
+                                'responsive-btn': true,
+                                'btn-outline-secondary': true,
+                                'active': selectedService === service.id
+                              }"
+                              :href="'#tab-' + service.id"
+                              @click="openServiceEditModal(service)"
+                            >
+                              <span class="fa fa-pen" />
+                            </a>
+                          </span>
+                        </td>
+                        <td class="always-expanded align-center-on-desktop">
+                          <span class="hide-on-desktop">Izbriši</span>
+                          <span class="align-right-on-mobile">
+                            <button
+                              class="btn responsive-btn btn-outline-danger"
+                              @click="deleteService(service)"
+                            >
+                              <span class="fa fa-trash" />
+                            </button>
+                          </span>
                         </td>
                       </tr>
                     </tbody>

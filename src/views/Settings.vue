@@ -10,81 +10,91 @@
       >
         <div class="container-fluid p-0">
           <div class="responsive-nav">
-            <ul
-              class="responsive-nav__list"
-              role="tablist"
-            >
-              <li
-                class="responsive-nav__list-item"
-                @click="currentTab = 'CompanyDetails'"
+            <div class="swipe-indicator">
+              <ul
+                class="responsive-nav__list"
+                role="tablist"
               >
-                <button
-                  :class="{'responsive-nav__link' : true, 'active': currentTab === 'CompanyDetails'}"
-                  role="tab"
+                <li
+                  class="responsive-nav__list-item"
+                  @click="currentTab = 'CompanyDetails'"
                 >
-                  <span class="responsive-nav__icon">
-                    <span class="fa fa-building" />
-                  </span>
-                  <span class="responsive-nav__label">Podatci o poslovnom subjektu</span>
-                </button>
-              </li>
-              <li
-                class="responsive-nav__list-item"
-                @click="currentTab = 'Orders'"
-              >
-                <button
-                  :class="{'responsive-nav__link' : true, 'active': currentTab === 'Orders'}"
-                  role="tab"
+                  <button
+                    :class="{'responsive-nav__link' : true, 'active': currentTab === 'CompanyDetails'}"
+                    role="tab"
+                  >
+                    <span class="responsive-nav__icon">
+                      <span class="fa fa-building" />
+                    </span>
+                    <span class="responsive-nav__label">Podatci o poslovnom subjektu</span>
+                  </button>
+                </li>
+                <li
+                  class="responsive-nav__list-item"
+                  @click="currentTab = 'Orders'"
                 >
-                  <span class="responsive-nav__icon">
-                    <span class="fa fa-user" />
-                  </span>
-                  <span class="responsive-nav__label">Narudžbe</span>
-                </button>
-              </li>
-              <li
-                class="responsive-nav__list-item"
-                @click="currentTab = 'WorkingHours'"
-              >
-                <button
-                  :class="{'responsive-nav__link' : true, 'active': currentTab === 'WorkingHours'}"
-                  role="tab"
+                  <button
+                    :class="{'responsive-nav__link' : true, 'active': currentTab === 'Orders'}"
+                    role="tab"
+                  >
+                    <span class="responsive-nav__icon">
+                      <span class="fa fa-user" />
+                    </span>
+                    <span class="responsive-nav__label">Narudžbe</span>
+                  </button>
+                </li>
+                <li
+                  class="responsive-nav__list-item"
+                  @click="currentTab = 'WorkingHours'"
                 >
-                  <span class="responsive-nav__icon">
-                    <span class="fa fa-clock" />
-                  </span>
-                  <span class="responsive-nav__label">Radno vrijeme</span>
-                </button>
-              </li>
-              <li
-                class="responsive-nav__list-item"
-                @click="currentTab = 'Themes'"
-              >
-                <button
-                  :class="{'responsive-nav__link' : true, 'active': currentTab === 'Themes'}"
-                  role="tab"
+                  <button
+                    :class="{'responsive-nav__link' : true, 'active': currentTab === 'WorkingHours'}"
+                    role="tab"
+                  >
+                    <span class="responsive-nav__icon">
+                      <span class="fa fa-clock" />
+                    </span>
+                    <span class="responsive-nav__label">Radno vrijeme</span>
+                  </button>
+                </li>
+                <li
+                  class="responsive-nav__list-item"
+                  @click="currentTab = 'Themes'"
                 >
-                  <span class="responsive-nav__icon">
-                    <span class="fa fa-palette" />
-                  </span>
-                  <span class="responsive-nav__label">Izgled</span>
-                </button>
-              </li>
-              <li
-                class="responsive-nav__list-item"
-                @click="currentTab = 'Notifications'"
-              >
-                <button
-                  :class="{'responsive-nav__link' : true, 'active': currentTab === 'Notifications'}"
-                  role="tab"
+                  <button
+                    :class="{'responsive-nav__link' : true, 'active': currentTab === 'Themes'}"
+                    role="tab"
+                  >
+                    <span class="responsive-nav__icon">
+                      <span class="fa fa-palette" />
+                    </span>
+                    <span class="responsive-nav__label">Izgled</span>
+                  </button>
+                </li>
+                <li
+                  class="responsive-nav__list-item"
+                  @click="currentTab = 'Notifications'"
                 >
-                  <span class="responsive-nav__icon">
-                    <span class="fa fa-bell" />
-                  </span>
-                  <span class="responsive-nav__label">Notifikacije</span>
-                </button>
-              </li>
-            </ul>
+                  <button
+                    :class="{'responsive-nav__link' : true, 'active': currentTab === 'Notifications'}"
+                    role="tab"
+                  >
+                    <span class="responsive-nav__icon">
+                      <span class="fa fa-bell" />
+                    </span>
+                    <span class="responsive-nav__label">Notifikacije</span>
+                  </button>
+                </li>
+              </ul>
+              <div class="swipe-indicator__inner">
+                <span class="swipe-indicator__item -left">
+                  <span class="fas fa-chevron-left" />
+                </span>
+                <span class="swipe-indicator__item -right">
+                  <span class="fas fa-chevron-right" />
+                </span>
+              </div>
+            </div>
           </div>
           <div class="responsive-main">
             <div class="tab">

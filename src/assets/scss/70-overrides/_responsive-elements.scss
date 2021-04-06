@@ -16,6 +16,32 @@ html {
 	}
 }
 
+.swipe-indicator {
+	position: relative;
+}
+
+.swipe-indicator__inner {
+	align-items: center;
+	justify-content: space-between;
+    pointer-events: none;
+	display: none;
+	@media (max-width: 575px) {
+		position: fixed;
+		top: auto;
+		left: auto;
+		right: auto;
+		bottom: 1.5rem;
+		width: 100%;
+		display: flex;
+	}
+}
+
+.swipe-indicator__item {
+	// border: 2px solid; */
+    padding: 0.5rem;
+    line-height: 1;
+}
+
 .responsive-btn {
 	padding: 0.5em 0.75em;
 	font-size: 1rem;

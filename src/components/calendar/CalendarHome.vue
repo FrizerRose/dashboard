@@ -117,9 +117,9 @@ export default defineComponent({
 
     function setTitle(dateString: string) {
       if (user.value?.isAdminAccount || !user.value) {
-        headerTitle.value = `Svi termini za ${dateString}`;
+        headerTitle.value = `Svi termini ${dateString}`;
       } else {
-        headerTitle.value = `${user.value?.name} - termini za ${dateString}`;
+        headerTitle.value = `${user.value?.name} - termini ${dateString}`;
       }
     }
 

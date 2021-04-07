@@ -58,7 +58,7 @@
                       <tr
                         v-for="(service, index) in services"
                         :key="index"
-                        :class="{'nav-item': true, 'is-expanded': isExpanded, 'active': selectedService === service.id}"
+                        :class="{'nav-item': true, 'is-expanded': isExpanded, active: selectedService === service.id}"
                         @click="selectedService = service.id"
                       >
                         <td class="always-expanded position-relative w-80-on-desktop">
@@ -166,6 +166,7 @@ export default defineComponent({
       duration: 0,
       company: selectedCompany.value?.id,
     });
+    const isExpanded = ref(false);
 
     function deleteService(service: Service) {
       // eslint-disable-next-line no-alert
@@ -185,6 +186,10 @@ export default defineComponent({
       document.body.classList.add('modal-open');
     }
 
+    function toggleExpand() {
+      isExpanded.value = !isExpanded.value;
+    }
+
     return {
       services,
       selectedService,
@@ -196,6 +201,8 @@ export default defineComponent({
       newService,
       requestSent,
       status,
+      toggleExpand,
+      isExpanded,
     };
   },
 });

@@ -67,6 +67,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
           localStorage.setItem('accessToken', response.data.accessToken);
           localStorage.setItem('expiration', (Date.now() + (parseInt(response.data.expiresIn, 10) * 1000) - 50000).toString());
           commit(LocalMutationTypes.CHANGE_IS_AUTHORIZED, true);
+          commit(LocalMutationTypes.CHANGE_USER, localStorage.getItem('user'));
           resolve(true);
         } else {
           reject(new ApiError('Credentials dont match.'));

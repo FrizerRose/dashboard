@@ -114,14 +114,15 @@ export default defineComponent({
       submenuShow.value = true;
     }
 
-    const user = computed(() => store.getters.getUser);
-    const availableNodes = props.nodes.filter((node) => (user.value?.isAdminAccount ? true : !node.hideForStaff));
+    const user = computed(() => JSON.parse(store.state.auth.user));
+    const availableNodes = computed(() => props.nodes.filter((node) => (user.value?.isAdminAccount ? true : !node.hideForStaff)));
 
     return {
       tourNextStep,
       submenuToggle,
       submenuShow,
       availableNodes,
+      user,
     };
   },
 });

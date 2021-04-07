@@ -9,7 +9,7 @@ import { defineComponent, computed, watch } from 'vue';
 import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
 import { useStore } from '@/store';
-import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
 import * as punycode from 'punycode';
 
@@ -19,13 +19,14 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const route = useRoute();
+    const router = useRouter();
 
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const isMobile = computed(() => store.state.shared.isMobile);
     const isTutorialFinished = computed(() => store.getters.isTutorialFinished);
     const authPages = ['/prijava', '/zaboravljena-lozinka'];
-    const isOnAuthPages = computed(() => authPages.includes(route.path));
+    const route = computed(() => window.location.pathname);
+    const isOnAuthPages = computed(() => authPages.includes(route.value));
 
     const mq = window.matchMedia('(min-width: 992px)');
     mq.addEventListener('change', () => {
@@ -43,6 +44,7 @@ export default defineComponent({
       }
     });
 
+    // Parse the company ID from the url
     let companyID: string | number = 1;
     if (process.env.NODE_ENV === 'production') {
       const urlFragments = window.location.hostname.split('.');
@@ -60,6 +62,16 @@ export default defineComponent({
         store.dispatch(ActionTypes.FETCH_STAFF, selectedCompany.value.id);
         store.dispatch(ActionTypes.FETCH_SERVICES, selectedCompany.value.id);
         store.dispatch(ActionTypes.FETCH_CUSTOMERS, { id: selectedCompany.value.id, limit: 10 });
+      }
+
+      // Check if user has a valid jwt token
+      if (!isOnAuthPages.value) {
+        try {
+          await store.dispatch(ActionTypes.FETCH_USER, localStorage.getItem('accessToken') || '');
+        } catch {
+          store.commit(MutationTypes.LOGOUT, true);
+          router.push('/prijava');
+        }
       }
     }
 

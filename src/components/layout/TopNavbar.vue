@@ -19,8 +19,11 @@
             }"
             @click.prevent="toggleDropdown()"
           >
-            <span class="align-middle me-2 d-inline-block">
-              <span class="text-dark">Ime prezime</span>
+            <span
+              v-if="user"
+              class="align-middle me-2 d-inline-block"
+            >
+              <span class="text-dark">{{ user.name }}</span>
             </span>
             <span class="align-middle me-1 d-inline-block">
               <span class="fa fa-user" />
@@ -60,7 +63,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import {
+  computed, defineComponent, onMounted, ref,
+} from 'vue';
 import MutationTypes from '@/store/mutation-types';
 import { useStore } from '@/store';
 import { useRouter } from 'vue-router';
@@ -71,6 +76,7 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
 
+    const user = computed(() => store.getters.getUser);
     const dropdownShowing = ref(false);
 
     function logout() {
@@ -99,6 +105,7 @@ export default defineComponent({
       logout,
       toggleDropdown,
       dropdownShowing,
+      user,
     };
   },
 });

@@ -1,5 +1,8 @@
 <template>
   <router-view v-if="selectedCompany" />
+  <div v-else>
+    Objekt nije pronađen
+  </div>
 
   <InitialFlow v-if="!isMobile && !isTutorialFinished && selectedCompany !== null && !isOnAuthPages" />
 </template>

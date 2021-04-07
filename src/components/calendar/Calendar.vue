@@ -262,8 +262,6 @@ export default defineComponent({
           },
 
           eventClick(info) {
-            console.log('🚀 ~ file: Calendar.vue ~ line 238 ~ onMounted ~ info', info);
-
             // eslint-disable-next-line no-underscore-dangle
             const appointmentData = info.event._def.extendedProps;
 
@@ -344,7 +342,6 @@ export default defineComponent({
         watch(
           () => selectedWorker.value,
           (worker) => {
-            console.log('🚀 ~ file: Calendar.vue ~ line 454 ~ onMounted ~ worker', worker);
             calendar.value.scrollToTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
             if (worker) {
               calendar.value.setOption('businessHours', getFormattedBusinessHours(worker));

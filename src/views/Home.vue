@@ -54,8 +54,8 @@ import Dashboard from '@/components/layout/Dashboard.vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 import { getDateStringFromDate } from '@/helpers/time';
+import StatCard from '@/components/home/StatCard.vue';
 import CalendarHome from '../components/calendar/CalendarHome.vue';
-import StatCard from '../components/StatCard.vue';
 
 export default defineComponent({
   components: {
@@ -73,14 +73,6 @@ export default defineComponent({
 
     const qrCode = ref('');
     const stats = ref();
-
-    async function fetchQrCode() {
-      // const bookingPageSlug = selectedCompany.value?.bookingPageSlug;
-      // const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${bookingPageSlug}.dolazim.hr`);
-      // if (response.status === 200) {
-      //   qrCode.value = response.url;
-      // }
-    }
 
     function fetchAppointmentsOnToday() {
       if (selectedCompany.value?.id) {
@@ -113,7 +105,6 @@ export default defineComponent({
     return {
       routeName,
       qrCode,
-      fetchQrCode,
       reservedAppointments,
       stats,
     };

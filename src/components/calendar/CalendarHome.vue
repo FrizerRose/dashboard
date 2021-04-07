@@ -163,22 +163,7 @@ export default defineComponent({
           },
         );
 
-        // // Updates business hours
-        // watch(
-        //   () => selectedWorker.value,
-        //   (worker) => {
-        //     console.log('🚀 ~ file: Calendar.vue ~ line 454 ~ onMounted ~ worker', worker);
-        //     calendar.value.scrollToTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
-        //     if (worker) {
-        //       calendar.value.setOption('businessHours', getFormattedBusinessHours(worker));
-        //     }
-        //   },
-        // );
-
         calendar.value.render();
-
-        // Scroll to current time of day
-        // calendar.scrollToTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
       }
     });
 

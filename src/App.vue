@@ -24,8 +24,6 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
 
-    console.log('test console', 2);
-
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const isMobile = computed(() => store.state.shared.isMobile);
     const isTutorialFinished = computed(() => store.getters.isTutorialFinished);

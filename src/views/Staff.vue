@@ -200,7 +200,6 @@ export default defineComponent({
     const isExpanded = ref(false);
 
     function deleteWorker(worker: Staff) {
-      console.log('🚀 ~ file: Staff.vue ~ line 178 ~ deleteWorker ~ worker', worker);
       if (worker.user?.isAdminAccount) {
         // eslint-disable-next-line no-alert
         window.alert(`Nije moguće obrisati radnika koji je povezan sa adminskim računom.

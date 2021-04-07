@@ -41,13 +41,13 @@ const authService = new AuthService();
 
 // Action implementation.
 export const actions: ActionTree<State, RootState> & Actions = {
-  async [LocalActionTypes.FETCH_USER]({ getters, commit }, token: string): Promise<unknown> {
+  async [LocalActionTypes.FETCH_USER]({ state, commit }, token: string): Promise<unknown> {
     try {
       authService.setAuthHeader(token);
       const response = await authService.get('me');
       authService.removeAuthHeader();
 
-      if (response.status === 200 && response.data && response.data.company.id === getters.getUser.company.id) {
+      if (response.status === 200 && response.data && response.data.company.id === state.userCompany?.id) {
         commit(LocalMutationTypes.CHANGE_IS_AUTHORIZED, true);
         return Promise.resolve(true);
       }

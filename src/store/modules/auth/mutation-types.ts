@@ -2,6 +2,7 @@ enum MutationTypes {
   CHANGE_USER = 'CHANGE_USER',
   CHANGE_IS_AUTHORIZED = 'CHANGE_IS_AUTHORIZED',
   LOGOUT = 'LOGOUT',
+  CHANGE_USER_COMPANY = 'CHANGE_USER_COMPANY',
 }
 
 export default MutationTypes;

@@ -7,7 +7,9 @@ import { ApiError } from '@/types/customError';
 import Company from '@/types/company';
 import Image from '@/types/image';
 import LocalActionTypes from './action-types';
+import AuthMutationTypes from '../auth/mutation-types';
 import SharedMutationTypes from '../shared/mutation-types';
+import { Mutations as AuthMutations } from '../auth/mutations';
 import { Mutations as SharedMutations } from '../shared/mutations';
 import { State } from './state';
 
@@ -19,9 +21,16 @@ type AugmentedSharedActionContext = {
   ): ReturnType<SharedMutations[K]>;
 } & Omit<ActionContext<State, RootState>, 'commit'>
 
+type AugmentedAuthActionContext = {
+  commit<K extends keyof AuthMutations>(
+    key: K,
+    payload: Parameters<AuthMutations[K]>[1],
+  ): ReturnType<AuthMutations[K]>;
+} & Omit<ActionContext<State, RootState>, 'commit'>
+
 export interface Actions {
   [LocalActionTypes.FETCH_COMPANY](
-    { commit }: AugmentedSharedActionContext,
+    { commit }: AugmentedSharedActionContext & AugmentedAuthActionContext,
     id: number | string
   ): Promise<unknown>;
   [LocalActionTypes.FETCH_STATS](
@@ -64,6 +73,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
         }
         if (response.status === 200 && response.data) {
           commit(SharedMutationTypes.CHANGE_SELECTED_COMPANY, response.data);
+          commit(AuthMutationTypes.CHANGE_USER_COMPANY, response.data);
           resolve(true);
         } else {
           reject(new ApiError('No company by this ID.'));

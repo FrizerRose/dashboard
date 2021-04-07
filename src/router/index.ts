@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { useStore } from '@/store';
+import MutationTypes from '@/store/mutation-types';
 import { computed } from 'vue';
 import Home from '../views/Home.vue';
 
@@ -121,6 +122,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const store = useStore();
+
   const publicPages = ['/prijava', '/zaboravljena-lozinka', '/404'];
   const authPages = ['/prijava', '/zaboravljena-lozinka'];
   const adminPages = ['/postavke'];
@@ -138,13 +141,16 @@ router.beforeEach((to, from, next) => {
 
   // Cancel the tour on public pages
   if (!authRequired) {
-    const store = useStore();
     const tour = computed(() => store.state.shared.tour);
 
     const tourReference = tour.value;
     if (tourReference?.isActive()) {
       tourReference.cancel();
     }
+  }
+
+  if (typeof expiration === 'string' && Date.now() > parseInt(expiration, 10)) {
+    store.commit(MutationTypes.LOGOUT, true);
   }
 
   // Trying to access a restricted page + not logged in

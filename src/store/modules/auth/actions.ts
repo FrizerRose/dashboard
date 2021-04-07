@@ -65,7 +65,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
         if (response.status === 200 && response.data) {
           localStorage.setItem('user', JSON.stringify(response.data.user));
           localStorage.setItem('accessToken', response.data.accessToken);
-          localStorage.setItem('expiration', (Date.now() + parseInt(response.data.expiresIn, 10) - 5).toString());
+          localStorage.setItem('expiration', (Date.now() + (parseInt(response.data.expiresIn, 10) * 1000) - 50000).toString());
           commit(LocalMutationTypes.CHANGE_IS_AUTHORIZED, true);
           resolve(true);
         } else {

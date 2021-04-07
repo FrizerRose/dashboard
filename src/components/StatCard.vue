@@ -13,7 +13,7 @@
           </h1>
 
           <div
-            v-if="percentage"
+            v-if="percentage && isFinite(percentage)"
             class="mb-0"
           >
             <span

@@ -44,8 +44,6 @@ export default defineComponent({
     //   // tour.next;
     // }
 
-    console.log('aaaa', user.value?.isAdminAccount);
-
     tour.addSteps([
       {
         id: 'first-step',

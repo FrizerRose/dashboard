@@ -288,7 +288,7 @@ export default defineComponent({
 
     function closeCalendarModal() {
       store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
-      document.body.classList.remove('modal-open');
+      // document.body.classList.remove('modal-open');
     }
 
     // Close modal on Escape press
@@ -320,7 +320,7 @@ export default defineComponent({
 
         if (!isReschedule) {
           store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
-          document.body.classList.remove('modal-open');
+          // document.body.classList.remove('modal-open');
         }
       } catch {
         // eslint-disable-next-line no-alert

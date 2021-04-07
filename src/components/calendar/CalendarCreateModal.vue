@@ -326,7 +326,7 @@ export default defineComponent({
 
     function closeCalendarModal() {
       store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
-      document.body.classList.remove('modal-open');
+      // document.body.classList.remove('modal-open');
     }
 
     // Close modal on Escape press

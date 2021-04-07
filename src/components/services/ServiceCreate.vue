@@ -234,7 +234,7 @@ export default defineComponent({
 
     function closeServiceCreateModal() {
       store.commit(MutationTypes.CHANGE_OPEN_SERVICE_CREATE_MODAL, false);
-      document.body.classList.remove('modal-open');
+      // document.body.classList.remove('modal-open');
       const modal = document.getElementById('exampleModalFullscreen');
       if (modal) {
         modal.classList.remove('show');

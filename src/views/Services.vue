@@ -177,13 +177,13 @@ export default defineComponent({
 
     function openServiceCreateModal() {
       store.commit(MutationTypes.CHANGE_OPEN_SERVICE_CREATE_MODAL, true);
-      document.body.classList.add('modal-open');
+      // document.body.classList.add('modal-open');
     }
 
     function openServiceEditModal(service: Service) {
       selectedService.value = service.id;
       store.commit(MutationTypes.CHANGE_OPEN_SERVICE_EDIT_MODAL, true);
-      document.body.classList.add('modal-open');
+      // document.body.classList.add('modal-open');
     }
 
     function toggleExpand() {

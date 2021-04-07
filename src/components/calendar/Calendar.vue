@@ -161,7 +161,7 @@ export default defineComponent({
 
     function openModal() {
       store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, true);
-      document.body.classList.add('modal-open');
+      // document.body.classList.add('modal-open');
     }
 
     const formattedAppointments = computed(() => reservedAppointments.value.map((appointment) => {

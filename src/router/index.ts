@@ -124,6 +124,12 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const store = useStore();
 
+  store.commit(MutationTypes.CHANGE_OPEN_STAFF_CREATE_MODAL, false);
+  store.commit(MutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL, false);
+  store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
+  store.commit(MutationTypes.CHANGE_OPEN_SERVICE_CREATE_MODAL, false);
+  store.commit(MutationTypes.CHANGE_OPEN_SERVICE_EDIT_MODAL, false);
+
   const publicPages = ['/prijava', '/zaboravljena-lozinka', '/404'];
   const authPages = ['/prijava', '/zaboravljena-lozinka'];
   const adminPages = ['/postavke'];

@@ -1,5 +1,8 @@
 <template>
-  <div v-if="isCompanyFetched">
+  <div
+    v-if="isCompanyFetched"
+    :class="{'modal-open': anyModalOpen}"
+  >
     <router-view
       v-if="selectedCompany"
     />
@@ -59,7 +62,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, computed, watch, ref, onMounted,
+  defineComponent, computed, ref, onMounted,
 } from 'vue';
 import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
@@ -81,6 +84,7 @@ export default defineComponent({
     const isCompanyFetched = computed(() => store.state.shared.isCompanyFetched);
     const isMobile = computed(() => store.state.shared.isMobile);
     const isTutorialFinished = computed(() => store.getters.isTutorialFinished);
+    const anyModalOpen = computed(() => store.getters.anyModalOpen);
 
     const authPages = ['/prijava', '/zaboravljena-lozinka'];
     const route = computed(() => routeObject.path);
@@ -92,15 +96,15 @@ export default defineComponent({
     });
     store.commit(MutationTypes.CHANGE_IS_MOBILE, window.innerWidth <= 1024);
 
-    watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
-      if (!newState) {
-        document.body.classList.add('modal-open');
-      }
+    // watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
+    //   if (!newState) {
+    //     document.body.classList.add('modal-open');
+    //   }
 
-      if (newState && !oldState) {
-        document.body.classList.remove('modal-open');
-      }
-    });
+    //   if (newState && !oldState) {
+    //     document.body.classList.remove('modal-open');
+    //   }
+    // });
 
     const isMounted = ref(false);
 
@@ -149,6 +153,7 @@ export default defineComponent({
       isOnAuthPages,
       isMobile,
       isMounted,
+      anyModalOpen,
     };
   },
 });

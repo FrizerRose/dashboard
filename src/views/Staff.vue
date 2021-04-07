@@ -212,13 +212,13 @@ export default defineComponent({
 
     function openStaffCreateModal() {
       store.commit(MutationTypes.CHANGE_OPEN_STAFF_CREATE_MODAL, true);
-      document.body.classList.add('modal-open');
+      // document.body.classList.add('modal-open');
     }
 
     function openStaffEditModal(worker: Staff) {
       selectedWorker.value = worker.id;
       store.commit(MutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL, true);
-      document.body.classList.add('modal-open');
+      // document.body.classList.add('modal-open');
     }
 
     function toggleExpand() {

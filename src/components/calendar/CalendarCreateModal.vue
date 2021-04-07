@@ -24,7 +24,7 @@
                 <span class="responsive-form-label__bolder">Radnik</span>
               </label>
               <select
-                v-if="services"
+                v-if="services && selectedWorker"
                 id="id-calendar-create-slot-staff"
                 class="form-control responsive-form-control"
                 name="id-calendar-create-slot-staff"

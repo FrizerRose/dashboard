@@ -61,7 +61,6 @@ export default defineComponent({
       if (selectedCompany.value) {
         store.dispatch(ActionTypes.FETCH_STAFF, selectedCompany.value.id);
         store.dispatch(ActionTypes.FETCH_SERVICES, selectedCompany.value.id);
-        store.dispatch(ActionTypes.FETCH_CUSTOMERS, { id: selectedCompany.value.id, limit: 10 });
       }
 
       // Check if user has a valid jwt token

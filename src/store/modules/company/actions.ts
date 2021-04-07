@@ -71,6 +71,9 @@ export const actions: ActionTree<State, RootState> & Actions = {
         } else {
           response = await companyService.getBySlug(id);
         }
+
+        commit(SharedMutationTypes.CHANGE_IS_COMPANY_FETCHED, true);
+
         if (response.status === 200 && response.data) {
           commit(SharedMutationTypes.CHANGE_SELECTED_COMPANY, response.data);
           commit(AuthMutationTypes.CHANGE_USER_COMPANY, response.data);
@@ -79,6 +82,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
           reject(new ApiError('No company by this ID.'));
         }
       } catch {
+        commit(SharedMutationTypes.CHANGE_IS_COMPANY_FETCHED, true);
         reject(new ApiError('No company by this ID.'));
       }
     })());

@@ -25,6 +25,7 @@ export interface State {
   selectedWorker: Staff | null;
   tour: {show: Function; next: Function; isActive: Function; cancel: Function} | null;
   selectedCustomerAppointments: Appointment[];
+  isCompanyFetched: boolean;
 }
 
 const state: State = {
@@ -48,6 +49,7 @@ const state: State = {
   selectedWorker: null,
   tour: null,
   selectedCustomerAppointments: [],
+  isCompanyFetched: false,
 };
 
 export default state;

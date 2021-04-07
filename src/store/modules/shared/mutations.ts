@@ -31,6 +31,7 @@ export type Mutations<S = State> = {
   [LocalMutationTypes.CHANGE_TOUR](state: S, payload: {show: Function; next: Function; isActive: Function; cancel: Function} | null): void;
   [LocalMutationTypes.CHANGE_CALENDAR_SELECTED_APPOINTMENT](state: S, payload: Appointment): void;
   [LocalMutationTypes.CHANGE_CUSTOMERS_APPOINTMENTS](state: S, payload: Appointment[]): void;
+  [LocalMutationTypes.CHANGE_IS_COMPANY_FETCHED](state: S, payload: boolean): void;
 };
 
 // Mutuation implementation.
@@ -46,6 +47,9 @@ export const mutations: MutationTree<State> & Mutations = {
   },
   [LocalMutationTypes.CHANGE_SELECTED_COMPANY](state, payload: Company | null) {
     state.selectedCompany = payload;
+  },
+  [LocalMutationTypes.CHANGE_IS_COMPANY_FETCHED](state, payload: boolean) {
+    state.isCompanyFetched = payload;
   },
   [LocalMutationTypes.CHANGE_SELECTED_SERVICE](state, payload: Service | null) {
     state.selectedService = payload;

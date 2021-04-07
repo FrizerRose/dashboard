@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { useStore } from '@/store';
+import { computed } from 'vue';
 import Home from '../views/Home.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -133,6 +135,17 @@ router.beforeEach((to, from, next) => {
   const user = localStorage.getItem('user');
   const parsedUser = typeof user === 'string' ? JSON.parse(user) : null;
   const isAdmin = parsedUser && parsedUser.isAdminAccount;
+
+  // Cancel the tour on public pages
+  if (!authRequired) {
+    const store = useStore();
+    const tour = computed(() => store.state.shared.tour);
+
+    const tourReference = tour.value;
+    if (tourReference?.isActive()) {
+      tourReference.cancel();
+    }
+  }
 
   // Trying to access a restricted page + not logged in
   // Redirect to login page

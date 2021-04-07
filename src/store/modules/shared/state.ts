@@ -23,7 +23,7 @@ export interface State {
   reservedAppointments: Appointment[];
   calendarSelectedAppointmentID: number;
   selectedWorker: Staff | null;
-  tour: object | null;
+  tour: {show: Function; next: Function; isActive: Function; cancel: Function} | null;
   selectedCustomerAppointments: Appointment[];
 }
 

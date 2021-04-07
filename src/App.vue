@@ -12,7 +12,7 @@ import { defineComponent, computed, watch } from 'vue';
 import ActionTypes from '@/store/action-types';
 import MutationTypes from '@/store/mutation-types';
 import { useStore } from '@/store';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import InitialFlow from '@/components/initialFlow/InitialFlowWrapper.vue';
 import * as punycode from 'punycode';
 
@@ -23,12 +23,13 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
+    const routeObject = useRoute();
 
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
     const isMobile = computed(() => store.state.shared.isMobile);
     const isTutorialFinished = computed(() => store.getters.isTutorialFinished);
     const authPages = ['/prijava', '/zaboravljena-lozinka'];
-    const route = computed(() => window.location.pathname);
+    const route = computed(() => routeObject.path);
     const isOnAuthPages = computed(() => authPages.includes(route.value));
 
     const mq = window.matchMedia('(min-width: 992px)');
@@ -84,6 +85,7 @@ export default defineComponent({
       isTutorialFinished,
       isOnAuthPages,
       isMobile,
+      route,
     };
   },
 });

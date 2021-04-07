@@ -78,6 +78,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
       throw new ApiError('No services with this company ID.');
     }
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async [LocalActionTypes.UPDATE_CUSTOMER]({ commit }, customer: Customer): Promise<unknown> {
     return new Promise((resolve, reject) => (async () => {
       try {

@@ -123,7 +123,7 @@
             role="tabpanel"
           >
             <ServiceEdit
-              v-if="isServiceEditOpen && selectedService === service.id"
+              v-if="isServicesEditOpen && selectedService === service.id"
               :service="service"
             />
           </div>
@@ -155,11 +155,9 @@ export default defineComponent({
     const store = useStore();
     const services = computed(() => store.state.service.services);
     const isServicesCreateOpen = computed(() => store.state.shared.isServicesCreateOpen);
-    const isServiceEditOpen = computed(() => store.state.shared.isServicesEditOpen);
+    const isServicesEditOpen = computed(() => store.state.shared.isServicesEditOpen);
     const selectedService = ref(-1);
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
-    const requestSent = ref(false);
-    const status = ref(false);
     const newService = reactive({
       name: '',
       price: 0,
@@ -195,12 +193,10 @@ export default defineComponent({
       selectedService,
       deleteService,
       isServicesCreateOpen,
-      isServiceEditOpen,
+      isServicesEditOpen,
       openServiceCreateModal,
       openServiceEditModal,
       newService,
-      requestSent,
-      status,
       toggleExpand,
       isExpanded,
     };

@@ -217,7 +217,7 @@ export default defineComponent({
         text: 'Pokušajte dodati novu uslugu. Kada ste spremni, nastavite na Sljedeći korak.',
         attachTo: {
           element: '#serviceAddButton',
-          on: 'left-end',
+          on: 'bottom',
         },
         beforeShowPromise() {
           return new Promise((resolve) => {

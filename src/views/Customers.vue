@@ -141,8 +141,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .customer-details {
-  margin-top: 2rem;
-  padding: 0 1.5rem 1.5rem;
+  padding: 1rem;
   @media (min-width: 1200px) {
     position: sticky;
     top: 3rem;
@@ -150,8 +149,7 @@ export default defineComponent({
 }
 .customers-nav {
   position: relative;
-  margin-top: 2rem;
-  padding: 0 1.5rem 1.5rem;
+  padding: 1rem;
 
   @media (max-width: 575px) {
   }

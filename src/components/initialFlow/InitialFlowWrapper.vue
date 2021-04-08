@@ -151,7 +151,7 @@ export default defineComponent({
         text: 'Ovdje možete dodati novog radnika, kada ste spremni, nastavite s dodavanjem.',
         attachTo: {
           element: '#staffCreateButton',
-          on: 'left-end',
+          on: 'bottom',
         },
         beforeShowPromise() {
           return new Promise((resolve) => {

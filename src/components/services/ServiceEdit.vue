@@ -302,11 +302,6 @@ export default defineComponent({
 
     function closeServiceEditModal() {
       store.commit(MutationTypes.CHANGE_OPEN_SERVICE_EDIT_MODAL, false);
-      // document.body.classList.remove('modal-open');
-      const modal = document.getElementById('exampleModalFullscreen');
-      if (modal) {
-        modal.classList.remove('show');
-      }
     }
 
     // Close modal on Escape press

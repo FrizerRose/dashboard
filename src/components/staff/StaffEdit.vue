@@ -642,11 +642,6 @@ export default defineComponent({
 
     function closeStaffEditModal() {
       store.commit(MutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL, false);
-      // document.body.classList.remove('modal-open');
-      const modal = document.getElementById('exampleModalFullscreen');
-      if (modal) {
-        modal.classList.remove('show');
-      }
     }
 
     // Close modal on Escape press

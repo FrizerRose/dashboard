@@ -90,11 +90,26 @@ export default defineComponent({
     const route = computed(() => routeObject.path);
     const isOnAuthPages = computed(() => authPages.includes(route.value));
 
+    // Watch for screen size to change isMobile
     const mq = window.matchMedia('(min-width: 992px)');
     mq.addEventListener('change', () => {
       store.commit(MutationTypes.CHANGE_IS_MOBILE, window.innerWidth <= 1024);
     });
     store.commit(MutationTypes.CHANGE_IS_MOBILE, window.innerWidth <= 1024);
+
+    // Add lucky orange to <head>
+    if (process.env.NODE_ENV === 'production') {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.innerHTML = `
+        window.__lo_site_id = 294592;
+        (function() {
+          var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+          wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+      })();`;
+      document.head.appendChild(script);
+    }
 
     // watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
     //   if (!newState) {

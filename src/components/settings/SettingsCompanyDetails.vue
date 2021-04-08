@@ -548,6 +548,7 @@ export default defineComponent({
 
         const newImage = await store.dispatch(ActionTypes.UPLOAD_IMAGE, imageData);
         image.value = newImage;
+        formData.image = newImage;
         imageUploadSent.value = true;
         imageUploadStatus.value = true;
       } catch {

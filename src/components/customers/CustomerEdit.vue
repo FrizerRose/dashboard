@@ -4,46 +4,45 @@
       class="responsive-form-label"
       for="id-client-name"
     >
-      <strong>Ime</strong>
+      <span class="responsive-form-label__bolder">Ime klijenta</span>
     </label>
     <input
       id="id-client-name"
       v-model="formData.name"
       type="text"
-      class="form-control responsive-form-control"
+      class="form-control responsive-form-control mb-3"
     >
     <label
       class="responsive-form-label"
       for="id-client-email"
     >
-      <strong>Email</strong>
+      <span class="responsive-form-label__bolder">E-mail</span>
     </label>
     <input
       id="id-client-email"
       v-model="formData.email"
       type="text"
-      class="form-control responsive-form-control"
+      class="form-control responsive-form-control mb-3"
     >
     <label
       class="responsive-form-label"
       for="id-client-phone"
     >
-      <strong>Mob</strong>
+      <span class="responsive-form-label__bolder">Mobitel</span>
     </label>
     <input
       id="id-client-phone"
       v-model="formData.phone"
       type="text"
-      class="form-control responsive-form-control"
+      class="form-control responsive-form-control mb-3"
     >
-    <strong>Bilješke o klijentu</strong>
+    <span class="responsive-form-label__bolder">Bilješke o klijentu</span>
     <textarea
       id="id-client-note"
       v-model="formData.notes"
-      class="form-control responsive-form-control"
+      class="form-control responsive-form-control mb-3"
       rows="4"
     />
-    <br>
     <button
       class="btn responsive-btn btn-primary mb-3"
       @click="save()"

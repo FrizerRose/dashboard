@@ -1,12 +1,9 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <!-- ima klijenata i ima termina -->
-
-      <div v-if="customerAppointments">
-        <!-- klijent je odabran -->
-
-        <div v-if="customer.name">
+      <!-- klijent je odabran -->
+      <div v-if="customer.name">
+        <div>
           <div class="row">
             <div class="col-xxl-6">
               <table class="table responsive-font-size table-striped table-row-expandable">
@@ -112,8 +109,7 @@
                 </div>
                 <!-- ends alert box -->
 
-                <div v-if="customer.name && customerAppointments">
-                  <!-- nije mi jasno kaj ovo radi - već smo unutar v-if="customerAppointments" i v-if="customer.name" -->
+                <div v-if="customerAppointments.length">
                   <table class="table responsive-font-size table-striped |-table-row-expandable">
                     <tbody>
                       <tr
@@ -122,33 +118,13 @@
                       >
                         <td>{{ appointment.date }}</td>
                         <td>{{ appointment.time }}</td>
-                        <td>{{ appointment.name }}</td>
+                        <td>{{ appointment.service.name }}</td>
                       </tr>
                     </tbody>
                   </table>
-
-                  <div
-                    v-if="customer.name && !customerAppointments.length"
-                    class="alert alert-warning mb-0"
-                  >
-                    <!-- ovo se nikad neće pojavit jer ako ne postoji termin nema ni klijenta kojeg možemo selektirat -->
-                    <p>
-                      Klijent nema ugovorenih termina.
-                    </p>
-                  </div>
                 </div>
-
                 <div v-else>
-                  <!-- ovo se nikad neće pojavit jer se if nikad neće pojavit -->
-                  <table class="table responsive-font-size table-striped |-table-row-expandable">
-                    <tbody>
-                      <tr>
-                        <td><em>Datum</em></td>
-                        <td><em>Vrijeme</em></td>
-                        <td><em>Usluga</em></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  Klijent nema rezerviranih termina.
                 </div>
               </div>
             </div>
@@ -156,14 +132,14 @@
         </div>
 
         <!-- klijent nije odabran -->
-
-        <div
-          v-else
-          class="alert alert-warning mb-0"
-        >
-          <div class="alert-message">
-            Ni jedan klijent nije odabran.
-          </div>
+      </div>
+      <!-- klijent nije odabran -->
+      <div
+        v-else
+        class="alert alert-warning mb-0"
+      >
+        <div class="alert-message">
+          Odaberite klijenta
         </div>
       </div>
     </div>

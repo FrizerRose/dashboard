@@ -44,7 +44,14 @@
       rows="4"
     />
     <button
-      class="btn responsive-btn btn-primary mb-3"
+      :class="{
+        btn: true,
+        'mb-3': true,
+        'responsive-btn': true,
+        'btn-primary': !requestSent,
+        'btn-success': requestSent && status,
+        'btn-danger': requestSent && !status,
+      }"
       @click="save()"
     >
       Spremi
@@ -53,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, ref } from 'vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
 
@@ -66,15 +73,27 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore();
+
     const formData = reactive(JSON.parse(JSON.stringify(props.customerForEdit)));
+    const requestSent = ref(false);
+    const status = ref(false);
 
     async function save() {
-      await store.dispatch(ActionTypes.UPDATE_CUSTOMER, formData);
+      try {
+        await store.dispatch(ActionTypes.UPDATE_CUSTOMER, formData);
+        requestSent.value = true;
+        status.value = true;
+      } catch {
+        requestSent.value = true;
+        status.value = false;
+      }
     }
 
     return {
       formData,
       save,
+      requestSent,
+      status,
     };
   },
 });

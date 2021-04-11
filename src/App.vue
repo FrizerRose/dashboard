@@ -111,16 +111,6 @@ export default defineComponent({
       document.head.appendChild(script);
     }
 
-    // watch(() => isTutorialFinished.value, (newState: boolean | undefined, oldState: boolean | undefined) => {
-    //   if (!newState) {
-    //     document.body.classList.add('modal-open');
-    //   }
-
-    //   if (newState && !oldState) {
-    //     document.body.classList.remove('modal-open');
-    //   }
-    // });
-
     const isMounted = ref(false);
 
     onMounted(async () => {

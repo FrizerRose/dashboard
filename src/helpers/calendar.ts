@@ -3,7 +3,7 @@ import { Day } from '@/types/workingHours';
 import { getDayNumber } from '@/helpers/time';
 
 export function getFormattedBusinessHours(worker: Staff) {
-  const formattedBusinessHours: {daysOfWeek: number[]; start: string; end: string}[] = [];
+  const formattedBusinessHours: {daysOfWeek: number[]; startTime: string; endTime: string}[] = [];
   Object.entries(worker.hours).forEach(([index, day]: [string, Day]) => {
     const dayNumber = getDayNumber(index);
     if (day.active && day.shifts.length) {
@@ -11,8 +11,8 @@ export function getFormattedBusinessHours(worker: Staff) {
       const lastShiftEnd = day.shifts[day.shifts.length - 1].end;
       formattedBusinessHours.push({
         daysOfWeek: [dayNumber],
-        start: firstShiftStart,
-        end: lastShiftEnd,
+        startTime: firstShiftStart,
+        endTime: lastShiftEnd,
       });
     }
   });

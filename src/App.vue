@@ -98,18 +98,18 @@ export default defineComponent({
     store.commit(MutationTypes.CHANGE_IS_MOBILE, window.innerWidth <= 1024);
 
     // Add lucky orange to <head>
-    if (process.env.NODE_ENV === 'production') {
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.innerHTML = `
-        window.__lo_site_id = 294592;
-        (function() {
-          var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
-          wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
-      })();`;
-      document.head.appendChild(script);
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //   const script = document.createElement('script');
+    //   script.type = 'text/javascript';
+    //   script.innerHTML = `
+    //     window.__lo_site_id = 294592;
+    //     (function() {
+    //       var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+    //       wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+    //       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+    //   })();`;
+    //   document.head.appendChild(script);
+    // }
 
     const isMounted = ref(false);
 

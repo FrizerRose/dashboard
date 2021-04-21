@@ -20,10 +20,6 @@
             </button>
           </div>
 
-          <div v-if="isServicesCreateOpen">
-            <ServiceCreate />
-          </div>
-
           <div v-if="services">
             <div class="card">
               <div class="card-body">
@@ -127,6 +123,10 @@
               :service="service"
             />
           </div>
+        </div>
+
+        <div v-if="isServicesCreateOpen">
+          <ServiceCreate />
         </div>
       </main>
     </template>

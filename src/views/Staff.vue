@@ -20,10 +20,6 @@
             </button>
           </div>
 
-          <div v-if="isStaffCreateOpen">
-            <StaffCreate />
-          </div>
-
           <div v-if="staff">
             <div class="card">
               <div class="card-body">
@@ -169,6 +165,10 @@
               :worker="worker"
             />
           </div>
+        </div>
+
+        <div v-if="isStaffCreateOpen">
+          <StaffCreate />
         </div>
       </main>
     </template>

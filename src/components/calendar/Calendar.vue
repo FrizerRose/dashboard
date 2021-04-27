@@ -149,6 +149,7 @@ export default defineComponent({
     } else {
       selectedWorker.value = JSON.parse(JSON.stringify(allStaff.value[0]));
     }
+    store.commit(MutationTypes.CHANGE_SELECTED_WORKER, selectedWorker.value);
 
     const isEventSelected = ref(false);
     const isAppointmentModalOpen = computed(() => store.state.shared.isCalendarModalOpen);
@@ -342,7 +343,7 @@ export default defineComponent({
         watch(
           () => selectedWorker.value,
           (worker) => {
-            calendar.value.scrollToTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
+            // calendar.value.scrollToTime(`${new Date().getHours()}:${new Date().getMinutes()}`);
             if (worker) {
               calendar.value.setOption('businessHours', getFormattedBusinessHours(worker));
             }

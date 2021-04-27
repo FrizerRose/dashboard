@@ -6,7 +6,7 @@
     <template #body>
       <main class="content">
         <div class="container-fluid p-0">
-          <CalendarComponent v-if="selectedWorker && dataFetched" />
+          <CalendarComponent v-if="dataFetched" />
           <div v-else>
             <div class="main d-flex justify-content-center w-100">
               <main class="content d-flex p-0 w-100">
@@ -57,7 +57,6 @@ export default defineComponent({
     const store = useStore();
 
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
-    const selectedWorker = computed(() => store.state.shared.selectedWorker);
     const dataFetched = ref(false);
 
     if (selectedCompany.value) {
@@ -70,7 +69,6 @@ export default defineComponent({
     }
 
     return {
-      selectedWorker,
       dataFetched,
     };
   },

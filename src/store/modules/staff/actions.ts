@@ -95,7 +95,6 @@ export const actions: ActionTree<State, RootState> & Actions = {
       const response = await staffService.getByCompanyID(companyID);
       if (response.status === 200 && response.data) {
         commit(LocalMutationTypes.CHANGE_STAFF, response.data as Staff[]);
-        commit(SharedMutationTypes.CHANGE_SELECTED_WORKER, response.data[0] as Staff);
       } else {
         throw new ApiError('No staff with this company ID.');
       }

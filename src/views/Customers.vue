@@ -106,7 +106,7 @@ export default defineComponent({
       }
     }
     const debounce = (func: Function, timeout = 300) => {
-      let timer: number;
+      let timer: any;
       return (...args: unknown[]) => {
         clearTimeout(timer);
         timer = setTimeout(() => {

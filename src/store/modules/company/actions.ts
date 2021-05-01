@@ -37,6 +37,10 @@ export interface Actions {
     { commit }: AugmentedSharedActionContext,
     companyID: number
   ): Promise<unknown>;
+  [LocalActionTypes.FETCH_BARCODE](
+    { commit }: AugmentedSharedActionContext,
+    reference: string
+  ): Promise<ArrayBuffer>;
   [LocalActionTypes.UPDATE_COMPANY](
     { commit }: AugmentedSharedActionContext,
     company: Company
@@ -92,6 +96,21 @@ export const actions: ActionTree<State, RootState> & Actions = {
     return new Promise((resolve, reject) => (async () => {
       try {
         const response = await companyService.get(`stats/${companyID.toString()}`);
+        if (response.status === 200 && response.data) {
+          resolve(response.data);
+        } else {
+          reject(new ApiError('API returned error.'));
+        }
+      } catch {
+        reject(new ApiError('API returned error.'));
+      }
+    })());
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async [LocalActionTypes.FETCH_BARCODE]({ commit }, reference: string): Promise<ArrayBuffer> {
+    return new Promise((resolve, reject) => (async () => {
+      try {
+        const response = await companyService.get(`barcode/${reference}`);
         if (response.status === 200 && response.data) {
           resolve(response.data);
         } else {

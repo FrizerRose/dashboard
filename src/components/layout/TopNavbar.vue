@@ -37,6 +37,17 @@
           >
             <router-link
               class="dropdown-item"
+              to="/placanje"
+            >
+              <span class="align-middle me-1">
+                <span class="fa fa-coins" />
+              </span>
+              Plaćanje
+            </router-link>
+
+            <div class="dropdown-divider" />
+            <router-link
+              class="dropdown-item"
               to="/promijeni-lozinku"
             >
               <span class="align-middle me-1">

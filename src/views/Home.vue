@@ -37,6 +37,12 @@
               >
                 Prikaži QR Kod
               </router-link>
+              <router-link
+                to="/placanje"
+                class="btn responsive-btn btn-secondary w-100 mt-1"
+              >
+                Plaćanje
+              </router-link>
             </div>
           </div>
         </div>

@@ -14,6 +14,8 @@ import { CustomerStore, State as CustomerState, store as customer } from '@/stor
 // eslint-disable-next-line import/no-cycle
 import { FaqStore, State as FaqState, store as faq } from '@/store/modules/faq';
 // eslint-disable-next-line import/no-cycle
+import { PaymentStore, State as PaymentState, store as payment } from '@/store/modules/payment';
+// eslint-disable-next-line import/no-cycle
 import { AuthStore, State as AuthState, store as auth } from '@/store/modules/auth';
 import { createLogger, createStore } from 'vuex';
 
@@ -25,6 +27,7 @@ export type RootState = {
   appointment: AppointmentState;
   customer: CustomerState;
   faq: FaqState;
+  payment: PaymentState;
   auth: AuthState;
 };
 
@@ -35,6 +38,7 @@ export type Store = SharedStore<Pick<RootState, 'shared'>>
   & CustomerStore<Pick<RootState, 'customer'>>
   & AuthStore<Pick<RootState, 'auth'>>
   & FaqStore<Pick<RootState, 'faq'>>
+  & PaymentStore<Pick<RootState, 'payment'>>
   & StaffStore<Pick<RootState, 'staff'>>;
 
 // Plug in logger when in development environment
@@ -51,6 +55,7 @@ export const store = createStore({
     appointment,
     customer,
     faq,
+    payment,
     auth,
   },
 });

@@ -43,16 +43,30 @@
                         <br>
                         Model: 00
                         <br>
-                        Poziv na broj: 14-07
+                        Poziv na broj: {{ `${selectedCompany?.id}-${today.getMonth() + 1}-${today.getDate()}` }}
                         <br>
                       </li>
                     </ul>
                   </p>
                   <p class="mt-4">
-                    Nakon što se izvršili uplatu, kliknite
-                    <button class="btn btn-primary">
-                      Ovdje
-                    </button> kako bismo obradili vašu uplatu.
+                    <span v-if="!processingPayment.id">
+                      Nakon što se izvršili uplatu, kliknite
+                      <button
+                        class="btn btn-primary"
+                        @click="createPayment()"
+                      >
+                        Ovdje
+                      </button> kako bismo obradili vašu uplatu.
+                    </span>
+
+                    <span
+                      v-else
+                      class="lead"
+                    >
+                      <span class="fa fa-spinner" /> Vaša uplata je trenutno u obradi.
+                    </span>
+
+                    <br>
                     Na email će te dobiti potvrdu kada potvrdimo uplatu. Ako imate dodatnih pitanja,
                     <router-link
                       to="/kontakt"
@@ -79,9 +93,9 @@
                   > <br>
                   <button
                     class="btn btn-lg btn-primary mt-2 me-2"
-                    @click="showQrView()"
+                    @click="toggleQrView()"
                   >
-                    Prikaži QR kod
+                    <span v-if="qrCodeIsVisible">Sakri</span><span v-else>Prikaži</span> QR kod
                   </button>
                 </div>
               </div>
@@ -92,8 +106,13 @@
                     Zadnja odobrena uplata
                   </h5>
                 </div>
-                <div class="card-body text-center">
-                  12.06.2021 - 200kn
+                <div class="card-body">
+                  <div v-if="lastPaidPayment">
+                    <span class="fa fa-check" /> {{ getHumanReadableDate(lastPaidPayment.date) }}
+                  </div>
+                  <div v-else>
+                    Još nema odobrenih uplata
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,6 +128,8 @@ import { defineComponent, ref, computed } from 'vue';
 import Dashboard from '@/components/layout/Dashboard.vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
+import { getDateStringFromDate, getHumanReadableDate } from '@/helpers/time';
+import Payment from '@/types/payment';
 
 export default defineComponent({
   components: {
@@ -116,28 +137,63 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+
     const selectedCompany = computed(() => store.state.shared.selectedCompany);
+    const lastPaidPayment = computed(() => {
+      const paidPayments = selectedCompany.value?.payments.filter((payment: Payment) => payment.status === 'paid');
+      if (paidPayments?.length) {
+        paidPayments.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+        return paidPayments[0];
+      }
+      return false;
+    });
+
     const qrCode = ref('');
     const qrCodeIsVisible = ref(false);
+    const today = new Date();
+
+    const processingPayment = ref({} as Payment);
+    if (selectedCompany.value) {
+      const foundPayment = selectedCompany.value.payments.find((payment: Payment) => payment.status === 'processing');
+      if (foundPayment) {
+        processingPayment.value = foundPayment;
+      }
+    }
 
     async function fetchQrCode() {
-      const today = new Date();
       const response = await store.dispatch(ActionTypes.FETCH_BARCODE,
         `${selectedCompany.value?.id}-${today.getMonth() + 1}-${today.getDate()}`);
 
       qrCode.value = `data:image/png;base64,${response}`;
     }
 
-    function showQrView() {
-      qrCodeIsVisible.value = true;
+    function toggleQrView() {
+      qrCodeIsVisible.value = !qrCodeIsVisible.value;
+    }
+
+    async function createPayment() {
+      if (selectedCompany.value) {
+        processingPayment.value = await store.dispatch(ActionTypes.CREATE_PAYMENT, {
+          status: 'processing',
+          date: getDateStringFromDate(today),
+          company: selectedCompany.value.id,
+        } as Payment);
+      }
     }
 
     fetchQrCode();
 
     return {
+      selectedCompany,
+      today,
       qrCode,
       qrCodeIsVisible,
-      showQrView,
+      toggleQrView,
+      getHumanReadableDate,
+      createPayment,
+      processingPayment,
+      lastPaidPayment,
     };
   },
 });

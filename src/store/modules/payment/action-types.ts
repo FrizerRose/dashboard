@@ -1,0 +1,7 @@
+enum ActionTypes {
+  CREATE_PAYMENT = 'CREATE_PAYMENT',
+  FETCH_PAYMENTS = 'FETCH_PAYMENTS',
+  UPDATE_PAYMENT = 'UPDATE_PAYMENT',
+}
+
+export default ActionTypes;

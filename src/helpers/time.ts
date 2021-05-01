@@ -45,3 +45,12 @@ export function getTimeOptions() {
   }
   return times;
 }
+
+export function getHumanReadableDate(dateString: string) {
+  const date = new Date(dateString);
+  const dd = String(date.getDate());
+  const mm = String(date.getMonth() + 1); // January is 0!
+  const yyyy = date.getFullYear();
+
+  return `${dd}. ${mm}. ${yyyy}`;
+}

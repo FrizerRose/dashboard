@@ -3,6 +3,7 @@ import DayOff from './dayOff';
 import Image from './image';
 import Service from './service';
 import Staff from './staff';
+import Payment from './payment';
 import { WorkingHours } from './workingHours';
 
 type Company = {
@@ -19,6 +20,7 @@ type Company = {
   preferences: CompanyPreferences;
   hours: WorkingHours;
   image: Image;
+  payments: Payment[];
   daysOff: DayOff[];
 }
 

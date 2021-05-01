@@ -253,6 +253,39 @@ export class FaqService {
     return this.apiService.delete(this.resource, slug);
   }
 }
+
+export class PaymentService {
+  apiService: ApiService;
+
+  resource: string;
+
+  constructor() {
+    this.apiService = new ApiService();
+    this.resource = 'payment';
+  }
+
+  query(params: object) {
+    return this.apiService.query(this.resource, {
+      params,
+    });
+  }
+
+  get(slug: number | string) {
+    return this.apiService.get(this.resource, slug);
+  }
+
+  create(params: object) {
+    return this.apiService.post(this.resource, params);
+  }
+
+  update(params: object) {
+    return this.apiService.update(this.resource, params);
+  }
+
+  destroy(slug: string | number) {
+    return this.apiService.delete(this.resource, slug);
+  }
+}
 export class ContactService {
   apiService: ApiService;
 

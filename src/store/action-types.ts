@@ -6,6 +6,7 @@ import StaffActionTypes from './modules/staff/action-types';
 import AppointmentActionTypes from './modules/appointment/action-types';
 import CustomerActionTypes from './modules/customer/action-types';
 import FaqActionTypes from './modules/faq/action-types';
+import PaymentActionTypes from './modules/payment/action-types';
 import AuthActionTypes from './modules/auth/action-types';
 
 const allActionEnums = [
@@ -16,6 +17,7 @@ const allActionEnums = [
   AppointmentActionTypes,
   CustomerActionTypes,
   FaqActionTypes,
+  PaymentActionTypes,
   AuthActionTypes,
 ];
 
@@ -40,6 +42,7 @@ const allActionTypes = {
   ...AppointmentActionTypes,
   ...CustomerActionTypes,
   ...FaqActionTypes,
+  ...PaymentActionTypes,
   ...AuthActionTypes,
 };
 

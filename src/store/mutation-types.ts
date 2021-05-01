@@ -6,6 +6,7 @@ import StaffMutationTypes from './modules/staff/mutation-types';
 import AppointmentMutationTypes from './modules/appointment/mutation-types';
 import CustomerMutationTypes from './modules/customer/mutation-types';
 import FaqMutationTypes from './modules/faq/mutation-types';
+import PaymentMutationTypes from './modules/payment/mutation-types';
 import AuthMutationTypes from './modules/auth/mutation-types';
 
 const allMutationEnums = [
@@ -16,6 +17,7 @@ const allMutationEnums = [
   AppointmentMutationTypes,
   CustomerMutationTypes,
   FaqMutationTypes,
+  PaymentMutationTypes,
   AuthMutationTypes,
 ];
 
@@ -40,6 +42,7 @@ const allMutationTypes = {
   ...AppointmentMutationTypes,
   ...CustomerMutationTypes,
   ...FaqMutationTypes,
+  ...PaymentMutationTypes,
   ...AuthMutationTypes,
 };
 

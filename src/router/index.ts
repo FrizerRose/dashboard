@@ -131,11 +131,21 @@ router.beforeEach((to, from, next) => {
   const store = useStore();
 
   if (to.path !== from.path) {
-    store.commit(MutationTypes.CHANGE_OPEN_STAFF_CREATE_MODAL, false);
-    store.commit(MutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL, false);
-    store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
-    store.commit(MutationTypes.CHANGE_OPEN_SERVICE_CREATE_MODAL, false);
-    store.commit(MutationTypes.CHANGE_OPEN_SERVICE_EDIT_MODAL, false);
+    if (store.state.shared.isStaffCreateOpen) {
+      store.commit(MutationTypes.CHANGE_OPEN_STAFF_CREATE_MODAL, false);
+    }
+    if (store.state.shared.isStaffEditOpen) {
+      store.commit(MutationTypes.CHANGE_OPEN_STAFF_EDIT_MODAL, false);
+    }
+    if (store.state.shared.isCalendarModalOpen) {
+      store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
+    }
+    if (store.state.shared.isServicesCreateOpen) {
+      store.commit(MutationTypes.CHANGE_OPEN_SERVICE_CREATE_MODAL, false);
+    }
+    if (store.state.shared.isServicesEditOpen) {
+      store.commit(MutationTypes.CHANGE_OPEN_SERVICE_EDIT_MODAL, false);
+    }
   }
 
   const publicPages = ['/prijava', '/zaboravljena-lozinka', '/404'];

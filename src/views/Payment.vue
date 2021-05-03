@@ -123,7 +123,10 @@
                 </div>
                 <div class="card-body">
                   <div v-if="lastPaidPayment">
-                    <span class="fa fa-check" /> {{ getHumanReadableDate(lastPaidPayment.date) }}
+                    <span class="fa fa-check" /> {{ getHumanReadableDate(lastPaidPayment.date) }} <br>
+                    <span v-if="subscriptionEndsIn >= 0">
+                      Pretplata završava za <strong>{{ Math.floor(subscriptionEndsIn) }}</strong> dana.
+                    </span>
                   </div>
                   <div v-else>
                     Još nema odobrenih uplata
@@ -167,6 +170,13 @@ export default defineComponent({
     const qrCode = ref('');
     const qrCodeIsVisible = ref(false);
     const today = new Date();
+
+    const subscriptionEndsIn = ref(-1);
+    if (lastPaidPayment.value) {
+      const subscriptionEndDate = new Date(lastPaidPayment.value.date);
+      subscriptionEndDate.setMonth(subscriptionEndDate.getMonth() + 1);
+      subscriptionEndsIn.value = dateDiffInDays(subscriptionEndDate, today);
+    }
 
     const trialEnded = ref(false);
     const trialEndsIn = ref(0);
@@ -224,6 +234,7 @@ export default defineComponent({
       trialEnded,
       trialEndsIn,
       trialEndsOn,
+      subscriptionEndsIn,
     };
   },
 });

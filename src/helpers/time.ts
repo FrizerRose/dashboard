@@ -46,11 +46,17 @@ export function getTimeOptions() {
   return times;
 }
 
+export function dateDiffInDays(a: Date, b: Date) {
+  const msPerDay = 1000 * 60 * 60 * 24;
+
+  return (a.getTime() - b.getTime()) / msPerDay;
+}
+
 export function getHumanReadableDate(dateString: string) {
   const date = new Date(dateString);
   const dd = String(date.getDate());
   const mm = String(date.getMonth() + 1); // January is 0!
   const yyyy = date.getFullYear();
 
-  return `${dd}. ${mm}. ${yyyy}`;
+  return `${dd}.${mm}.${yyyy}`;
 }

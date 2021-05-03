@@ -100,6 +100,21 @@
                 </div>
               </div>
 
+              <div
+                v-if="!trialEnded"
+                class="card"
+              >
+                <div class="card-header pb-0 help-header">
+                  <h5 class="card-title">
+                    Probni period
+                  </h5>
+                </div>
+                <div class="card-body">
+                  Probni period završava za <strong>{{ Math.floor(trialEndsIn) }}</strong> dana.
+                  Na {{ getHumanReadableDate(trialEndsOn.toString()) }}
+                </div>
+              </div>
+
               <div class="card">
                 <div class="card-header pb-0 help-header">
                   <h5 class="card-title">
@@ -128,7 +143,7 @@ import { defineComponent, ref, computed } from 'vue';
 import Dashboard from '@/components/layout/Dashboard.vue';
 import { useStore } from '@/store';
 import ActionTypes from '@/store/action-types';
-import { getDateStringFromDate, getHumanReadableDate } from '@/helpers/time';
+import { getDateStringFromDate, getHumanReadableDate, dateDiffInDays } from '@/helpers/time';
 import Payment from '@/types/payment';
 
 export default defineComponent({
@@ -152,6 +167,18 @@ export default defineComponent({
     const qrCode = ref('');
     const qrCodeIsVisible = ref(false);
     const today = new Date();
+
+    const trialEnded = ref(false);
+    const trialEndsIn = ref(0);
+    const trialEndsOn = ref(new Date());
+    if (selectedCompany.value) {
+      const trialEndDate = new Date(selectedCompany.value.createdAt);
+      trialEndDate.setMonth(trialEndDate.getMonth() + 1);
+
+      trialEndsOn.value = trialEndDate;
+      trialEndsIn.value = dateDiffInDays(trialEndDate, today);
+      trialEnded.value = trialEndDate.getTime() < today.getTime();
+    }
 
     const processingPayment = ref({} as Payment);
     if (selectedCompany.value) {
@@ -194,6 +221,9 @@ export default defineComponent({
       createPayment,
       processingPayment,
       lastPaidPayment,
+      trialEnded,
+      trialEndsIn,
+      trialEndsOn,
     };
   },
 });

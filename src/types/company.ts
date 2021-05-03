@@ -13,6 +13,7 @@ type Company = {
   about: string;
   contactEmail: string;
   phoneNumber: string;
+  createdAt: string;
   city: string;
   streetName: string;
   services: Service[];

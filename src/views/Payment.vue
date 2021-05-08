@@ -27,53 +27,89 @@
                   </h5>
                   <p>
                     Uplate se vrše na naš račun, postoje dvije opcije. -copy<br><br>
-                    <ul>
+                    <ol>
                       <li>
                         Klikom na <mark>"Prikaži QR kod"</mark> otvorite QR kod koji možete skenirati sa aplikacijom za mobilno bankarstvo,
                         te na taj način obaviti uplatu bez mogućnosti pogreške. <br><br>
                       </li>
                       <li>
-                        Ručno izvršiti uplatu sa ovim informacijama:
-                        <br>
-                        (tablica, ili nekako stilizirano)
-                        <br>
-                        IBAN: HR1723600001101234565
-                        <br>
-                        Iznos: 200kn
-                        <br>
-                        Model: 00
-                        <br>
-                        Poziv na broj: {{ `${selectedCompany?.id}-${today.getMonth() + 1}-${today.getDate()}` }}
-                        <br>
+                        <p>Ručno izvršiti uplatu sa ovim informacijama:</p>
+
+                        <div class="table-responsive">
+                          <table class="table responsive-font-size table-striped table-row-expandable">
+                            <tbody>
+                              <tr class="nav-item is-expanded">
+                                <td class="always-expanded position-relative">
+                                  IBAN
+                                </td>
+                                <td class="always-expanded align-right-on-desktop">
+                                  HR1723600001101234565
+                                </td>
+                              </tr>
+                              <tr class="nav-item is-expanded">
+                                <td class="always-expanded position-relative">
+                                  Iznos
+                                </td>
+                                <td class="always-expanded align-right-on-desktop">
+                                  200kn
+                                </td>
+                              </tr>
+                              <tr class="nav-item is-expanded">
+                                <td class="always-expanded position-relative">
+                                  Model
+                                </td>
+                                <td class="always-expanded align-right-on-desktop">
+                                  00
+                                </td>
+                              </tr>
+                              <tr class="nav-item is-expanded">
+                                <td class="always-expanded position-relative">
+                                  Poziv na broj
+                                </td>
+                                <td class="always-expanded align-right-on-desktop">
+                                  {{ `${selectedCompany?.id}-${today.getMonth() + 1}-${today.getDate()}` }}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </li>
-                    </ul>
+                    </ol>
                   </p>
-                  <p class="mt-4">
-                    <span v-if="!processingPayment.id">
+
+                  <div class="mt-4">
+                    <p v-if="!processingPayment.id">
                       Nakon što se izvršili uplatu, kliknite
                       <button
                         class="btn btn-primary"
                         @click="createPayment()"
                       >
-                        Ovdje
+                        ovdje
                       </button> kako bismo obradili vašu uplatu.
-                    </span>
+                    </p>
 
-                    <span
+                    <div
                       v-else
-                      class="lead"
+                      class="p-4 alert alert-success"
                     >
-                      <span class="fa fa-spinner" /> Vaša uplata je trenutno u obradi.
-                    </span>
+                      <span>
+                        <span
+                          class="spinner-border spinner-border-sm text-success me-2"
+                          role="status"
+                        />
+                        <span>Vaša uplata je trenutno u obradi.</span>
+                      </span>
+                    </div>
 
-                    <br>
-                    Na email će te dobiti potvrdu kada potvrdimo uplatu. Ako imate dodatnih pitanja,
-                    <router-link
-                      to="/kontakt"
-                    >
-                      kontaktirajte nas.
-                    </router-link>
-                  </p>
+                    <p>
+                      Na e-mail će te dobiti potvrdu kada potvrdimo uplatu. Ako imate dodatnih pitanja
+                      <router-link
+                        to="/kontakt"
+                      >
+                        kontaktirajte nas.
+                      </router-link>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -90,12 +126,13 @@
                     v-if="qrCodeIsVisible"
                     :src="qrCode"
                     alt="qr kod"
+                    class="w-100"
                   > <br>
                   <button
                     class="btn btn-lg btn-primary mt-2 me-2"
                     @click="toggleQrView()"
                   >
-                    <span v-if="qrCodeIsVisible">Sakri</span><span v-else>Prikaži</span> QR kod
+                    <span v-if="qrCodeIsVisible">Sakrij</span><span v-else>Prikaži</span> QR kod
                   </button>
                 </div>
               </div>
@@ -239,3 +276,14 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+@keyframes spinnerTurning {
+  0% {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+</style>

@@ -12,8 +12,9 @@
 
           <h3>Podaci o upravitelju:</h3>
           <ul>
-            <li>Ime firme</li>
-            <li>Adresa</li>
+            <li>Obrt za cvjećarske usluge i trgovinu “Minnie”</li>
+            <li>Kninski trg 11</li>
+            <li>OIB: 49638751618</li>
           </ul>
           <br>
           <h3>Temeljne odredbe:</h3>
@@ -24,7 +25,7 @@
                 dalje u tekstu aplikacija Dolazim.hr.
               </li>
               <li>
-                Dolazim.hr u vlasništvu je XXXX.
+                Dolazim.hr u vlasništvu je Obrt za cvjećarske usluge i trgovinu “Minnie”, vl. Snježana Kolarić.
               </li>
               <li>
                 Korisnik je svaka osoba koja pristupa i/ili koristi usluge internetskog portala Dolazim.hr, što podrazumijeva neregistrirane korisnike,
@@ -108,7 +109,7 @@
           <p>
             <ul>
               <li>
-                Sve primjedbe uz članak 11a. Zakona o zaštiti potrošača možete dostaviti u pisanom obliku: na adresu sjedišta: XXXX, putem e-pošte na adresu: info@dolazim.hr.
+                Sve primjedbe uz članak 11a. Zakona o zaštiti potrošača možete dostaviti u pisanom obliku: na adresu sjedišta: Kninski trg 11, putem e-pošte na adresu: info@dolazim.hr.
               </li>
               <li>
                 Ova pravila korištenja primjenjuju se od 1. travnja 2021. godine

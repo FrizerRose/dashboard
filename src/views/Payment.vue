@@ -93,10 +93,7 @@
                       class="p-4 alert alert-success"
                     >
                       <span>
-                        <span
-                          class="spinner-border spinner-border-sm text-success me-2"
-                          role="status"
-                        />
+                        <span class="fa fa-check" />
                         <span>Vaša uplata je trenutno u obradi.</span>
                       </span>
                     </div>

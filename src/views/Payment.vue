@@ -93,7 +93,10 @@
                       class="p-4 alert alert-success"
                     >
                       <span>
-                        <span class="fa fa-check" />
+                        <span
+                          class="fa fa-check"
+                          style="margin-right: 4px"
+                        />
                         <span>Vaša uplata je trenutno u obradi.</span>
                       </span>
                     </div>

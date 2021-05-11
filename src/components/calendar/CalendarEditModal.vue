@@ -315,16 +315,19 @@ export default defineComponent({
     }
 
     async function cancel(isReschedule = false) {
-      try {
-        await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, { id: selectedAppointment.value?.id, isReschedule });
+      // eslint-disable-next-line no-alert
+      if (window.confirm('Jeste li sigurni da želite otkazati ovaj termin?')) {
+        try {
+          await store.dispatch(ActionTypes.CANCEL_APPOINTMENT, { id: selectedAppointment.value?.id, isReschedule });
 
-        if (!isReschedule) {
-          store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
-          // document.body.classList.remove('modal-open');
+          if (!isReschedule) {
+            store.commit(MutationTypes.CHANGE_OPEN_CALENDAR_MODAL, false);
+            // document.body.classList.remove('modal-open');
+          }
+        } catch {
+          // eslint-disable-next-line no-alert
+          window.alert('Nismo uspijeli otkazati termin, molimo probajte kasnije ili kontaktirajte korisničku podršku.');
         }
-      } catch {
-        // eslint-disable-next-line no-alert
-        window.alert('Nismo uspijeli otkazati termin, molimo probajte kasnije ili kontaktirajte korisničku podršku.');
       }
     }
 

@@ -519,7 +519,7 @@ export default defineComponent({
           const hasBookingPageSlugChanged = formData.bookingPageSlug !== selectedCompany.value?.bookingPageSlug;
           await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
 
-          if (process.env.NODE_ENV !== 'production' && hasBookingPageSlugChanged) {
+          if (process.env.NODE_ENV === 'production' && hasBookingPageSlugChanged) {
             window.location.href = `https://${formData.bookingPageSlug}.admin.dolazim.hr`;
           }
 

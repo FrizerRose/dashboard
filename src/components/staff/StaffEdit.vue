@@ -132,7 +132,8 @@
                     >
                       <span class="responsive-form-label__bolder">E-mail adresa</span>
                       <br>
-                      Ovdje možete promijeniti e-mail adresu koja će se koristiti za kontaktiranje radnika
+                      Ovdje možete promijeniti e-mail adresu koja će se koristiti za kontaktiranje radnika.
+                      E-mail za prijavu se neće promjeniti.
                     </label>
                     <input
                       id="id-email"

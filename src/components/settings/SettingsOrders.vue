@@ -87,7 +87,7 @@
               <label class="responsive-form-label w-100 mb-0 mt-2">
                 Odaberite koliko se sati unaprijed može naručiti
                 <br>
-                1-8 sati
+                1-72 sata
               </label>
             </div>
           </div>
@@ -191,13 +191,19 @@
                 <option value="10">
                   10 sati prije zakazanog termina
                 </option>
+                <option value="12">
+                  12 sati prije zakazanog termina
+                </option>
+                <option value="16">
+                  16 sati prije zakazanog termina
+                </option>
               </select>
             </div>
             <div class="col-12 col-sm-6">
               <label class="responsive-form-label w-100 mb-0 mt-2">
                 Odaberite kada se najkasnije narudžba može otkazati
                 <br>
-                1-10 sati
+                1-16 sati
               </label>
             </div>
           </div>

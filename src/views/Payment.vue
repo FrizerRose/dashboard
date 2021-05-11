@@ -43,7 +43,7 @@
                                   IBAN
                                 </td>
                                 <td class="always-expanded align-right-on-desktop">
-                                  HR1723600001101234565
+                                  HR7824840081106960714
                                 </td>
                               </tr>
                               <tr class="nav-item is-expanded">

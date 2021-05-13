@@ -16,24 +16,24 @@
                 </div>
                 <div class="card-body">
                   <h5 class="h6 card-title">
-                    Kolko placam, kad, zašto? Šta ak ne platim? -copy
+                    Koja je cijena korištenja Dolazim.hr servisa?
                   </h5>
                   <p>
-                    200kn iban jao copy treba
+                    Cijena pretplate iznosi 200kn za 30 dana, po isteku pretplate potrebno ju je produžiti novom uplatom kako bi vaše stranice nastavile s radom. 
                   </p>
                   <hr>
                   <h5 class="h6 card-title">
-                    Koje opcije za uplatu postoje?
+                    Kako mogu izvršiti uplatu?
                   </h5>
                   <p>
-                    Uplate se vrše na naš račun, postoje dvije opcije. -copy<br><br>
+                    Uplate se vrše putem transakcijskog računa, uplatiti možete na jedan od dva načina:<br><br>
                     <ol>
                       <li>
-                        Klikom na <mark>"Prikaži QR kod"</mark> otvorite QR kod koji možete skenirati sa aplikacijom za mobilno bankarstvo,
+                        Klikom na <mark>"Prikaži QR kod"</mark> otvorite QR kod koji možete skenirati s aplikacijom za mobilno bankarstvo,
                         te na taj način obaviti uplatu bez mogućnosti pogreške. <br><br>
                       </li>
                       <li>
-                        <p>Ručno izvršiti uplatu sa ovim informacijama:</p>
+                        <p>Ručno izvršiti uplatu s ovim informacijama:</p>
 
                         <div class="table-responsive">
                           <table class="table responsive-font-size table-striped table-row-expandable">
@@ -102,7 +102,8 @@
                     </div>
 
                     <p>
-                      Na e-mail će te dobiti potvrdu kada potvrdimo uplatu. Ako imate dodatnih pitanja
+                      Nakon obrade vaše uplate i potvrde o uplati, na e-mail Vam dostavljamo potvrdu i račun. <br> 
+                      Ako imate dodatnih pitanja
                       <router-link
                         to="/kontakt"
                       >

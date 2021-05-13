@@ -268,7 +268,7 @@ export default defineComponent({
 
             if (appointmentData.isNewAppointment) {
               // eslint-disable-next-line no-alert
-              window.alert('Refreshajte stranicu prije nego otkazujete novo dodani termin.');
+              window.alert('Osvježite stranicu prije nego otkazujete novo dodani termin.');
             } else {
               const selectedAppointment = {
                 // eslint-disable-next-line no-underscore-dangle

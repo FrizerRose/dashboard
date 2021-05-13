@@ -19,7 +19,8 @@
                     Koja je cijena korištenja Dolazim.hr servisa?
                   </h5>
                   <p>
-                    Cijena pretplate iznosi 200kn za 30 dana, po isteku pretplate potrebno ju je produžiti novom uplatom kako bi vaše stranice nastavile s radom. 
+                    Cijena pretplate iznosi 200kn za 30 dana,
+                    po isteku pretplate potrebno ju je produžiti novom uplatom kako bi vaše stranice nastavile s radom.
                   </p>
                   <hr>
                   <h5 class="h6 card-title">
@@ -102,7 +103,7 @@
                     </div>
 
                     <p>
-                      Nakon obrade vaše uplate i potvrde o uplati, na e-mail Vam dostavljamo potvrdu i račun. <br> 
+                      Nakon obrade vaše uplate i potvrde o uplati, na e-mail Vam dostavljamo potvrdu i račun. <br>
                       Ako imate dodatnih pitanja
                       <router-link
                         to="/kontakt"

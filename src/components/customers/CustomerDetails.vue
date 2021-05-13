@@ -113,7 +113,7 @@
                   <table class="table responsive-font-size table-striped |-table-row-expandable">
                     <tbody>
                       <tr
-                        v-for="appointment in customerAppointments"
+                        v-for="appointment in customerAppointments.slice(0,5)"
                         :key="appointment.id"
                       >
                         <td>{{ appointment.date }}</td>

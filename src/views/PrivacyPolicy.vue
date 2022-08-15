@@ -9,7 +9,7 @@
           <h1>Izjava o privatnosti</h1>
 
           <p>
-            Dolazim.hr je poštuje vašu privatnost i predan je tome da ju očuva. Izjava o privatnosti predtavlja predložak po
+            Dolazim.info je poštuje vašu privatnost i predan je tome da ju očuva. Izjava o privatnosti predtavlja predložak po
             kojem će podatci koje nam ustupite prikupljati i obrađivati. Pročitajte Izjavu u cijelosti kako bi bolje razumjeli
             za što se podatci koje nam ustupite koriste, na koji način ih obrađujemo i što s njima radimo.
           </p>

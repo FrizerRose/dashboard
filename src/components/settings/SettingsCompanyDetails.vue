@@ -29,10 +29,10 @@
         <div class="my-4 h4">
           <div class="container override-desktop-limit">
             Podatci koje unesete u ova polja će biti prikazani na stranici Vašeg poslovnog subjekta <a
-              :href="'https://' + formData.bookingPageSlug + '.dolazim.hr'"
+              :href="'https://' + formData.bookingPageSlug + '.dolazim.info'"
               rel="noopener noreferrer"
               target="_blank"
-            >https://{{ formData.bookingPageSlug }}.dolazim.hr</a> kako bi Vas klijenti mogli kontaktirati
+            >https://{{ formData.bookingPageSlug }}.dolazim.info</a> kako bi Vas klijenti mogli kontaktirati
           </div>
         </div>
       </div>
@@ -269,7 +269,7 @@
                   type="text"
                   placeholder="Željeno ime"
                 >
-                <span class="ms-2">.dolazim.hr</span>
+                <span class="ms-2">.dolazim.info</span>
               </div>
             </div>
             <div class="col-12 col-md-4 col-xl-6">
@@ -372,10 +372,10 @@
                 >
                 <span class="form-check-label">
                   Prikaži uvjete poslovanja na stranici <a
-                    :href="'https://' + formData.bookingPageSlug + '.dolazim.hr/uvjeti'"
+                    :href="'https://' + formData.bookingPageSlug + '.dolazim.info/uvjeti'"
                     rel="noopener noreferrer"
                     target="_blank"
-                  >{{ formData.bookingPageSlug }}.dolazim.hr/uvjeti
+                  >{{ formData.bookingPageSlug }}.dolazim.info/uvjeti
                   </a></span>
               </label>
             </div>
@@ -520,7 +520,7 @@ export default defineComponent({
           await store.dispatch(ActionTypes.UPDATE_COMPANY, formData);
 
           if (process.env.NODE_ENV === 'production' && hasBookingPageSlugChanged) {
-            window.location.href = `https://${formData.bookingPageSlug}.admin.dolazim.hr`;
+            window.location.href = `https://${formData.bookingPageSlug}.admin.dolazim.info`;
           }
 
           requestSent.value = true;

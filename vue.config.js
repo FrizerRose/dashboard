@@ -6,7 +6,7 @@ module.exports = {
     ? './'
     : '/',
   pwa: {
-    name: 'Dolazim.hr',
+    name: 'Dolazim.info',
     themeColor: '#ffffff',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',

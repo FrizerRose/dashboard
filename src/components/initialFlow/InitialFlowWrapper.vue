@@ -47,7 +47,7 @@ export default defineComponent({
     tour.addSteps([
       {
         id: 'first-step',
-        text: 'Dobrodošli na Dolazim.hr! Krenimo u kratku turu našeg proizvoda kako bi vas upoznali sa svim značajkama.',
+        text: 'Dobrodošli na Dolazim.info! Krenimo u kratku turu našeg proizvoda kako bi vas upoznali sa svim značajkama.',
         buttons: [
           {
             text: 'Sljedeći korak',
@@ -286,7 +286,7 @@ export default defineComponent({
       },
       {
         id: 'postavke-edit',
-        text: 'U postavkama možete promijeniti postojeće opcije, ili podesiti Dolazim.hr kako bi odgovarao vašim poslovnim potrebama.',
+        text: 'U postavkama možete promijeniti postojeće opcije, ili podesiti Dolazim.info kako bi odgovarao vašim poslovnim potrebama.',
         showOn: () => {
           if (user.value?.isAdminAccount) {
             return true;
@@ -318,7 +318,7 @@ export default defineComponent({
       },
       {
         id: 'outro',
-        text: `Završili ste Dolazim.hr tutorial!
+        text: `Završili ste Dolazim.info tutorial!
         Više možete saznati klikom na Pomoć u meniju ili nastaviti istraživati po stranici. Sretno!`,
         buttons: [
           {

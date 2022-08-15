@@ -45,7 +45,7 @@
                 &copy; 2021 - <a
                   href="/"
                   class="text-muted"
-                >Dolazim.hr</a>
+                >Dolazim.info</a>
               </p>
             </div>
           </div>

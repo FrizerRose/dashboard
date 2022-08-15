@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
                   <h5 class="h6 card-title">
-                    Koja je cijena korištenja Dolazim.hr servisa?
+                    Koja je cijena korištenja Dolazim.info servisa?
                   </h5>
                   <p>
                     Cijena pretplate iznosi 200kn za 30 dana,
